@@ -100,7 +100,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="MyBatis,">
 
 
 
@@ -111,16 +111,20 @@
 
 
 
-<meta name="description" content="祝我们平日快乐 做平凡的人！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="青花小记">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="根据一次插入失败报错来深入了解MyBatis Plus主键设置策略. 今天学习使用MyBatis Plus，发现使用代码生成器生成对应的实体类、Service和Mapper后，在保存数据时报错 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556">
+<meta name="keywords" content="MyBatis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MyBatisPlus主键设置策略">
+<meta property="og:url" content="http://yoursite.com/2018/12/12/MyBatisPlus主键设置策略/index.html">
 <meta property="og:site_name" content="青花小记">
-<meta property="og:description" content="祝我们平日快乐 做平凡的人！">
+<meta property="og:description" content="根据一次插入失败报错来深入了解MyBatis Plus主键设置策略. 今天学习使用MyBatis Plus，发现使用代码生成器生成对应的实体类、Service和Mapper后，在保存数据时报错 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/12/12/MyBatisPlus主键设置策略/tablecache.png">
+<meta property="og:updated_time" content="2018-12-12T13:44:35.945Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="青花小记">
-<meta name="twitter:description" content="祝我们平日快乐 做平凡的人！">
+<meta name="twitter:title" content="MyBatisPlus主键设置策略">
+<meta name="twitter:description" content="根据一次插入失败报错来深入了解MyBatis Plus主键设置策略. 今天学习使用MyBatis Plus，发现使用代码生成器生成对应的实体类、Service和Mapper后，在保存数据时报错 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/12/MyBatisPlus主键设置策略/tablecache.png">
 
 
 
@@ -150,13 +154,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/12/MyBatisPlus主键设置策略/">
 
 
 
 
 
-  <title>青花小记</title>
+  <title>MyBatisPlus主键设置策略 | 青花小记</title>
   
 
 
@@ -180,8 +184,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/qinghuazs" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -318,9 +321,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -350,9 +353,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/12/MyBatisPlus主键设置策略/" itemprop="url">MyBatisPlus主键设置策略</a></h1>
+          <h1 class="post-title" itemprop="name headline">MyBatisPlus主键设置策略</h1>
         
 
         <div class="post-meta">
@@ -424,9 +425,7 @@
       
 
       
-        
-          
-            <p>根据一次插入失败报错来深入了解MyBatis Plus主键设置策略.</p>
+        <p>根据一次插入失败报错来深入了解MyBatis Plus主键设置策略.</p>
 <p>今天学习使用MyBatis Plus，发现使用代码生成器生成对应的实体类、Service和Mapper后，在保存数据时报错</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">com.baomidou.mybatisplus.exceptions.MybatisPlusException: java.lang.reflect.InvocationTargetException</span><br><span class="line"></span><br><span class="line">	at com.baomidou.mybatisplus.MybatisSqlSessionTemplate$SqlSessionInterceptor.invoke(MybatisSqlSessionTemplate.java:<span class="number">405</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy70.insert(Unknown Source)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisSqlSessionTemplate.insert(MybatisSqlSessionTemplate.java:<span class="number">243</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.activerecord.Model.insert(Model.java:<span class="number">56</span>)</span><br><span class="line">	at com.lemon.rabbit.common.base.city.CityInitial.printInfo(CityInitial.java:<span class="number">112</span>)</span><br><span class="line">	at com.lemon.rabbit.common.base.city.CityInitial.parseNextLevel(CityInitial.java:<span class="number">87</span>)</span><br><span class="line">	at com.lemon.rabbit.common.base.city.CityInitial.test(CityInitial.java:<span class="number">59</span>)</span><br><span class="line">	at com.lemon.rabbit.RabbitApplicationTests.contextLoads(RabbitApplicationTests.java:<span class="number">19</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.junit.runners.model.FrameworkMethod$<span class="number">1</span>.runReflectiveCall(FrameworkMethod.java:<span class="number">50</span>)</span><br><span class="line">	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:<span class="number">12</span>)</span><br><span class="line">	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:<span class="number">47</span>)</span><br><span class="line">	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:<span class="number">17</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestExecutionCallbacks.evaluate(RunBeforeTestExecutionCallbacks.java:<span class="number">73</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestExecutionCallbacks.evaluate(RunAfterTestExecutionCallbacks.java:<span class="number">83</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:<span class="number">75</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:<span class="number">86</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:<span class="number">84</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:<span class="number">325</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:<span class="number">251</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:<span class="number">97</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner$<span class="number">3</span>.run(ParentRunner.java:<span class="number">290</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner$<span class="number">1</span>.schedule(ParentRunner.java:<span class="number">71</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:<span class="number">288</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.access$<span class="number">000</span>(ParentRunner.java:<span class="number">58</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner$<span class="number">2</span>.evaluate(ParentRunner.java:<span class="number">268</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:<span class="number">61</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:<span class="number">70</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.run(ParentRunner.java:<span class="number">363</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:<span class="number">190</span>)</span><br><span class="line">	at org.junit.runner.JUnitCore.run(JUnitCore.java:<span class="number">137</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">68</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">47</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">242</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">70</span>)</span><br><span class="line">Caused by: java.lang.reflect.InvocationTargetException</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisSqlSessionTemplate$SqlSessionInterceptor.invoke(MybatisSqlSessionTemplate.java:<span class="number">401</span>)</span><br><span class="line">	... <span class="number">37</span> more</span><br><span class="line">Caused by: org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error updating database.  Cause: org.apache.ibatis.reflection.ReflectionException: Could not set property 'id' of 'class com.lemon.rabbit.model.City' with value '1017367047558582273' Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">### Cause: org.apache.ibatis.reflection.ReflectionException: Could not set property 'id' of 'class com.lemon.rabbit.model.City' with value '1017367047558582273' Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:<span class="number">30</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:<span class="number">200</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:<span class="number">185</span>)</span><br><span class="line">	... <span class="number">42</span> more</span><br><span class="line">Caused by: org.apache.ibatis.reflection.ReflectionException: Could not set property <span class="string">'id'</span> of <span class="string">'class com.lemon.rabbit.model.City'</span> with value <span class="string">'1017367047558582273'</span> Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:<span class="number">185</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.set(BeanWrapper.java:<span class="number">59</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.MetaObject.setValue(MetaObject.java:<span class="number">140</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.populateKeys(MybatisDefaultParameterHandler.java:<span class="number">217</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.processBatch(MybatisDefaultParameterHandler.java:<span class="number">156</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.&lt;init&gt;(MybatisDefaultParameterHandler.java:<span class="number">71</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisXMLLanguageDriver.createParameterHandler(MybatisXMLLanguageDriver.java:<span class="number">37</span>)</span><br><span class="line">	at org.apache.ibatis.session.Configuration.newParameterHandler(Configuration.java:<span class="number">545</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.BaseStatementHandler.&lt;init&gt;(BaseStatementHandler.java:<span class="number">69</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.PreparedStatementHandler.&lt;init&gt;(PreparedStatementHandler.java:<span class="number">40</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.RoutingStatementHandler.&lt;init&gt;(RoutingStatementHandler.java:<span class="number">46</span>)</span><br><span class="line">	at org.apache.ibatis.session.Configuration.newStatementHandler(Configuration.java:<span class="number">558</span>)</span><br><span class="line">	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:<span class="number">48</span>)</span><br><span class="line">	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:<span class="number">117</span>)</span><br><span class="line">	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:<span class="number">76</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:<span class="number">198</span>)</span><br><span class="line">	... <span class="number">43</span> more</span><br><span class="line">Caused by: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.invoker.MethodInvoker.invoke(MethodInvoker.java:<span class="number">41</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:<span class="number">180</span>)</span><br><span class="line">	... <span class="number">58</span> more</span><br></pre></td></tr></table></figure>
 <p>实体类City的主键是Integer类型的，在进行insert操作时，MyBatis Plus自动生成了一个Long类型的主键id，导致参数类型不匹配，出现上述错误</p>
@@ -489,8 +488,6 @@
 <h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><p>对于tableInfo默认的idType值配置，可以看出用的是全局配置的idType，全局配置的值是在initTableInfo()方法中获取的，有兴趣的话可以去看看全局配置的实现，此处暂不深入了</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GlobalConfiguration globalConfig;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">null</span> != builderAssistant) &#123;</span><br><span class="line">    tableInfo.setCurrentNamespace(builderAssistant.getCurrentNamespace());</span><br><span class="line">    tableInfo.setConfigMark(builderAssistant.getConfiguration());</span><br><span class="line">    globalConfig = GlobalConfigUtils.getGlobalConfig(builderAssistant.getConfiguration());</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 兼容测试场景</span></span><br><span class="line">    globalConfig = GlobalConfigUtils.DEFAULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-          
-        
       
     </div>
     
@@ -505,380 +502,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/SpringBoot内置Tocmat出现Trace请求漏洞/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/11/SpringBoot内置Tocmat出现Trace请求漏洞/" itemprop="url">SpringBoot内置Tocmat出现Trace请求漏洞</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T00:00:00+08:00">
-                2018-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/MyBatis/" rel="tag"><i class="fa fa-tag"></i> MyBatis</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>近期使用绿盟扫描工具对Web系统进行扫描，出现了<font color="red">检测到目标服务器启用了TRACE方法</font>的高级漏洞，TRACE是HTTP协议定义的一种请求方法，该方法会使服务器原样返回任意客户端请求的任何内容，因此可以用来进行跨站点脚本攻击（XSS攻击），这种攻击方式又称为跨站跟踪攻击（XST）。</p>
-<p>绿盟的报告中给出了相应的方案：</p>
-<p>1.2.0.55以上版本的Apache服务器，可以在<code>httpd.conf</code>的尾部添加： </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TraceEnable off</span><br></pre></td></tr></table></figure>
-<p>2.如果你使用的是Apache：</p>
-<ul>
-<li>确认rewrite模块激活（httpd.conf）</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module modules/mod_rewrite.so</span><br></pre></td></tr></table></figure>
-<ul>
-<li>在各虚拟主机的配置文件里添加如下语句：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine On RewriteCond %&#123;REQUEST_METHOD&#125; ^TRACE RewriteRule .*</span><br></pre></td></tr></table></figure>
-<p>我们的项目是基于SpringBoot的单机web项目，并没有使用到Apache服务器。查询相关资料，得知在Tomcat的web.xml文件中可以配置HTTP的请求方式，禁止不安全的请求类型：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">security-constraint</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;<span class="name">web-resource-collection</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>PUT<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>DELETE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>HEAD<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>OPTIONS<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;/<span class="name">web-resource-collection</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;<span class="name">auth-constraint</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;/<span class="name">auth-constraint</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">security-constraint</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">login-config</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">auth-method</span>&gt;</span>BASIC<span class="tag">&lt;/<span class="name">auth-method</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">login-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>如果使用的是SpringBoot内置的Tomcat容器的话，可以配置Tomcat的配置类，将配置注入到Spring容器中：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TomcatConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> EmbeddedServletContainerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatEmbeddedServletContainerFactory tomcatServletContainerFactory = <span class="keyword">new</span> TomcatEmbeddedServletContainerFactory();</span><br><span class="line">        tomcatServletContainerFactory.addContextCustomizers(<span class="keyword">new</span> TomcatContextCustomizer()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint constraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                <span class="comment">//http方法</span></span><br><span class="line">                collection.addMethod(<span class="string">"PUT"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"DELETE"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"HEAD"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"OPTIONS"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"TRACE"</span>);</span><br><span class="line">                <span class="comment">//url匹配表达式</span></span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                constraint.addCollection(collection);</span><br><span class="line">                constraint.setAuthConstraint(<span class="keyword">true</span>);</span><br><span class="line">                context.addConstraint(constraint );</span><br><span class="line"></span><br><span class="line">                <span class="comment">//设置使用httpOnly</span></span><br><span class="line">                context.setUseHttpOnly(<span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> tomcatServletContainerFactory;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果SpringBoot的版本低于2.0，可以将<code>TomcatEmbeddedServletContainerFactory</code>替换成<code>EmbeddedServletContainerFactory</code></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/数据结构之队列/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/06/数据结构之队列/" itemprop="url">数据结构之队列</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-06T16:04:00+08:00">
-                2018-12-06
-              </time>
+              <a href="/2018/12/11/SpringBoot内置Tocmat出现Trace请求漏洞/" rel="next" title="SpringBoot内置Tocmat出现Trace请求漏洞">
+                <i class="fa fa-chevron-left"></i> SpringBoot内置Tocmat出现Trace请求漏洞
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>队列（queue），是先进先出（FIFO, First-In-First-Out）的线性表。在具体应用中通常用链表或者数组来实现。</p>
-<p>队列的操作方式和堆栈类似，唯一的区别在于<font color="red">队列只允许新数据在后端进行添加</font>。</p>
-<p>队列只允许在后端（称为 rear ）进行插入操作，在前端（称为 front ）进行删除操作。进行插入操作的端称为队尾，进行删除操作的端称为队头。从队头删除元素的操作叫做出队，从队尾追加元素的操作叫做入队。</p>
-<p>队列可分为三种：顺序队列、循环队列、双端队列</p>
-<h3 id="顺序队列"><a href="#顺序队列" class="headerlink" title="顺序队列"></a>顺序队列</h3><p>顺序存储结构存储的队列称为顺序队列。和顺序表一样，用一个一维数组存。队头在数组的低下标端，队尾设在高下表端。队头，队尾指针值是数组元素的下标。队头指针始终指向队头结点的前一个结点位置，初始值为-1（理论上应该为0，但是Java中索引是从0开始的，索引为0代表队列中第一个元素，所以定为-1）。队尾指针是指向队尾结点位置，初始值也为-1。</p>
-<p>队列中没有元素时，称为空队列， </p>
-<ul>
-<li><p>初始化条件：<code>front=rear=-1</code> </p>
-</li>
-<li><p>队列空的条件：<code>front=rear</code></p>
-</li>
-<li><p>队列满的条件： <code>rear = MAXSIZE</code></p>
-</li>
-</ul>
-<h4 id="Java实现"><a href="#Java实现" class="headerlink" title="Java实现"></a>Java实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderQueue</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Object[] data;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> front = -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> rear = -<span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 队列的长度</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> length;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_LENGTH = <span class="number">10</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 默认长度的队列</span></span><br><span class="line"><span class="comment">	 * 创建一个新的实例OrderQueue.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OrderQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (length == <span class="number">0</span>) &#123;</span><br><span class="line">			length = DEFAULT_LENGTH;</span><br><span class="line">		&#125;</span><br><span class="line">		data = <span class="keyword">new</span> Object[length];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 指定队列的长度</span></span><br><span class="line"><span class="comment">	 * 创建一个新的实例OrderQueue.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> length</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">OrderQueue</span><span class="params">(<span class="keyword">int</span> length)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.length = length;</span><br><span class="line">		data = <span class="keyword">new</span> Object[length];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 入队</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:02:30</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title">in</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (rear == length-<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		data[++rear] = obj;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 入列</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:11:15</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">pull</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (rear == length-<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"队列已满"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		data[++rear] = obj;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 出队</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:18:57</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title">out</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(front == rear) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		front++;</span><br><span class="line">		Object obj = data[front];</span><br><span class="line">		data[front] = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 出队</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:19:06</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">boolean</span> <span class="title">push</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(front == rear) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> IndexOutOfBoundsException(<span class="string">"队列已空"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		front++;</span><br><span class="line">		data[front] = <span class="keyword">null</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(Arrays.toString(data));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestOrderQueue</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		OrderQueue queue = <span class="keyword">new</span> OrderQueue();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">			Object obj = queue.in(i);</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line">		queue.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>循环向队列中添加元素，队列的默认长度是10，插入操作结束后打印当前队列的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">null</span><br><span class="line">null</span><br><span class="line">null</span><br><span class="line">[10, 11, 12, 13, 14, 15, 16, 17, 18, 19]</span><br></pre></td></tr></table></figure>
-<p>可以看到，当插入10个元素后开始返回null值，表示队列已满，插入失败；最终打印的结果也只有10个元素。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestOrderQueue</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		OrderQueue queue = <span class="keyword">new</span> OrderQueue();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">			Object obj = queue.in(i);</span><br><span class="line">			<span class="comment">//System.out.println(obj);</span></span><br><span class="line">		&#125;</span><br><span class="line">		queue.print();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">"-----------分割线------------"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">			Object obj = queue.out();</span><br><span class="line">			<span class="keyword">if</span>(obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line">		queue.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>]</span><br><span class="line">-----------分割线------------</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line">[<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>]</span><br></pre></td></tr></table></figure></p>
-<p>每次出队都返回此次出队的元素，并将队头指针向后移动一位，同时将原有索引的位置置空</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestOrderQueue</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		OrderQueue queue = <span class="keyword">new</span> OrderQueue();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">			Object obj = queue.in(i);</span><br><span class="line">			<span class="comment">//System.out.println(obj);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//queue.print();</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//System.out.println("-----------分割线------------");</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">			Object obj = queue.out();</span><br><span class="line">			<span class="keyword">if</span>(obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//System.out.println(obj);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//queue.print();</span></span><br><span class="line">		</span><br><span class="line">		Object obj = queue.in(<span class="number">10</span>);</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>将所有元素出队后，再向队列中添加元素，返回null值，即添加失败；但是队列中明明10个位置都是空的，可用的。这就是顺序队列中的<strong>假溢出</strong>问题。</p>
-<h4 id="假溢出"><a href="#假溢出" class="headerlink" title="假溢出"></a>假溢出</h4><p>队尾指针已经指向队尾，即rear = length-1；但是队列的前面部分仍有可用空间，但是此时已经不能再向队列中插入元素了，此种情况称为“假溢出”</p>
-<p>解决假溢出的方法，可以在每次元素出队时，所有元素整体向前移动，让空的存储单元留在队尾</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title">out2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(front == rear) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	front++;</span><br><span class="line">	Object obj = data[front];</span><br><span class="line">	</span><br><span class="line">	Object[] temp = <span class="keyword">new</span> Object[length];</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=front+<span class="number">1</span>; i&lt;=rear; i++) &#123;</span><br><span class="line">		temp[i-<span class="number">1</span>] = data[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=rear+<span class="number">1</span>; i&lt;length; i++) &#123;</span><br><span class="line">		temp[i] = <span class="keyword">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	data = temp;</span><br><span class="line">	front = -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>测试</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	OrderQueue queue = <span class="keyword">new</span> OrderQueue();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		Object obj = queue.in(i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	System.out.println(queue.out2());</span><br><span class="line">	queue.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">[11, 12, 13, 14, 15, 16, 17, 18, 19, null]</span><br></pre></td></tr></table></figure>
-<p>可以看出，不再出现假溢出的问题</p>
-<p>但是，这种处理方式涉及到大量的对象创建和数据移动，性能很低；还有一种较巧妙的解决方法，那就是循环队列</p>
-<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>循环队列可以更简单防止伪溢出的发生，但队列大小是固定的。</p>
-<p>循环队列应用范围广泛，比如Linux内核当中的环形缓冲区就是基于循环队列来设计的。</p>
-<p>循环队列：采用环状顺序表来存放队列元素，有两个指针，其中 front 指针指向队列的队头元素，rear指针指向队尾元素的下一个位置，往队列中加进或取出元素时分别改变这两个变量的计数。当头尾指针（front / rear）指向队列尾的元素（下标：QueueSize-1）时，其加1操作的结果是指向向量的下界0。</p>
-<p>循环队列中，由于入队时尾指针向前追赶头指针；出队时头指针向前追赶尾指针，造成队空和队满时头尾指针均相等。因此，无法通过条件front==rear来判别队列是”空”还是”满”。</p>
-<p>解决这个问题的方法至少有三种：</p>
-<ul>
-<li>另设一布尔变量以区别队列的空和满；</li>
-<li>少用一个元素的空间。约定入队前，测试尾指针在循环意义下加1后是否等于头指针，若相等则认为队满（注意：rear所指的单元始终为空）；</li>
-<li>使用一个计数器记录队列中元素的总数（即队列长度）。</li>
-</ul>
-<p>此处我们采用第二种方式，少用一个元素的空间，根据尾指针在循环意义下加1后是否等于头指针判断队列是否满</p>
-<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
-<li>初始化条件： <code>front == rear == 0</code></li>
-<li>队列满条件： <code>MOD(rear+1,m) == front</code></li>
-<li>队列空条件： <code>front == rear</code></li>
-<li>队头指针推进计算: <code>front = MOD(front+1,m)</code></li>
-<li>队尾指针推进计算: <code>rear = MOD(rear+1,m)</code></li>
-</ul>
-<h4 id="Java实现-1"><a href="#Java实现-1" class="headerlink" title="Java实现"></a>Java实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CycleQueue</span> </span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Object[] data;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> front = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> rear = <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> DEFAULT_CAPACITY = <span class="number">10</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> length;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">CycleQueue</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.data = <span class="keyword">new</span> Object[DEFAULT_CAPACITY];</span><br><span class="line">		length = data.length;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">full</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> ((rear + <span class="number">1</span>) % length == front) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">empty</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (front == rear) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title">in</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (full()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		data[rear] = obj;</span><br><span class="line">		rear = (rear + <span class="number">1</span>) % length;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title">out</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">if</span> (empty()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		Object obj = data[front];</span><br><span class="line">		data[front] = <span class="keyword">null</span>;</span><br><span class="line">		front = (front + <span class="number">1</span>) % length;</span><br><span class="line">		<span class="keyword">return</span> obj;	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(Arrays.toString(data));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="测试1"><a href="#测试1" class="headerlink" title="测试1"></a>测试1</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	CycleQueue queue = <span class="keyword">new</span> CycleQueue();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		Object obj = queue.in(i);</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>尝试向循环队列中插入元素，当插入9个元素后，判定队列已满（空闲一个元素位置，用于区分队列满和队列空），所以不再插入元素。</p>
-<p>输出结果:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="keyword">null</span></span><br><span class="line"><span class="keyword">null</span></span><br><span class="line"><span class="keyword">null</span></span><br><span class="line"><span class="keyword">null</span></span><br><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="keyword">null</span>]</span><br></pre></td></tr></table></figure>
-<h4 id="测试2"><a href="#测试2" class="headerlink" title="测试2"></a>测试2</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	CycleQueue queue = <span class="keyword">new</span> CycleQueue();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		Object obj = queue.in(i);</span><br><span class="line">		<span class="comment">//System.out.println(obj);</span></span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	System.out.println(<span class="string">"-----------分割线------------"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">		Object obj = queue.out();</span><br><span class="line">		<span class="keyword">if</span>(obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line">       System.out.println(queue.empty());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从循环队列中取元素，然后再打印查看效果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="keyword">null</span>]</span><br><span class="line">-----------分割线------------</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line">[<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>]</span><br><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
-<p>可以看到，调用出队方法后，队列中元素置为null，队列为空</p>
-<h4 id="测试3"><a href="#测试3" class="headerlink" title="测试3"></a>测试3</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	CycleQueue queue = <span class="keyword">new</span> CycleQueue();</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		Object obj = queue.in(i);</span><br><span class="line">		<span class="comment">//System.out.println(obj);</span></span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	System.out.println(<span class="string">"-----------分割线------------"</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="keyword">true</span>) &#123;</span><br><span class="line">		Object obj = queue.out();</span><br><span class="line">		<span class="keyword">if</span>(obj == <span class="keyword">null</span>) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//System.out.println(obj);</span></span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line">	</span><br><span class="line">	System.out.println(queue.empty());</span><br><span class="line"></span><br><span class="line">	queue.in(<span class="number">20</span>);</span><br><span class="line">	queue.in(<span class="number">21</span>);</span><br><span class="line">	queue.in(<span class="number">22</span>);</span><br><span class="line">	queue.in(<span class="number">23</span>);</span><br><span class="line">	queue.in(<span class="number">24</span>);</span><br><span class="line">	queue.in(<span class="number">25</span>);</span><br><span class="line">	queue.in(<span class="number">26</span>);</span><br><span class="line">	queue.in(<span class="number">27</span>);</span><br><span class="line">	queue.in(<span class="number">28</span>);</span><br><span class="line">	queue.in(<span class="number">29</span>);</span><br><span class="line">	queue.print();</span><br><span class="line">	</span><br><span class="line">	System.out.println(queue.full());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>队列为空后，再向队列中插入元素，输出结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="keyword">null</span>]</span><br><span class="line">-----------分割线------------</span><br><span class="line">[<span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>, <span class="keyword">null</span>]</span><br><span class="line"><span class="keyword">true</span></span><br><span class="line">[<span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">24</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">27</span>, <span class="number">28</span>, <span class="keyword">null</span>, <span class="number">20</span>]</span><br><span class="line"><span class="keyword">true</span></span><br></pre></td></tr></table></figure>
-<p>可以看到空元素的位置发生了变化，元素29因为队列已满，并没有插入成功，调用full()方法返回true，队列已满。</p>
-<h3 id="链式队列"><a href="#链式队列" class="headerlink" title="链式队列"></a>链式队列</h3><p>TODO  </p>
-<p>等整理完链表的实现再来完善</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -888,177 +541,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/内部类/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/17/内部类/" itemprop="url">内部类</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-17T00:00:00+08:00">
-                2018-03-17
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Java 中，可以在一个类的内部定义另外一个类，这个内部定义的类，就称为内部类</p>
-<p>内部类是一种非常有用的特性，它允许你把一些逻辑相关的类组织在一起，并控制位于内部的类的可见性</p>
-<p>当生成一个内部类的对象时，此对象与创建它的外部类的对象之间就有了一种联系，所以它能访问其外部类对象的所有成员，而不需要任何特殊条件；此外，内部类还拥有其外部类的所有元素的访问权</p>
-<p>如果想从外部类的非静态方法之外的任意位置创建某个内部类的对象，那么必须具体的制定这个对象的类型： OuterClassName.InnerClassName</p>
-<p>创建内部类的对象时，需要使用外部类的对象去创建该内部类的对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Inner</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Inner inner = <span class="keyword">new</span> Outer().new Inner();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在拥有外部类的对象之前，是不能创建内部类对象的，这是因为内部类对象会暗中的链接到创建它的外部类对象上；但是如果你创建的是静态内部类，那么它就不需要对外部类对象的引用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Inner</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"静态内部类创建测试！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Inner inner = <span class="keyword">new</span> Inner();</span><br><span class="line">        inner.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<pre><code>静态内部类创建测试！
-</code></pre><p>如果是其他的外部类中创建 Inner 内部类的对象，则：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Outer.Inner inner = <span class="keyword">new</span> Outer.Inner();</span><br><span class="line">        inner.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：</p>
-<pre><code>静态内部类创建测试！
-</code></pre><p>内部类，隐藏实现细节</p>
-<p>方法和作用域内的内部类-局部内部类</p>
-<p>可以在方法里面或者任意的作用域内定义内部类</p>
-<p>方法内的内部类常常用于回调</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LocalInner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalInner <span class="title">getLocalInner</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">MyLocalInner</span> <span class="keyword">implements</span> <span class="title">LocalInner</span></span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">private</span> String value = <span class="string">"local inner"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">value</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyLocalInner();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Outer outer = <span class="keyword">new</span> Outer();</span><br><span class="line">		LocalInner localInner = outer.getLocalInner();</span><br><span class="line">		String value = localInner.value();</span><br><span class="line">        System.out.println(value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local inner</span><br></pre></td></tr></table></figure>
-<p>匿名内部类</p>
-<p>比较常见的匿名内部类就是创建线程时用到的匿名内部类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Runnable <span class="title">thread</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>匿名内部类末尾有个分号，这个分号不是用来标记内部类结束的；实际上，它标记的是表达式的结束</p>
-<p>如果定义一个匿名内部类，并且希望它使用一个在其外部定义的对象，那么编译器会要求其参数引用是 final 的；否则，将出现编译错误</p>
-<p>在匿名类中不可能有命名构造器（因为它根本没名字），但是可以通过实例初始化，达到为匿名内部类创建一个构造器的效果</p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1066,6 +553,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -1086,8 +577,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -1177,6 +677,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#ID-WORKER"><span class="nav-number">1.</span> <span class="nav-text">ID_WORKER</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#ID-WORKER-STR"><span class="nav-number">2.</span> <span class="nav-text">ID_WORKER_STR</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#UUID"><span class="nav-number">3.</span> <span class="nav-text">UUID</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展"><span class="nav-number">4.</span> <span class="nav-text">扩展</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1327,6 +843,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
