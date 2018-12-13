@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SpringBoot2.0之数据源配置]]></title>
+    <url>%2F2018%2F12%2F13%2FSpringBoot2.0%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[SpringBoot2.0 的情况下，配置数据源之后出现 jdbcUrl is required with driverClassName 的错误 因为2.0的配置和之前版本配置不太一样 ，在配置文件中应该使用 spring.datasource.jdbc-url ，而不是 spring.datasource.url 12345spring.datasource.lemon.jdbc-url=jdbc:mysql://127.0.0.1:3306/lemon?useUnicode=true&amp;characterEncoding=UTF-8spring.datasource.lemon.username=rootspring.datasource.lemon.password=123456spring.datasource.lemon.driver-class-name=com.mysql.jdbc.Driverspring.datasource.lemon.type=com.alibaba.druid.pool.DruidDataSource 完整的配置如下1234567891011121314151617181920212223242526272829# 数据源配置spring.datasource.lemon.jdbc-url=jdbc:mysql://127.0.0.1:3306/lemon?useUnicode=true&amp;characterEncoding=UTF-8spring.datasource.lemon.username=rootspring.datasource.lemon.password=123456spring.datasource.lemon.driver-class-name=com.mysql.jdbc.Driverspring.datasource.lemon.type=com.alibaba.druid.pool.DruidDataSource# 初始化大小，最小，最大spring.datasource.lemon.initialSize=5spring.datasource.lemon.minIdle=5spring.datasource.lemon.maxActive=20# 配置获取连接等待超时的时间spring.datasource.lemon.maxWait=60000# 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒spring.datasource.lemon.timeBetweenEvictionRunsMillis=60000# 配置一个连接在池中最小生存的时间，单位是毫秒spring.datasource.lemon.minEvictableIdleTimeMillis=30000spring.datasource.lemon.validationQuery=SELECT 1 FROM DUALspring.datasource.lemon.testWhileIdle=truespring.datasource.lemon.testOnBorrow=falsespring.datasource.lemon.testOnReturn=false# 打开PSCache，并且指定每个连接上PSCache的大小spring.datasource.lemon.poolPreparedStatements=truespring.datasource.lemon.maxPoolPreparedStatementPerConnectionSize=20# 配置监控统计拦截的filters，去掉后监控界面sql无法统计，&apos;wall&apos;用于防火墙spring.datasource.lemon.filters=stat,wall,log4j# 通过connectProperties属性来打开mergeSql功能；慢SQL记录spring.datasource.lemon.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000# 合并多个DruidDataSource的监控数据spring.datasource.lemon.useGlobalDataSourceStat=true]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Slow HTTP Denial Of Service Attack]]></title>
     <url>%2F2018%2F12%2F13%2FSlow%20HTTP%20Denial%20Of%20Service%20Attack%2F</url>
     <content type="text"><![CDATA[近期使用WVS扫描工具对 Web 系统进行扫描，出现了 Slow HTTP Denial Of Service Attack 的安全漏洞，即缓慢的 HTTP DOS 攻击。 该攻击依赖于 HTTP POST ，指定一个非常大的 content-length ，以很低的频率每次发送数据包的一部分，如果一个 HTTP 请求是不完整的或者数据传输的速率非常低，服务器将占用连接资源等待其余数据的传输，如果发送大量这样的请求，则服务器将拒绝其他的请求服务，导致服务器瘫痪。 解决方案对 web 服务器的 HTTP 头部传输的最大许可时间进行限制，修改最大许可时间为 5s（建议为 5s~10s ） Tomcat：修改 server.xml 的 connectionTimeout (默认为20000ms即 20s) 123456&lt;Connector port="8080" protocol="HTTP/1.1" connectionTimeout="5000" redirectPort="8443" /&gt;]]></content>
