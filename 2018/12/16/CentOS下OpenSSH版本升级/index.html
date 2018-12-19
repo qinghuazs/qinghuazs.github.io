@@ -100,7 +100,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="OpenSSH,">
 
 
 
@@ -111,16 +111,18 @@
 
 
 
-<meta name="description" content="祝我们平日快乐 做平凡的人！">
-<meta property="og:type" content="website">
-<meta property="og:title" content="青花小记">
-<meta property="og:url" content="http://yoursite.com/archives/2018/index.html">
+<meta name="description" content="最近一段时间 OpenSSH 爆发了远程访问漏洞，需要升级现有服务器的OpenSSH版本，目前官网的最新版本为7.7 查看现有版本12# ssh -VOpenSSH_5.3p1, OpenSSL 1.0.1e-fips 11 Feb 2013 安装Telnet服务安装 telnet 是为了防止卸载 OpenSSH 之后无法远程连接服务器 安装服务1# yum -y install telnet-s">
+<meta name="keywords" content="OpenSSH">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS下OpenSSH版本升级">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/CentOS下OpenSSH版本升级/index.html">
 <meta property="og:site_name" content="青花小记">
-<meta property="og:description" content="祝我们平日快乐 做平凡的人！">
+<meta property="og:description" content="最近一段时间 OpenSSH 爆发了远程访问漏洞，需要升级现有服务器的OpenSSH版本，目前官网的最新版本为7.7 查看现有版本12# ssh -VOpenSSH_5.3p1, OpenSSL 1.0.1e-fips 11 Feb 2013 安装Telnet服务安装 telnet 是为了防止卸载 OpenSSH 之后无法远程连接服务器 安装服务1# yum -y install telnet-s">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-12-19T13:51:56.288Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="青花小记">
-<meta name="twitter:description" content="祝我们平日快乐 做平凡的人！">
+<meta name="twitter:title" content="CentOS下OpenSSH版本升级">
+<meta name="twitter:description" content="最近一段时间 OpenSSH 爆发了远程访问漏洞，需要升级现有服务器的OpenSSH版本，目前官网的最新版本为7.7 查看现有版本12# ssh -VOpenSSH_5.3p1, OpenSSL 1.0.1e-fips 11 Feb 2013 安装Telnet服务安装 telnet 是为了防止卸载 OpenSSH 之后无法远程连接服务器 安装服务1# yum -y install telnet-s">
 
 
 
@@ -150,13 +152,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2018/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/CentOS下OpenSSH版本升级/">
 
 
 
 
 
-  <title>归档 | 青花小记</title>
+  <title>CentOS下OpenSSH版本升级 | 青花小记</title>
   
 
 
@@ -180,7 +182,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <a href="https://github.com/qinghuazs" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewbox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"/><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"/><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"/></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
@@ -318,352 +320,193 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/CentOS下OpenSSH版本升级/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">CentOS下OpenSSH版本升级</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T00:00:00+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 9 篇日志。 继续努力。
-      </span>
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2018">2018</h1>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/17/SpringBoot之自定义配置/" itemprop="url">
-              
-                <span itemprop="name">SpringBoot之自定义配置</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-17T00:00:00+08:00" content="2018-12-17">
-          12-17
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+          
 
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/16/CentOS下OpenSSH版本升级/" itemprop="url">
-              
-                <span itemprop="name">CentOS下OpenSSH版本升级</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-16T00:00:00+08:00" content="2018-12-16">
-          12-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/15/Java元注解/" itemprop="url">
-              
-                <span itemprop="name">自定义注解</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-15T00:00:00+08:00" content="2018-12-15">
-          12-15
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <p>最近一段时间 OpenSSH 爆发了远程访问漏洞，需要升级现有服务器的OpenSSH版本，目前官网的最新版本为7.7</p>
+<h3 id="查看现有版本"><a href="#查看现有版本" class="headerlink" title="查看现有版本"></a>查看现有版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ssh -V</span><br><span class="line">OpenSSH_5.3p1, OpenSSL 1.0.1e-fips 11 Feb 2013</span><br></pre></td></tr></table></figure>
+<h3 id="安装Telnet服务"><a href="#安装Telnet服务" class="headerlink" title="安装Telnet服务"></a>安装Telnet服务</h3><p>安装 telnet 是为了防止卸载 OpenSSH 之后无法远程连接服务器</p>
+<h4 id="安装服务"><a href="#安装服务" class="headerlink" title="安装服务"></a>安装服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> yum -y install telnet-server* telnet</span><br></pre></td></tr></table></figure>
+<h4 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> vim /etc/xinetd.d/telnet</span><br></pre></td></tr></table></figure>
+<p>将其中 disable 字段的 yes 改为 no，允许 root 用户通过 telnet 登录（升级之后再修改回来）</p>
+<h4 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> service xinetd start</span><br><span class="line">Starting xinetd:                                           [  OK  ]</span><br></pre></td></tr></table></figure>
+<h4 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> chkconfig xinetd on</span><br></pre></td></tr></table></figure>
+<h3 id="卸载原有OpenSSH"><a href="#卸载原有OpenSSH" class="headerlink" title="卸载原有OpenSSH"></a>卸载原有OpenSSH</h3><h4 id="备份原有文件"><a href="#备份原有文件" class="headerlink" title="备份原有文件"></a>备份原有文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> mv /etc/securetty /etc/securetty.old</span><br><span class="line"><span class="meta">#</span> mv /etc/init.d/sshd  /etc/init.d/sshd.old</span><br></pre></td></tr></table></figure>
+<h4 id="卸载"><a href="#卸载" class="headerlink" title="卸载"></a>卸载</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> rpm -qa | grep openssh</span><br><span class="line">openssh-clients-5.3p1-123.el6_9.x86_64</span><br><span class="line">openssh-5.3p1-123.el6_9.x86_64</span><br><span class="line">openssh-server-5.3p1-123.el6_9.x86_64</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> rpm -e --nodeps openssh-5.3p1-123.el6_9.x86_64 </span><br><span class="line">warning:    erase unlink of /etc/ssh/moduli failed: No such file or directory</span><br><span class="line">warning:    erase unlink of /etc/ssh failed: No such file or directory</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> rpm -e --nodeps openssh-server-5.3p1-123.el6_9.x86_64</span><br><span class="line">error reading information on service sshd: No such file or directory</span><br><span class="line">error: %preun(openssh-server-5.3p1-123.el6_9.x86_64) scriptlet failed, exit status 1</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> rpm -e --noscripts  openssh-server-5.3p1-123.el6_9.x86_64</span><br><span class="line">warning:    erase unlink of /etc/ssh/sshd_config failed: No such file or directory</span><br><span class="line">warning:    erase unlink of /etc/rc.d/init.d/sshd failed: No such file or directory</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> rpm -e --nodeps openssh-clients-5.3p1-123.el6_9.x86_64</span><br><span class="line">warning:    erase unlink of /etc/ssh/ssh_config failed: No such file or directory</span><br><span class="line"><span class="meta">#</span> rpm -qa | grep openssh</span><br></pre></td></tr></table></figure>
+<h3 id="安装新版本OpenSSH"><a href="#安装新版本OpenSSH" class="headerlink" title="安装新版本OpenSSH"></a>安装新版本OpenSSH</h3><h4 id="依赖安装"><a href="#依赖安装" class="headerlink" title="依赖安装"></a>依赖安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> yum install -y gcc openssl-devel pam-devel rpm-build</span><br></pre></td></tr></table></figure>
+<h4 id="下载源文件"><a href="#下载源文件" class="headerlink" title="下载源文件"></a>下载源文件</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> wget http://ftp.openbsd.org/pub/OpenBSD/OpenSSH/portable/openssh-7.3p1.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> tar -zxvf openssh-7.3p1.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="进入主目录"><a href="#进入主目录" class="headerlink" title="进入主目录"></a>进入主目录</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cd openssh-7.3p1</span><br></pre></td></tr></table></figure>
+<h4 id="配置相关参数"><a href="#配置相关参数" class="headerlink" title="配置相关参数"></a>配置相关参数</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ./configure --prefix=/usr --sysconfdir=/etc/ssh --with-md5-passwords --with-pam --with-zlib --with-openssl-includes=/usr --with-privsep-path=/var/lib/sshd</span><br></pre></td></tr></table></figure>
+<h4 id="编译安装"><a href="#编译安装" class="headerlink" title="编译安装"></a>编译安装</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> make</span><br><span class="line"><span class="meta">#</span> make install</span><br></pre></td></tr></table></figure>
+<h4 id="修改配置-1"><a href="#修改配置-1" class="headerlink" title="修改配置"></a>修改配置</h4><p>默认情况下，root 用户禁止远程登录，需要修改 /etc/ssh/sshd_config 文件，将 PermitRootLogin 参数改为 yes，如果没有该配置，则在文件末尾追加<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> vim /etc/ssh/sshd_config</span><br></pre></td></tr></table></figure></p>
+<h4 id="添加服务并启动"><a href="#添加服务并启动" class="headerlink" title="添加服务并启动"></a>添加服务并启动</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cp -p contrib/redhat/sshd.init /etc/init.d/sshd</span><br><span class="line"><span class="meta">#</span> chmod +x /etc/init.d/sshd</span><br><span class="line"><span class="meta">#</span> chkconfig  --add  sshd</span><br><span class="line"><span class="meta">#</span> chkconfig sshd on</span><br><span class="line"><span class="meta">#</span> chkconfig --list sshd</span><br><span class="line">sshd           	0:off	1:off	2:on	3:on	4:on	5:on	6:off</span><br><span class="line"><span class="meta">#</span> service sshd restart</span><br></pre></td></tr></table></figure>
+<h3 id="检查版本"><a href="#检查版本" class="headerlink" title="检查版本"></a>检查版本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> ssh -V</span><br><span class="line">OpenSSH_7.3p1, OpenSSL 1.0.1e-fips 11 Feb 2013</span><br></pre></td></tr></table></figure>
+<p>至此，OepnSSH 升级完毕！</p>
+<p>别忘了关闭 telnet 的 root 远程访问权限</p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/13/SpringBoot2.0数据源配置/" itemprop="url">
-              
-                <span itemprop="name">SpringBoot2.0之数据源配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-13T21:11:00+08:00" content="2018-12-13">
-          12-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/13/Slow HTTP Denial Of Service Attack/" itemprop="url">
-              
-                <span itemprop="name">Slow HTTP Denial Of Service Attack</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-13T00:00:00+08:00" content="2018-12-13">
-          12-13
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/12/MyBatisPlus主键设置策略/" itemprop="url">
-              
-                <span itemprop="name">MyBatisPlus主键设置策略</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-12T19:32:00+08:00" content="2018-12-12">
-          12-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/11/SpringBoot内置Tocmat出现Trace请求漏洞/" itemprop="url">
-              
-                <span itemprop="name">SpringBoot内置Tocmat出现Trace请求漏洞</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-11T00:00:00+08:00" content="2018-12-11">
-          12-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/12/06/数据结构之队列/" itemprop="url">
-              
-                <span itemprop="name">数据结构之队列</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-12-06T16:04:00+08:00" content="2018-12-06">
-          12-06
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2018/03/17/内部类/" itemprop="url">
-              
-                <span itemprop="name">内部类</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-03-17T00:00:00+08:00" content="2018-03-17">
-          03-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/OpenSSH/" rel="tag"><i class="fa fa-tag"></i> OpenSSH</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/15/Java元注解/" rel="next" title="自定义注解">
+                <i class="fa fa-chevron-left"></i> 自定义注解
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/17/SpringBoot之自定义配置/" rel="prev" title="SpringBoot之自定义配置">
+                SpringBoot之自定义配置 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -671,6 +514,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -691,8 +538,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -782,6 +638,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#查看现有版本"><span class="nav-number">1.</span> <span class="nav-text">查看现有版本</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Telnet服务"><span class="nav-number">2.</span> <span class="nav-text">安装Telnet服务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装服务"><span class="nav-number">2.1.</span> <span class="nav-text">安装服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改配置"><span class="nav-number">2.2.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动服务"><span class="nav-number">2.3.</span> <span class="nav-text">启动服务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置开机启动"><span class="nav-number">2.4.</span> <span class="nav-text">设置开机启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#卸载原有OpenSSH"><span class="nav-number">3.</span> <span class="nav-text">卸载原有OpenSSH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#备份原有文件"><span class="nav-number">3.1.</span> <span class="nav-text">备份原有文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#卸载"><span class="nav-number">3.2.</span> <span class="nav-text">卸载</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装新版本OpenSSH"><span class="nav-number">4.</span> <span class="nav-text">安装新版本OpenSSH</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#依赖安装"><span class="nav-number">4.1.</span> <span class="nav-text">依赖安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#下载源文件"><span class="nav-number">4.2.</span> <span class="nav-text">下载源文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解压"><span class="nav-number">4.3.</span> <span class="nav-text">解压</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#进入主目录"><span class="nav-number">4.4.</span> <span class="nav-text">进入主目录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置相关参数"><span class="nav-number">4.5.</span> <span class="nav-text">配置相关参数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编译安装"><span class="nav-number">4.6.</span> <span class="nav-text">编译安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改配置-1"><span class="nav-number">4.7.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#添加服务并启动"><span class="nav-number">4.8.</span> <span class="nav-text">添加服务并启动</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检查版本"><span class="nav-number">5.</span> <span class="nav-text">检查版本</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -932,6 +804,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
