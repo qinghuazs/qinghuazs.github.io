@@ -333,6 +333,186 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/MySQL查询缓存/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/18/MySQL查询缓存/" itemprop="url">MySQL查询缓存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-18T00:00:00+08:00">
+                2018-12-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>MySQL 查询缓存存储客户端请求的查询结果信息( SELECT 语句)。MySQL 服务器在接收到相同的请求时，会直接将查询缓存中的结果返回给客户端，不再去数据库中重新查询。而且，查询缓存是在多个会话中共享的，一个客户端的查询缓存结果可以被另一个客户端的相同请求复用，从而加快了查询效率。</p>
+<p>需要注意的是，查询缓存在 <strong>MySQL5.7.20 版本已过时，在 MySQL8.0 版本中被移除</strong>，所以使用时需要注意 MySQL 服务器的版本信息。</p>
+<h3 id="查询缓存配置"><a href="#查询缓存配置" class="headerlink" title="查询缓存配置"></a>查询缓存配置</h3><h4 id="查询缓存的数据库支持"><a href="#查询缓存的数据库支持" class="headerlink" title="查询缓存的数据库支持"></a>查询缓存的数据库支持</h4><p>可以使用 <strong>SHOW VARIABLES LIKE ‘have_query_cache’</strong> 指令查询当前的 MySQL 数据库是否支持查询缓存：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;have_query_cache&apos;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| have_query_cache | YES   |</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set</span><br></pre></td></tr></table></figure>
+<h4 id="具体配置"><a href="#具体配置" class="headerlink" title="具体配置"></a>具体配置</h4><p>也可以通过 <strong>SHOW VARIABLES LIKE ‘%query_cache%’</strong> 来查看查询缓存的详细配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;%query_cache%&apos;;</span><br><span class="line">+------------------------------+---------+</span><br><span class="line">| Variable_name                | Value   |</span><br><span class="line">+------------------------------+---------+</span><br><span class="line">| have_query_cache             | YES     |</span><br><span class="line">| query_cache_limit            | 1048576 |</span><br><span class="line">| query_cache_min_res_unit     | 4096    |</span><br><span class="line">| query_cache_size             | 0       |</span><br><span class="line">| query_cache_type             | ON      |</span><br><span class="line">| query_cache_wlock_invalidate | OFF     |</span><br><span class="line">+------------------------------+---------+</span><br></pre></td></tr></table></figure></p>
+<h5 id="query-cache-limit"><a href="#query-cache-limit" class="headerlink" title="query_cache_limit"></a>query_cache_limit</h5><p>指定单个查询能够使用的缓冲区的大小，默认值是1M大小</p>
+<h5 id="query-cache-min-res-unit"><a href="#query-cache-min-res-unit" class="headerlink" title="query_cache_min_res_unit"></a>query_cache_min_res_unit</h5><p>查询缓存分配的最小块的大小，默认大小是 4KB。</p>
+<p>MySQL 用于查询的缓存的内存被分成一个个变长数据块，用来存储类型，大小，数据等信息。当服务器启动的时候，会初始化缓存需要的内存。当查询结果需要缓存的时候，先从空闲块中申请一个数据块大于参数 query_cache_min_res_unit 的配置，即使缓存数据很小，申请数据块也是这个，因为查询开始返回结果的时候就分配空间，此时无法预知结果多大。分配内存块需要先锁住空间块，所以操作很慢，MySQL 会尽量避免这个操作，选择尽可能小的内存块，如果不够，继续申请，如果存储完时有多余的空间，则多余的空间将会被释放。</p>
+<h5 id="query-cache-size"><a href="#query-cache-size" class="headerlink" title="query_cache_size"></a>query_cache_size</h5><p>查询缓存可用的内存大小，默认情况下是 0，表示无法使用查询缓存。</p>
+<p>查询缓存的内存可以手动配置，最小值不能小于 40K，具体的值需要参考系统的数据量和应用场景。如果设置的值太小，则设置不生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET GLOBAL query_cache_size  = 40000;</span><br><span class="line">Query OK, 0 rows affected</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;query_cache_size&apos;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| query_cache_size | 0     |</span><br><span class="line">+------------------+-------+</span><br></pre></td></tr></table></figure></p>
+<p>官方文档中说明，该情况下，MySQL 服务器还会返回一个警告，我本地的 MySQL 版本是 5.0.96-community-nt 的，并没有返回该警告。如果想看警告效果的话，可以去<a href="https://dev.mysql.com/doc/refman/5.7/en/query-cache-configuration.html" target="_blank" rel="noopener">官网</a>进行查看。</p>
+<p>query_cache_size 设置的值，如果不是 1024byte 的整数倍，将自动转化为最靠近 1024byte 的值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  SET GLOBAL query_cache_size = 1000000;</span><br><span class="line">Query OK, 0 rows affected</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;query_cache_size&apos;;</span><br><span class="line">+------------------+--------+</span><br><span class="line">| Variable_name    | Value  |</span><br><span class="line">+------------------+--------+</span><br><span class="line">| query_cache_size | 999424 |</span><br><span class="line">+------------------+--------+</span><br><span class="line">1 row in set</span><br></pre></td></tr></table></figure>
+<h5 id="query-cache-type"><a href="#query-cache-type" class="headerlink" title="query_cache_type"></a>query_cache_type</h5><p>当 query_cache_size 大于 0 的时候，查询缓存的应用将受到 query_cache_type 的影响。</p>
+<ul>
+<li><p>0 表示不使用查询缓存</p>
+</li>
+<li><p>1 表示使用使用查询缓存；如果不想用查询缓存的话，可以使用 <strong>SELECT SQL_NO_CACHE</strong> 进行查询操作</p>
+</li>
+<li><p>2 表示按需使用查询缓存，SQL 语句以 <strong>SELECT SQL_CACHE</strong> 开头表示使用查询缓存</p>
+</li>
+</ul>
+<p>当 query_cache_size 为 0 时，应该同步将 query_cache_type 设置为 0，这样的话 MySQL 服务在执行查询语句的时候讲不再检查查询互斥锁，从而可以提高查询的效率。</p>
+<p>query_cache_type 是全局生效的，所有连接到 MySQL 服务的客户端都会共用这个配置，如果某个客户端想设置自己的 query_cache_type 属性，可以通过以下指令实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET SESSION query_cache_type = OFF;</span><br></pre></td></tr></table></figure>
+<p>在启动时也可以设置 query_cache_type 的值，但是只能设置数字（0，1，2），不能再使用 ON 和 OFF。</p>
+<h4 id="状态监控"><a href="#状态监控" class="headerlink" title="状态监控"></a>状态监控</h4><p>通过 <strong>SHOW STATUS LIKE ‘Qcache%’</strong> 命令可以查询查询缓存当前的情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW STATUS LIKE &apos;Qcache%&apos;;</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">| Variable_name           | Value  |</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">| Qcache_free_blocks      | 1      |</span><br><span class="line">| Qcache_free_memory      | 990760 |</span><br><span class="line">| Qcache_hits             | 0      |</span><br><span class="line">| Qcache_inserts          | 0      |</span><br><span class="line">| Qcache_lowmem_prunes    | 0      |</span><br><span class="line">| Qcache_not_cached       | 2      |</span><br><span class="line">| Qcache_queries_in_cache | 0      |</span><br><span class="line">| Qcache_total_blocks     | 1      |</span><br><span class="line">+-------------------------+--------+</span><br></pre></td></tr></table></figure>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>查询缓存适用于进行大量重复的查询操作、并且改动量小的表。</p>
+<p>如果数据库表中数据和结构发生变化时（增删改、表结构调整），查询缓存将会失效并被清除。</p>
+<h3 id="缓存清理"><a href="#缓存清理" class="headerlink" title="缓存清理"></a>缓存清理</h3><p>可以使用以下对查询缓存进行清理操作</p>
+<ul>
+<li><p>FLUSH QUERY CACHE 清空查询缓存中的碎片</p>
+</li>
+<li><p>RESET QUERY CACHE 从查询缓存中移除所有查询</p>
+</li>
+<li><p>FLUSH TABLES 关闭所有打开的表，该操作将同步清空查询缓存中的内容</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/17/SpringBoot之自定义配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1935,7 +2115,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1946,7 +2126,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1957,7 +2137,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
