@@ -333,6 +333,165 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/SpringBoot内置Tocmat出现Trace请求漏洞/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/11/SpringBoot内置Tocmat出现Trace请求漏洞/" itemprop="url">SpringBoot内置Tocmat出现Trace请求漏洞</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T00:00:00+08:00">
+                2018-12-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>近期使用绿盟扫描工具对Web系统进行扫描，出现了<font color="red">检测到目标服务器启用了TRACE方法</font>的高级漏洞，TRACE是HTTP协议定义的一种请求方法，该方法会使服务器原样返回任意客户端请求的任何内容，因此可以用来进行跨站点脚本攻击（XSS攻击），这种攻击方式又称为跨站跟踪攻击（XST）。</p>
+<p>绿盟的报告中给出了相应的方案：</p>
+<p>1.2.0.55以上版本的Apache服务器，可以在<code>httpd.conf</code>的尾部添加： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TraceEnable off</span><br></pre></td></tr></table></figure>
+<p>2.如果你使用的是Apache：</p>
+<ul>
+<li>确认rewrite模块激活（httpd.conf）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module modules/mod_rewrite.so</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在各虚拟主机的配置文件里添加如下语句：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine On RewriteCond %&#123;REQUEST_METHOD&#125; ^TRACE RewriteRule .*</span><br></pre></td></tr></table></figure>
+<p>我们的项目是基于SpringBoot的单机web项目，并没有使用到Apache服务器。查询相关资料，得知在Tomcat的web.xml文件中可以配置HTTP的请求方式，禁止不安全的请求类型：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">security-constraint</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;<span class="name">web-resource-collection</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>PUT<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>DELETE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>HEAD<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>OPTIONS<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;/<span class="name">web-resource-collection</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;<span class="name">auth-constraint</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;/<span class="name">auth-constraint</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">security-constraint</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">login-config</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">auth-method</span>&gt;</span>BASIC<span class="tag">&lt;/<span class="name">auth-method</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">login-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果使用的是SpringBoot内置的Tomcat容器的话，可以配置Tomcat的配置类，将配置注入到Spring容器中：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TomcatConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> EmbeddedServletContainerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatEmbeddedServletContainerFactory tomcatServletContainerFactory = <span class="keyword">new</span> TomcatEmbeddedServletContainerFactory();</span><br><span class="line">        tomcatServletContainerFactory.addContextCustomizers(<span class="keyword">new</span> TomcatContextCustomizer()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint constraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                <span class="comment">//http方法</span></span><br><span class="line">                collection.addMethod(<span class="string">"PUT"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"DELETE"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"HEAD"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"OPTIONS"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"TRACE"</span>);</span><br><span class="line">                <span class="comment">//url匹配表达式</span></span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                constraint.addCollection(collection);</span><br><span class="line">                constraint.setAuthConstraint(<span class="keyword">true</span>);</span><br><span class="line">                context.addConstraint(constraint );</span><br><span class="line"></span><br><span class="line">                <span class="comment">//设置使用httpOnly</span></span><br><span class="line">                context.setUseHttpOnly(<span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> tomcatServletContainerFactory;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果SpringBoot的版本低于2.0，可以将<code>TomcatEmbeddedServletContainerFactory</code>替换成<code>EmbeddedServletContainerFactory</code></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/数据结构之队列/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -746,7 +905,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">13</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
