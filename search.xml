@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[SpringBoot端口配置]]></title>
+    <url>%2F2018%2F12%2F20%2FSpringBoot%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE%2F</url>
+    <content type="text"><![CDATA[SpringBoot的默认端口是8080，如果想要修改端口信息，可以通过以下两种方式 配置文件修改在application.properties或application.yml文件中修改server.port 修改application.properties1server.port=8090 修改application.yml12server: port: 8090 在命令行中指定启动端口比如传入参数–server.port=8090 1java -jar sprite.jar --server.port=8090 或者传入虚拟机系统属性 1java -Dserver.port=8090 -jar sprite.jar]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[数据库事务]]></title>
     <url>%2F2018%2F12%2F19%2F%E6%95%B0%E6%8D%AE%E5%BA%93%E4%BA%8B%E5%8A%A1%2F</url>
     <content type="text"><![CDATA[特性ACID 原子性 Atomicity 一致性 Consistency 隔离性 Isolation 持久性 Durability 原子性 Atomicity原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚，事务的各个元素是不可分的，事务是一个完整操作。 一致性 Consistency一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。 拿转账来说，假设用户A和用户B两者的钱加起来一共是5000，那么不管A和B之间如何转账，转几次账，事务结束后两个用户的钱相加起来应该还得是5000，这就是事务的一致性。 隔离性 Isolation隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。 即要达到这么一种效果：对于任意两个并发的事务T1和T2，在事务T1看来，T2要么在T1开始之前就已经结束，要么在T1结束之后才开始，这样每个事务都感觉不到有其他事务在并发地执行。 持久性 Durability持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。 例如我们在使用JDBC操作数据库时，在提交事务方法后，提示用户事务操作完成，当我们程序执行完成直到看到提示后，就可以认定事务以及正确提交，即使这时候数据库出现了问题，也必须要将我们的事务完全执行完成，否则就会造成我们看到提示事务处理完毕，但是数据库因为故障而没有执行事务的重大错误。 事务的隔离性问题如果不考虑事务的隔离性，会发生几种问题 脏读脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。 当一个事务正在多次修改某个数据，而在这个事务中这多次的修改都还未提交，这时一个并发的事务来访问该数据，就会造成两个事务得到的数据不一致。例如：用户A向用户B转账100元，对应SQL命令如下 123update account set money = money + 100 where name = 'B'; (此时A通知B)update account set money = money - 100 where name = 'A'; 当只执行第一条SQL时，A通知B查看账户，B发现确实钱已到账（此时即发生了脏读），而之后无论第二条SQL是否执行，只要该事务不提交，则所有操作都将回滚，那么当B以后再次查看账户时就会发现钱其实并没有转。 不可重复读不可重复读是指在对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，被另一个事务修改并提交了。 例如事务T1在读取某一数据，而事务T2立马修改了这个数据并且提交事务给数据库，事务T1再次读取该数据就得到了不同的结果，发送了不可重复读。 不可重复读和脏读的区别是，脏读是某一事务读取了另一个事务未提交的脏数据，而不可重复读则是读取了前一事务提交的数据。 在某些情况下，不可重复读并不是问题，比如我们多次查询某个数据当然以最后查询得到的结果为主。但在另一些情况下就有可能发生问题，例如对于同一个数据A和B依次查询就可能不同，A和B就可能打起来了…… 幻读幻读是事务非独立执行时发生的一种现象。例如事务T1对一个表中所有的行的某个数据项做了从“1”修改为“2”的操作，这时事务T2又对这个表中插入了一行数据项，而这个数据项的数值还是为“1”并且提交给数据库。而操作事务T1的用户如果再查看刚刚修改的数据，会发现还有一行没有修改，其实这行是从事务T2中添加的，就好像产生幻觉一样，这就是发生了幻读。 幻读和不可重复读都是读取了另一条已经提交的事务（这点就脏读不同），所不同的是不可重复读查询的都是同一个数据项，而幻读针对的是一批数据整体（比如数据的个数）。 事务隔离级别Serializable 串行化可避免脏读、不可重复读、幻读的发生。 Repeatable read 可重复读可避免脏读、不可重复读的发生。 Read committed 读已提交可避免脏读的发生。 Read uncommitted 读未提交最低级别，任何情况都无法保证。 说明以上四种隔离级别最高的是Serializable级别，最低的是Read uncommitted级别，当然级别越高，执行效率就越低。像Serializable这样的级别，就是以锁表的方式(类似于Java多线程中的锁)使得其他的线程只能在锁外等待，所以平时选用何种隔离级别应该根据实际情况。在MySQL数据库中默认的隔离级别为Repeatable read (可重复读)。 在MySQL数据库中，支持上面四种隔离级别，默认的为Repeatable read (可重复读)；而在Oracle数据库中，只支持Serializable (串行化)级别和Read committed (读已提交)这两种级别，其中默认的为Read committed级别。]]></content>
@@ -53,17 +64,6 @@
       </categories>
       <tags>
         <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[SpringBoot2.0之数据源配置]]></title>
-    <url>%2F2018%2F12%2F13%2FSpringBoot2.0%E6%95%B0%E6%8D%AE%E6%BA%90%E9%85%8D%E7%BD%AE%2F</url>
-    <content type="text"><![CDATA[SpringBoot2.0 的情况下，配置数据源之后出现 jdbcUrl is required with driverClassName 的错误 因为2.0的配置和之前版本配置不太一样 ，在配置文件中应该使用 spring.datasource.jdbc-url ，而不是 spring.datasource.url 12345spring.datasource.lemon.jdbc-url=jdbc:mysql://127.0.0.1:3306/lemon?useUnicode=true&amp;characterEncoding=UTF-8spring.datasource.lemon.username=rootspring.datasource.lemon.password=123456spring.datasource.lemon.driver-class-name=com.mysql.jdbc.Driverspring.datasource.lemon.type=com.alibaba.druid.pool.DruidDataSource 完整的配置如下1234567891011121314151617181920212223242526272829# 数据源配置spring.datasource.lemon.jdbc-url=jdbc:mysql://127.0.0.1:3306/lemon?useUnicode=true&amp;characterEncoding=UTF-8spring.datasource.lemon.username=rootspring.datasource.lemon.password=123456spring.datasource.lemon.driver-class-name=com.mysql.jdbc.Driverspring.datasource.lemon.type=com.alibaba.druid.pool.DruidDataSource# 初始化大小，最小，最大spring.datasource.lemon.initialSize=5spring.datasource.lemon.minIdle=5spring.datasource.lemon.maxActive=20# 配置获取连接等待超时的时间spring.datasource.lemon.maxWait=60000# 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒spring.datasource.lemon.timeBetweenEvictionRunsMillis=60000# 配置一个连接在池中最小生存的时间，单位是毫秒spring.datasource.lemon.minEvictableIdleTimeMillis=30000spring.datasource.lemon.validationQuery=SELECT 1 FROM DUALspring.datasource.lemon.testWhileIdle=truespring.datasource.lemon.testOnBorrow=falsespring.datasource.lemon.testOnReturn=false# 打开PSCache，并且指定每个连接上PSCache的大小spring.datasource.lemon.poolPreparedStatements=truespring.datasource.lemon.maxPoolPreparedStatementPerConnectionSize=20# 配置监控统计拦截的filters，去掉后监控界面sql无法统计，&apos;wall&apos;用于防火墙spring.datasource.lemon.filters=stat,wall,log4j# 通过connectProperties属性来打开mergeSql功能；慢SQL记录spring.datasource.lemon.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000# 合并多个DruidDataSource的监控数据spring.datasource.lemon.useGlobalDataSourceStat=true]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
