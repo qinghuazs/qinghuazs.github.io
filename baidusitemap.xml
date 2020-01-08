@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2019/01/05/SpringBoot%E5%86%85%E7%BD%AETocmat%E5%87%BA%E7%8E%B0Trace%E8%AF%B7%E6%B1%82%E6%BC%8F%E6%B4%9E/</loc>
+    <lastmod>2020-01-08T14:20:28.491Z</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2020/01/08/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89Starter/</loc>
+    <lastmod>2020-01-08T14:20:28.471Z</lastmod>
+  </url>  <url>
+    <loc>http://yoursite.com/2020/01/08/Idea%E6%B3%A8%E5%86%8C%E7%A0%81/</loc>
+    <lastmod>2020-01-08T14:20:28.455Z</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2019/06/19/04.%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AASpringBoot%E5%BA%94%E7%94%A8/</loc>
     <lastmod>2019-06-19T00:15:47.072Z</lastmod>
   </url>  <url>
@@ -45,9 +54,6 @@
   </url>  <url>
     <loc>http://yoursite.com/2018/12/12/MyBatisPlus%E4%B8%BB%E9%94%AE%E8%AE%BE%E7%BD%AE%E7%AD%96%E7%95%A5/</loc>
     <lastmod>2018-12-13T12:24:25.225Z</lastmod>
-  </url>  <url>
-    <loc>http://yoursite.com/2018/12/11/SpringBoot%E5%86%85%E7%BD%AETocmat%E5%87%BA%E7%8E%B0Trace%E8%AF%B7%E6%B1%82%E6%BC%8F%E6%B4%9E/</loc>
-    <lastmod>2018-12-11T14:07:55.363Z</lastmod>
   </url>  <url>
     <loc>http://yoursite.com/2018/03/17/%E5%86%85%E9%83%A8%E7%B1%BB/</loc>
     <lastmod>2018-12-09T05:52:29.565Z</lastmod>

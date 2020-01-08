@@ -333,6 +333,330 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/SpringBoot自定义Starter/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/08/SpringBoot自定义Starter/" itemprop="url">SpringBoot 自定义 Starter</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-08T21:17:00+08:00">
+                2020-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Starter-命名规范"><a href="#Starter-命名规范" class="headerlink" title="Starter 命名规范"></a>Starter 命名规范</h2><p>官方的 Starter 遵循 <code>spring-boot-starter-*</code> 的命名模式，如 <code>spring-boot-starter-data-jpa</code> 。第三方的 Starter 通常以自己的项目名称开始，例如，名为 thirdpartyproject 的第三方入门项目通常被命名为 <code>thirdpartyproject-spring-boot-starter</code>。</p>
+<h2 id="自定义-Starter"><a href="#自定义-Starter" class="headerlink" title="自定义 Starter"></a>自定义 Starter</h2><h3 id="创建-Starter-工程"><a href="#创建-Starter-工程" class="headerlink" title="创建 Starter 工程"></a>创建 Starter 工程</h3><p>使用 <code>maven-archetype-quickstart</code> 架手架创建一个 Maven 工程，artifactId 设置为 <code>zombie-spring-boot-starter</code>。</p>
+<p>在 <code>pom.xml</code> 文件中引入依赖的 jar 包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>设置以 jar 包的方式打包：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="定义服务类"><a href="#定义服务类" class="headerlink" title="定义服务类"></a>定义服务类</h3><p>定义一个服务类 <code>ZombieService</code> :</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZombieService</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Zombie <span class="title">setZombie</span><span class="params">(String name, Integer age)</span> </span>&#123;</span><br><span class="line">        Zombie zombie = <span class="keyword">new</span> Zombie();</span><br><span class="line">        zombie.setName(name);</span><br><span class="line">        zombie.setAge(age);</span><br><span class="line">        <span class="keyword">return</span> zombie;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="定义配置类"><a href="#定义配置类" class="headerlink" title="定义配置类"></a>定义配置类</h3><p>定义一个自动配置类，一般是以 <code>*AutoConfiguration</code> 的形式命名的。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(ZombieService.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ZombieAutoConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean</span>(ZombieService.class)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> ZombieService <span class="title">zombieService</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ZombieService();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="常用的注解"><a href="#常用的注解" class="headerlink" title="常用的注解"></a>常用的注解</h4><ul>
+<li>@ConditionalOnClass：当类路径classpath下有指定的类的情况下进行自动配置</li>
+<li>@ConditionalOnMissingClass：当类路径下没有指定的类的条件下</li>
+<li><p>@ConditionalOnBean：当容器(Spring Context)中有指定的Bean的条件下</p>
+</li>
+<li><p>@ConditionalOnMissingBean：当容器(Spring Context)中没有指定Bean的情况下进行自动配置</p>
+</li>
+</ul>
+<h3 id="配置-spring-factories"><a href="#配置-spring-factories" class="headerlink" title="配置 spring.factories"></a>配置 spring.factories</h3><p>在 <code>resources/META-INF/spring.factories</code> 下配置自动配置类。如果没有该文件的话，需要手动创建。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.boot.autoconfigure.EnableAutoConfiguration=com.qinghuazs.zombie.auto.ZombieAutoConfiguration</span><br></pre></td></tr></table></figure>
+<h3 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h3><p>在发布之前需要在 <code>pom.xml</code> 文件中配置仓库信息</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>qinghuazs-release<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>qinghuazs-release<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://af.qinghuazs.com.cn:80/artifactory/maven-qinghuazs-release<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>qinghuazs-snapshot<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>qinghuazs-snapshot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://af.qinghuazs.com.cn:80/artifactory/maven-qinghuazs-snapshot<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>进行发布</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> mvn clean install </span><br><span class="line"><span class="meta">#</span> mvn deploy</span><br></pre></td></tr></table></figure>
+<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>新建测试项目，并在 <code>pom.xml</code> 中引入自定义的 Starter：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.qinghuazs<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zombie-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>自建 Controller 类，并引入 Starter 中的类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ZombieService zombieService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span>(<span class="string">"/test"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> zombieService.setZombie(<span class="string">"qinghuazs"</span>, <span class="number">11</span>).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 Postman 测试，输出结果如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Zombie(name=qinghuazs, age=11)</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/08/Idea注册码/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2020/01/08/Idea注册码/" itemprop="url">Idea 注册码</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-08T19:03:00+08:00">
+                2020-01-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/工具/Idea/" itemprop="url" rel="index">
+                    <span itemprop="name">Idea</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>到期时间为2021年</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">QYYBAC9D3J-eyJsaWNlbnNlSWQiOiJRWVlCQUM5RDNKIiwibGljZW5zZWVOYW1lIjoi6LaF57qnIOeoi+W6j+WRmCIsImFzc2lnbmVlTmFtZSI6IiIsImFzc2lnbmVlRW1haWwiOiIiLCJsaWNlbnNlUmVzdHJpY3Rpb24iOiIiLCJjaGVja0NvbmN1cnJlbnRVc2UiOmZhbHNlLCJwcm9kdWN0cyI6W3siY29kZSI6IklJIiwiZmFsbGJhY2tEYXRlIjoiMjAyMC0wMS0wNCIsInBhaWRVcFRvIjoiMjAyMS0wMS0wMyJ9LHsiY29kZSI6IkFDIiwiZmFsbGJhY2tEYXRlIjoiMjAyMC0wMS0wNCIsInBhaWRVcFRvIjoiMjAyMS0wMS0wMyJ9LHsiY29kZSI6IkRQTiIsImZhbGxiYWNrRGF0ZSI6IjIwMjAtMDEtMDQiLCJwYWlkVXBUbyI6IjIwMjEtMDEtMDMifSx7ImNvZGUiOiJQUyIsImZhbGxiYWNrRGF0ZSI6IjIwMjAtMDEtMDQiLCJwYWlkVXBUbyI6IjIwMjEtMDEtMDMifSx7ImNvZGUiOiJHTyIsImZhbGxiYWNrRGF0ZSI6IjIwMjAtMDEtMDQiLCJwYWlkVXBUbyI6IjIwMjEtMDEtMDMifSx7ImNvZGUiOiJETSIsImZhbGxiYWNrRGF0ZSI6IjIwMjAtMDEtMDQiLCJwYWlkVXBUbyI6IjIwMjEtMDEtMDMifSx7ImNvZGUiOiJDTCIsImZhbGxiYWNrRGF0ZSI6IjIwMjAtMDEtMDQiLCJwYWlkVXBUbyI6IjIwMjEtMDEtMDMifSx7ImNvZGUiOiJSUzAiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiUkMiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiUkQiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiUEMiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiUk0iLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiV1MiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiREIiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiREMiLCJmYWxsYmFja0RhdGUiOiIyMDIwLTAxLTA0IiwicGFpZFVwVG8iOiIyMDIxLTAxLTAzIn0seyJjb2RlIjoiUlNVIiwiZmFsbGJhY2tEYXRlIjoiMjAyMC0wMS0wNCIsInBhaWRVcFRvIjoiMjAyMS0wMS0wMyJ9XSwiaGFzaCI6IjE2MDgwOTA5LzAiLCJncmFjZVBlcmlvZERheXMiOjcsImF1dG9Qcm9sb25nYXRlZCI6ZmFsc2UsImlzQXV0b1Byb2xvbmdhdGVkIjpmYWxzZX0=-I7c5mu4hUCMxcldrwZEJMaT+qkrzrF1bjJi0i5QHcrRxk2LO0jqzUe2fBOUR4L+x+7n6kCwAoBBODm9wXst8dWLXdq179EtjU3rfJENr1wXGgtef//FNow+Id5iRufJ4W+p+3s5959GSFibl35YtbELELuCUH2IbCRly0PUBjitgA0r2y+9jV5YD/dmrd/p4C87MccC74NxtQfRdeUEGx87vnhsqTFH/sP4C2VljSo/F/Ft9JqsSlGfwSKjzU8BreYt1QleosdMnMK7a+fkfxh7n5zg4DskdVlNbfe6jvYgMVE16DMXd6F1Zhwq+lrmewJA2jPToc+H5304rcJfa9w==-MIIElTCCAn2gAwIBAgIBCTANBgkqhkiG9w0BAQsFADAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBMB4XDTE4MTEwMTEyMjk0NloXDTIwMTEwMjEyMjk0NlowaDELMAkGA1UEBhMCQ1oxDjAMBgNVBAgMBU51c2xlMQ8wDQYDVQQHDAZQcmFndWUxGTAXBgNVBAoMEEpldEJyYWlucyBzLnIuby4xHTAbBgNVBAMMFHByb2QzeS1mcm9tLTIwMTgxMTAxMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxcQkq+zdxlR2mmRYBPzGbUNdMN6OaXiXzxIWtMEkrJMO/5oUfQJbLLuMSMK0QHFmaI37WShyxZcfRCidwXjot4zmNBKnlyHodDij/78TmVqFl8nOeD5+07B8VEaIu7c3E1N+e1doC6wht4I4+IEmtsPAdoaj5WCQVQbrI8KeT8M9VcBIWX7fD0fhexfg3ZRt0xqwMcXGNp3DdJHiO0rCdU+Itv7EmtnSVq9jBG1usMSFvMowR25mju2JcPFp1+I4ZI+FqgR8gyG8oiNDyNEoAbsR3lOpI7grUYSvkB/xVy/VoklPCK2h0f0GJxFjnye8NT1PAywoyl7RmiAVRE/EKwIDAQABo4GZMIGWMAkGA1UdEwQCMAAwHQYDVR0OBBYEFGEpG9oZGcfLMGNBkY7SgHiMGgTcMEgGA1UdIwRBMD+AFKOetkhnQhI2Qb1t4Lm0oFKLl/GzoRykGjAYMRYwFAYDVQQDDA1KZXRQcm9maWxlIENBggkA0myxg7KDeeEwEwYDVR0lBAwwCgYIKwYBBQUHAwEwCwYDVR0PBAQDAgWgMA0GCSqGSIb3DQEBCwUAA4ICAQAF8uc+YJOHHwOFcPzmbjcxNDuGoOUIP+2h1R75Lecswb7ru2LWWSUMtXVKQzChLNPn/72W0k+oI056tgiwuG7M49LXp4zQVlQnFmWU1wwGvVhq5R63Rpjx1zjGUhcXgayu7+9zMUW596Lbomsg8qVve6euqsrFicYkIIuUu4zYPndJwfe0YkS5nY72SHnNdbPhEnN8wcB2Kz+OIG0lih3yz5EqFhld03bGp222ZQCIghCTVL6QBNadGsiN/lWLl4JdR3lJkZzlpFdiHijoVRdWeSWqM4y0t23c92HXKrgppoSV18XMxrWVdoSM3nuMHwxGhFyde05OdDtLpCv+jlWf5REAHHA201pAU6bJSZINyHDUTB+Beo28rRXSwSh3OUIvYwKNVeoBY+KwOJ7WnuTCUq1meE6GkKc4D/cXmgpOyW/1SmBz3XjVIi/zprZ0zf3qH5mkphtg6ksjKgKjmx1cXfZAAX6wcDBNaCL+Ortep1Dh8xDUbqbBVNBL4jbiL3i3xsfNiyJgaZ5sX7i8tmStEpLbPwvHcByuf59qJhV/bZOl8KqJBETCDJcY6O2aqhTUy+9x93ThKs1GKrRPePrWPluud7ttlgtRveit/pcBrnQcXOl1rHq7ByB8CFAxNotRUYL9IF5n3wJOgkPojMy6jetQA5Ogc8Sm7RG6vg1yow==</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/19/04.开发你的第一个SpringBoot应用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1115,6 +1439,168 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/05/SpringBoot内置Tocmat出现Trace请求漏洞/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/01/05/SpringBoot内置Tocmat出现Trace请求漏洞/" itemprop="url">SpringBoot内置Tocmat出现Trace请求漏洞</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-05T16:45:00+08:00">
+                2019-01-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/绿盟/" itemprop="url" rel="index">
+                    <span itemprop="name">绿盟</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>近期使用绿盟扫描工具对 Web 系统进行扫描，出现了检测到目标服务器启用了 TRACE 方法的高级漏洞，TRACE 是 HTTP 协议定义的一种请求方法，该方法会使服务器原样返回任意客户端请求的任何内容，因此可以用来进行跨站点脚本攻击（XSS 攻击），这种攻击方式又称为跨站跟踪攻击（XST）。 </p>
+<p>绿盟的报告中给出了相应的方案：</p>
+<ol>
+<li>2.0.55 以上版本的 Apache 服务器，可以在<code>httpd.conf</code>的尾部添加：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">TraceEnable off</span><br></pre></td></tr></table></figure>
+<p>2.如果你使用的是 Apache： </p>
+<ul>
+<li>确认 rewrite 模块激活（httpd.conf）</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LoadModule rewrite_module modules/mod_rewrite.so</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在各虚拟主机的配置文件里添加如下语句：</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">RewriteEngine On RewriteCond %&#123;REQUEST_METHOD&#125; ^TRACE RewriteRule .*</span><br></pre></td></tr></table></figure>
+<p>我们的项目是基于 SpringBoot的单机web项目，并没有使用到Apache服务器。查询相关资料，得知在Tomcat的web.xml文件中可以配置HTTP的请求方式，禁止不安全的请求类型： </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">security-constraint</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;<span class="name">web-resource-collection</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/*<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span>  </span><br><span class="line">      <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>PUT<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>DELETE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>HEAD<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>OPTIONS<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">	  <span class="tag">&lt;<span class="name">http-method</span>&gt;</span>TRACE<span class="tag">&lt;/<span class="name">http-method</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;/<span class="name">web-resource-collection</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;<span class="name">auth-constraint</span>&gt;</span>  </span><br><span class="line">   <span class="tag">&lt;/<span class="name">auth-constraint</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">security-constraint</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">login-config</span>&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">auth-method</span>&gt;</span>BASIC<span class="tag">&lt;/<span class="name">auth-method</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">login-config</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果使用的是SpringBoot内置的Tomcat容器的话，可以配置Tomcat的配置类，将配置注入到Spring容器中： </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TomcatConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatServletWebServerFactory tomcatServletContainerFactory = <span class="keyword">new</span> TomcatServletWebServerFactory();</span><br><span class="line">        tomcatServletContainerFactory.addContextCustomizers(<span class="keyword">new</span> TomcatContextCustomizer()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint constraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                <span class="comment">//http方法</span></span><br><span class="line">                collection.addMethod(<span class="string">"PUT"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"DELETE"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"HEAD"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"OPTIONS"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"TRACE"</span>);</span><br><span class="line">                <span class="comment">//url匹配表达式</span></span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                constraint.addCollection(collection);</span><br><span class="line">                constraint.setAuthConstraint(<span class="keyword">true</span>);</span><br><span class="line">                context.addConstraint(constraint );</span><br><span class="line"></span><br><span class="line">                <span class="comment">//设置使用httpOnly</span></span><br><span class="line">                context.setUseHttpOnly(<span class="keyword">true</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> tomcatServletContainerFactory;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果 SpringBoot 的版本低于2.0，可以将 <code>TomcatServletWebServerFactory</code>替换成 <code>EmbeddedServletContainerFactory</code> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TomcatConfig</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> TomcatServletWebServerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        TomcatServletWebServerFactory tomcat = <span class="keyword">new</span> TomcatServletWebServerFactory() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">postProcessContext</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">                SecurityConstraint securityConstraint = <span class="keyword">new</span> SecurityConstraint();</span><br><span class="line">                securityConstraint.setUserConstraint(<span class="string">"CONFIDENTIAL"</span>);</span><br><span class="line">                SecurityCollection collection = <span class="keyword">new</span> SecurityCollection();</span><br><span class="line">                collection.addPattern(<span class="string">"/*"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"HEAD"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"PUT"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"DELETE"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"OPTIONS"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"TRACE"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"COPY"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"SEARCH"</span>);</span><br><span class="line">                collection.addMethod(<span class="string">"PROPFIND"</span>);</span><br><span class="line">                securityConstraint.addCollection(collection);</span><br><span class="line">                context.addConstraint(securityConstraint);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        <span class="comment">//如果需要禁用TRACE请求，需添加以下代码：</span></span><br><span class="line">        tomcat.addConnectorCustomizers(connector -&gt; &#123;</span><br><span class="line">            connector.setAllowTrace(<span class="keyword">true</span>);</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">return</span> tomcat;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/24/Java反射/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1742,505 +2228,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/20/SpringBoot端口配置/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/20/SpringBoot端口配置/" itemprop="url">SpringBoot端口配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-20T20:50:00+08:00">
-                2018-12-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>SpringBoot的默认端口是8080，如果想要修改端口信息，可以通过以下两种方式</p>
-<h3 id="配置文件修改"><a href="#配置文件修改" class="headerlink" title="配置文件修改"></a>配置文件修改</h3><p>在application.properties或application.yml文件中修改server.port</p>
-<h4 id="修改application-properties"><a href="#修改application-properties" class="headerlink" title="修改application.properties"></a>修改application.properties</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">server.port=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
-<h4 id="修改application-yml"><a href="#修改application-yml" class="headerlink" title="修改application.yml"></a>修改application.yml</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line"><span class="attr">  port:</span> <span class="number">8090</span></span><br></pre></td></tr></table></figure>
-<h3 id="在命令行中指定启动端口"><a href="#在命令行中指定启动端口" class="headerlink" title="在命令行中指定启动端口"></a>在命令行中指定启动端口</h3><p>比如传入参数–server.port=8090</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -jar sprite.jar --server.port=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
-<p>或者传入虚拟机系统属性</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -Dserver.port=<span class="number">8090</span> -jar sprite.jar</span><br></pre></td></tr></table></figure>
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/19/数据库事务/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/19/数据库事务/" itemprop="url">数据库事务</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-19T20:58:00+08:00">
-                2018-12-19
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/数据库/" itemprop="url" rel="index">
-                    <span itemprop="name">数据库</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h2 id="特性ACID"><a href="#特性ACID" class="headerlink" title="特性ACID"></a>特性ACID</h2><ul>
-<li>原子性 Atomicity</li>
-<li>一致性 Consistency</li>
-<li>隔离性 Isolation</li>
-<li>持久性 Durability</li>
-</ul>
-<h3 id="原子性-Atomicity"><a href="#原子性-Atomicity" class="headerlink" title="原子性 Atomicity"></a>原子性 Atomicity</h3><p>原子性是指事务包含的所有操作要么全部成功，要么全部失败回滚，事务的各个元素是不可分的，事务是一个完整操作。</p>
-<h3 id="一致性-Consistency"><a href="#一致性-Consistency" class="headerlink" title="一致性 Consistency"></a>一致性 Consistency</h3><p>一致性是指事务必须使数据库从一个一致性状态变换到另一个一致性状态，也就是说一个事务执行之前和执行之后都必须处于一致性状态。</p>
-<p>拿转账来说，假设用户A和用户B两者的钱加起来一共是5000，那么不管A和B之间如何转账，转几次账，事务结束后两个用户的钱相加起来应该还得是5000，这就是事务的一致性。</p>
-<h3 id="隔离性-Isolation"><a href="#隔离性-Isolation" class="headerlink" title="隔离性 Isolation"></a>隔离性 Isolation</h3><p>隔离性是当多个用户并发访问数据库时，比如操作同一张表时，数据库为每一个用户开启的事务，不能被其他事务的操作所干扰，多个并发事务之间要相互隔离。</p>
-<p>即要达到这么一种效果：对于任意两个并发的事务T1和T2，在事务T1看来，T2要么在T1开始之前就已经结束，要么在T1结束之后才开始，这样每个事务都感觉不到有其他事务在并发地执行。</p>
-<h3 id="持久性-Durability"><a href="#持久性-Durability" class="headerlink" title="持久性 Durability"></a>持久性 Durability</h3><p>持久性是指一个事务一旦被提交了，那么对数据库中的数据的改变就是永久性的，即便是在数据库系统遇到故障的情况下也不会丢失提交事务的操作。</p>
-<p>例如我们在使用JDBC操作数据库时，在提交事务方法后，提示用户事务操作完成，当我们程序执行完成直到看到提示后，就可以认定事务以及正确提交，即使这时候数据库出现了问题，也必须要将我们的事务完全执行完成，否则就会造成我们看到提示事务处理完毕，但是数据库因为故障而没有执行事务的重大错误。</p>
-<h2 id="事务的隔离性"><a href="#事务的隔离性" class="headerlink" title="事务的隔离性"></a>事务的隔离性</h2><h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p>如果不考虑事务的隔离性，会发生几种问题</p>
-<h4 id="脏读"><a href="#脏读" class="headerlink" title="脏读"></a>脏读</h4><p>脏读是指在一个事务处理过程里读取了另一个未提交的事务中的数据。</p>
-<p>当一个事务正在多次修改某个数据，而在这个事务中这多次的修改都还未提交，这时一个并发的事务来访问该数据，就会造成两个事务得到的数据不一致。例如：用户A向用户B转账100元，对应SQL命令如下</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">update</span> <span class="keyword">account</span> <span class="keyword">set</span> money = money + <span class="number">100</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'B'</span>;  (此时A通知B)</span><br><span class="line"></span><br><span class="line"><span class="keyword">update</span> <span class="keyword">account</span> <span class="keyword">set</span> money = money - <span class="number">100</span> <span class="keyword">where</span> <span class="keyword">name</span> = <span class="string">'A'</span>;</span><br></pre></td></tr></table></figure>
-<p>当只执行第一条SQL时，A通知B查看账户，B发现确实钱已到账（此时即发生了脏读），而之后无论第二条SQL是否执行，只要该事务不提交，则所有操作都将回滚，那么当B以后再次查看账户时就会发现钱其实并没有转。</p>
-<h4 id="不可重复读"><a href="#不可重复读" class="headerlink" title="不可重复读"></a>不可重复读</h4><p>不可重复读是指在对于数据库中的某个数据，一个事务范围内多次查询却返回了不同的数据值，这是由于在查询间隔，被另一个事务修改并提交了。</p>
-<p>例如事务T1在读取某一数据，而事务T2立马修改了这个数据并且提交事务给数据库，事务T1再次读取该数据就得到了不同的结果，发送了不可重复读。</p>
-<p>不可重复读和脏读的区别是，脏读是某一事务读取了另一个事务未提交的脏数据，而不可重复读则是读取了前一事务提交的数据。</p>
-<p>在某些情况下，不可重复读并不是问题，比如我们多次查询某个数据当然以最后查询得到的结果为主。但在另一些情况下就有可能发生问题，例如对于同一个数据A和B依次查询就可能不同，A和B就可能打起来了……</p>
-<h4 id="幻读"><a href="#幻读" class="headerlink" title="幻读"></a>幻读</h4><p>幻读是事务非独立执行时发生的一种现象。例如事务T1对一个表中所有的行的某个数据项做了从“1”修改为“2”的操作，这时事务T2又对这个表中插入了一行数据项，而这个数据项的数值还是为“1”并且提交给数据库。而操作事务T1的用户如果再查看刚刚修改的数据，会发现还有一行没有修改，其实这行是从事务T2中添加的，就好像产生幻觉一样，这就是发生了幻读。</p>
-<p>幻读和不可重复读都是读取了另一条已经提交的事务（这点就脏读不同），所不同的是不可重复读查询的都是同一个数据项，而幻读针对的是一批数据整体（比如数据的个数）。</p>
-<h3 id="事务隔离级别"><a href="#事务隔离级别" class="headerlink" title="事务隔离级别"></a>事务隔离级别</h3><h4 id="Serializable-串行化"><a href="#Serializable-串行化" class="headerlink" title="Serializable 串行化"></a>Serializable 串行化</h4><p>可避免脏读、不可重复读、幻读的发生。</p>
-<h4 id="Repeatable-read-可重复读"><a href="#Repeatable-read-可重复读" class="headerlink" title="Repeatable read 可重复读"></a>Repeatable read 可重复读</h4><p>可避免脏读、不可重复读的发生。</p>
-<h4 id="Read-committed-读已提交"><a href="#Read-committed-读已提交" class="headerlink" title="Read committed 读已提交"></a>Read committed 读已提交</h4><p>可避免脏读的发生。</p>
-<h4 id="Read-uncommitted-读未提交"><a href="#Read-uncommitted-读未提交" class="headerlink" title="Read uncommitted 读未提交"></a>Read uncommitted 读未提交</h4><p>最低级别，任何情况都无法保证。</p>
-<h4 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h4><p>以上四种隔离级别最高的是Serializable级别，最低的是Read uncommitted级别，当然<strong>级别越高，执行效率就越低</strong>。像Serializable这样的级别，就是以锁表的方式(类似于Java多线程中的锁)使得其他的线程只能在锁外等待，所以平时选用何种隔离级别应该根据实际情况。<strong>在MySQL数据库中默认的隔离级别为Repeatable read (可重复读)</strong>。</p>
-<p>在MySQL数据库中，支持上面四种隔离级别，默认的为Repeatable read (可重复读)；而在Oracle数据库中，只支持Serializable (串行化)级别和Read committed (读已提交)这两种级别，其中默认的为Read committed级别。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/18/MySQL查询缓存/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/18/MySQL查询缓存/" itemprop="url">MySQL查询缓存</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-18T00:00:00+08:00">
-                2018-12-18
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>MySQL 查询缓存存储客户端请求的查询结果信息( SELECT 语句)。MySQL 服务器在接收到相同的请求时，会直接将查询缓存中的结果返回给客户端，不再去数据库中重新查询。而且，查询缓存是在多个会话中共享的，一个客户端的查询缓存结果可以被另一个客户端的相同请求复用，从而加快了查询效率。</p>
-<p>需要注意的是，查询缓存在 <strong>MySQL5.7.20 版本已过时，在 MySQL8.0 版本中被移除</strong>，所以使用时需要注意 MySQL 服务器的版本信息。</p>
-<h3 id="查询缓存配置"><a href="#查询缓存配置" class="headerlink" title="查询缓存配置"></a>查询缓存配置</h3><h4 id="查询缓存的数据库支持"><a href="#查询缓存的数据库支持" class="headerlink" title="查询缓存的数据库支持"></a>查询缓存的数据库支持</h4><p>可以使用 <strong>SHOW VARIABLES LIKE ‘have_query_cache’</strong> 指令查询当前的 MySQL 数据库是否支持查询缓存：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;have_query_cache&apos;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| have_query_cache | YES   |</span><br><span class="line">+------------------+-------+</span><br><span class="line">1 row in set</span><br></pre></td></tr></table></figure>
-<h4 id="具体配置"><a href="#具体配置" class="headerlink" title="具体配置"></a>具体配置</h4><p>也可以通过 <strong>SHOW VARIABLES LIKE ‘%query_cache%’</strong> 来查看查询缓存的详细配置信息：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;%query_cache%&apos;;</span><br><span class="line">+------------------------------+---------+</span><br><span class="line">| Variable_name                | Value   |</span><br><span class="line">+------------------------------+---------+</span><br><span class="line">| have_query_cache             | YES     |</span><br><span class="line">| query_cache_limit            | 1048576 |</span><br><span class="line">| query_cache_min_res_unit     | 4096    |</span><br><span class="line">| query_cache_size             | 0       |</span><br><span class="line">| query_cache_type             | ON      |</span><br><span class="line">| query_cache_wlock_invalidate | OFF     |</span><br><span class="line">+------------------------------+---------+</span><br></pre></td></tr></table></figure></p>
-<h5 id="query-cache-limit"><a href="#query-cache-limit" class="headerlink" title="query_cache_limit"></a>query_cache_limit</h5><p>指定单个查询能够使用的缓冲区的大小，默认值是1M大小</p>
-<h5 id="query-cache-min-res-unit"><a href="#query-cache-min-res-unit" class="headerlink" title="query_cache_min_res_unit"></a>query_cache_min_res_unit</h5><p>查询缓存分配的最小块的大小，默认大小是 4KB。</p>
-<p>MySQL 用于查询的缓存的内存被分成一个个变长数据块，用来存储类型，大小，数据等信息。当服务器启动的时候，会初始化缓存需要的内存。当查询结果需要缓存的时候，先从空闲块中申请一个数据块大于参数 query_cache_min_res_unit 的配置，即使缓存数据很小，申请数据块也是这个，因为查询开始返回结果的时候就分配空间，此时无法预知结果多大。分配内存块需要先锁住空间块，所以操作很慢，MySQL 会尽量避免这个操作，选择尽可能小的内存块，如果不够，继续申请，如果存储完时有多余的空间，则多余的空间将会被释放。</p>
-<h5 id="query-cache-size"><a href="#query-cache-size" class="headerlink" title="query_cache_size"></a>query_cache_size</h5><p>查询缓存可用的内存大小，默认情况下是 0，表示无法使用查询缓存。</p>
-<p>查询缓存的内存可以手动配置，最小值不能小于 40K，具体的值需要参考系统的数据量和应用场景。如果设置的值太小，则设置不生效。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET GLOBAL query_cache_size  = 40000;</span><br><span class="line">Query OK, 0 rows affected</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;query_cache_size&apos;;</span><br><span class="line">+------------------+-------+</span><br><span class="line">| Variable_name    | Value |</span><br><span class="line">+------------------+-------+</span><br><span class="line">| query_cache_size | 0     |</span><br><span class="line">+------------------+-------+</span><br></pre></td></tr></table></figure></p>
-<p>官方文档中说明，该情况下，MySQL 服务器还会返回一个警告，我本地的 MySQL 版本是 5.0.96-community-nt 的，并没有返回该警告。如果想看警告效果的话，可以去<a href="https://dev.mysql.com/doc/refman/5.7/en/query-cache-configuration.html" target="_blank" rel="noopener">官网</a>进行查看。</p>
-<p>query_cache_size 设置的值，如果不是 1024byte 的整数倍，将自动转化为最靠近 1024byte 的值。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  SET GLOBAL query_cache_size = 1000000;</span><br><span class="line">Query OK, 0 rows affected</span><br><span class="line"></span><br><span class="line">mysql&gt; SHOW VARIABLES LIKE &apos;query_cache_size&apos;;</span><br><span class="line">+------------------+--------+</span><br><span class="line">| Variable_name    | Value  |</span><br><span class="line">+------------------+--------+</span><br><span class="line">| query_cache_size | 999424 |</span><br><span class="line">+------------------+--------+</span><br><span class="line">1 row in set</span><br></pre></td></tr></table></figure>
-<h5 id="query-cache-type"><a href="#query-cache-type" class="headerlink" title="query_cache_type"></a>query_cache_type</h5><p>当 query_cache_size 大于 0 的时候，查询缓存的应用将受到 query_cache_type 的影响。</p>
-<ul>
-<li><p>0 表示不使用查询缓存</p>
-</li>
-<li><p>1 表示使用使用查询缓存；如果不想用查询缓存的话，可以使用 <strong>SELECT SQL_NO_CACHE</strong> 进行查询操作</p>
-</li>
-<li><p>2 表示按需使用查询缓存，SQL 语句以 <strong>SELECT SQL_CACHE</strong> 开头表示使用查询缓存</p>
-</li>
-</ul>
-<p>当 query_cache_size 为 0 时，应该同步将 query_cache_type 设置为 0，这样的话 MySQL 服务在执行查询语句的时候讲不再检查查询互斥锁，从而可以提高查询的效率。</p>
-<p>query_cache_type 是全局生效的，所有连接到 MySQL 服务的客户端都会共用这个配置，如果某个客户端想设置自己的 query_cache_type 属性，可以通过以下指令实现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SET SESSION query_cache_type = OFF;</span><br></pre></td></tr></table></figure>
-<p>在启动时也可以设置 query_cache_type 的值，但是只能设置数字（0，1，2），不能再使用 ON 和 OFF。</p>
-<h4 id="状态监控"><a href="#状态监控" class="headerlink" title="状态监控"></a>状态监控</h4><p>通过 <strong>SHOW STATUS LIKE ‘Qcache%’</strong> 命令可以查询查询缓存当前的情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; SHOW STATUS LIKE &apos;Qcache%&apos;;</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">| Variable_name           | Value  |</span><br><span class="line">+-------------------------+--------+</span><br><span class="line">| Qcache_free_blocks      | 1      |</span><br><span class="line">| Qcache_free_memory      | 990760 |</span><br><span class="line">| Qcache_hits             | 0      |</span><br><span class="line">| Qcache_inserts          | 0      |</span><br><span class="line">| Qcache_lowmem_prunes    | 0      |</span><br><span class="line">| Qcache_not_cached       | 2      |</span><br><span class="line">| Qcache_queries_in_cache | 0      |</span><br><span class="line">| Qcache_total_blocks     | 1      |</span><br><span class="line">+-------------------------+--------+</span><br></pre></td></tr></table></figure>
-<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>查询缓存适用于进行大量重复的查询操作、并且改动量小的表。</p>
-<p>如果数据库表中数据和结构发生变化时（增删改、表结构调整），查询缓存将会失效并被清除。</p>
-<h3 id="缓存清理"><a href="#缓存清理" class="headerlink" title="缓存清理"></a>缓存清理</h3><p>可以使用以下对查询缓存进行清理操作</p>
-<ul>
-<li><p>FLUSH QUERY CACHE 清空查询缓存中的碎片</p>
-</li>
-<li><p>RESET QUERY CACHE 从查询缓存中移除所有查询</p>
-</li>
-<li><p>FLUSH TABLES 关闭所有打开的表，该操作将同步清空查询缓存中的内容</p>
-</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2293,7 +2280,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2304,7 +2291,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2315,7 +2302,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -2380,7 +2367,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
