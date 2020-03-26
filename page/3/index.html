@@ -333,6 +333,355 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/Slow HTTP Denial Of Service Attack/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/13/Slow HTTP Denial Of Service Attack/" itemprop="url">Slow HTTP Denial Of Service Attack</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-13T00:00:00+08:00">
+                2018-12-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tomcat/" itemprop="url" rel="index">
+                    <span itemprop="name">Tomcat</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>近期使用WVS扫描工具对 Web 系统进行扫描，出现了<font color="red"> Slow HTTP Denial Of Service Attack </font>的安全漏洞，即缓慢的 HTTP DOS 攻击。 </p>
+<p>该攻击依赖于 HTTP POST ，指定一个非常大的 content-length ，以很低的频率每次发送数据包的一部分，如果一个 HTTP 请求是不完整的或者数据传输的速率非常低，服务器将占用连接资源等待其余数据的传输，如果发送大量这样的请求，则服务器将拒绝其他的请求服务，导致服务器瘫痪。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>对 web 服务器的 HTTP 头部传输的最大许可时间进行限制，修改最大许可时间为 5s（建议为 5s~10s ）</p>
+<p>Tomcat：修改 server.xml 的 connectionTimeout (默认为20000ms即 20s)</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">port</span>=<span class="string">"8080"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">protocol</span>=<span class="string">"HTTP/1.1"</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">connectionTimeout</span>=<span class="string">"5000"</span>  </span></span><br><span class="line"><span class="tag">	<span class="attr">redirectPort</span>=<span class="string">"8443"</span> </span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/12/MyBatisPlus主键设置策略/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/12/MyBatisPlus主键设置策略/" itemprop="url">MyBatisPlus主键设置策略</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-12T19:32:00+08:00">
+                2018-12-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MyBatis/" itemprop="url" rel="index">
+                    <span itemprop="name">MyBatis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>根据一次插入失败报错来深入了解MyBatis Plus主键设置策略.</p>
+<p>今天学习使用MyBatis Plus，发现使用代码生成器生成对应的实体类、Service和Mapper后，在保存数据时报错</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line">com.baomidou.mybatisplus.exceptions.MybatisPlusException: java.lang.reflect.InvocationTargetException</span><br><span class="line"></span><br><span class="line">	at com.baomidou.mybatisplus.MybatisSqlSessionTemplate$SqlSessionInterceptor.invoke(MybatisSqlSessionTemplate.java:<span class="number">405</span>)</span><br><span class="line">	at com.sun.proxy.$Proxy70.insert(Unknown Source)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisSqlSessionTemplate.insert(MybatisSqlSessionTemplate.java:<span class="number">243</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.activerecord.Model.insert(Model.java:<span class="number">56</span>)</span><br><span class="line">	at com.lemon.rabbit.common.base.city.CityInitial.printInfo(CityInitial.java:<span class="number">112</span>)</span><br><span class="line">	at com.lemon.rabbit.common.base.city.CityInitial.parseNextLevel(CityInitial.java:<span class="number">87</span>)</span><br><span class="line">	at com.lemon.rabbit.common.base.city.CityInitial.test(CityInitial.java:<span class="number">59</span>)</span><br><span class="line">	at com.lemon.rabbit.RabbitApplicationTests.contextLoads(RabbitApplicationTests.java:<span class="number">19</span>)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.junit.runners.model.FrameworkMethod$<span class="number">1</span>.runReflectiveCall(FrameworkMethod.java:<span class="number">50</span>)</span><br><span class="line">	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:<span class="number">12</span>)</span><br><span class="line">	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:<span class="number">47</span>)</span><br><span class="line">	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:<span class="number">17</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestExecutionCallbacks.evaluate(RunBeforeTestExecutionCallbacks.java:<span class="number">73</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestExecutionCallbacks.evaluate(RunAfterTestExecutionCallbacks.java:<span class="number">83</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestMethodCallbacks.evaluate(RunBeforeTestMethodCallbacks.java:<span class="number">75</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestMethodCallbacks.evaluate(RunAfterTestMethodCallbacks.java:<span class="number">86</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.SpringRepeat.evaluate(SpringRepeat.java:<span class="number">84</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:<span class="number">325</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:<span class="number">251</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.runChild(SpringJUnit4ClassRunner.java:<span class="number">97</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner$<span class="number">3</span>.run(ParentRunner.java:<span class="number">290</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner$<span class="number">1</span>.schedule(ParentRunner.java:<span class="number">71</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:<span class="number">288</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.access$<span class="number">000</span>(ParentRunner.java:<span class="number">58</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner$<span class="number">2</span>.evaluate(ParentRunner.java:<span class="number">268</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunBeforeTestClassCallbacks.evaluate(RunBeforeTestClassCallbacks.java:<span class="number">61</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.statements.RunAfterTestClassCallbacks.evaluate(RunAfterTestClassCallbacks.java:<span class="number">70</span>)</span><br><span class="line">	at org.junit.runners.ParentRunner.run(ParentRunner.java:<span class="number">363</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.run(SpringJUnit4ClassRunner.java:<span class="number">190</span>)</span><br><span class="line">	at org.junit.runner.JUnitCore.run(JUnitCore.java:<span class="number">137</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">68</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">47</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">242</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">70</span>)</span><br><span class="line">Caused by: java.lang.reflect.InvocationTargetException</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisSqlSessionTemplate$SqlSessionInterceptor.invoke(MybatisSqlSessionTemplate.java:<span class="number">401</span>)</span><br><span class="line">	... <span class="number">37</span> more</span><br><span class="line">Caused by: org.apache.ibatis.exceptions.PersistenceException: </span><br><span class="line">### Error updating database.  Cause: org.apache.ibatis.reflection.ReflectionException: Could not set property 'id' of 'class com.lemon.rabbit.model.City' with value '1017367047558582273' Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">### Cause: org.apache.ibatis.reflection.ReflectionException: Could not set property 'id' of 'class com.lemon.rabbit.model.City' with value '1017367047558582273' Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at org.apache.ibatis.exceptions.ExceptionFactory.wrapException(ExceptionFactory.java:<span class="number">30</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:<span class="number">200</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.insert(DefaultSqlSession.java:<span class="number">185</span>)</span><br><span class="line">	... <span class="number">42</span> more</span><br><span class="line">Caused by: org.apache.ibatis.reflection.ReflectionException: Could not set property <span class="string">'id'</span> of <span class="string">'class com.lemon.rabbit.model.City'</span> with value <span class="string">'1017367047558582273'</span> Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:<span class="number">185</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.set(BeanWrapper.java:<span class="number">59</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.MetaObject.setValue(MetaObject.java:<span class="number">140</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.populateKeys(MybatisDefaultParameterHandler.java:<span class="number">217</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.processBatch(MybatisDefaultParameterHandler.java:<span class="number">156</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.&lt;init&gt;(MybatisDefaultParameterHandler.java:<span class="number">71</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisXMLLanguageDriver.createParameterHandler(MybatisXMLLanguageDriver.java:<span class="number">37</span>)</span><br><span class="line">	at org.apache.ibatis.session.Configuration.newParameterHandler(Configuration.java:<span class="number">545</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.BaseStatementHandler.&lt;init&gt;(BaseStatementHandler.java:<span class="number">69</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.PreparedStatementHandler.&lt;init&gt;(PreparedStatementHandler.java:<span class="number">40</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.RoutingStatementHandler.&lt;init&gt;(RoutingStatementHandler.java:<span class="number">46</span>)</span><br><span class="line">	at org.apache.ibatis.session.Configuration.newStatementHandler(Configuration.java:<span class="number">558</span>)</span><br><span class="line">	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:<span class="number">48</span>)</span><br><span class="line">	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:<span class="number">117</span>)</span><br><span class="line">	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:<span class="number">76</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:<span class="number">198</span>)</span><br><span class="line">	... <span class="number">43</span> more</span><br><span class="line">Caused by: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:<span class="number">43</span>)</span><br><span class="line">	at java.lang.reflect.Method.invoke(Method.java:<span class="number">498</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.invoker.MethodInvoker.invoke(MethodInvoker.java:<span class="number">41</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:<span class="number">180</span>)</span><br><span class="line">	... <span class="number">58</span> more</span><br></pre></td></tr></table></figure>
+<p>实体类City的主键是Integer类型的，在进行insert操作时，MyBatis Plus自动生成了一个Long类型的主键id，导致参数类型不匹配，出现上述错误</p>
+<p>经过查看日志和调试发现，MyBatis最终调用BeanWrapper的setBeanProperty方法，通过反射执行最终的插入操作（增删改查应该都是通过此处的反射，不过暂时只调试了insert方法）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">setBeanProperty</span><span class="params">(PropertyTokenizer prop, Object object, Object value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        Invoker method = metaClass.getSetInvoker(prop.getName());</span><br><span class="line">        Object[] params = &#123;value&#125;;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            method.invoke(object, params);</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">            <span class="keyword">throw</span> ExceptionUtil.unwrapThrowable(t);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (Throwable t) &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ReflectionException(<span class="string">"Could not set property '"</span> + prop.getName() + <span class="string">"' of '"</span> + object.getClass() + <span class="string">"' with value '"</span> + value + <span class="string">"' Cause: "</span> + t.toString(), t);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此处传入的object即为我们想要保存到数据库的实体信息（不带ID信息），value为主键信息，此时主键值已经是一个Long类型的值，我们接着向上看value是哪里传过来的</p>
+<p>setBeanProperty是一个私有方法，在本类调用，查询看到set(PropertyTokenizer prop, Object value)方法调用了它</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(PropertyTokenizer prop, Object value)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (prop.getIndex() != <span class="keyword">null</span>) &#123;</span><br><span class="line">        Object collection = resolveCollection(prop, object);</span><br><span class="line">        setCollectionValue(prop, collection, value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      setBeanProperty(prop, object, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>set方法中的value也是其他地方传入的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Caused by: org.apache.ibatis.reflection.ReflectionException: Could not set property <span class="string">'id'</span> of <span class="string">'class com.lemon.rabbit.model.City'</span> with value <span class="string">'1017367047558582273'</span> Cause: java.lang.IllegalArgumentException: argument type mismatch</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.setBeanProperty(BeanWrapper.java:<span class="number">185</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.wrapper.BeanWrapper.set(BeanWrapper.java:<span class="number">59</span>)</span><br><span class="line">	at org.apache.ibatis.reflection.MetaObject.setValue(MetaObject.java:<span class="number">140</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.populateKeys(MybatisDefaultParameterHandler.java:<span class="number">217</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.processBatch(MybatisDefaultParameterHandler.java:<span class="number">156</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.&lt;init&gt;(MybatisDefaultParameterHandler.java:<span class="number">71</span>)</span><br><span class="line">	at com.baomidou.mybatisplus.MybatisXMLLanguageDriver.createParameterHandler(MybatisXMLLanguageDriver.java:<span class="number">37</span>)</span><br><span class="line">	at org.apache.ibatis.session.Configuration.newParameterHandler(Configuration.java:<span class="number">545</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.BaseStatementHandler.&lt;init&gt;(BaseStatementHandler.java:<span class="number">69</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.PreparedStatementHandler.&lt;init&gt;(PreparedStatementHandler.java:<span class="number">40</span>)</span><br><span class="line">	at org.apache.ibatis.executor.statement.RoutingStatementHandler.&lt;init&gt;(RoutingStatementHandler.java:<span class="number">46</span>)</span><br><span class="line">	at org.apache.ibatis.session.Configuration.newStatementHandler(Configuration.java:<span class="number">558</span>)</span><br><span class="line">	at org.apache.ibatis.executor.SimpleExecutor.doUpdate(SimpleExecutor.java:<span class="number">48</span>)</span><br><span class="line">	at org.apache.ibatis.executor.BaseExecutor.update(BaseExecutor.java:<span class="number">117</span>)</span><br><span class="line">	at org.apache.ibatis.executor.CachingExecutor.update(CachingExecutor.java:<span class="number">76</span>)</span><br><span class="line">	at org.apache.ibatis.session.defaults.DefaultSqlSession.update(DefaultSqlSession.java:<span class="number">198</span>)</span><br><span class="line">	... <span class="number">43</span> more</span><br></pre></td></tr></table></figure>
+<p>查看报错日志可以看到，BeanWrapper的上一层是MetaObject，我们找到MetaObject，看到在getValue方法中调用了BeanWrapper的set方法(BeanWrapper实现了ObjectWrapper)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setValue</span><span class="params">(String name, Object value)</span> </span>&#123;</span><br><span class="line">    PropertyTokenizer prop = <span class="keyword">new</span> PropertyTokenizer(name);</span><br><span class="line">    <span class="keyword">if</span> (prop.hasNext()) &#123;</span><br><span class="line">        MetaObject metaValue = metaObjectForProperty(prop.getIndexedName());</span><br><span class="line">        <span class="keyword">if</span> (metaValue == SystemMetaObject.NULL_META_OBJECT) &#123;</span><br><span class="line">            <span class="keyword">if</span> (value == <span class="keyword">null</span> &amp;&amp; prop.getChildren() != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">// don't instantiate child path if value is null</span></span><br><span class="line">                <span class="keyword">return</span>;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                metaValue = objectWrapper.instantiatePropertyValue(name, prop, objectFactory);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        metaValue.setValue(prop.getChildren(), value);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        objectWrapper.set(prop, value);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MetaObject中的主键值也是上层调用传入的，继续根据错误日志向上看：MybatisDefaultParameterHandler</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 自定义元对象填充控制器</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> metaObjectHandler 元数据填充处理器</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> tableInfo         数据库表反射信息</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ms                MappedStatement</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> parameterObject   插入数据库对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span> Object</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">static</span> Object <span class="title">populateKeys</span><span class="params">(MetaObjectHandler metaObjectHandler, TableInfo tableInfo,</span></span></span><br><span class="line"><span class="function"><span class="params">                                     MappedStatement ms, Object parameterObject)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == tableInfo || StringUtils.isEmpty(tableInfo.getKeyProperty()) || <span class="keyword">null</span> == tableInfo.getIdType()) &#123;</span><br><span class="line">        <span class="comment">/* 不处理 */</span></span><br><span class="line">        <span class="keyword">return</span> parameterObject;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 自定义元对象填充控制器 */</span></span><br><span class="line">    MetaObject metaObject = ms.getConfiguration().newMetaObject(parameterObject);</span><br><span class="line">    <span class="keyword">if</span> (ms.getSqlCommandType() == SqlCommandType.INSERT) &#123;</span><br><span class="line">        <span class="keyword">if</span> (tableInfo.getIdType().getKey() &gt;= <span class="number">2</span>) &#123;</span><br><span class="line">            Object idValue = metaObject.getValue(tableInfo.getKeyProperty());</span><br><span class="line">            <span class="comment">/* 自定义 ID */</span></span><br><span class="line">            <span class="keyword">if</span> (StringUtils.checkValNull(idValue)) &#123;</span><br><span class="line">                <span class="keyword">if</span> (tableInfo.getIdType() == IdType.ID_WORKER) &#123;</span><br><span class="line">                    metaObject.setValue(tableInfo.getKeyProperty(), IdWorker.getId());</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tableInfo.getIdType() == IdType.ID_WORKER_STR) &#123;</span><br><span class="line">                    metaObject.setValue(tableInfo.getKeyProperty(), IdWorker.getIdStr());</span><br><span class="line">                &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tableInfo.getIdType() == IdType.UUID) &#123;</span><br><span class="line">                    metaObject.setValue(tableInfo.getKeyProperty(), IdWorker.get32UUID());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 插入填充</span></span><br><span class="line">        <span class="keyword">if</span> (metaObjectHandler.openInsertFill()) &#123;</span><br><span class="line">            metaObjectHandler.insertFill(metaObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ms.getSqlCommandType() == SqlCommandType.UPDATE &amp;&amp; metaObjectHandler.openUpdateFill()) &#123;</span><br><span class="line">        <span class="comment">// 更新填充</span></span><br><span class="line">        metaObjectHandler.updateFill(metaObject);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> metaObject.getOriginalObject();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在populateKeys方法中调用了metaObject.setValue()</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (StringUtils.checkValNull(idValue)) &#123;</span><br><span class="line">    <span class="keyword">if</span> (tableInfo.getIdType() == IdType.ID_WORKER) &#123;</span><br><span class="line">        metaObject.setValue(tableInfo.getKeyProperty(), IdWorker.getId());</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tableInfo.getIdType() == IdType.ID_WORKER_STR) &#123;</span><br><span class="line">        metaObject.setValue(tableInfo.getKeyProperty(), IdWorker.getIdStr());</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (tableInfo.getIdType() == IdType.UUID) &#123;</span><br><span class="line">        metaObject.setValue(tableInfo.getKeyProperty(), IdWorker.get32UUID());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，此处根据IdType生成不同类型的主键id，IdType是一个枚举类，定义了生成ID的类型</p>
+<ul>
+<li>AUTO 数据库ID自增</li>
+<li>INPUT 用户输入ID</li>
+<li>ID_WORKER 全局唯一ID，Long类型的主键</li>
+<li>ID_WORKER_STR 字符串全局唯一ID</li>
+<li>UUID 全局唯一ID，UUID类型的主键</li>
+<li>NONE 该类型为未设置主键类型</li>
+</ul>
+<p>当IdType的类型为ID_WORKER、ID_WORKER_STR或者UUID时，主键由MyBatis Plus的IdWorker类生成</p>
+<h4 id="ID-WORKER"><a href="#ID-WORKER" class="headerlink" title="ID_WORKER"></a>ID_WORKER</h4><p>调用IdWorker的getId()方法，生成一个与时间相关的主键id</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">long</span> <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> worker.nextId();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>IdWorker的getId()方法引用了Sequence的nextId()方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">long</span> <span class="title">nextId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">long</span> timestamp = timeGen();</span><br><span class="line">    <span class="keyword">if</span> (timestamp &lt; lastTimestamp) &#123;<span class="comment">//闰秒</span></span><br><span class="line">        <span class="keyword">long</span> offset = lastTimestamp - timestamp;</span><br><span class="line">        <span class="keyword">if</span> (offset &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                wait(offset &lt;&lt; <span class="number">1</span>);</span><br><span class="line">                timestamp = timeGen();</span><br><span class="line">                <span class="keyword">if</span> (timestamp &lt; lastTimestamp) &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(String.format(<span class="string">"Clock moved backwards.  Refusing to generate id for %d milliseconds"</span>, offset));</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(e);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(String.format(<span class="string">"Clock moved backwards.  Refusing to generate id for %d milliseconds"</span>, offset));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (lastTimestamp == timestamp) &#123;</span><br><span class="line">        <span class="comment">// 相同毫秒内，序列号自增</span></span><br><span class="line">        sequence = (sequence + <span class="number">1</span>) &amp; sequenceMask;</span><br><span class="line">        <span class="keyword">if</span> (sequence == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">// 同一毫秒的序列数已经达到最大</span></span><br><span class="line">            timestamp = tilNextMillis(lastTimestamp);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 不同毫秒内，序列号置为 1 - 3 随机数</span></span><br><span class="line">        sequence = ThreadLocalRandom.current().nextLong(<span class="number">1</span>, <span class="number">3</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    lastTimestamp = timestamp;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> ((timestamp - twepoch) &lt;&lt; timestampLeftShift)    <span class="comment">// 时间戳部分</span></span><br><span class="line">        | (datacenterId &lt;&lt; datacenterIdShift)           <span class="comment">// 数据中心部分</span></span><br><span class="line">        | (workerId &lt;&lt; workerIdShift)                   <span class="comment">// 机器标识部分</span></span><br><span class="line">        | sequence;                                     <span class="comment">// 序列号部分</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="ID-WORKER-STR"><a href="#ID-WORKER-STR" class="headerlink" title="ID_WORKER_STR"></a>ID_WORKER_STR</h4><p>将worker.nextId()的返回值转化为字符串，和getId()方法相似</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getIdStr</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> String.valueOf(worker.nextId());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="UUID"><a href="#UUID" class="headerlink" title="UUID"></a>UUID</h4><p>去除中划线的UUID字符串</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">synchronized</span> String <span class="title">get32UUID</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> UUID.randomUUID().toString().replace(<span class="string">"-"</span>, <span class="string">""</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，已经基本可以确认，问题出在IdType的配置上，那么这个IdType从哪里获取的呢？TableInfo中获取的！</p>
+<p>TableInfo是数据库表反射信息实体类，此处由其他方法传入的，查看日志：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.populateKeys(MybatisDefaultParameterHandler.java:<span class="number">217</span>)</span><br><span class="line">at com.baomidou.mybatisplus.MybatisDefaultParameterHandler.processBatch(MybatisDefaultParameterHandler.java:<span class="number">156</span>)</span><br></pre></td></tr></table></figure></p>
+<p>通过日志可以看出，populateKeys()方法是在processBatch()方法中调用的，找到该方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 批量（填充主键 ID）</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> ms</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> parameterObject 插入数据库对象</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">static</span> Object <span class="title">processBatch</span><span class="params">(MappedStatement ms, Object parameterObject)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//检查parameterObject</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> == parameterObject) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">boolean</span> isFill = <span class="keyword">false</span>;</span><br><span class="line">    <span class="comment">// 全局配置是否配置填充器</span></span><br><span class="line">    MetaObjectHandler metaObjectHandler = GlobalConfigUtils.getMetaObjectHandler(ms.getConfiguration());</span><br><span class="line">    <span class="comment">/* 只处理插入或更新操作 */</span></span><br><span class="line">    <span class="keyword">if</span> (ms.getSqlCommandType() == SqlCommandType.INSERT) &#123;</span><br><span class="line">        isFill = <span class="keyword">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (ms.getSqlCommandType() == SqlCommandType.UPDATE</span><br><span class="line">        &amp;&amp; metaObjectHandler.openUpdateFill()) &#123;</span><br><span class="line">        isFill = <span class="keyword">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (isFill) &#123;</span><br><span class="line">        Collection&lt;Object&gt; parameters = getParameters(parameterObject);</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != parameters) &#123;</span><br><span class="line">            List&lt;Object&gt; objList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">            <span class="keyword">for</span> (Object parameter : parameters) &#123;</span><br><span class="line">                TableInfo tableInfo = TableInfoHelper.getTableInfo(parameter.getClass());</span><br><span class="line">                <span class="keyword">if</span> (<span class="keyword">null</span> != tableInfo) &#123;</span><br><span class="line">                    objList.add(populateKeys(metaObjectHandler, tableInfo, ms, parameter));</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">/*</span></span><br><span class="line"><span class="comment">                     * 非表映射类不处理</span></span><br><span class="line"><span class="comment">		 */</span></span><br><span class="line">                    objList.add(parameter);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> objList;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            TableInfo tableInfo = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span> (parameterObject <span class="keyword">instanceof</span> Map) &#123;</span><br><span class="line">                Map map = (Map) parameterObject;</span><br><span class="line">                <span class="keyword">if</span> (map.containsKey(<span class="string">"et"</span>)) &#123;</span><br><span class="line">                    Object et = map.get(<span class="string">"et"</span>);</span><br><span class="line">                    <span class="keyword">if</span> (et != <span class="keyword">null</span>) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (et <span class="keyword">instanceof</span> Map) &#123;</span><br><span class="line">                            Map realEtMap = (Map) et;</span><br><span class="line">                            <span class="keyword">if</span> (realEtMap.containsKey(<span class="string">"MP_OPTLOCK_ET_ORIGINAL"</span>)) &#123;<span class="comment">//refer to OptimisticLockerInterceptor.MP_OPTLOCK_ET_ORIGINAL</span></span><br><span class="line">                                tableInfo = TableInfoHelper.getTableInfo(realEtMap.get(<span class="string">"MP_OPTLOCK_ET_ORIGINAL"</span>).getClass());</span><br><span class="line">                            &#125;</span><br><span class="line">                        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                            tableInfo = TableInfoHelper.getTableInfo(et.getClass());</span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                tableInfo = TableInfoHelper.getTableInfo(parameterObject.getClass());</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> populateKeys(metaObjectHandler, tableInfo, ms, parameterObject);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> parameterObject;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下面对TableInfo生成的这段代码做个说明<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">TableInfo tableInfo = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">if</span> (parameterObject <span class="keyword">instanceof</span> Map) &#123;</span><br><span class="line">    Map map = (Map) parameterObject;</span><br><span class="line">    <span class="keyword">if</span> (map.containsKey(<span class="string">"et"</span>)) &#123;</span><br><span class="line">        Object et = map.get(<span class="string">"et"</span>);</span><br><span class="line">        <span class="keyword">if</span> (et != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (et <span class="keyword">instanceof</span> Map) &#123;</span><br><span class="line">                Map realEtMap = (Map) et;</span><br><span class="line">                <span class="keyword">if</span> (realEtMap.containsKey(<span class="string">"MP_OPTLOCK_ET_ORIGINAL"</span>)) &#123;<span class="comment">//refer to OptimisticLockerInterceptor.MP_OPTLOCK_ET_ORIGINAL</span></span><br><span class="line">                    tableInfo = TableInfoHelper.getTableInfo(realEtMap.get(<span class="string">"MP_OPTLOCK_ET_ORIGINAL"</span>).getClass());</span><br><span class="line">                &#125;</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                tableInfo = TableInfoHelper.getTableInfo(et.getClass());</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    tableInfo = TableInfoHelper.getTableInfo(parameterObject.getClass());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>parameterObject：要保存到数据库中的实体类信息</p>
+<p>我在保存数据时，参数形式并不是Map类型的，所以直接跳转到else中</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tableInfo = TableInfoHelper.getTableInfo(parameterObject.getClass());</span><br></pre></td></tr></table></figure>
+<p>根据保存的实体类的类型去获取数据库表反射信息</p>
+<p>我们看下getTableInfo()方法的实现</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TableInfo <span class="title">getTableInfo</span><span class="params">(Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> tableInfoCache.get(ClassUtils.getUserClass(clazz).getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从tableInfoCache中获取指定类型的数据库反射信息。tableInfoCache是一个线程安全的私有静态Map，主要用于存放类型和数据库表的映射关系。断点调试到此处，看下tableInfoCache的内容</p>
+<p><img src="https://images.gitee.com/uploads/images/2018/1213/202427_49858b4c_1305976.png" alt="tableInfoCache" title="tablecache.png"></p>
+<p>可以看到，idType的值为ID_WORKER，即生成一个与时间相关的Long类型的id。在放入到tableInfoCache的时候就已经指定了idType的值。</p>
+<p>查看TableInfoHelper的源码可以得知，initTableInfo()方法负责initTableInfo的初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">static</span> TableInfo <span class="title">initTableInfo</span><span class="params">(MapperBuilderAssistant builderAssistant, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">    <span class="comment">//检测是否已存在</span></span><br><span class="line">    TableInfo tableInfo = tableInfoCache.get(clazz.getName());</span><br><span class="line">    <span class="keyword">if</span> (StringUtils.checkValNotNull(tableInfo)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.checkValNotNull(builderAssistant)) &#123;</span><br><span class="line">            tableInfo.setConfigMark(builderAssistant.getConfiguration());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> tableInfo;</span><br><span class="line">    &#125;</span><br><span class="line">    tableInfo = <span class="keyword">new</span> TableInfo();</span><br><span class="line">    GlobalConfiguration globalConfig;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> != builderAssistant) &#123;</span><br><span class="line">        tableInfo.setCurrentNamespace(builderAssistant.getCurrentNamespace());</span><br><span class="line">        tableInfo.setConfigMark(builderAssistant.getConfiguration());</span><br><span class="line">        <span class="comment">//获取全局配置，其中包括了idType</span></span><br><span class="line">        globalConfig = GlobalConfigUtils.getGlobalConfig(builderAssistant.getConfiguration());</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 兼容测试场景</span></span><br><span class="line">        globalConfig = GlobalConfigUtils.DEFAULT;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/* 表名 */</span></span><br><span class="line">    TableName table = clazz.getAnnotation(TableName.class);</span><br><span class="line">    String tableName = clazz.getSimpleName();</span><br><span class="line">    <span class="keyword">if</span> (table != <span class="keyword">null</span> &amp;&amp; StringUtils.isNotEmpty(table.value())) &#123;</span><br><span class="line">        tableName = table.value();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="comment">// 开启字段下划线申明</span></span><br><span class="line">        <span class="keyword">if</span> (globalConfig.isDbColumnUnderline()) &#123;</span><br><span class="line">            tableName = StringUtils.camelToUnderline(tableName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 大写命名判断</span></span><br><span class="line">        <span class="keyword">if</span> (globalConfig.isCapitalMode()) &#123;</span><br><span class="line">            tableName = tableName.toUpperCase();</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// 首字母小写</span></span><br><span class="line">            tableName = StringUtils.firstToLowerCase(tableName);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 存在表前缀</span></span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">null</span> != globalConfig.getTablePrefix()) &#123;</span><br><span class="line">            tableName = globalConfig.getTablePrefix() + tableName;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    tableInfo.setTableName(tableName);</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 开启了自定义 KEY 生成器</span></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">null</span> != globalConfig.getKeyGenerator()) &#123;</span><br><span class="line">        tableInfo.setKeySequence(clazz.getAnnotation(KeySequence.class));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 表结果集映射 */</span></span><br><span class="line">    <span class="keyword">if</span> (table != <span class="keyword">null</span> &amp;&amp; StringUtils.isNotEmpty(table.resultMap())) &#123;</span><br><span class="line">        tableInfo.setResultMap(table.resultMap());</span><br><span class="line">    &#125;</span><br><span class="line">    List&lt;TableFieldInfo&gt; fieldList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">    List&lt;Field&gt; list = getAllFields(clazz);</span><br><span class="line">    <span class="comment">// 标记是否读取到主键</span></span><br><span class="line">    <span class="keyword">boolean</span> isReadPK = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">boolean</span> existTableId = existTableId(list);</span><br><span class="line">    <span class="keyword">for</span> (Field field : list) &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 主键ID 初始化</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (!isReadPK) &#123;</span><br><span class="line">            <span class="keyword">if</span> (existTableId) &#123;</span><br><span class="line">                isReadPK = initTableId(globalConfig, tableInfo, field, clazz);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                isReadPK = initFieldId(globalConfig, tableInfo, field, clazz);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> (isReadPK) &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 字段初始化</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">if</span> (initTableField(globalConfig, tableInfo, fieldList, field, clazz)) &#123;</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">         * 字段, 使用 camelToUnderline 转换驼峰写法为下划线分割法, 如果已指定 TableField , 便不会执行这里</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        fieldList.add(<span class="keyword">new</span> TableFieldInfo(globalConfig, tableInfo, field));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/* 字段列表 */</span></span><br><span class="line">    tableInfo.setFieldList(globalConfig, fieldList);</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 未发现主键注解，提示警告信息</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">if</span> (StringUtils.isEmpty(tableInfo.getKeyColumn())) &#123;</span><br><span class="line">        logger.warn(String.format(<span class="string">"Warn: Could not find @TableId in Class: %s."</span>, clazz.getName()));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 注入</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    tableInfoCache.put(clazz.getName(), tableInfo);</span><br><span class="line">    <span class="keyword">return</span> tableInfo;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在existTableId方法中判断主键注解@TableId是否存在</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * &lt;p&gt;</span></span><br><span class="line"><span class="comment"> * 判断主键注解是否存在</span></span><br><span class="line"><span class="comment"> * &lt;/p&gt;</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> list 字段列表</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">existTableId</span><span class="params">(List&lt;Field&gt; list)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">boolean</span> exist = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (Field field : list) &#123;</span><br><span class="line">        TableId tableId = field.getAnnotation(TableId.class);</span><br><span class="line">        <span class="keyword">if</span> (tableId != <span class="keyword">null</span>) &#123;</span><br><span class="line">            exist = <span class="keyword">true</span>;</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> exist;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当不存在主键注解时，会调用initFieldId()方法对主键属性进行初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">boolean</span> <span class="title">initFieldId</span><span class="params">(GlobalConfiguration globalConfig, TableInfo tableInfo, Field field, Class&lt;?&gt; clazz)</span> </span>&#123;</span><br><span class="line">    String column = field.getName();</span><br><span class="line">    <span class="keyword">if</span> (globalConfig.isCapitalMode()) &#123;</span><br><span class="line">        column = column.toUpperCase();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (DEFAULT_ID_NAME.equalsIgnoreCase(column)) &#123;</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(tableInfo.getKeyColumn())) &#123;</span><br><span class="line">            tableInfo.setIdType(globalConfig.getIdType());</span><br><span class="line">            tableInfo.setKeyColumn(column);</span><br><span class="line">            tableInfo.setKeyProperty(field.getName());</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            throwExceptionId(clazz);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>至此， 我们基本可以判断是因为在实体类City中id属性没有加@TableId注解，我们看下TableId的源码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="meta">@Target</span>(ElementType.FIELD)</span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> TableId &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * 字段值（驼峰命名方式，该值可无）</span></span><br><span class="line"><span class="comment">     * &lt;/p&gt;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * &lt;p&gt;</span></span><br><span class="line"><span class="comment">     * 主键ID</span></span><br><span class="line"><span class="comment">     * &lt;/p&gt;</span></span><br><span class="line"><span class="comment">     * &#123;<span class="doctag">@link</span> IdType&#125;</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function">IdType <span class="title">type</span><span class="params">()</span> <span class="keyword">default</span> IdType.NONE</span>;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>TableId的类型通过type来指定，默认是IdType.NONE（该类型为未设置主键类型），City表是通过数据库的自增序列实现的，所以设置为AUTO</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@TableId</span>(type = IdType.AUTO)</span><br><span class="line"><span class="keyword">private</span> Integer id;</span><br></pre></td></tr></table></figure>
+<p>然后测试，程序正常运行，保存数据成功。</p>
+<h4 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h4><p>对于tableInfo默认的idType值配置，可以看出用的是全局配置的idType，全局配置的值是在initTableInfo()方法中获取的，有兴趣的话可以去看看全局配置的实现，此处暂不深入了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GlobalConfiguration globalConfig;</span><br><span class="line"><span class="keyword">if</span> (<span class="keyword">null</span> != builderAssistant) &#123;</span><br><span class="line">    tableInfo.setCurrentNamespace(builderAssistant.getCurrentNamespace());</span><br><span class="line">    tableInfo.setConfigMark(builderAssistant.getConfiguration());</span><br><span class="line">    globalConfig = GlobalConfigUtils.getGlobalConfig(builderAssistant.getConfiguration());</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// 兼容测试场景</span></span><br><span class="line">    globalConfig = GlobalConfigUtils.DEFAULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/06/数据结构之队列/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -540,7 +889,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/内部类/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/04/Zookeeper安装/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="青花葬水">
@@ -559,7 +908,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/17/内部类/" itemprop="url">内部类</a></h1>
+                <a class="post-title-link" href="/2018/07/04/Zookeeper安装/" itemprop="url">Zookeeper安装</a></h1>
         
 
         <div class="post-meta">
@@ -571,8 +920,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-17T00:00:00+08:00">
-                2018-03-17
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-04T00:00:00+08:00">
+                2018-07-04
               </time>
             
 
@@ -594,8 +943,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/Zookeeper/" itemprop="url" rel="index">
+                    <span itemprop="name">Zookeeper</span>
                   </a>
                 </span>
 
@@ -633,32 +982,1136 @@
       
         
           
-            <p>Java 中，可以在一个类的内部定义另外一个类，这个内部定义的类，就称为内部类</p>
-<p>内部类是一种非常有用的特性，它允许你把一些逻辑相关的类组织在一起，并控制位于内部的类的可见性</p>
-<p>当生成一个内部类的对象时，此对象与创建它的外部类的对象之间就有了一种联系，所以它能访问其外部类对象的所有成员，而不需要任何特殊条件；此外，内部类还拥有其外部类的所有元素的访问权</p>
-<p>如果想从外部类的非静态方法之外的任意位置创建某个内部类的对象，那么必须具体的制定这个对象的类型： OuterClassName.InnerClassName</p>
-<p>创建内部类的对象时，需要使用外部类的对象去创建该内部类的对象</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="class"><span class="keyword">class</span> <span class="title">Inner</span></span>&#123;</span><br><span class="line">    </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Inner inner = <span class="keyword">new</span> Outer().new Inner();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在拥有外部类的对象之前，是不能创建内部类对象的，这是因为内部类对象会暗中的链接到创建它的外部类对象上；但是如果你创建的是静态内部类，那么它就不需要对外部类对象的引用</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">Inner</span></span>&#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test</span><span class="params">()</span> </span>&#123;</span><br><span class="line">            System.out.println(<span class="string">"静态内部类创建测试！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Inner inner = <span class="keyword">new</span> Inner();</span><br><span class="line">        inner.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出：</p>
-<pre><code>静态内部类创建测试！
-</code></pre><p>如果是其他的外部类中创建 Inner 内部类的对象，则：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Outer.Inner inner = <span class="keyword">new</span> Outer.Inner();</span><br><span class="line">        inner.test();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>输出：</p>
-<pre><code>静态内部类创建测试！
-</code></pre><p>内部类，隐藏实现细节</p>
-<p>方法和作用域内的内部类-局部内部类</p>
-<p>可以在方法里面或者任意的作用域内定义内部类</p>
-<p>方法内的内部类常常用于回调</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">LocalInner</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function">String <span class="title">value</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Outer</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LocalInner <span class="title">getLocalInner</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="class"><span class="keyword">class</span> <span class="title">MyLocalInner</span> <span class="keyword">implements</span> <span class="title">LocalInner</span></span>&#123;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">private</span> String value = <span class="string">"local inner"</span>;</span><br><span class="line"></span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> String <span class="title">value</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                <span class="keyword">return</span> value;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyLocalInner();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Outer outer = <span class="keyword">new</span> Outer();</span><br><span class="line">		LocalInner localInner = outer.getLocalInner();</span><br><span class="line">		String value = localInner.value();</span><br><span class="line">        System.out.println(value);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>输出结果：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">local inner</span><br></pre></td></tr></table></figure>
-<p>匿名内部类</p>
-<p>比较常见的匿名内部类就是创建线程时用到的匿名内部类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Runnable <span class="title">thread</span><span class="params">()</span></span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Runnable()&#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">                </span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>匿名内部类末尾有个分号，这个分号不是用来标记内部类结束的；实际上，它标记的是表达式的结束</p>
-<p>如果定义一个匿名内部类，并且希望它使用一个在其外部定义的对象，那么编译器会要求其参数引用是 final 的；否则，将出现编译错误</p>
-<p>在匿名类中不可能有命名构造器（因为它根本没名字），但是可以通过实例初始化，达到为匿名内部类创建一个构造器的效果</p>
+            <a id="more"></a>
+<h3 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h3><h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.12/zookeeper-3.4.12.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.12.tar.gz</span><br></pre></td></tr></table></figure>
+<h4 id="检查Java环境"><a href="#检查Java环境" class="headerlink" title="检查Java环境"></a>检查Java环境</h4><p>需要JDK1.6以上的环境</p>
+<p>使用<strong>java -version</strong>检查是否安装JDK</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<p>输出结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">java version &quot;1.8.0_171&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_171-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode)</span><br></pre></td></tr></table></figure>
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# pwd</span><br><span class="line">/usr/local/soft/zookeeper/zookeeper-3.4.12</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# vim /etc/profile</span><br></pre></td></tr></table></figure>
+<p>添加环境变量<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ZK_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.12</span><br><span class="line">PATH=$PATH:$ZK_HOME/bin</span><br><span class="line">export PATH ZK_HOME</span><br></pre></td></tr></table></figure></p>
+<p>使配置马上生效</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# source /etc/profile</span><br></pre></td></tr></table></figure>
+<h4 id="配置zk"><a href="#配置zk" class="headerlink" title="配置zk"></a>配置zk</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# mkdir data</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# mkdir logs</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# cd conf/</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ conf]# ll</span><br><span class="line">total 12</span><br><span class="line">-rw-rw-r-- 1 1000 1000  535 Mar 27 12:32 configuration.xsl</span><br><span class="line">-rw-rw-r-- 1 1000 1000 2161 Mar 27 12:32 log4j.properties</span><br><span class="line">-rw-rw-r-- 1 1000 1000  922 Mar 27 12:32 zoo_sample.cfg</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ conf]# cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+<p>修改zoo.cfg中的配置，如下所示<br><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># The number of milliseconds of each tick</span></span><br><span class="line"><span class="string">tickTime=2000</span></span><br><span class="line"><span class="comment"># The number of ticks that the initial </span></span><br><span class="line"><span class="comment"># synchronization phase can take</span></span><br><span class="line"><span class="string">initLimit=20</span></span><br><span class="line"><span class="comment"># The number of ticks that can pass between </span></span><br><span class="line"><span class="comment"># sending a request and getting an acknowledgement</span></span><br><span class="line"><span class="string">syncLimit=5</span></span><br><span class="line"><span class="comment"># the directory where the snapshot is stored.</span></span><br><span class="line"><span class="comment"># do not use /tmp for storage, /tmp here is just </span></span><br><span class="line"><span class="comment"># example sakes.</span></span><br><span class="line"><span class="string">dataDir=/usr/local/soft/zookeeper/zookeeper-3.4.12/data</span></span><br><span class="line"><span class="string">dataLogDir=/usr/local/soft/zookeeper/zookeeper-3.4.12/logs</span></span><br><span class="line"><span class="comment"># the port at which the clients will connect</span></span><br><span class="line"><span class="string">clientPort=2181</span></span><br><span class="line"><span class="comment"># the maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="comment">#maxClientCnxns=60</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Be sure to read the maintenance section of the </span></span><br><span class="line"><span class="comment"># administrator guide before turning on autopurge.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="comment">#autopurge.snapRetainCount=3</span></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to "0" to disable auto purge feature</span></span><br><span class="line"><span class="comment">#autopurge.purgeInterval=1</span></span><br><span class="line"><span class="string">server.1=127.0.0.1:2888:3888</span></span><br></pre></td></tr></table></figure></p>
+<p>其中：<br>2888端口号是zookeeper服务之间通信的端口<br>3888是zookeeper与其他应用程序通信的端口</p>
+<h4 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h4><p>切换到zookeeper的bin目录下</p>
+<h5 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
+<h5 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jps</span><br></pre></td></tr></table></figure>
+<p>其中QuorumPeerMain是zookeeper进程，启动正常</p>
+<h5 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></table></figure>
+<h5 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./zkServer.sh stop</span><br></pre></td></tr></table></figure>
+<h4 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h4><p>切换到/etc/rc.d/init.d/目录下 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/rc.d/init.d</span><br></pre></td></tr></table></figure>
+<p>创建zookeeper文件<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch zookeeper</span><br></pre></td></tr></table></figure></p>
+<p>更新权限  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">chmod +x zookeeper</span><br></pre></td></tr></table></figure>
+<p>编辑文件，写入一下内容</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#chkconfig:2345 20 90  </span></span><br><span class="line"><span class="comment">#description:zookeeper  </span></span><br><span class="line"><span class="comment">#processname:zookeeper  </span></span><br><span class="line"><span class="string">export</span> <span class="string">JAVA_HOME=/usr/local/soft/jdk/jdk1.8.0_171</span>  </span><br><span class="line"><span class="string">export</span> <span class="string">PATH=$JAVA_HOME/bin:$PATH</span></span><br><span class="line"><span class="string">ZK_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.12</span></span><br><span class="line"><span class="string">case</span> <span class="string">$1</span> <span class="string">in</span>  </span><br><span class="line">          <span class="string">start)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">start;;</span>  </span><br><span class="line">          <span class="string">stop)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">stop;;</span>  </span><br><span class="line">          <span class="string">status)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">status;;</span>  </span><br><span class="line">          <span class="string">restart)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">restart;;</span>  </span><br><span class="line">          <span class="string">*)</span>  <span class="string">echo</span> <span class="string">"require start|stop|status|restart"</span>  <span class="string">;;</span>  </span><br><span class="line"><span class="string">esac</span></span><br></pre></td></tr></table></figure>
+<p>这样就可以用service zookeeper start/stop来启动停止zookeeper服务了</p>
+<p>使用命令把zookeeper添加到开机启动里面</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chkconfig zookeeper on  </span><br><span class="line">chkconfig --add zookeeper</span><br></pre></td></tr></table></figure>
+<p>然后通过chkconfig –list查看是否已成功添加到开机启动项</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zookeeper      	0:off	1:off	2:on	3:on	4:on	5:on	6:off</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/30/CentOS7下安装MySQL8/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/30/CentOS7下安装MySQL8/" itemprop="url">CentOS7下安装MySQL8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文主要介绍MySQL的yum仓库的使用方法，其中包含了MySQL的安装步骤</p>
+<p>原文<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-upgrading" target="_blank" rel="noopener">MySQL Yum仓库使用快速指南</a></p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>MySQL Yum仓库提供了在Linux平台上安装MySQL服务器、客户端和其他组件的RPM包。这些包还可以升级和替换安装在Linux发行版上的可以从MySQL中获得的任何第三方MySQL软件包。</p>
+<p>MySQL Yum仓库支持下列Linux发行版：</p>
+<ul>
+<li>EL6和基于el7的平台（例如，Oracle Linux、Red Hat Enterprise Linux和CentOS的对应版本）</li>
+<li>Fedora 27 和 28</li>
+</ul>
+<p>注意：并不是所有版本的MySQL都支持上述所有的Linux版本。如果想确认您的Linux发行版是否支持某个特定版本，请参阅<a href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-repo-select-series" target="_blank" rel="noopener">Selecting a Release Series</a></p>
+<p>这是一个使用MySQL Yum仓库的快速指南。要了解更多信息，请参阅<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-more-info" target="_blank" rel="noopener">补充</a>。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li>MySQL的安装步骤</li>
+<li>安装额外的MySQL产品和组件</li>
+<li>使用MySQL Yum仓库升级MySQL</li>
+<li>替换MySQL的本地第三方发行版</li>
+<li>使用Yum仓库安装MySQL NDB集群</li>
+<li>安装额外的MySQL NDB集群产品和组件</li>
+<li>补充</li>
+</ul>
+<h3 id="MySQL的安装步骤"><a href="#MySQL的安装步骤" class="headerlink" title="MySQL的安装步骤"></a>MySQL的安装步骤</h3><p>注意：下面的介绍是在假设使用第三方分布式RPM包的MySQL还没有安装在您的系统的基础上；如果已经使用RPM包安装了MySQL，请参照【替换MySQL的本地第三方发行版】。</p>
+<h4 id="添加MySQL-Yum仓库"><a href="#添加MySQL-Yum仓库" class="headerlink" title="添加MySQL Yum仓库"></a>添加MySQL Yum仓库</h4><p>首先，将MySQL Yum仓库添加到系统的仓库列表中。</p>
+<p>按照以下步骤进行:</p>
+<p>1.先跳转到MySQL Yum仓库的下载页面<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/repo/yum/</a></p>
+<p>2.为您的平台选择并下载发布包</p>
+<p><img src="mysql1.png" alt="RPM安装包"></p>
+<p>这里我们选择<strong>mysql80-community-release-el7-1.noarch.rpm</strong></p>
+<p>3.使用下面的命令安装下载的版本包，用下载的包的名称替换<strong><em>platform-and-version-specific-package-name</em></strong>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span><br></pre></td></tr></table></figure></p>
+<p>例如，对于基于el7的系统包的版本n，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo rpm -Uvh mysql80-community-release-el7-1.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>注意：一旦发布包安装在您的系统上，如果Yum在MySQL Yum仓库中找到MySQL升级包或第三方软件包的替代品，那么通过<strong>yum update</strong>命令（支持dnf的系统是<strong>dnf upgrade</strong>）执行的任何系统更新都会自动升级系统上的MySQL包，同时也会替换任何本地的第三方软件包。具体可参考<strong>通过MySQL Yum仓库升级MySQL</strong>和<strong>替换MySQL的本地第三方分发版</strong>以获取详细信息。</p>
+<h4 id="选择一个发行版本"><a href="#选择一个发行版本" class="headerlink" title="选择一个发行版本"></a>选择一个发行版本</h4><p>在使用MySQL Yum仓库时，默认情况下会选择最新的MySQL GA版本。如果这是您想要的，您可以跳到下一个步骤，用Yum安装MySQL。</p>
+<p>在MySQL Yum仓库<a href="http://repo.mysql.com/yum/" target="_blank" rel="noopener">http://repo.mysql.com/yum/</a>中，MySQL社区服务器的不同版本系列托管在不同的子库中。最新的GA系列（目前是MySQL 8.0）的子库默认启用，而所有其他系列（例如，MySQL 5.7系列）的子库在默认情况下都是禁用的。</p>
+<p>使用这个命令查看MySQL Yum仓库中的所有子库，并查看哪些子库是启用或禁用的（对于支持dnf的系统，用dnf替换yum）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum repolist all | grep mysql</span><br></pre></td></tr></table></figure></p>
+<p>要安装最新GA系列的最新版本，不需要配置。要安装最新GA系列以外的特定系列的最新版本，请在运行安装命令之前禁用最新GA系列的子库，并启用特定系列的子库。如果您的平台支持<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令，您可以通过以下命令来实现这一点，例如，执行以下命令禁用8.0系列的子库，并启用5.7系列的子库</p>
+<p>对于不支持dnf的平台:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo yum-config-manager --disable mysql80-community</span><br><span class="line"><span class="meta">shell&gt;</span> sudo yum-config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure></p>
+<p>对于支持dnf的平台<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo dnf config-manager --disable mysql80-community</span><br><span class="line"><span class="meta">shell&gt;</span> sudo dnf config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure></p>
+<p>除了使用<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令之外，您还可以通过手工编辑<strong><em>/etc/yum.repos.d/mysql-community.repo</em></strong>协议文件来选择一个系列。下面是一个发布系列的子库中的典型条目：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[mysql80-community]</span></span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">8.0</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+<p>找到您想要配置的子库的条目，并编辑<strong>enabled</strong>的选项。指定<strong>enabled=0</strong>来禁用子库，或者<strong>enabled=1</strong>来启用子库。例如，要安装MySQL 5.7，请确保在MySQL 8.0的子库条目中enabled=0，并为5.7系列的条目设置enabled=1：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable to use MySQL 5.7</span></span><br><span class="line"><span class="string">[mysql57-community]</span></span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">5.7</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+<p>您应该在任何时候只启用子库。当启用多个发布系列的子库时，Yum将使用最新的系列</p>
+<p>通过运行以下命令并检查其输出（对于支持dnf的系统，用dnf替换yum），验证相应的子库是否已启用和禁用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum repolist enabled | grep mysql</span><br></pre></td></tr></table></figure>
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><p>通过以下命令安装MySQL（用于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+<p>这将为MySQL服务器安装软件包，以及其他必需的软件包。</p>
+<h4 id="启动MySQL服务器"><a href="#启动MySQL服务器" class="headerlink" title="启动MySQL服务器"></a>启动MySQL服务器</h4><p>使用下面的命令启动MySQL服务器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo service mysqld start</span><br></pre></td></tr></table></figure>
+<p>对于基于el7的平台，执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo systemctl start mysqld.service</span><br></pre></td></tr></table></figure>
+<p>您可以使用以下命令检查MySQL服务器的状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo service mysqld status</span><br></pre></td></tr></table></figure>
+<p>对于基于el7的平台，使用systemctl：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo systemctl status mysqld.service</span><br></pre></td></tr></table></figure></p>
+<p>MySQL服务器初始化（和MySQL 5.7一样）：在服务器的初始启动时，由于服务器的数据目录是空的，所以会发现以下过程：</p>
+<ul>
+<li>服务器初始化</li>
+<li>在data目录中生成SSL证书和密钥文件</li>
+<li>validate_password插件被安装并启用</li>
+<li>创建一个超级用户帐户的<strong>root‘@’localhost</strong>，超级用户的密码被设置并存储在错误日志文件中。要获取初始密码，请使用以下命令：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo grep 'temporary password' /var/log/mysqld.log</span><br></pre></td></tr></table></figure>
+<p>尽快更改初始密码，通过初始密码登录，并为超级用户帐户设置一个自定义密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>修改密码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPassword';</span><br></pre></td></tr></table></figure></p>
+<p>注意：MySQL的validate_password插件是默认安装的。这将要求密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符，并且总密码长度至少为8个字符。</p>
+<p>至此， MySQL8.0安装完毕！</p>
+<h4 id="确保MySQL安装（仅针对MySQL-5-6）"><a href="#确保MySQL安装（仅针对MySQL-5-6）" class="headerlink" title="确保MySQL安装（仅针对MySQL 5.6）"></a>确保MySQL安装（仅针对MySQL 5.6）</h4><p>指令<strong>mysql_secure_installation</strong>允许您执行一些重要的操作，如设置根密码、删除匿名用户等等。通过运行它来确保MySQL 5.6已安装成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>记住您设置的根密码是很重要的。详细信息请参阅<a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html" target="_blank" rel="noopener">mysql_secure_installation — Improve MySQL Installation Security</a></p>
+<p>在安装MySQL 5.7或更高版本后，不要运行mysql_secure_installation，因为该指令的程序已经由Yum仓库安装完成。</p>
+<p>注意：对于基于el7的平台，请查看<a href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-install-compatibility-el7" target="_blank" rel="noopener">Compatibility Information for EL7-based platforms</a></p>
+<h3 id="安装额外的MySQL产品和组件"><a href="#安装额外的MySQL产品和组件" class="headerlink" title="安装额外的MySQL产品和组件"></a>安装额外的MySQL产品和组件</h3><p>您可以使用Yum来安装和管理MySQL的各个组件。其中一些组件已存在MySQL Yum仓库的子库中。使用下面的命令列出MySQL Yum仓库的所有子库中可用的所有MySQL组件的包（对于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum --disablerepo=\* --enablerepo='mysql*-community*' list available</span><br></pre></td></tr></table></figure>
+<p>使用以下命令安装您所选择的任何包，用包名替换<strong><em>package-name </em></strong>（对于支持dnf的系统，用dnf替换指令中的yum）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum install package-name</span><br></pre></td></tr></table></figure>
+<p>例如，在Fedora上安装MySQL Workbench：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf install mysql-workbench-community</span><br></pre></td></tr></table></figure>
+<h3 id="用MySQL-Yum仓库升级MySQL"><a href="#用MySQL-Yum仓库升级MySQL" class="headerlink" title="用MySQL Yum仓库升级MySQL"></a>用MySQL Yum仓库升级MySQL</h3><p>注意：在对MySQL进行任何更新之前，请仔细检查<a href="https://dev.mysql.com/doc/refman/8.0/en/upgrading.html" target="_blank" rel="noopener">Upgrading MySQL</a>的说明。在这里说明中，更新之前备份数据库的内容尤其重要。</p>
+<p>使用MySQL Yum仓库进行就地更新(即取代旧版本,然后运行旧的数据文件的新版本)为你的MySQL安装通过以下步骤(假设你已经安装了MySQL与MySQL Yum资源库或RPM包直接从MySQL开发人员下载区域的MySQL下载页面;如果不是这样，请按照以下指示替换MySQL的本地第三方发行版):</p>
+<p>选择一个目标系列</p>
+<p>默认情况下，MySQL Yum库将MySQL更新为您在安装期间选择的发布系列中的最新版本(参见选择发布系列了解详细信息)，这意味着，例如5.7版本。x安装不会更新为8.0。x自动释放。要更新到另一个发布系列，您需要首先禁用所选系列的子存储库(默认情况下，或者您自己)，并启用目标系列的子存储库。要做到这一点，请参阅在选择发布系列以编辑/etc/yum.repo .d/mysql-community中的子存储库条目时给出的一般说明。回购协议文件。要从MySQL 5.7升级到8.0，请执行与选择发布系列所示步骤相反的操作，禁用MySQL 5.7系列的子存储库，并启用MySQL 8.0系列的子存储库。</p>
+<p>一般来说，要从一个发布系列升级到另一个发布系列，请转到下一个系列，而不是跳过一个系列。例如，如果您正在运行MySQL 5.6并希望升级到8.0，请先升级到MySQL 5.7，然后再升级到8.0。</p>
+<p>重要</p>
+<p>关于从MySQL 5.6升级到5.7的重要信息，请参见从MySQL 5.6升级到5.7。</p>
+<p>有关从MySQL 5.7升级到8.0的重要信息，请参见从MySQL 5.7升级到8.0。</p>
+<p>MySQL Yum库不支持就地降级MySQL。按照降级MySQL的说明。</p>
+<p>升级MySQL</p>
+<p>对于不支持dnf的平台，通过以下命令升级MySQL及其组件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update mysql-server</span><br></pre></td></tr></table></figure>
+<p>对于支持dnf的平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf --refresh upgrade mysql-server</span><br></pre></td></tr></table></figure>
+<p>或者，您可以通过告诉Yum更新系统上的所有内容来更新MySQL，这可能会花费更多的时间;对于不支持dnf的平台:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update</span><br></pre></td></tr></table></figure>
+<p>对于支持dnf的平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade</span><br></pre></td></tr></table></figure>
+<h3 id="重启MySQL"><a href="#重启MySQL" class="headerlink" title="重启MySQL"></a>重启MySQL</h3><p>MySQL服务器总是在Yum更新后重新启动。一旦服务器重新启动，运行mysql_upgrade来检查并解决旧数据和升级软件之间的任何不兼容问题。mysql_upgrade还可以执行其他功能;请参阅mysql_upgrade -检查和升级MySQL表以了解详细信息。</p>
+<p>您还可以只更新特定的组件。使用以下命令列出MySQL组件的所有已安装包(对于支持dnf的系统，将yum替换为dnf):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum list installed | grep &quot;^mysql&quot;</span><br></pre></td></tr></table></figure>
+<p>在识别您选择的组件的包名之后，对于不支持dnf的平台，使用以下命令更新包，用包名替换包名:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update package-name</span><br></pre></td></tr></table></figure>
+<p>对于支持dnf的平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade package-name</span><br></pre></td></tr></table></figure>
+<p>替换MySQL的本地第三方发行版</p>
+<p>要用MySQL Yum库最新的GA版本(目前来自MySQL 8.0系列)替换从受支持的Linux平台的本地软件仓库安装的第三方MySQL发行版，请执行以下步骤:</p>
+<p>备份数据库<br>为了避免数据丢失，请在尝试使用MySQL Yum库替换MySQL安装之前备份数据库。有关如何备份数据库，请参阅备份和恢复。</p>
+<p>添加MySQL Yum存储库</p>
+<p>通过添加MySQL Yum存储库中给出的说明，将MySQL Yum存储库添加到您的系统的存储库列表中。</p>
+<p>用Yum更新或DNF升级替换本机第三方发行版</p>
+<p>通过设计,MySQL Yum资源库将取代你的本地,第三方MySQL在最新的GA版本(从目前的MySQL 8.0系列)从MySQL百胜库执行Yum更新命令时(或dnf升级dnf-enabled系统)系统,或Yum更新MySQL服务器(或MySQL服务器升级dnf dnf-enabled系统)。</p>
+<p>在使用Yum存储库更新MySQL之后，使用旧版本的共享客户机库编译的应用程序应该继续工作。但是，如果您想重新编译应用程序并动态地将它们与更新后的库链接起来，请参阅升级共享客户机库以获得一些特殊的考虑。</p>
+<p>备注</p>
+<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
+<p>如果您已经从一个非本地存储库下载并安装了MySQL的第三方分发版（例如，来自MariaDB或Percona），那么在MySQL服务器的参考手册中，遵循替换它们的说明是很重要的。</p>
+<p>使用Yum存储库安装MySQL NDB集群、</p>
+<p>备注</p>
+<p>下面的说明假设MySQL服务器和MySQL NDB集群都已经安装在您的系统上;如果不是这样，那么在继续之前，删除MySQL服务器或MySQL NDB集群，包括所有可执行文件、库、配置文件和数据目录。但是，没有必要删除您可能用于在系统上启用MySQL Yum存储库的放行包。</p>
+<p>NDB集群SQL节点包对Perl类：：MethodMaker模块有依赖关系。如果在您的系统上启用了EPEL（Enterprise Linux的额外包），Yum可以处理这种依赖关系;请参阅这里的说明，了解如何启用EPEL存储库。</p>
+<p>MySQL Yum存储库支持MySQL NDB集群的安装，仅用于发布7.5.6和后续版本，并且只支持EL6和EL7平台。对于其他安装NDB集群的方法，请参阅Linux上的NDB集群的安装，或者在Linux上安装NDB集群，这取决于您正在使用的发布系列。</p>
+<p>为MySQL NDB集群添加MySQL Yum存储库</p>
+<p>按照添加MySQL Yum存储库的步骤，将MySQL Yum存储库添加到系统的存储库列表中。如果您之前已经完成了这个步骤，那么请确保您拥有最新版本的发布包，运行以下命令，以支持那些没有启用dnf的平台：</p>
+<p>shell&gt; sudo yum update mysql57-community-release</p>
+<p>对于支持dnf的平台</p>
+<p>shell&gt; sudo dnf –refresh upgrade mysql57-community-release</p>
+<p>选择MySQL NDB集群子存储库</p>
+<p>在MySQL Yum库(<a href="http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL" target="_blank" rel="noopener">http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL</a> NDB集群托管在不同的子存储库中。默认情况下，将启用MySQL服务器最新GA系列的子存储库，并禁用MySQL NDB集群的子存储库。要安装NDB集群，请禁用MySQL服务器的子存储库，并启用NDB集群的子存储库。如果您的平台支持yum-config-manager或dnf config-manager命令，您可以通过发出以下命令来做到这一点，该命令禁用了MySQL 5.7系列的子存储库，并为MySQL NDB集群7.5启用了这个命令;对于不支持dnf的平台:</p>
+<p>shell&gt; sudo yum-config-manager –disable mysql57-community<br>shell&gt; sudo yum-config-manager –enable mysql-cluster-7.5-community</p>
+<p>对于支持dnf的平台</p>
+<p>shell&gt; sudo dnf config-manager –disable mysql57-community<br>shell&gt; sudo dnf config-manager –enable mysql-cluster-7.5-community</p>
+<p>除了使用yconfig管理器或dnf configmanager命令之外，您还可以通过手工编辑/etc/yum.repos.d/mysql-community来选择子存储库。回购协议文件。这是文件中MySQL 5.7个子存储库的示例条目：</p>
+<p>[mysql57-community]<br>name=MySQL 5.7 Community Server<br>baseurl=<a href="http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/" target="_blank" rel="noopener">http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</a><br>enabled=1<br>gpgcheck=1<br>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</p>
+<p>要安装NDB集群7.5，您必须禁用MySQL 5.7的子存储库，方法是为上面的子库条目启用启用=0，并启用NDB集群7.5个子存储库，使其条目=1：</p>
+<p>[mysql-cluster-7.5-community]<br>name=MySQL Cluster 7.5 Community<br>baseurl=<a href="http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/" target="_blank" rel="noopener">http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/</a><br>enabled=1<br>gpgcheck=1<br>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</p>
+<p>在保存文件的更改之后，通过运行以下命令来验证是否启用了正确的子存储库（支持dnf的系统，用dnf替换yum）：</p>
+<p>shell&gt; yum repolist enabled | grep mysql<br>!mysql-cluster-7.5-community/x86_64 MySQL Cluster 7.5 Community               18<br>!mysql-connectors-community/x86_64  MySQL Connectors Community                31<br>!mysql-tools-community/x86_64       MySQL Tools Community                     33</p>
+<p>NDB集群7.5（Community edition）的子存储库现已启用。<br>在列表中还有一些MySQL Yum存储库的其他子存储库，它们在默认情况下是启用的。</p>
+<p>安装MySQL NDB集群</p>
+<p>对于MySQL NDB集群的最小安装，请遵循以下步骤（用于支持dnf的系统，用dnf替换yum中的yum）：</p>
+<p>为SQL节点安装组件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-server</p>
+<p>安装完成后，按照启动MySQL服务器的步骤启动和初始化SQL节点。 </p>
+<p>如果您选择使用mysqld——初始化命令（请参阅使用mysqld手动初始化数据目录）来手动初始化数据目录，则会生成根密码并将其存储在SQL节点的错误日志中;有关如何查找密码的MySQL服务器初始化，以及您需要了解的一些事情。</p>
+<p>为管理节点安装可执行文件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-management-server</p>
+<p>为数据节点安装可执行文件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-data-node</p>
+<p>配置和启动MySQL NDB集群</p>
+<p>关于如何配置MySQL NDB集群和NDB集群的初始启动，请参阅NDB集群的初始配置，了解如何第一次启动它。</p>
+<p>备注</p>
+<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
+<p>安装额外的MySQL NDB集群产品和组件</p>
+<p>您可以使用Yum从MySQL Yum存储库中安装MySQL NDB集群的单个组件和附加产品。<br>要做到这一点，假设您已经在系统的存储库列表中已经有了MySQL Yum存储库（如果没有的话，请遵循使用Yum存储库安装MySQL NDB集群的步骤1和步骤2），遵循在安装额外的MySQL产品和组件时所提供的相同步骤。</p>
+<p>备注</p>
+<p>已知的问题：目前，当您安装测试套件包（mysql-集群-社区测试）时，并不是运行MySQL NDB集群测试套件所需的所有组件。在运行测试套件之前，先安装yum安装（或dnf安装的dnf系统）的下列软件包：</p>
+<ul>
+<li><p>mysql-cluster-community-auto-installer</p>
+</li>
+<li><p>mysql-cluster-community-management-server</p>
+</li>
+<li><p>mysql-cluster-community-data-node</p>
+</li>
+<li><p>mysql-cluster-community-memcached</p>
+</li>
+<li><p>mysql-cluster-community-java</p>
+</li>
+<li><p>mysql-cluster-community-ndbclient-devel</p>
+</li>
+</ul>
+<p>补充</p>
+<p>关于MySQL Yum存储库的更多信息可以在MySQL服务器参考手册的以下部分中找到：<br>Installing MySQL on Linux Using the MySQL Yum Repository</p>
+<p>Replacing a Third-Party Distribution of MySQL Using the MySQL Yum Repository</p>
+<p>Upgrading MySQL with the MySQL Yum Repository</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/29/CentOS下PostgreSQL安装/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/29/CentOS下PostgreSQL安装/" itemprop="url">CentOS6下PostgreSQL安装</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-29T00:00:00+08:00">
+                2018-06-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/PostgreSQL/" itemprop="url" rel="index">
+                    <span itemprop="name">PostgreSQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>基于CentOS6的PostgreSQL yum安装</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> yum install postgresql96</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> yum install postgresql96-server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> yum install postgresql96-contrib</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> service postgresql-9.6 initdb</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> chkconfig postgresql-9.6 on</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> service postgresql-9.6 start</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装后默认只能本地访问，需要修改配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cd /var/lib/pgsql/9.6/data/</span><br><span class="line"><span class="meta">#</span> ll</span><br></pre></td></tr></table></figure>
+<h4 id="修改监听地址"><a href="#修改监听地址" class="headerlink" title="修改监听地址"></a>修改监听地址</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> vim postgresql.conf</span><br></pre></td></tr></table></figure>
+<p>修改listen_address</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_address=&apos;*&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="修改登入权限"><a href="#修改登入权限" class="headerlink" title="修改登入权限"></a>修改登入权限</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> vim pg_hba.conf</span><br></pre></td></tr></table></figure>
+<p>修改IPv4的配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">host</span>    <span class="string">all</span>             <span class="string">all</span>             <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">/0</span>            <span class="string">md5</span></span><br></pre></td></tr></table></figure>
+<h3 id="重启生效"><a href="#重启生效" class="headerlink" title="重启生效"></a>重启生效</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> service postgresql-9.6 restart</span><br></pre></td></tr></table></figure>
+<p>备注： root 用户无法直接访问数据库，需要切换成 postgres 用户，进入 bash 界面，再输入 psql 进入数据库的控制台</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> su postgres</span><br><span class="line">bash-4.1$ psql</span><br><span class="line">psql (9.6.9)</span><br><span class="line">Type "help" for help.</span><br><span class="line"></span><br><span class="line">postgres=#</span><br></pre></td></tr></table></figure>
+<p>至此，PostgreSQL的安装和配置完毕！</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/Redis在项目中实际使用时的配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/23/Redis在项目中实际使用时的配置/" itemprop="url">Redis项目中使用时的配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>基于实际项目的配置，会陆续的进行改进</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/23/Redis在项目中实际使用时的配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/03/Redis虚拟内存/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/03/Redis虚拟内存/" itemprop="url">Redis虚拟内存</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-03T00:00:00+08:00">
+                2018-04-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Redis的虚拟内存和操作系统的虚拟内存不是一码事，但是思路和目的都是相同的：</p>
+<p>就是暂时把不常访问的数据从内存交换到磁盘中，从而腾出宝贵的内存空间</p>
+<p>Redis在用户态实现了自己的虚拟内存机制</p>
+<p>主要的理由有以下两点：</p>
+<ol>
+<li><p>操作系统的虚拟内存是以4k/页为最小单位进行交换的。而Redis 的大多数对象都远小于4k，所以一个操作系统页上可能有多个Redis对象。另外Redis的集合对象类型如list,set可能存在于多个操作系统页上，最终可能造成只有10%的key 被经常访问，但是所有操作系统页都会被操作系统认为是活跃的，这样只有内存真正耗尽时操作系统才会进行页的交换。</p>
+</li>
+<li><p>相比操作系统的交换方式，Redis 可以将被交换到磁盘的对象进行压缩,保存到磁盘的对象可以去除指针和对象元数据信息。一般压缩后的对象会比内存中的对象小10 倍。这样Redis 的虚拟内存会比操作系统的虚拟内存少做很多IO 操作。</p>
+</li>
+</ol>
+<h4 id="虚拟内存配置"><a href="#虚拟内存配置" class="headerlink" title="虚拟内存配置"></a>虚拟内存配置</h4><pre><code>#开启虚拟内存的功能
+vm-enabled yes
+
+#交换出来value保存的文件路径/tmp/redis.swap
+vm-swap-file /tmp/redis.swap
+
+#redis使用的最大内存上限，超出上限后redis开始狡猾value到磁盘swap文件中，建议设置为系统空闲内存的60%~80%
+vm-max-memory 268435456
+
+#每个Redis页的大小 字节
+vm-page-size 32
+
+#最多在文件中使用多少个页，交换文件的大小 = (vm-page-size * vm-pages)
+vm-pages 1334217728
+
+#用于执行value对象换入换出的工作线程数量，0表示不使用工作线程
+vm-max-threads 8
+</code></pre><p>Redis的虚拟内存在设计上为了保证key 的查询速度，只会将value 交换到swap 文件中。如果是由于太多key很小的value造成的内存问题，那么redis 的虚拟内存并不能解决问题。和操作系统一样redis 也是按页来交换对象的。redis 规定同一个页只能保存一个对象。但是一个对象可以保存在多个页中。在redis 使用的内存没超过vm-max-memory 之前是不会交换任何value 的。当超过最大内存限制后，redis 会选择把较老的对象交换到swap文件中去。如果两个对象一样老会优先交换比较大的对象， 精确的交换计算公式swappability = age*log(size_in_memory)。对于vm-page-size 的设置应该根据自己应用将页的大小设置为可以容纳大多数对象的尺寸。太大了会浪费磁盘空间，太小了会造成交换文件出现过多碎片。对于交换文件中的每个页，redis 会在内存中用一个1bit 值来对应记录页的空闲状态。所以像上面配置中页数量(vm-pages 134217728 )会占用16MB 内存用来记录页的空闲状态。vm-max-threads 表示用做交换任务的工作线程数量。如果大于0 推荐设为服务器的cpu 的核心数。如果是0 则交换过程在主线程进行。</p>
+<h4 id="Redis虚拟内存工作方式简介"><a href="#Redis虚拟内存工作方式简介" class="headerlink" title="Redis虚拟内存工作方式简介"></a>Redis虚拟内存工作方式简介</h4><h5 id="当vm-max-threads设置为0时（阻塞方式）"><a href="#当vm-max-threads设置为0时（阻塞方式）" class="headerlink" title="当vm-max-threads设置为0时（阻塞方式）"></a>当vm-max-threads设置为0时（阻塞方式）</h5><h6 id="换出"><a href="#换出" class="headerlink" title="换出"></a>换出</h6><p>主线程定期检查发现内存超出最大上限后，会直接以阻塞的方式，将选中的对象保存到swap文件中，并释放对象占用的内存空间，此过程会一直重复直到下面条件满足：</p>
+<p>1.内存使用降到最大限制以下</p>
+<p>2.swap文件满了</p>
+<p>3.几乎全部的对象都被交换到磁盘</p>
+<h6 id="换入"><a href="#换入" class="headerlink" title="换入"></a>换入</h6><p>当有客户端请求已经被换出的value时，主线程会以阻塞的方式从swap文件中加载对应的value对象，加载时会阻塞所有客户端，然后处理该客户端的请求</p>
+<h5 id="当vm-max-threads设置为大于0时（工作线程方式）"><a href="#当vm-max-threads设置为大于0时（工作线程方式）" class="headerlink" title="当vm-max-threads设置为大于0时（工作线程方式）"></a>当vm-max-threads设置为大于0时（工作线程方式）</h5><h6 id="换出-1"><a href="#换出-1" class="headerlink" title="换出"></a>换出</h6><p>当主线程检测到使用内存超过最大上限，会将选中要交换的对象信息放到一个队列中交给工作线程后台处理，主线程会继续处理客户端请求</p>
+<h6 id="换入-1"><a href="#换入-1" class="headerlink" title="换入"></a>换入</h6><p>如果有客户端请求的key已经被换出了，主线程会先阻塞发出命令的客户端，然后将加载对象的信息放到一个队列中，让工作线程去加载。加载完毕后工作线程通知主线程，主线程再执行客户端的命令，这种方式值阻塞请求的value是已经被换出key的客户端</p>
+<p>总的来说，阻塞方式的性能更好一点，因为不需要线程同步、创建线程和恢复被阻塞的客户端等开销，但是也相应的牺牲了响应性</p>
+<p>工作线程方式主线程不会阻塞在磁盘IO上，所以响应性更好</p>
+<p>如果应用不太经常发生换入换出，而且也不太在意有点延迟的话，推荐使用阻塞方式</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/Redis主从配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/02/Redis主从配置/" itemprop="url">Redis主从配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T00:00:00+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Redis支持将数据同步到多个从服务器上</p>
+<p>1.Master可以有多个slave</p>
+<p>2.多个slave可以练到同一个Master上，也可以连接到其他slave上</p>
+<p>3.主从复制不会阻塞Master，Master可以继续处理客户端发来的请求，反而slave在初次同步数据时则会阻塞不能处理客户端的请求</p>
+<p>4.主从复制可以提高系统的伸缩性，可以用多个slave专门用于客户端的读请求，也可以做简单的数据冗余</p>
+<p>5.可以在Master禁用数据持久化，只在slave上配置数据持久化</p>
+<h4 id="主从复制过程"><a href="#主从复制过程" class="headerlink" title="主从复制过程"></a>主从复制过程</h4><p>1.slave与master建立连接，发送sync同步命令</p>
+<p>2.master启动一个后台进程，将数据库快照保存在文件中，同时master主进程会开始收集新的写命令并缓存起来</p>
+<p>3.后台进程完成写文件后，master就发送文件给slave，slave将文件保存在磁盘上，然后加载到内存恢复数据库快照到slave上</p>
+<p>4.接着master就会把缓存命令转发给slave，而且后续master收到的写命令都会通过开始建立的连接发送给slave</p>
+<p>注意：</p>
+<p>master到slave的同步数据的命令和从客户端发送的命令使用相同的协议格式</p>
+<p>当master和slave的连接断开时slave可以自动重新建立连接</p>
+<p>如果master同时收到多个slave发来的同步连接命令，只会启动一个进程来写数据库镜像，然后发送给所有slave</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>在配置文件中写入配置即可</p>
+<pre><code>slaveof 1.1.1.1 6379      #指定master的IP和端口
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/Redis安全配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/01/Redis安全配置/" itemprop="url">Redis安全配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T00:00:00+08:00">
+                2018-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>1.设置Redis密码</p>
+<p>修改redid.conf文件</p>
+<pre><code>#requirepass foobared
+requirepass yourpassword
+</code></pre><p>重启Redis服务</p>
+<p>2.设置防火墙，关闭Redis的6379端口的对外访问</p>
+<p>一般不建议设置密码，只需要关闭端口的对外访问即可</p>
 
           
         
@@ -698,7 +2151,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -746,7 +2199,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -757,7 +2210,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">17</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -768,7 +2221,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
