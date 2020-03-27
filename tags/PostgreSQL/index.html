@@ -114,7 +114,7 @@
 <meta name="description" content="祝我们平日快乐 做平凡的人！">
 <meta property="og:type" content="website">
 <meta property="og:title" content="青花小记">
-<meta property="og:url" content="http://yoursite.com/tags/PostgreSQL/index.html">
+<meta property="og:url" content="http://yoursite.com/tags/postgreSQL/index.html">
 <meta property="og:site_name" content="青花小记">
 <meta property="og:description" content="祝我们平日快乐 做平凡的人！">
 <meta property="og:locale" content="zh-Hans">
@@ -150,13 +150,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/tags/PostgreSQL/">
+  <link rel="canonical" href="http://yoursite.com/tags/postgreSQL/">
 
 
 
 
 
-  <title>标签: PostgreSQL | 青花小记</title>
+  <title>标签: postgreSQL | 青花小记</title>
   
 
 
@@ -325,7 +325,7 @@
 
     <div id="posts" class="posts-collapse">
       <div class="collection-title">
-        <h1>PostgreSQL<small>标签</small>
+        <h1>postgreSQL<small>标签</small>
         </h1>
       </div>
 
@@ -337,17 +337,17 @@
 
       <h2 class="post-title">
         
-            <a class="post-title-link" href="/2018/06/29/CentOS下PostgreSQL安装/" itemprop="url">
+            <a class="post-title-link" href="/2018/06/21/PostgreSQL常用命令学习/" itemprop="url">
               
-                <span itemprop="name">CentOS6下PostgreSQL安装</span>
+                <span itemprop="name">PostgreSQL常用命令学习</span>
               
             </a>
         
       </h2>
 
       <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-06-29T00:00:00+08:00" content="2018-06-29">
-          06-29
+        <time class="post-time" itemprop="dateCreated" datetime="2018-06-21T00:00:00+08:00" content="2018-06-21">
+          06-21
         </time>
       </div>
 
@@ -409,7 +409,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">45</span>
+                  <span class="site-state-item-count">63</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -420,7 +420,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -431,7 +431,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">18</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -984,6 +984,39 @@
       e.stopPropagation();
     });
     $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/src/clicklove.js"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?0c58a1486de42ac6cc1c59c7d98ae887"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</html>
+ $(document).on('keyup', function (event) {
       var shouldDismissSearchPopup = event.which === 27 &&
         $('.search-popup').is(':visible');
       if (shouldDismissSearchPopup) {
