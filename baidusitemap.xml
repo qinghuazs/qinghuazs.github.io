@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>http://yoursite.com/2018/03/28/Redis%E5%AE%89%E8%A3%85-Linux%E5%B9%B3%E5%8F%B0/</loc>
+    <lastmod>2020-03-27T14:04:42.431Z</lastmod>
+  </url>  <url>
     <loc>http://yoursite.com/2018/06/30/CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85MySQL8/</loc>
     <lastmod>2020-03-26T12:01:18.363Z</lastmod>
   </url>  <url>
@@ -99,9 +102,6 @@
   </url>  <url>
     <loc>http://yoursite.com/2018/03/29/Redis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/</loc>
     <lastmod>2018-07-01T04:06:34.000Z</lastmod>
-  </url>  <url>
-    <loc>http://yoursite.com/2018/03/28/Redis%E5%AE%89%E8%A3%85-Linux%E5%B9%B3%E5%8F%B0/</loc>
-    <lastmod>2018-07-01T04:06:00.000Z</lastmod>
   </url>  <url>
     <loc>http://yoursite.com/2018/03/27/Redis%E7%AE%80%E4%BB%8B/</loc>
     <lastmod>2018-07-01T04:04:42.000Z</lastmod>

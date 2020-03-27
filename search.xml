@@ -385,7 +385,7 @@
     <url>%2F2018%2F03%2F28%2FRedis%E5%AE%89%E8%A3%85-Linux%E5%B9%B3%E5%8F%B0%2F</url>
     <content type="text"><![CDATA[首先需要安装gcc，把下载好的redis-3.0.0-rc2.tar.gz放到linux的/usr/local文件夹 进行解压 # tar -zxvf redis-3.0.0-rc2.tar.gz 进入到redis-3.0.0目录下，进行编译 # cd redis-3.0.0-rc2 # make 验证(ll查看src下的目录，有redis-server 、redis-cil即可) 建立俩个文件夹存放redis命令和配置文件 # mkdir -p /usr/local/redis/etc # mkdir -p /usr/local/redis/bin 把redis-3.0.0下的redis.conf 移动到/usr/local/redis/etc下， # cp redis.conf /usr/local/redis/etc/ 把redis-3.0.0/src里的mkreleasehdr.sh、redis-benchmark、redis-check-aof、redis-check-dump、redis-cli、redis-server文件移动到bin下 # mv mkreleasehdr.sh redis-benchmark redis-check-aof redis-check-dump redis-cli redis-server /usr/local/redis/bin redis-server： Redis服务器的daemon启动程序 redis-cli： Redis命令行操作工具 redis-benchmark： Redis的性能测试工具，测试Redis在你的系统及你的配置下的读写性能 # redis-benchmark -n 100000 -c 50 --模拟同时由50个客户端发送100000个SETs/GETs查询 redi-check-aof：更新日志检查 redis-check-dump：本地数据库检查 启动时并指定配置文件： # cd /usr/local/redis/bin # ./redis-server /usr/local/redis/etc/redis.conf 注意要使用后台启动，所以修改redis.conf里的 daemonize 改为yes 验证启动是否成功： # ps -ef | grep redis 查看是否有redis服务 或者 查看端口： # netstat -tunpl | grep 6379 进入redis客户端 # ./redis-cli 退出客户端 # quit 退出redis服务 （1）pkill redis-server （2）kill 进程号 （3）/usr/local/redis/bin/redis-cli shutdown （4） 关闭指定端口的redis服务 # redis-cli -p 6379 shutdown]]></content>
       <categories>
-        <category>Reis</category>
+        <category>Redis</category>
       </categories>
       <tags>
         <tag>Redis</tag>
