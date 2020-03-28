@@ -333,7 +333,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/Redis简介/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/NoSQL简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="青花葬水">
@@ -352,7 +352,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/27/Redis简介/" itemprop="url">Redis简介</a></h1>
+                <a class="post-title-link" href="/2018/03/27/NoSQL简介/" itemprop="url">NoSQL简介</a></h1>
         
 
         <div class="post-meta">
@@ -426,36 +426,23 @@
       
         
           
-            <p>K-V形式存储</p>
-<h5 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h5><p>对数据高并发读写</p>
-<p>对海量数据的高效率存储和访问</p>
-<p>对数据的可扩展性和高可用性</p>
-<h5 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h5><p>ACID处理非常简单</p>
-<p>无法做到太复杂的关系数据模型</p>
-<h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><ul>
-<li><p>string 字符串</p>
-</li>
-<li><p>哈希</p>
-</li>
-<li><p>list 链表</p>
-</li>
-<li><p>set 集合</p>
-</li>
-<li><p>zset 有序集合</p>
-</li>
-</ul>
-<h5 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h5><p>RDB</p>
-<p>AOF</p>
-<h5 id="集群策略"><a href="#集群策略" class="headerlink" title="集群策略"></a>集群策略</h5><ol>
-<li><p>主从形式</p>
-</li>
-<li><p>哨兵形式</p>
-</li>
-<li><p>3.0之后的集群模式</p>
-</li>
-</ol>
-<h5 id="主从形式"><a href="#主从形式" class="headerlink" title="主从形式"></a>主从形式</h5><p>主节点写，从节点读</p>
-<h5 id="哨兵形式"><a href="#哨兵形式" class="headerlink" title="哨兵形式"></a>哨兵形式</h5><p>哨兵节点去监控主从节点的状态，主节点挂掉之后，哨兵会在从节点之间选取一个节点，提升为主节点；如果主节点重新加入，则变成从节点</p>
+            <p>泛指非关系型数据库</p>
+<p>四大分类</p>
+<p>1.键值存储数据库（KV）</p>
+<p>Redis、Memecached</p>
+<p>2.列存储数据库</p>
+<p>通常用来应对分布式存储的海量数据</p>
+<p>键仍然存在，但是指向了多个列</p>
+<p>HBase、Riak</p>
+<p>3.文档型数据库</p>
+<p>MongoDB</p>
+<p>4.图形数据库</p>
+<p>特点：</p>
+<p>数据模型比较简单</p>
+<p>需要灵活性更强的IT系统</p>
+<p>对数据库性能要求较高</p>
+<p>不需要高度的数据一致性</p>
+<p>对于给定Key，比较容易映射复杂值的环境</p>
 
           
         

@@ -333,6 +333,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/Nginx配置SSL证书/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/22/Nginx配置SSL证书/" itemprop="url">Nginx配置SSL证书</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenSSL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen     443;</span><br><span class="line">     server_name  127.0.0.1;</span><br><span class="line"></span><br><span class="line">     ssl on; </span><br><span class="line"></span><br><span class="line">     ssl_certificate   /usr/local/cert/证书名.pem;</span><br><span class="line">     ssl_certificate_key  /usr/local/cert/证书名.key;</span><br><span class="line">     ssl_session_timeout 5m;</span><br><span class="line">     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">     ssl_prefer_server_ciphers on;</span><br><span class="line">     ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line"></span><br><span class="line">     location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8089;        </span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     error_page   500 502 503 504  /50x.html;</span><br><span class="line">     location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/openSSL生成SSL证书/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -434,148 +576,6 @@
 <h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><p>自签名证书，用于自己测试，不需要CA签发</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -key private.key -out cacert.pem -days 36500</span><br></pre></td></tr></table></figure>
 <p>至此，生成的证书已经可以使用了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/Nginx配置SSL证书/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/Nginx配置SSL证书/" itemprop="url">Nginx配置SSL证书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00+08:00">
-                2018-06-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
-                    <span itemprop="name">OpenSSL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen     443;</span><br><span class="line">     server_name  127.0.0.1;</span><br><span class="line"></span><br><span class="line">     ssl on; </span><br><span class="line"></span><br><span class="line">     ssl_certificate   /usr/local/cert/证书名.pem;</span><br><span class="line">     ssl_certificate_key  /usr/local/cert/证书名.key;</span><br><span class="line">     ssl_session_timeout 5m;</span><br><span class="line">     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">     ssl_prefer_server_ciphers on;</span><br><span class="line">     ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line"></span><br><span class="line">     location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8089;        </span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     error_page   500 502 503 504  /50x.html;</span><br><span class="line">     location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -895,204 +895,6 @@
 <p>rc.local就是在一切初始化工作后，Linux留给用户进行个性化的地方。你可以把你想设置和启动的东西放到这里。</p>
 <h3 id="执行-bin-login程序，进入登录状态-execute-bin-login"><a href="#执行-bin-login程序，进入登录状态-execute-bin-login" class="headerlink" title="执行/bin/login程序，进入登录状态 execute /bin/login"></a>执行/bin/login程序，进入登录状态 execute /bin/login</h3><p>此时，系统已经进入到了等待用户输入username和password的时候了，你已经可以用自己的帐号登入系统了。:)</p>
 <p>原文链接：<a href="https://blog.csdn.net/wangzhen209/article/details/72377317" target="_blank" rel="noopener">https://blog.csdn.net/wangzhen209/article/details/72377317</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/12/Linux基础/" itemprop="url">Linux基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
-                2018-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
-<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
-<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
-<p>基本分区可以马上被使用但不能再分区</p>
-<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
-<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
-<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“/”）</p>
-<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
-<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
-<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
-<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
-<p>盘片被划分为多个扇形区域即扇区</p>
-<p>同一盘片不同半径的同心圆为磁道</p>
-<p>不同盘片相同半径构成的圆柱面即柱面</p>
-<p>存储容量 = 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
-<p>信息记录可以表示为：</p>
-<p>xx磁道（柱面）， xx磁头， xx扇区</p>
-<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
-<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
-<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
-<p>/ 分区</p>
-<p>SWAP分区</p>
-<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607" target="_blank" rel="noopener">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
-<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054" target="_blank" rel="noopener">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
-<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
-<li><p>/ Linux文件系统的入口，最高级目录</p>
-</li>
-<li><p>/usr/bin、/bin ： 存放所有用户可以执行的命令</p>
-</li>
-<li><p>/usr/sbin、/sbin ： 存放只有root可以执行的命令</p>
-</li>
-<li><p>/home : 用户缺省的宿主目录</p>
-</li>
-<li><p>/proc ： 虚拟文件系统，存放当前进程信息</p>
-</li>
-<li><p>/dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在/dev下</p>
-</li>
-<li><p>/lib : 存放系统程序运行所需的共享库</p>
-</li>
-<li><p>/lost+found : 存放系统出错的检查结果</p>
-</li>
-<li><p>/tmp : 存放临时文件</p>
-</li>
-<li><p>/etc : 存储系统的配置</p>
-</li>
-<li><p>/var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
-</li>
-<li><p>/usr : 存放所有命令、库、手册等</p>
-</li>
-<li><p>/usr/local ： 软件安装的目录</p>
-</li>
-<li><p>/boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
-</li>
-<li><p>/mnt ： 临时系统文件的安装点</p>
-</li>
-</ul>
-<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
 
           
         
@@ -1526,7 +1328,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/SpringBoot之Redis引入/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="青花葬水">
@@ -1545,7 +1347,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/08/SpringBoot之Redis引入/" itemprop="url">SpringBoot之Redis引入</a></h1>
+                <a class="post-title-link" href="/2018/06/12/Linux基础/" itemprop="url">Linux基础</a></h1>
         
 
         <div class="post-meta">
@@ -1557,8 +1359,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T00:00:00+08:00">
-                2018-06-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
+                2018-06-12
               </time>
             
 
@@ -1580,8 +1382,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
                   </a>
                 </span>
 
@@ -1619,13 +1421,63 @@
       
         
           
-            <h3 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Redis--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--spring2.0集成redis所需common-pool2--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--fastjson--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.40<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># REDIS (RedisProperties)</span><br><span class="line"># Redis数据库索引（默认为<span class="number">0</span>）</span><br><span class="line">spring.redis.database=<span class="number">0</span></span><br><span class="line"># Redis服务器地址</span><br><span class="line">spring.redis.host=<span class="number">47.97</span>.<span class="number">173.227</span></span><br><span class="line"># Redis服务器连接端口</span><br><span class="line">spring.redis.port=<span class="number">6379</span></span><br><span class="line"># Redis服务器连接密码（默认为空）</span><br><span class="line">spring.redis.password=asdf12331aafjdahj1312jhj131+_111ghghgh</span><br><span class="line"># 连接池最大连接数（使用负值表示没有限制）</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-active=<span class="number">8</span></span><br><span class="line"># 连接池最大阻塞等待时间（使用负值表示没有限制）</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-wait=-<span class="number">1</span>ms</span><br><span class="line"># 连接池中的最大空闲连接</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-idle=<span class="number">8</span></span><br><span class="line"># 连接池中的最小空闲连接</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">min</span>-idle=<span class="number">0</span></span><br><span class="line"># 连接超时时间（毫秒）</span><br><span class="line">spring.redis.timeout=<span class="number">3000</span>ms</span><br></pre></td></tr></table></figure>
-<h3 id="序列化问题"><a href="#序列化问题" class="headerlink" title="序列化问题"></a>序列化问题</h3><p>data-redis在进行存储时，key和value默认使用了基于JDK的序列化方式（JdkSerializationRedisSerializer），在使用连接工具查看时看到的都是编码后的信息，不方便查看，所以需要更改默认的序列化方式。此处对key值的序列化使用自定义的String序列化器(data-redis也提供了一个基于String的序列化器，但是该序列化器的泛型是String类型的，不能传入其他类型的值，所以基于官方提供的String序列化器再重写一个泛型为Object的序列化器)，对value使用基于FastJson的序列化器（FastJson也提供了一个序列化器，可以使用该序列化器，也可以仿照该序列化器自定义一个序列化器）</p>
-<h4 id="自定义String序列化器"><a href="#自定义String序列化器" class="headerlink" title="自定义String序列化器"></a>自定义String序列化器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringRedisSerializer</span> <span class="keyword">implements</span> <span class="title">RedisSerializer</span>&lt;<span class="title">Object</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Charset charset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String target = <span class="string">"\""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String replacement = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new &#123;<span class="doctag">@link</span> org.springframework.data.redis.serializer.StringRedisSerializer&#125; using &#123;<span class="doctag">@link</span> StandardCharsets#UTF_8 UTF-8&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringRedisSerializer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(StandardCharsets.UTF_8);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new &#123;<span class="doctag">@link</span> org.springframework.data.redis.serializer.StringRedisSerializer&#125; using the given &#123;<span class="doctag">@link</span> Charset&#125; to encode and decode strings.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> charset must not be &#123;<span class="doctag">@literal</span> null&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringRedisSerializer</span><span class="params">(Charset charset)</span> </span>&#123;</span><br><span class="line">        Assert.notNull(charset, <span class="string">"Charset must not be null!"</span>);</span><br><span class="line">        <span class="keyword">this</span>.charset = charset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * (non-Javadoc)</span></span><br><span class="line"><span class="comment">     * @see org.springframework.data.redis.serializer.RedisSerializer#deserialize(byte[])</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">deserialize</span><span class="params">(@Nullable <span class="keyword">byte</span>[] bytes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (bytes == <span class="keyword">null</span> ? <span class="keyword">null</span> : <span class="keyword">new</span> String(bytes, charset));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(<span class="meta">@Nullable</span> Object o) <span class="keyword">throws</span> SerializationException &#123;</span><br><span class="line">        String string = JSON.toJSONString(o);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(string)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        string = string.replace(target, replacement);</span><br><span class="line">        <span class="keyword">return</span> string.getBytes(charset);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="自定义FastJSON序列化器"><a href="#自定义FastJSON序列化器" class="headerlink" title="自定义FastJSON序列化器"></a>自定义FastJSON序列化器</h4><p>我这里用了官方提供的FastJSON序列化器，如果想自定义的话，可以参考以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FastJsonRedisSerializer</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">RedisSerializer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset DEFAULT_CHARSET = Charset.forName(<span class="string">"UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; clazz;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FastJsonRedisSerializer</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.clazz = clazz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(T t) <span class="keyword">throws</span> SerializationException &#123;</span><br><span class="line">        <span class="keyword">if</span> (t == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">deserialize</span><span class="params">(<span class="keyword">byte</span>[] bytes)</span> <span class="keyword">throws</span> SerializationException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bytes == <span class="keyword">null</span> || bytes.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String str = <span class="keyword">new</span> String(bytes, DEFAULT_CHARSET);</span><br><span class="line">        <span class="keyword">return</span> (T) JSON.parseObject(str, clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="指定序列化器"><a href="#指定序列化器" class="headerlink" title="指定序列化器"></a>指定序列化器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(RedisOperations.class)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(RedisProperties.class)</span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean</span>(name = <span class="string">"redisTemplate"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;Object, Object&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory redisConnectionFactory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用fastjson序列化  目前采用的是FastJson提供的序列化器  也可以自定义FastJSON的序列化器</span></span><br><span class="line">        FastJsonRedisSerializer fastJsonRedisSerializer = <span class="keyword">new</span> FastJsonRedisSerializer(Object.class);</span><br><span class="line">        <span class="comment">// value值的序列化采用fastJsonRedisSerializer</span></span><br><span class="line">        redisTemplate.setValueSerializer(fastJsonRedisSerializer);</span><br><span class="line">        redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// key的序列化采用StringRedisSerializer</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        redisTemplate.setHashKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line"></span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
+<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
+<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
+<p>基本分区可以马上被使用但不能再分区</p>
+<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
+<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
+<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“/”）</p>
+<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
+<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
+<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
+<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
+<p>盘片被划分为多个扇形区域即扇区</p>
+<p>同一盘片不同半径的同心圆为磁道</p>
+<p>不同盘片相同半径构成的圆柱面即柱面</p>
+<p>存储容量 = 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
+<p>信息记录可以表示为：</p>
+<p>xx磁道（柱面）， xx磁头， xx扇区</p>
+<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
+<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
+<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
+<p>/ 分区</p>
+<p>SWAP分区</p>
+<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607" target="_blank" rel="noopener">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
+<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054" target="_blank" rel="noopener">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
+<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
+<li><p>/ Linux文件系统的入口，最高级目录</p>
+</li>
+<li><p>/usr/bin、/bin ： 存放所有用户可以执行的命令</p>
+</li>
+<li><p>/usr/sbin、/sbin ： 存放只有root可以执行的命令</p>
+</li>
+<li><p>/home : 用户缺省的宿主目录</p>
+</li>
+<li><p>/proc ： 虚拟文件系统，存放当前进程信息</p>
+</li>
+<li><p>/dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在/dev下</p>
+</li>
+<li><p>/lib : 存放系统程序运行所需的共享库</p>
+</li>
+<li><p>/lost+found : 存放系统出错的检查结果</p>
+</li>
+<li><p>/tmp : 存放临时文件</p>
+</li>
+<li><p>/etc : 存储系统的配置</p>
+</li>
+<li><p>/var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
+</li>
+<li><p>/usr : 存放所有命令、库、手册等</p>
+</li>
+<li><p>/usr/local ： 软件安装的目录</p>
+</li>
+<li><p>/boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
+</li>
+<li><p>/mnt ： 临时系统文件的安装点</p>
+</li>
+</ul>
+<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
 
           
         
@@ -1774,6 +1626,154 @@
 <p>将上述配置和代码写入到两个不同的项目中，然后访问<a href="http://127.0.0.1:8080/uid" target="_blank" rel="noopener">http://127.0.0.1:8080/uid</a>和<a href="http://127.0.0.1:8081/uid" target="_blank" rel="noopener">http://127.0.0.1:8081/uid</a>，返回的sessionId一致:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">71f3099c-dcc0-4445-8d5e-57ef96d84412</span><br></pre></td></tr></table></figure></p>
 <p>通过Redis客户端连接可以看到：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) &quot;spring:session:sessions:71f3099c-dcc0-4445-8d5e-57ef96d84412&quot;</span><br><span class="line">2) &quot;spring:session:expirations:1531014420000&quot;</span><br><span class="line">3) &quot;spring:session:sessions:expires:71f3099c-dcc0-4445-8d5e-57ef96d84412&quot;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/SpringBoot之Redis引入/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/08/SpringBoot之Redis引入/" itemprop="url">SpringBoot之Redis引入</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T00:00:00+08:00">
+                2018-06-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Redis--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--spring2.0集成redis所需common-pool2--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--fastjson--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.40<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># REDIS (RedisProperties)</span><br><span class="line"># Redis数据库索引（默认为<span class="number">0</span>）</span><br><span class="line">spring.redis.database=<span class="number">0</span></span><br><span class="line"># Redis服务器地址</span><br><span class="line">spring.redis.host=<span class="number">47.97</span>.<span class="number">173.227</span></span><br><span class="line"># Redis服务器连接端口</span><br><span class="line">spring.redis.port=<span class="number">6379</span></span><br><span class="line"># Redis服务器连接密码（默认为空）</span><br><span class="line">spring.redis.password=asdf12331aafjdahj1312jhj131+_111ghghgh</span><br><span class="line"># 连接池最大连接数（使用负值表示没有限制）</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-active=<span class="number">8</span></span><br><span class="line"># 连接池最大阻塞等待时间（使用负值表示没有限制）</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-wait=-<span class="number">1</span>ms</span><br><span class="line"># 连接池中的最大空闲连接</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-idle=<span class="number">8</span></span><br><span class="line"># 连接池中的最小空闲连接</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">min</span>-idle=<span class="number">0</span></span><br><span class="line"># 连接超时时间（毫秒）</span><br><span class="line">spring.redis.timeout=<span class="number">3000</span>ms</span><br></pre></td></tr></table></figure>
+<h3 id="序列化问题"><a href="#序列化问题" class="headerlink" title="序列化问题"></a>序列化问题</h3><p>data-redis在进行存储时，key和value默认使用了基于JDK的序列化方式（JdkSerializationRedisSerializer），在使用连接工具查看时看到的都是编码后的信息，不方便查看，所以需要更改默认的序列化方式。此处对key值的序列化使用自定义的String序列化器(data-redis也提供了一个基于String的序列化器，但是该序列化器的泛型是String类型的，不能传入其他类型的值，所以基于官方提供的String序列化器再重写一个泛型为Object的序列化器)，对value使用基于FastJson的序列化器（FastJson也提供了一个序列化器，可以使用该序列化器，也可以仿照该序列化器自定义一个序列化器）</p>
+<h4 id="自定义String序列化器"><a href="#自定义String序列化器" class="headerlink" title="自定义String序列化器"></a>自定义String序列化器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringRedisSerializer</span> <span class="keyword">implements</span> <span class="title">RedisSerializer</span>&lt;<span class="title">Object</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Charset charset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String target = <span class="string">"\""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String replacement = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new &#123;<span class="doctag">@link</span> org.springframework.data.redis.serializer.StringRedisSerializer&#125; using &#123;<span class="doctag">@link</span> StandardCharsets#UTF_8 UTF-8&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringRedisSerializer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(StandardCharsets.UTF_8);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new &#123;<span class="doctag">@link</span> org.springframework.data.redis.serializer.StringRedisSerializer&#125; using the given &#123;<span class="doctag">@link</span> Charset&#125; to encode and decode strings.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> charset must not be &#123;<span class="doctag">@literal</span> null&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringRedisSerializer</span><span class="params">(Charset charset)</span> </span>&#123;</span><br><span class="line">        Assert.notNull(charset, <span class="string">"Charset must not be null!"</span>);</span><br><span class="line">        <span class="keyword">this</span>.charset = charset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * (non-Javadoc)</span></span><br><span class="line"><span class="comment">     * @see org.springframework.data.redis.serializer.RedisSerializer#deserialize(byte[])</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">deserialize</span><span class="params">(@Nullable <span class="keyword">byte</span>[] bytes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (bytes == <span class="keyword">null</span> ? <span class="keyword">null</span> : <span class="keyword">new</span> String(bytes, charset));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(<span class="meta">@Nullable</span> Object o) <span class="keyword">throws</span> SerializationException &#123;</span><br><span class="line">        String string = JSON.toJSONString(o);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(string)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        string = string.replace(target, replacement);</span><br><span class="line">        <span class="keyword">return</span> string.getBytes(charset);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="自定义FastJSON序列化器"><a href="#自定义FastJSON序列化器" class="headerlink" title="自定义FastJSON序列化器"></a>自定义FastJSON序列化器</h4><p>我这里用了官方提供的FastJSON序列化器，如果想自定义的话，可以参考以下代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FastJsonRedisSerializer</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">RedisSerializer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset DEFAULT_CHARSET = Charset.forName(<span class="string">"UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; clazz;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FastJsonRedisSerializer</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.clazz = clazz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(T t) <span class="keyword">throws</span> SerializationException &#123;</span><br><span class="line">        <span class="keyword">if</span> (t == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">deserialize</span><span class="params">(<span class="keyword">byte</span>[] bytes)</span> <span class="keyword">throws</span> SerializationException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bytes == <span class="keyword">null</span> || bytes.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String str = <span class="keyword">new</span> String(bytes, DEFAULT_CHARSET);</span><br><span class="line">        <span class="keyword">return</span> (T) JSON.parseObject(str, clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="指定序列化器"><a href="#指定序列化器" class="headerlink" title="指定序列化器"></a>指定序列化器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(RedisOperations.class)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(RedisProperties.class)</span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean</span>(name = <span class="string">"redisTemplate"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;Object, Object&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory redisConnectionFactory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用fastjson序列化  目前采用的是FastJson提供的序列化器  也可以自定义FastJSON的序列化器</span></span><br><span class="line">        FastJsonRedisSerializer fastJsonRedisSerializer = <span class="keyword">new</span> FastJsonRedisSerializer(Object.class);</span><br><span class="line">        <span class="comment">// value值的序列化采用fastJsonRedisSerializer</span></span><br><span class="line">        redisTemplate.setValueSerializer(fastJsonRedisSerializer);</span><br><span class="line">        redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// key的序列化采用StringRedisSerializer</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        redisTemplate.setHashKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line"></span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
