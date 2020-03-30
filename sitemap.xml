@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://yoursite.com/2018/07/12/%E9%98%BF%E9%87%8C%E4%BA%91OSS%EF%BC%9APut%20bucket%20request%20is%20not%20resource%20owner/</loc>
+    
+    <lastmod>2020-03-30T15:58:43.842Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://yoursite.com/2018/07/11/SpringBoot%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9AUnable%20to%20find%20a%20@SpringBootConfiguration,%20you%20need%20to%20use%20@ContextConfiguration%20or%20@SpringBootTest(classes=...)%20with%20your%20test/</loc>
+    
+    <lastmod>2020-03-30T15:42:26.106Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://yoursite.com/2018/12/24/SpringMVC/</loc>
     
     <lastmod>2020-03-28T13:34:06.840Z</lastmod>

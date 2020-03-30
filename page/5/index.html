@@ -333,6 +333,295 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/OpenSSL生成SSL证书之Shell脚本/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/23/OpenSSL生成SSL证书之Shell脚本/" itemprop="url">OpenSSL生成SSL证书之Shell脚本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenSSL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> create self-signed server certificate:</span><br><span class="line"></span><br><span class="line">read -p "Enter your domain [www.example.com]: " DOMAIN</span><br><span class="line"></span><br><span class="line">echo "Create server key..."</span><br><span class="line"></span><br><span class="line">openssl genrsa -des3 -out $DOMAIN.key 2048</span><br><span class="line"></span><br><span class="line">echo "Create server certificate signing request..."</span><br><span class="line"></span><br><span class="line">SUBJECT="/C=CN/ST=ZHEJIANG/L=HANGZHOU/O=qinghuazs/OU=qinghuazs/CN=$DOMAIN"</span><br><span class="line"></span><br><span class="line">openssl req -new -subj $SUBJECT -key $DOMAIN.key -out $DOMAIN.csr</span><br><span class="line"></span><br><span class="line">echo "Remove password..."</span><br><span class="line"></span><br><span class="line">mv $DOMAIN.key $DOMAIN.origin.key</span><br><span class="line">openssl rsa -in $DOMAIN.origin.key -out $DOMAIN.key</span><br><span class="line"></span><br><span class="line">echo "Sign SSL certificate..."</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 36500 -in $DOMAIN.csr -signkey $DOMAIN.key -out $DOMAIN.crt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>echo "TODO:"</span><br><span class="line"><span class="meta">#</span>echo "Copy $DOMAIN.crt to /var/nginx/ssl/$DOMAIN.crt"</span><br><span class="line"><span class="meta">#</span>echo "Copy $DOMAIN.key to /var/nginx/ssl/$DOMAIN.key"</span><br><span class="line"><span class="meta">#</span>echo "Add configuration in nginx:"</span><br><span class="line"><span class="meta">#</span>echo "server &#123;"</span><br><span class="line"><span class="meta">#</span>echo "    ..."</span><br><span class="line"><span class="meta">#</span>echo "    listen 443 ssl;"</span><br><span class="line"><span class="meta">#</span>echo "    ssl_certificate     /etc/nginx/ssl/$DOMAIN.crt;"</span><br><span class="line"><span class="meta">#</span>echo "    ssl_certificate_key /etc/nginx/ssl/$DOMAIN.key;"</span><br><span class="line"><span class="meta">#</span>echo "&#125;"</span><br></pre></td></tr></table></figure>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>DOMAIN需要是服务器IP对应的域名，否则证书不生效</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/Redis在项目中实际使用时的配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/23/Redis在项目中实际使用时的配置/" itemprop="url">Redis项目中使用时的配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>基于实际项目的配置，会陆续的进行改进</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/23/Redis在项目中实际使用时的配置/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/Nginx配置SSL证书/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1125,6 +1414,204 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/12/Linux基础/" itemprop="url">Linux基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
+                2018-06-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
+<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
+<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
+<p>基本分区可以马上被使用但不能再分区</p>
+<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
+<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
+<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“/”）</p>
+<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
+<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
+<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
+<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
+<p>盘片被划分为多个扇形区域即扇区</p>
+<p>同一盘片不同半径的同心圆为磁道</p>
+<p>不同盘片相同半径构成的圆柱面即柱面</p>
+<p>存储容量 = 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
+<p>信息记录可以表示为：</p>
+<p>xx磁道（柱面）， xx磁头， xx扇区</p>
+<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
+<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
+<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
+<p>/ 分区</p>
+<p>SWAP分区</p>
+<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607" target="_blank" rel="noopener">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
+<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054" target="_blank" rel="noopener">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
+<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
+<li><p>/ Linux文件系统的入口，最高级目录</p>
+</li>
+<li><p>/usr/bin、/bin ： 存放所有用户可以执行的命令</p>
+</li>
+<li><p>/usr/sbin、/sbin ： 存放只有root可以执行的命令</p>
+</li>
+<li><p>/home : 用户缺省的宿主目录</p>
+</li>
+<li><p>/proc ： 虚拟文件系统，存放当前进程信息</p>
+</li>
+<li><p>/dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在/dev下</p>
+</li>
+<li><p>/lib : 存放系统程序运行所需的共享库</p>
+</li>
+<li><p>/lost+found : 存放系统出错的检查结果</p>
+</li>
+<li><p>/tmp : 存放临时文件</p>
+</li>
+<li><p>/etc : 存储系统的配置</p>
+</li>
+<li><p>/var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
+</li>
+<li><p>/usr : 存放所有命令、库、手册等</p>
+</li>
+<li><p>/usr/local ： 软件安装的目录</p>
+</li>
+<li><p>/boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
+</li>
+<li><p>/mnt ： 临时系统文件的安装点</p>
+</li>
+</ul>
+<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux文件系统的实现/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1328,352 +1815,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux基础/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/12/Linux基础/" itemprop="url">Linux基础</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
-                2018-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
-<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
-<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
-<p>基本分区可以马上被使用但不能再分区</p>
-<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
-<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
-<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“/”）</p>
-<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
-<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
-<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
-<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
-<p>盘片被划分为多个扇形区域即扇区</p>
-<p>同一盘片不同半径的同心圆为磁道</p>
-<p>不同盘片相同半径构成的圆柱面即柱面</p>
-<p>存储容量 = 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
-<p>信息记录可以表示为：</p>
-<p>xx磁道（柱面）， xx磁头， xx扇区</p>
-<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
-<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
-<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
-<p>/ 分区</p>
-<p>SWAP分区</p>
-<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607" target="_blank" rel="noopener">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
-<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054" target="_blank" rel="noopener">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
-<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
-<li><p>/ Linux文件系统的入口，最高级目录</p>
-</li>
-<li><p>/usr/bin、/bin ： 存放所有用户可以执行的命令</p>
-</li>
-<li><p>/usr/sbin、/sbin ： 存放只有root可以执行的命令</p>
-</li>
-<li><p>/home : 用户缺省的宿主目录</p>
-</li>
-<li><p>/proc ： 虚拟文件系统，存放当前进程信息</p>
-</li>
-<li><p>/dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在/dev下</p>
-</li>
-<li><p>/lib : 存放系统程序运行所需的共享库</p>
-</li>
-<li><p>/lost+found : 存放系统出错的检查结果</p>
-</li>
-<li><p>/tmp : 存放临时文件</p>
-</li>
-<li><p>/etc : 存储系统的配置</p>
-</li>
-<li><p>/var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
-</li>
-<li><p>/usr : 存放所有命令、库、手册等</p>
-</li>
-<li><p>/usr/local ： 软件安装的目录</p>
-</li>
-<li><p>/boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
-</li>
-<li><p>/mnt ： 临时系统文件的安装点</p>
-</li>
-</ul>
-<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/SpringBoot之Session共享/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/08/SpringBoot之Session共享/" itemprop="url">SpringBoot之基于Redis的Session共享</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T00:00:00+08:00">
-                2018-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><p>在pom.xml中添加spring-session-data-redis依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Session共享 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.session<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-session-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableRedisHttpSession</span>(maxInactiveIntervalInSeconds = <span class="number">60</span>*<span class="number">30</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SessionRedisConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>注意：<strong>maxInactiveIntervalInSeconds字段用来设置Session失效时间，使用Redis Session之后，原SpringBoot的server.session.timeout属性不再生效</strong></p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/uid"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> String <span class="title">uid</span><span class="params">(HttpSession session)</span> </span>&#123;</span><br><span class="line">    UUID uid = (UUID) session.getAttribute(<span class="string">"uid"</span>);</span><br><span class="line">    <span class="keyword">if</span> (uid == <span class="keyword">null</span>) &#123;</span><br><span class="line">    	uid = UUID.randomUUID();</span><br><span class="line">    &#125;</span><br><span class="line">    session.setAttribute(<span class="string">"uid"</span>, uid);</span><br><span class="line">    <span class="keyword">return</span> session.getId();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>将上述配置和代码写入到两个不同的项目中，然后访问<a href="http://127.0.0.1:8080/uid" target="_blank" rel="noopener">http://127.0.0.1:8080/uid</a>和<a href="http://127.0.0.1:8081/uid" target="_blank" rel="noopener">http://127.0.0.1:8081/uid</a>，返回的sessionId一致:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">71f3099c-dcc0-4445-8d5e-57ef96d84412</span><br></pre></td></tr></table></figure></p>
-<p>通过Redis客户端连接可以看到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; keys *</span><br><span class="line">1) &quot;spring:session:sessions:71f3099c-dcc0-4445-8d5e-57ef96d84412&quot;</span><br><span class="line">2) &quot;spring:session:expirations:1531014420000&quot;</span><br><span class="line">3) &quot;spring:session:sessions:expires:71f3099c-dcc0-4445-8d5e-57ef96d84412&quot;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/SpringBoot之Redis引入/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1809,158 +1950,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/SpringBoot之热启动/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/06/SpringBoot之热启动/" itemprop="url">SpringBoot之热启动</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T00:00:00+08:00">
-                2018-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>在开发调试阶段，可以配置SpringBoot的热启动，代码修改后实时更新，不需要重新启动项目。</p>
-<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>在pom.xml中添加依赖。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<h4 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h4><p>到此处，Eclipse已经能够自动编译了</p>
-<h4 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h4><p>idea比较特殊，需要设置自动编译</p>
-<h5 id="开启自动编译"><a href="#开启自动编译" class="headerlink" title="开启自动编译"></a>开启自动编译</h5><p>File-&gt;Settings-&gt; Build-Execution-Deployment -&gt; Compiler，勾选 Build Project Automatically.</p>
-<p><img src="images/idea01.png" alt=""></p>
-<p>组合键Shift+Ctrl+A打开配置面板，找到<font color="red">Registry…</font>，点击</p>
-<p><img src="images/idea02.png" alt=""></p>
-<p>找到<font color="red">compiler.automake.allow.when.app.running</font>，勾选，然后退出。</p>
-<p><img src="images/idea03.png" alt=""></p>
-<h5 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h5><p>某些情况下，自动编辑可能不会生效，如果碰到这种情况，可以使用<font color="red">Ctrl + F9</font>手动编译，不需要去重启服务。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2013,7 +2002,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">63</span>
+                  <span class="site-state-item-count">65</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2024,7 +2013,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2035,7 +2024,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
