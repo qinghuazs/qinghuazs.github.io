@@ -333,7 +333,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/OpenSSL生成SSL证书之Shell脚本/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/29/CentOS下PostgreSQL安装/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="青花葬水">
@@ -352,7 +352,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/23/OpenSSL生成SSL证书之Shell脚本/" itemprop="url">OpenSSL生成SSL证书之Shell脚本</a></h1>
+                <a class="post-title-link" href="/2018/06/29/CentOS下PostgreSQL安装/" itemprop="url">CentOS6下PostgreSQL安装</a></h1>
         
 
         <div class="post-meta">
@@ -364,8 +364,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00+08:00">
-                2018-06-23
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-29T00:00:00+08:00">
+                2018-06-29
               </time>
             
 
@@ -387,8 +387,8 @@
               
               
                 <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
-                    <span itemprop="name">OpenSSL</span>
+                  <a href="/categories/PostgreSQL/" itemprop="url" rel="index">
+                    <span itemprop="name">PostgreSQL</span>
                   </a>
                 </span>
 
@@ -426,10 +426,325 @@
       
         
           
-            <h3 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> create self-signed server certificate:</span><br><span class="line"></span><br><span class="line">read -p "Enter your domain [www.example.com]: " DOMAIN</span><br><span class="line"></span><br><span class="line">echo "Create server key..."</span><br><span class="line"></span><br><span class="line">openssl genrsa -des3 -out $DOMAIN.key 2048</span><br><span class="line"></span><br><span class="line">echo "Create server certificate signing request..."</span><br><span class="line"></span><br><span class="line">SUBJECT="/C=CN/ST=ZHEJIANG/L=HANGZHOU/O=qinghuazs/OU=qinghuazs/CN=$DOMAIN"</span><br><span class="line"></span><br><span class="line">openssl req -new -subj $SUBJECT -key $DOMAIN.key -out $DOMAIN.csr</span><br><span class="line"></span><br><span class="line">echo "Remove password..."</span><br><span class="line"></span><br><span class="line">mv $DOMAIN.key $DOMAIN.origin.key</span><br><span class="line">openssl rsa -in $DOMAIN.origin.key -out $DOMAIN.key</span><br><span class="line"></span><br><span class="line">echo "Sign SSL certificate..."</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 36500 -in $DOMAIN.csr -signkey $DOMAIN.key -out $DOMAIN.crt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>echo "TODO:"</span><br><span class="line"><span class="meta">#</span>echo "Copy $DOMAIN.crt to /var/nginx/ssl/$DOMAIN.crt"</span><br><span class="line"><span class="meta">#</span>echo "Copy $DOMAIN.key to /var/nginx/ssl/$DOMAIN.key"</span><br><span class="line"><span class="meta">#</span>echo "Add configuration in nginx:"</span><br><span class="line"><span class="meta">#</span>echo "server &#123;"</span><br><span class="line"><span class="meta">#</span>echo "    ..."</span><br><span class="line"><span class="meta">#</span>echo "    listen 443 ssl;"</span><br><span class="line"><span class="meta">#</span>echo "    ssl_certificate     /etc/nginx/ssl/$DOMAIN.crt;"</span><br><span class="line"><span class="meta">#</span>echo "    ssl_certificate_key /etc/nginx/ssl/$DOMAIN.key;"</span><br><span class="line"><span class="meta">#</span>echo "&#125;"</span><br></pre></td></tr></table></figure>
-<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>DOMAIN需要是服务器IP对应的域名，否则证书不生效</p>
+            <p>基于CentOS6的PostgreSQL yum安装</p>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> yum install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> yum install postgresql96</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> yum install postgresql96-server</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> yum install postgresql96-contrib</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> service postgresql-9.6 initdb</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> chkconfig postgresql-9.6 on</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> service postgresql-9.6 start</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>安装后默认只能本地访问，需要修改配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> cd /var/lib/pgsql/9.6/data/</span><br><span class="line"><span class="meta">#</span> ll</span><br></pre></td></tr></table></figure>
+<h4 id="修改监听地址"><a href="#修改监听地址" class="headerlink" title="修改监听地址"></a>修改监听地址</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> vim postgresql.conf</span><br></pre></td></tr></table></figure>
+<p>修改listen_address</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_address=&apos;*&apos;</span><br></pre></td></tr></table></figure>
+<h4 id="修改登入权限"><a href="#修改登入权限" class="headerlink" title="修改登入权限"></a>修改登入权限</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> vim pg_hba.conf</span><br></pre></td></tr></table></figure>
+<p>修改IPv4的配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">host</span>    <span class="string">all</span>             <span class="string">all</span>             <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">/0</span>            <span class="string">md5</span></span><br></pre></td></tr></table></figure>
+<h3 id="重启生效"><a href="#重启生效" class="headerlink" title="重启生效"></a>重启生效</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> service postgresql-9.6 restart</span><br></pre></td></tr></table></figure>
+<p>备注： root 用户无法直接访问数据库，需要切换成 postgres 用户，进入 bash 界面，再输入 psql 进入数据库的控制台</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> su postgres</span><br><span class="line">bash-4.1$ psql</span><br><span class="line">psql (9.6.9)</span><br><span class="line">Type "help" for help.</span><br><span class="line"></span><br><span class="line">postgres=#</span><br></pre></td></tr></table></figure>
+<p>至此，PostgreSQL的安装和配置完毕！</p>
 
           
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/27/SpringBoot集成Swagger/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/27/SpringBoot集成Swagger/" itemprop="url">SpringBoot集成Swagger</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-27T00:00:00+08:00">
+                2018-06-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>在项目中引入Swagger，方便前后端进行接口的定义、测试和联调</p>
+<h3 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h3><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">    <span class="string">&lt;groupId&gt;io.springfox&lt;/groupId&gt;</span></span><br><span class="line">    <span class="string">&lt;artifactId&gt;springfox-swagger-ui&lt;/artifactId&gt;</span></span><br><span class="line">    <span class="string">&lt;version&gt;2.8.0&lt;/version&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;</span></span><br><span class="line"><span class="string">&lt;dependency&gt;</span></span><br><span class="line">    <span class="string">&lt;groupId&gt;io.springfox&lt;/groupId&gt;</span></span><br><span class="line">    <span class="string">&lt;artifactId&gt;springfox-swagger2&lt;/artifactId&gt;</span></span><br><span class="line">    <span class="string">&lt;version&gt;2.8.0&lt;/version&gt;</span></span><br><span class="line"><span class="string">&lt;/dependency&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableSwagger</span>2</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SwaggerConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> Docket <span class="title">api</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Docket(DocumentationType.SWAGGER_2)</span><br><span class="line">                .apiInfo(apiInfo())</span><br><span class="line">                .select()</span><br><span class="line">                .apis(RequestHandlerSelectors.basePackage(<span class="string">"com.lemon.swagger"</span>))</span><br><span class="line">                .paths(PathSelectors.any())</span><br><span class="line">                .build();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> ApiInfo <span class="title">apiInfo</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> ApiInfoBuilder()</span><br><span class="line">                .title(<span class="string">"api文档"</span>)</span><br><span class="line">                .description(<span class="string">"RESTFUL接口"</span>)</span><br><span class="line">                .version(<span class="string">"1.0"</span>).build();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="EnableSwagger2"><a href="#EnableSwagger2" class="headerlink" title="@EnableSwagger2"></a>@EnableSwagger2</h4><p>启动Swagger</p>
+<h4 id="Docket"><a href="#Docket" class="headerlink" title="Docket"></a>Docket</h4><p>制定配置信息和扫描包的路径</p>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/api/test"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping</span>(value = <span class="string">"/show"</span>, method = RequestMethod.POST)</span><br><span class="line">    <span class="meta">@ApiOperation</span>(value = <span class="string">"测试接口"</span>, notes = <span class="string">"测试接口详细描述"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">show</span><span class="params">(</span></span></span><br><span class="line"><span class="function"><span class="params">            @ApiParam(required = <span class="keyword">true</span>, name = <span class="string">"name"</span>, value = <span class="string">"姓名"</span>)</span></span></span><br><span class="line"><span class="function">            @<span class="title">RequestParam</span><span class="params">(name = <span class="string">"name"</span>)</span> String strName) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"输入的姓名为-------&gt;"</span> + strName;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动项目，在浏览器上输入访问地址<a href="http://127.0.0.1:8080/swagger-ui.html" target="_blank" rel="noopener">http://127.0.0.1:8080/swagger-ui.html</a>即可</p>
+<h3 id="Swagger常用注解"><a href="#Swagger常用注解" class="headerlink" title="Swagger常用注解"></a>Swagger常用注解</h3><ul>
+<li>@Api 作用在类上，说明该类的作用</li>
+<li>@ApiOperation 作用在方法上，说明方法的作用，标注在具体的请求上，value和notes作用差不多，都是对请求进行说明，tags则是对请求进行分类的，比如你有好几个controller，分别属于不同的功能模块，那这里我们就可以使用tags来区分了</li>
+<li>@ApiImplicitParams 用在方法上包含一组参数说明</li>
+<li>@ApiImplicitParam 用在@ApiImplicitParams注解中，制定一个请求参数的各个方面</li>
+<li>@ApiResponses 用于表示一组响应</li>
+<li>@ApiResponse 用在@ApiResponses中，一版用于表达一个错误的响应信息</li>
+<li>@ApiModel 描述一个Model的信息，表明这是一个被swagger框架管理的model，用于class上</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/25/Nginx平缓启动/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/25/Nginx平缓启动/" itemprop="url">Nginx平滑启动</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-25T00:00:00+08:00">
+                2018-06-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Nginx/" itemprop="url" rel="index">
+                    <span itemprop="name">Nginx</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>在使用Nginx的过程中，如果修改了Nginx的配置文件nginx.conf，需要重启Nginx。此时，可以通过发送系统信号给Nginx的<font color="red">主进程</font>的方式来进行重启。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/06/25/Nginx平缓启动/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -576,6 +891,149 @@
             </a>
           </div>
           <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/23/OpenSSL生成SSL证书之Shell脚本/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/23/OpenSSL生成SSL证书之Shell脚本/" itemprop="url">OpenSSL生成SSL证书之Shell脚本</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-23T00:00:00+08:00">
+                2018-06-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenSSL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h3 id="shell脚本"><a href="#shell脚本" class="headerlink" title="shell脚本"></a>shell脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/sh</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> create self-signed server certificate:</span><br><span class="line"></span><br><span class="line">read -p "Enter your domain [www.example.com]: " DOMAIN</span><br><span class="line"></span><br><span class="line">echo "Create server key..."</span><br><span class="line"></span><br><span class="line">openssl genrsa -des3 -out $DOMAIN.key 2048</span><br><span class="line"></span><br><span class="line">echo "Create server certificate signing request..."</span><br><span class="line"></span><br><span class="line">SUBJECT="/C=CN/ST=ZHEJIANG/L=HANGZHOU/O=qinghuazs/OU=qinghuazs/CN=$DOMAIN"</span><br><span class="line"></span><br><span class="line">openssl req -new -subj $SUBJECT -key $DOMAIN.key -out $DOMAIN.csr</span><br><span class="line"></span><br><span class="line">echo "Remove password..."</span><br><span class="line"></span><br><span class="line">mv $DOMAIN.key $DOMAIN.origin.key</span><br><span class="line">openssl rsa -in $DOMAIN.origin.key -out $DOMAIN.key</span><br><span class="line"></span><br><span class="line">echo "Sign SSL certificate..."</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 36500 -in $DOMAIN.csr -signkey $DOMAIN.key -out $DOMAIN.crt</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span>echo "TODO:"</span><br><span class="line"><span class="meta">#</span>echo "Copy $DOMAIN.crt to /var/nginx/ssl/$DOMAIN.crt"</span><br><span class="line"><span class="meta">#</span>echo "Copy $DOMAIN.key to /var/nginx/ssl/$DOMAIN.key"</span><br><span class="line"><span class="meta">#</span>echo "Add configuration in nginx:"</span><br><span class="line"><span class="meta">#</span>echo "server &#123;"</span><br><span class="line"><span class="meta">#</span>echo "    ..."</span><br><span class="line"><span class="meta">#</span>echo "    listen 443 ssl;"</span><br><span class="line"><span class="meta">#</span>echo "    ssl_certificate     /etc/nginx/ssl/$DOMAIN.crt;"</span><br><span class="line"><span class="meta">#</span>echo "    ssl_certificate_key /etc/nginx/ssl/$DOMAIN.key;"</span><br><span class="line"><span class="meta">#</span>echo "&#125;"</span><br></pre></td></tr></table></figure>
+<h4 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h4><p>DOMAIN需要是服务器IP对应的域名，否则证书不生效</p>
+
+          
         
       
     </div>
@@ -1232,188 +1690,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Nginx入门/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/12/Nginx入门/" itemprop="url">Nginx入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
-                2018-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Nginx简介"><a href="#Nginx简介" class="headerlink" title="Nginx简介"></a>Nginx简介</h3><h4 id="常见的Web服务器"><a href="#常见的Web服务器" class="headerlink" title="常见的Web服务器"></a>常见的Web服务器</h4><p>Web服务器也称为WWW服务器、HTTP服务器，其主要功能是提供网上信息浏览服务。</p>
-<p>Unix和Linux平台下常用的Web服务器有以下几种：</p>
-<ul>
-<li>Apache</li>
-<li>Nginx</li>
-<li>Lighttpd</li>
-<li>Tomcat</li>
-<li>IBM WebSphere</li>
-</ul>
-<p>其中应用最广泛的是Apache。</p>
-<p>嗯，但是我们这篇文章的主角是Nginx，所以如果有同学想了解Apache的话，可以去自己查询相关资料。</p>
-<h4 id="Nginx诞生"><a href="#Nginx诞生" class="headerlink" title="Nginx诞生"></a>Nginx诞生</h4><p>Nginx是俄罗斯人Igor Sysoev编写的一款高性能的HTTP和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。于2004年10月4日发布第一个公开版本1.0，开源协议是类BSD许可协议，目前最新版本是1.15.0（2018-06-05发布）</p>
-<h4 id="选择理由"><a href="#选择理由" class="headerlink" title="选择理由"></a>选择理由</h4><h5 id="支持高并发链接"><a href="#支持高并发链接" class="headerlink" title="支持高并发链接"></a>支持高并发链接</h5><p>官方测试Nginx能够支持5万并发连接，在实际生产环境中可以支撑2~4万并发连接数。这得益于Nginx使用了最新的epoll（Linux2.6内核）和kqueue（freebsd）网络I/O模型.</p>
-<h5 id="内存消耗少"><a href="#内存消耗少" class="headerlink" title="内存消耗少"></a>内存消耗少</h5><h5 id="成本低廉"><a href="#成本低廉" class="headerlink" title="成本低廉"></a>成本低廉</h5><p>开源软件，可以免费使用，并且可以用于商业用途</p>
-<h5 id="配置文件非常简单"><a href="#配置文件非常简单" class="headerlink" title="配置文件非常简单"></a>配置文件非常简单</h5><h5 id="支持Rewrite重写规则"><a href="#支持Rewrite重写规则" class="headerlink" title="支持Rewrite重写规则"></a>支持Rewrite重写规则</h5><p>能够根据域名、URL的不同，将HTTP请求分到不同的后端服务器群组</p>
-<h5 id="内置的健康检查功能"><a href="#内置的健康检查功能" class="headerlink" title="内置的健康检查功能"></a>内置的健康检查功能</h5><p>如果Nginx Proxy后端的某个Web服务器宕机了，不会影响前端访问</p>
-<h5 id="节省带宽"><a href="#节省带宽" class="headerlink" title="节省带宽"></a>节省带宽</h5><p>支持GZIP压缩，可以添加浏览器本地缓存的Header头</p>
-<h5 id="稳定性高"><a href="#稳定性高" class="headerlink" title="稳定性高"></a>稳定性高</h5><p>用于反向代理，宕机的概率微乎其微</p>
-<h5 id="支持热部署"><a href="#支持热部署" class="headerlink" title="支持热部署"></a>支持热部署</h5><p>可以在不间断服务的情况下对软件版本进行升级</p>
-<h3 id="Nginx安装配置"><a href="#Nginx安装配置" class="headerlink" title="Nginx安装配置"></a>Nginx安装配置</h3><h4 id="pcre安装"><a href="#pcre安装" class="headerlink" title="pcre安装"></a>pcre安装</h4><p>pcre是一个正则表达式库，让nginx支持rewrite需要安装这个库。</p>
-<h5 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h5><p><a href="https://ftp.pcre.org/pub/pcre/" target="_blank" rel="noopener">https://ftp.pcre.org/pub/pcre/</a></p>
-<h5 id="常用支持库安装"><a href="#常用支持库安装" class="headerlink" title="常用支持库安装"></a>常用支持库安装</h5><p>在CentOS安装软件的时候，可能缺少一部分支持库，而报错。这里首先安装系统常用的支持库。那么在安装的时候就会减少很多的错误的出现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y gcc gdb strace gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs patch e2fsprogs-devel krb5-devel libidn libidn-devel openldap-devel nss_ldap openldap-clients openldap-servers libevent-devel libevent uuid-devel uuid mysql-devel</span><br></pre></td></tr></table></figure>
-<h5 id="gcc安装"><a href="#gcc安装" class="headerlink" title="gcc安装"></a>gcc安装</h5><p>检查是否安装了g++、gcc。rpm -qa | grep gcc 之后需要出现3个包如下图所示。</p>
-<p><img src="https://www.linuxidc.com/upload/2016_08/16081010262925.png" alt=""></p>
-<p>如果没有出现。需要安装g++、gcc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install gcc-c++</span><br></pre></td></tr></table></figure></p>
-<h5 id="上传pcre安装包到-usr-local-soft-pcre下"><a href="#上传pcre安装包到-usr-local-soft-pcre下" class="headerlink" title="上传pcre安装包到/usr/local/soft/pcre下"></a>上传pcre安装包到/usr/local/soft/pcre下</h5><h5 id="解压压缩包"><a href="#解压压缩包" class="headerlink" title="解压压缩包"></a>解压压缩包</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd /usr/local/soft/pcre</span><br><span class="line"># tar -zxvf pcre.tar.gz</span><br></pre></td></tr></table></figure>
-<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd pcre</span><br><span class="line"># ./configure</span><br></pre></td></tr></table></figure>
-<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># make</span><br></pre></td></tr></table></figure>
-<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># make install</span><br></pre></td></tr></table></figure>
-<h4 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h4><h5 id="判断系统是否安装了zlib-devel"><a href="#判断系统是否安装了zlib-devel" class="headerlink" title="判断系统是否安装了zlib-devel"></a>判断系统是否安装了zlib-devel</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># rpm -qa | grep zlib-devel</span><br></pre></td></tr></table></figure>
-<p>如果未安装，则使用yum进行安装</p>
-<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p><a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></p>
-<p>下载稳定版本，不要下载最新版本</p>
-<h5 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -zxvf nginx-1.14.0.tar.gz</span><br></pre></td></tr></table></figure>
-<h5 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h5><p>将软件安装在/usr/local/webserver目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd nginx-1.14.0</span><br><span class="line"># ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/var/server/soft/pcre</span><br></pre></td></tr></table></figure>
-<h5 id="编译和安装"><a href="#编译和安装" class="headerlink" title="编译和安装"></a>编译和安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># make</span><br><span class="line"># make install</span><br></pre></td></tr></table></figure>
-<h5 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd /usr/local/webserver/nginx/sbin</span><br><span class="line"># ./nginx -t</span><br></pre></td></tr></table></figure>
-<p>显示以下内容表示安装成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx: the configuration file /usr/local/webserver/nginx/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/webserver/nginx/conf/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1599,357 +1875,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux文件系统的实现/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/12/Linux文件系统的实现/" itemprop="url">Linux文件系统的实现</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
-                2018-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index">
-                    <span itemprop="name">Linux</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <blockquote>
-<p>本文转自网络，侵删。 原文地址<a href="https://blog.csdn.net/bv1315008634/article/details/53327002" target="_blank" rel="noopener">https://blog.csdn.net/bv1315008634/article/details/53327002</a></p>
-</blockquote>
-<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>Linux文件管理从用户的层面介绍了Linux管理文件的方式。Linux有一个树状结构来组织文件。树的顶端为根目录(/)，节点为目录，而末端的叶子为包含数据的文件。当我们给出一个文件的完整路径时，我们从根目录出发，经过沿途各个目录，最终到达文件。</p>
-<p>我们可以对文件进行许多操作，比如打开和读写。在Linux文件管理相关命令中，我们看到许多对文件进行操作的命令。它们大都基于对文件的打开和读写操作。比如cat可以打开文件，读取数据，最后在终端显示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat test.txt</span><br></pre></td></tr></table></figure>
-<p>对于Linux下的程序员来说，了解文件系统的底层组织方式，是深入进行系统编程所必备的。即使是普通的Linux用户，也可以根据相关的内容，设计出更好的系统维护方案。</p>
-<p>操作系统的很多核心组件都是相互关联的，比如虚拟内存管理，物理内存管理，文件系统，缓存系统，IO，设备管理等等，都要放在一起来看才能从整体上理解各个模块到底是如何交互和工作的。这个系列的目的也就是从整体上来理解计算机底层硬件和操作系统的一些重要的组件是如何工作的，从而来指导应用层的开发。这篇讲讲文件系统的重要概念，为后面的IO系统做铺垫。</p>
-<p>文件系统主要有三类 </p>
-<ol>
-<li>位于磁盘的文件系统，在物理磁盘上存储文件，比如NTFS, FAT, ext3, ext4 </li>
-<li>虚拟文件系统，在内核中生成，没有物理的存储介质 </li>
-<li>网络文件系统，位于远程主机上的文件系统，通过网络访问</li>
-</ol>
-<p>一个操作系统可以支持多种底层不同的文件系统，为了给内核和用户进程提供统一的文件系统视图，Linux在用户进程和底层文件系统之间加入了一个抽象层，即虚拟文件系统(Virtual File System, VFS)，进程所有的文件操作都通过VFS，由VFS来适配各种底层不同的文件系统，完成实际的文件操作。 </p>
-<p>通俗的说，VFS就是定义了一个通用文件系统的接口层和适配层，一方面为用户进程提供了一组统一的访问文件，目录和其他对象的统一方法，另一方面又要和不同的底层文件系统进行适配。 </p>
-<p><img src="https://img-blog.csdn.net/20150921111202926" alt=""></p>
-<p>VFS采用了面向对象的思路来设计它的核心组件，只是VFS是用C写的，没有对象的语法，只能用struct来表示。我们按照面向对象的思路来理解VFS。<br>它有4个主要的对象类型： </p>
-<ol>
-<li>超级块对象，代表一个具体的已安装(mount)的文件系统 </li>
-<li>inode对象，表示一个具体的文件 </li>
-<li>目录项对象，代表一个目录项，是路径的一部分，比如一个路径 /home/foo/hello.txt，那么目录项有home, foo, hello.txt </li>
-<li>打开文件对象，表示一个打开的文件，有读写的pos位置，也叫文件句柄，说白了就是open系统调用在内核创建的一个数据结构</li>
-</ol>
-<p>VFS给每个对象都定义了一组操作对象(函数指针)，给出了这些操作的默认实现，底层不同的文件系统可以重写(override)VFS的操作函数来给出自己的具体操作实现，也可以复用VFS的默认实现。实际情况是底层文件系统部分操作由自己单独实现，部分复用了VFS的默认实现。<br>操作对象有: </p>
-<ol>
-<li>super_operations对象，针对超级块对象，包含了内核对特定文件系统所能调用的方法，比如wirte_inode()，sync_fs()等 </li>
-<li>inode_operations对象，针对inode对象，包含了内核对特定文件所能调用的方法，比如create(), link()等 </li>
-<li>dentry_operations对象(directory entry)，针对目录项对象，包含了内核对特定目录所能调用的方法，比如d_compare()和d_delete()方法等 </li>
-<li>file_operations对象，针对打开文件对象，包含了进程对打开文件对象所能调用的方法，比如read()和write()等</li>
-</ol>
-<p>文件系统说白了就是文件内容和存储系统对应的块的映射关系，是来管理文件的存储的。inode-block结构把文件分为了两部分，inode表示元数据，block表示存储文件内容的具体的逻辑块。VFS没有用单独的对象来表示block，block的属性在超级块和inode块中包含了。</p>
-<h3 id="存储设备分区"><a href="#存储设备分区" class="headerlink" title="存储设备分区"></a>存储设备分区</h3><p>文件系统的最终目的是把大量数据有组织的放入持久性(persistant)的存储设备中，比如硬盘和磁盘。这些存储设备与内存不同。它们的存储能力具有持久性，不会因为断电而消失；存储量大，但读取速度慢。</p>
-<p>观察常见存储设备。最开始的区域是MBR，用于Linux开机启动(参考Linux开机启动)。剩余的空间可能分成数个分区(partition)。每个分区有一个相关的分区表(Partition table)，记录分区的相关信息。这个分区表是储存在分区之外的。分区表说明了对应分区的起始位置和分区的大小</p>
-<p><img src="https://img-blog.csdn.net/20150921121719849" alt=""></p>
-<p>我们在Windows系统常常看到C分区、D分区等。Linux系统下也可以有多个分区，但都被挂载在同一个文件系统树上。</p>
-<p>数据被存入到某个分区中。一个典型的Linux分区(partition)包含有下面各个部分:</p>
-<p><img src="https://img-blog.csdn.net/20150921121751207" alt=""></p>
-<p>分区的第一个部分是启动区(Boot block)，它主要是为计算机开机服务的。Linux开机启动后，会首先载入MBR，随后MBR从某个硬盘的启动区加载程序。该程序负责进一步的操作系统的加载和启动。为了方便管理，即使某个分区中没有安装操作系统，Linux也会在该分区预留启动区。</p>
-<p>启动区之后的是超级区(Super block)。它存储有文件系统的相关信息，包括文件系统的类型，inode的数目，数据块的数目。</p>
-<p>随后是多个inodes，它们是实现文件存储的关键。在Linux系统中，一个文件可以分成几个数据块存储，就好像是分散在各地的龙珠一样。为了顺利的收集齐龙珠，我们需要一个“雷达”的指引：该文件对应的inode。每个文件对应一个inode。这个inode中包含多个指针，指向属于该文件各个数据块。当操作系统需要读取文件时，只需要对应inode的”地图”，收集起分散的数据块，就可以收获我们的文件了。</p>
-<p>最后一部分，就是真正储存数据的数据块们(data blocks)了。</p>
-<h3 id="inode简介"><a href="#inode简介" class="headerlink" title="inode简介"></a>inode简介</h3><p>上面我们看到了存储设备的宏观结构。我们要深入到分区的结构，特别是文件在分区中的存储方式。</p>
-<p>文件是文件系统对数据的分割单元。文件系统用目录来组织文件，赋予文件以上下分级的结构。在硬盘上实现这一分级结构的关键，是使用inode来虚拟普通文件和目录文件对象。</p>
-<p>在Linux文件管理中，我们知道，一个文件除了自身的数据之外，还有一个附属信息，即文件的元数据(metadata)。这个元数据用于记录文件的许多信息，比如文件大小，拥有人，所属的组，修改日期等等。元数据并不包含在文件的数据中，而是由操作系统维护的。事实上，这个所谓的元数据就包含在inode中。我们可以用$ls -l filename来查看这些元数据。正如我们上面看到的，inode所占据的区域与数据块的区域不同。每个inode有一个唯一的整数编号(inode number)表示。</p>
-<p>在保存元数据，inode是“文件”从抽象到具体的关键。正如上一节中提到的，inode储存由一些指针，这些指针指向存储设备中的一些数据块，文件的内容就储存在这些数据块中。当Linux想要打开一个文件时，只需要找到文件对应的inode，然后沿着指针，将所有的数据块收集起来，就可以在内存中组成一个文件的数据了。</p>
-<p><img src="https://img-blog.csdn.net/20150921121847465" alt=""></p>
-<p>数据块在1, 32, 0, …</p>
-<p>inode并不是组织文件的唯一方式。最简单的组织文件的方法，是把文件依次顺序的放入存储设备，DVD就采取了类似的方式。但如果有删除操作，删除造成的空余空间夹杂在正常文件之间，很难利用和管理。</p>
-<p>复杂的方式可以使用链表，每个数据块都有一个指针，指向属于同一文件的下一个数据块。这样的好处是可以利用零散的空余空间，坏处是对文件的操作必须按照线性方式进行。如果想随机存取，那么必须遍历链表，直到目标位置。由于这一遍历不是在内存进行，所以速度很慢。</p>
-<p>FAT系统是将上面链表的指针取出，放入到内存的一个数组中。这样，FAT可以根据内存的索引，迅速的找到一个文件。这样做的主要问题是，索引数组的大小与数据块的总数相同。因此，存储设备很大的话，这个索引数组会比较大。</p>
-<p>inode既可以充分利用空间，在内存占据空间不与存储设备相关，解决了上面的问题。但inode也有自己的问题。每个inode能够存储的数据块指针总数是固定的。如果一个文件需要的数据块超过这一总数，inode需要额外的空间来存储多出来的指针。</p>
-<h3 id="inode示例"><a href="#inode示例" class="headerlink" title="inode示例"></a>inode示例</h3><p>在Linux中，我们通过解析路径，根据沿途的目录文件来找到某个文件。目录中的条目除了所包含的文件名，还有对应的inode编号。当我们输入$cat /var/test.txt时，Linux将在根目录文件中找到var这个目录文件的inode编号，然后根据inode合成var的数据。随后，根据var中的记录，找到text.txt的inode编号，沿着inode中的指针，收集数据块，合成text.txt的数据。整个过程中，我们参考了三个inode：根目录文件，var目录文件，text.txt文件的inodes。</p>
-<p>在Linux下，可以使用$stat filename，来查询某个文件对应的inode编号。</p>
-<p><img src="https://img-blog.csdn.net/20150921121955861" alt=""></p>
-<p>在存储设备中实际上存储为：</p>
-<p><img src="https://img-blog.csdn.net/20150921122004392" alt=""></p>
-<p>当我们读取一个文件时，实际上是在目录中找到了这个文件的inode编号，然后根据inode的指针，把数据块组合起来，放入内存供进一步的处理。当我们写入一个文件时，是分配一个空白inode给该文件，将其inode编号记入该文件所属的目录，然后选取空白的数据块，让inode的指针指像这些数据块，并放入内存中的数据。</p>
-<h3 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h3><p>在Linux的进程中，当我们打开一个文件时，返回的是一个文件描述符。这个文件描述符是一个数组的下标，对应数组元素为一个指针。有趣的是，这个指针并没有直接指向文件的inode，而是指向了一个文件表格，再通过该表格，指向加载到内存中的目标文件的inode。如下图，一个进程打开了两个文件。</p>
-<p><img src="https://img-blog.csdn.net/20150921122052859" alt=""></p>
-<p>可以看到，每个文件表格中记录了文件打开的状态(status flags)，比如只读，写入等，还记录了每个文件的当前读写位置(offset)。当有两个进程打开同一个文件时，可以有两个文件表格，每个文件表格对应的打开状态和当前位置不同，从而支持一些文件共享的操作，比如同时读取。</p>
-<p>要注意的是进程fork之后的情况，子进程将只复制文件描述符的数组，而和父进程共享内核维护的文件表格和inode。此时要特别小心程序的编写。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/08/SpringBoot之Redis引入/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/08/SpringBoot之Redis引入/" itemprop="url">SpringBoot之Redis引入</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-08T00:00:00+08:00">
-                2018-06-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--Redis--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--spring2.0集成redis所需common-pool2--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--fastjson--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.40<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"># REDIS (RedisProperties)</span><br><span class="line"># Redis数据库索引（默认为<span class="number">0</span>）</span><br><span class="line">spring.redis.database=<span class="number">0</span></span><br><span class="line"># Redis服务器地址</span><br><span class="line">spring.redis.host=<span class="number">47.97</span>.<span class="number">173.227</span></span><br><span class="line"># Redis服务器连接端口</span><br><span class="line">spring.redis.port=<span class="number">6379</span></span><br><span class="line"># Redis服务器连接密码（默认为空）</span><br><span class="line">spring.redis.password=asdf12331aafjdahj1312jhj131+_111ghghgh</span><br><span class="line"># 连接池最大连接数（使用负值表示没有限制）</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-active=<span class="number">8</span></span><br><span class="line"># 连接池最大阻塞等待时间（使用负值表示没有限制）</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-wait=-<span class="number">1</span>ms</span><br><span class="line"># 连接池中的最大空闲连接</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">max</span>-idle=<span class="number">8</span></span><br><span class="line"># 连接池中的最小空闲连接</span><br><span class="line">spring.redis.jedis.pool.<span class="built_in">min</span>-idle=<span class="number">0</span></span><br><span class="line"># 连接超时时间（毫秒）</span><br><span class="line">spring.redis.timeout=<span class="number">3000</span>ms</span><br></pre></td></tr></table></figure>
-<h3 id="序列化问题"><a href="#序列化问题" class="headerlink" title="序列化问题"></a>序列化问题</h3><p>data-redis在进行存储时，key和value默认使用了基于JDK的序列化方式（JdkSerializationRedisSerializer），在使用连接工具查看时看到的都是编码后的信息，不方便查看，所以需要更改默认的序列化方式。此处对key值的序列化使用自定义的String序列化器(data-redis也提供了一个基于String的序列化器，但是该序列化器的泛型是String类型的，不能传入其他类型的值，所以基于官方提供的String序列化器再重写一个泛型为Object的序列化器)，对value使用基于FastJson的序列化器（FastJson也提供了一个序列化器，可以使用该序列化器，也可以仿照该序列化器自定义一个序列化器）</p>
-<h4 id="自定义String序列化器"><a href="#自定义String序列化器" class="headerlink" title="自定义String序列化器"></a>自定义String序列化器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">StringRedisSerializer</span> <span class="keyword">implements</span> <span class="title">RedisSerializer</span>&lt;<span class="title">Object</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Charset charset;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String target = <span class="string">"\""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String replacement = <span class="string">""</span>;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new &#123;<span class="doctag">@link</span> org.springframework.data.redis.serializer.StringRedisSerializer&#125; using &#123;<span class="doctag">@link</span> StandardCharsets#UTF_8 UTF-8&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringRedisSerializer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>(StandardCharsets.UTF_8);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Creates a new &#123;<span class="doctag">@link</span> org.springframework.data.redis.serializer.StringRedisSerializer&#125; using the given &#123;<span class="doctag">@link</span> Charset&#125; to encode and decode strings.</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> charset must not be &#123;<span class="doctag">@literal</span> null&#125;.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">StringRedisSerializer</span><span class="params">(Charset charset)</span> </span>&#123;</span><br><span class="line">        Assert.notNull(charset, <span class="string">"Charset must not be null!"</span>);</span><br><span class="line">        <span class="keyword">this</span>.charset = charset;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * (non-Javadoc)</span></span><br><span class="line"><span class="comment">     * @see org.springframework.data.redis.serializer.RedisSerializer#deserialize(byte[])</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">deserialize</span><span class="params">(@Nullable <span class="keyword">byte</span>[] bytes)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (bytes == <span class="keyword">null</span> ? <span class="keyword">null</span> : <span class="keyword">new</span> String(bytes, charset));</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(<span class="meta">@Nullable</span> Object o) <span class="keyword">throws</span> SerializationException &#123;</span><br><span class="line">        String string = JSON.toJSONString(o);</span><br><span class="line">        <span class="keyword">if</span> (StringUtils.isEmpty(string)) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        string = string.replace(target, replacement);</span><br><span class="line">        <span class="keyword">return</span> string.getBytes(charset);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="自定义FastJSON序列化器"><a href="#自定义FastJSON序列化器" class="headerlink" title="自定义FastJSON序列化器"></a>自定义FastJSON序列化器</h4><p>我这里用了官方提供的FastJSON序列化器，如果想自定义的话，可以参考以下代码：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FastJsonRedisSerializer</span>&lt;<span class="title">T</span>&gt; <span class="keyword">implements</span> <span class="title">RedisSerializer</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> Charset DEFAULT_CHARSET = Charset.forName(<span class="string">"UTF-8"</span>);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> Class&lt;T&gt; clazz;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">FastJsonRedisSerializer</span><span class="params">(Class&lt;T&gt; clazz)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">super</span>();</span><br><span class="line">        <span class="keyword">this</span>.clazz = clazz;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">byte</span>[] serialize(T t) <span class="keyword">throws</span> SerializationException &#123;</span><br><span class="line">        <span class="keyword">if</span> (t == <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> <span class="keyword">byte</span>[<span class="number">0</span>];</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> JSON.toJSONString(t, SerializerFeature.WriteClassName).getBytes(DEFAULT_CHARSET);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> T <span class="title">deserialize</span><span class="params">(<span class="keyword">byte</span>[] bytes)</span> <span class="keyword">throws</span> SerializationException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (bytes == <span class="keyword">null</span> || bytes.length &lt;= <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        String str = <span class="keyword">new</span> String(bytes, DEFAULT_CHARSET);</span><br><span class="line">        <span class="keyword">return</span> (T) JSON.parseObject(str, clazz);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="指定序列化器"><a href="#指定序列化器" class="headerlink" title="指定序列化器"></a>指定序列化器</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnClass</span>(RedisOperations.class)</span><br><span class="line"><span class="meta">@EnableConfigurationProperties</span>(RedisProperties.class)</span><br><span class="line"><span class="meta">@EnableCaching</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RedisConfig</span> <span class="keyword">extends</span> <span class="title">CachingConfigurerSupport</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean</span>(name = <span class="string">"redisTemplate"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> RedisTemplate&lt;Object, Object&gt; <span class="title">redisTemplate</span><span class="params">(RedisConnectionFactory redisConnectionFactory)</span> </span>&#123;</span><br><span class="line">        RedisTemplate&lt;Object, Object&gt; redisTemplate = <span class="keyword">new</span> RedisTemplate&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//使用fastjson序列化  目前采用的是FastJson提供的序列化器  也可以自定义FastJSON的序列化器</span></span><br><span class="line">        FastJsonRedisSerializer fastJsonRedisSerializer = <span class="keyword">new</span> FastJsonRedisSerializer(Object.class);</span><br><span class="line">        <span class="comment">// value值的序列化采用fastJsonRedisSerializer</span></span><br><span class="line">        redisTemplate.setValueSerializer(fastJsonRedisSerializer);</span><br><span class="line">        redisTemplate.setHashValueSerializer(fastJsonRedisSerializer);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// key的序列化采用StringRedisSerializer</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line">        redisTemplate.setHashKeySerializer(<span class="keyword">new</span> StringRedisSerializer());</span><br><span class="line"></span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        redisTemplate.afterPropertiesSet();</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2002,7 +1927,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2013,7 +1938,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2024,7 +1949,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

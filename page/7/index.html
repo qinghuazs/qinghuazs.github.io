@@ -333,6 +333,602 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/31/Redis高级命令/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/31/Redis高级命令/" itemprop="url">Redis高级命令</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-31T00:00:00+08:00">
+                2018-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="关于key的操作"><a href="#关于key的操作" class="headerlink" title="关于key的操作"></a>关于key的操作</h4><p>Redis的key是字符串类型的，不可以包含空格和换行字符</p>
+<h5 id="获取所有的键"><a href="#获取所有的键" class="headerlink" title="获取所有的键"></a>获取所有的键</h5><pre><code>keys *
+</code></pre><h5 id="查看数据库的key的数量"><a href="#查看数据库的key的数量" class="headerlink" title="查看数据库的key的数量"></a>查看数据库的key的数量</h5><pre><code>dbsize
+</code></pre><h5 id="检测某个key是否存在，返回1表示存在，0表示不存在"><a href="#检测某个key是否存在，返回1表示存在，0表示不存在" class="headerlink" title="检测某个key是否存在，返回1表示存在，0表示不存在"></a>检测某个key是否存在，返回1表示存在，0表示不存在</h5><pre><code>exits key 
+</code></pre><h5 id="删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在"><a href="#删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在" class="headerlink" title="删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在"></a>删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在</h5><pre><code>del key1, key2, ... 
+</code></pre><h5 id="返回给定key值的类型，返回none表示key不存在"><a href="#返回给定key值的类型，返回none表示key不存在" class="headerlink" title="返回给定key值的类型，返回none表示key不存在"></a>返回给定key值的类型，返回none表示key不存在</h5><pre><code>type key 
+</code></pre><h5 id="重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同"><a href="#重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同" class="headerlink" title="重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同"></a>重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同</h5><pre><code>rename oldkey newkey 
+</code></pre><h5 id="重命名一个key-和rename类似，但是如果newkey存在会返回失败"><a href="#重命名一个key-和rename类似，但是如果newkey存在会返回失败" class="headerlink" title="重命名一个key,和rename类似，但是如果newkey存在会返回失败"></a>重命名一个key,和rename类似，但是如果newkey存在会返回失败</h5><pre><code>renamenx oldkey newkey
+</code></pre><h5 id="为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在"><a href="#为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在" class="headerlink" title="为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在"></a>为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在</h5><pre><code>expire key seconds 
+</code></pre><h5 id="返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间"><a href="#返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间" class="headerlink" title="返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间"></a>返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间</h5><pre><code>ttl key 
+</code></pre><h5 id="取消过期时间"><a href="#取消过期时间" class="headerlink" title="取消过期时间"></a>取消过期时间</h5><pre><code>persist
+</code></pre><h5 id="随机返回数据库里的一个key"><a href="#随机返回数据库里的一个key" class="headerlink" title="随机返回数据库里的一个key"></a>随机返回数据库里的一个key</h5><pre><code>randomkey
+</code></pre><h5 id="将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中"><a href="#将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中" class="headerlink" title="将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中"></a>将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中</h5><pre><code>move key db-index
+</code></pre><h4 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h4><h5 id="通过索引选择数据库，默认连接的数据库是0，默认数据库是16个；-返回1表示切换成功，0表示失败"><a href="#通过索引选择数据库，默认连接的数据库是0，默认数据库是16个；-返回1表示切换成功，0表示失败" class="headerlink" title="通过索引选择数据库，默认连接的数据库是0，默认数据库是16个； 返回1表示切换成功，0表示失败"></a>通过索引选择数据库，默认连接的数据库是0，默认数据库是16个； 返回1表示切换成功，0表示失败</h5><pre><code>select db-index 
+</code></pre><h5 id="清空当前数据库，慎用"><a href="#清空当前数据库，慎用" class="headerlink" title="清空当前数据库，慎用"></a>清空当前数据库，<em>慎用</em></h5><pre><code>flushdb
+</code></pre><h5 id="清空所有数据库，慎用"><a href="#清空所有数据库，慎用" class="headerlink" title="清空所有数据库，慎用"></a>清空所有数据库，<em>慎用</em></h5><pre><code>flushall
+</code></pre><h4 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h4><h5 id="获取当前redis服务器状态和一些统计信息"><a href="#获取当前redis服务器状态和一些统计信息" class="headerlink" title="获取当前redis服务器状态和一些统计信息"></a>获取当前redis服务器状态和一些统计信息</h5><pre><code>info
+</code></pre><h5 id="返回相关的配置信息"><a href="#返回相关的配置信息" class="headerlink" title="返回相关的配置信息"></a>返回相关的配置信息</h5><pre><code>config get paramter
+</code></pre><h5 id="返回所有配置"><a href="#返回所有配置" class="headerlink" title="返回所有配置"></a>返回所有配置</h5><pre><code>config get *
+</code></pre><h5 id="实时监听并返回redis服务器接收到的所有请求信息"><a href="#实时监听并返回redis服务器接收到的所有请求信息" class="headerlink" title="实时监听并返回redis服务器接收到的所有请求信息"></a>实时监听并返回redis服务器接收到的所有请求信息</h5><pre><code>monitor
+</code></pre><h5 id="获取一个key的调试信息"><a href="#获取一个key的调试信息" class="headerlink" title="获取一个key的调试信息"></a>获取一个key的调试信息</h5><pre><code>debug object key
+</code></pre><h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="制造一次服务器当机"><a href="#制造一次服务器当机" class="headerlink" title="制造一次服务器当机"></a>制造一次服务器当机</h5><pre><code>debug segfault
+</code></pre><h5 id="打印命令"><a href="#打印命令" class="headerlink" title="打印命令"></a>打印命令</h5><pre><code>echo
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/30/Redis基础类型/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/30/Redis基础类型/" itemprop="url">Redis基础类型</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+08:00">
+                2018-03-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="String-字符串类型"><a href="#String-字符串类型" class="headerlink" title="String 字符串类型"></a>String 字符串类型</h4><p>二进制安全，可以包含任何数据，比如jpg图片或者序列化的对象；从内部实现看，string其实可以看做byte数组，最大上限是1G字节</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><pre><code>set name qinghuazangshui --赋值 set key value
+
+get name --获取内容 get key
+
+setnx (not exist)
+
+setnx name qinghua  --存在则修改，不存在则赋值  setnx key value
+
+setex (expired)
+
+setex name 10 qinghua2 --设置过期时间
+
+setrange name 2 qaq --从第二位开始替换，替换成qaq
+
+mset key1 value1 key2 value2 --设置多个键值
+
+mget key1 key2 key3 --一次性取多个值
+
+getset name qinghua3 --返回旧值，返回新值 getset key value
+
+incr age  --递增操作，数字类型 incr key,相当于++操作，如果value不是int类型的会返回错误，incr一个不存在的key，则设置key的值为1
+
+decr age --递减操作，数字类型 decr key， 相当于--操作，decr一个不存在的key，则设置key的值为-1
+
+incrby/decrby age 3 --增加/减少指定的值 incrby/decrby key integer 
+
+append name 123 --追加
+</code></pre><h4 id="Hash类型"><a href="#Hash类型" class="headerlink" title="Hash类型"></a>Hash类型</h4><p>Hash类型是String类型key和value的映射表，或者说是一个String集合</p>
+<p>添加、删除操作都是O(1)(平均)</p>
+<p>适合存储对象</p>
+<p>相对而言，将一个对象类型存储在Hash类型里要比存储在String类型里占用更少的内存空间，并方便存取整个对象；省内存的原因是新建一个hash对象时开始使用zipmap来存储的。</p>
+<p>如果field或者value的大小超出一定限制后，redis会在内部自动将zipmap替换成正常的hash实现，可以在配置文件中设置最大值</p>
+<pre><code>hash-max-zipmap-entries 64 #配置字段最多64个
+
+hash-max-zipmap-value 512 #配置value最大为512字节
+</code></pre><h5 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h5><pre><code>hset user id 1 --设置属性和值 hset key field value
+
+hset user name qinghua
+
+hset user age 18
+
+hget user id --取值 hget key field
+
+hget user name 
+
+hmset user id  2 name qinghua2 age 20 --批量设置键值 hmset key field1 value1 field2 value2...
+
+hmget user id name age --批量取值 hmget key field1 field2...
+
+hexists user age --是否存在键值 hexists key field 
+
+hlen user --user的长度 hlen key 返回指定hash的field的数量 
+
+hkeys user --获取user的所有键  返回hash的所有field
+
+hvals user --获取user下的所有值 hvals key
+
+hgetall user --返回hash的所有的键值 hgetall key 
+
+hdel key field --删除指定的hash field
+
+hincrby key field integer --将制定hash field加上指定值
+</code></pre><h4 id="List类型"><a href="#List类型" class="headerlink" title="List类型"></a>List类型</h4><p>链表结构（双向链表）的集合，即可以理解为一个每个子元素都是string类型的双向链表</p>
+<p>主要功能有push、pop、获取元素等，可以在头部或尾部增删元素，操作中key理解为链表的名字</p>
+<p>既可以作为栈，也可以作为队列</p>
+<pre><code>lpush list qinghua  --从头部添加元素，返回1表示成功，0表示key存在且不是list类型 lpush key string
+
+rpush list zangshui --在尾部添加元素 rpush key string
+
+linsert list before zangshui qaq --插入
+
+lrange list 0 -1 --遍历List，-1代表最后的索引位置  lrange key start end 返回指定区间内的元素，下标从0开始，复制表示从后面计算，-1表示倒数第一个元素，key不存在返回空列表
+
+lset key index value--将制定下表的元素替换掉，成功返回1
+
+lrem list 1 qinghua --删除元素，返回删除的元素个数 lrem key count value 从list的头部（正数）或尾部（负数）删除一定数量匹配value的元素，返回删除的元素数量，count为0时删除全部
+
+ltrim key start end--保留指定key的值范围内的数据，截取 list指定区间内元素，成功返回 1，key不存在返回错误
+
+lpop key--从头部删除元素，并返回删除元素
+
+rpop key--从尾部删除元素，并返回删除元素
+
+rpoplpush --从尾部删除元素，然后从头部插入元素
+
+lindex --返回名称为key的list中index位置的元素
+
+llen key--返回元素的个数,即返回key对应的list的长度，如果key不存在返回0，如果key对应类型不是list返回错误    
+</code></pre><h4 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h4><p>string类型的无序集合，通过hashtable实现，实现集合的交集、并集、差集操作，查找的复杂度为O(1)，hashtable会随着添加或者删除自动的调整大小，需要注意的是调整hash table大小的时候需要同步（获取写锁），会阻塞其他读写操作。</p>
+<p>最大可以包含2^32-1个元素</p>
+<p>set中不允许重复</p>
+<pre><code>sadd set1 aaa --添加元素 sadd key member 成功返回1,如果元素以及在集合中则返回0，key对应的set不存在则返回错误
+
+srem key member --从key对应set中移除指定元素，成功返回1，如果member在集合中不存在或者key不存在返回0，如果key对应的不是set类型的值返回错误
+
+spop key --删除并返回key对应set中随机的一个元素，如果set是空或者key不存在返回nil
+
+srandmember key -- 同spop，随机取set中的一个元素，但是不删除元素
+
+smove srckey destkey member --从srckey对应set中移除member并添加到destkey对应set中，整个操作是原子的。成功返回1，如果member在srckey中不存在返回0，如果key不是set类型返回错误
+
+scard key --返回set中元素的个数，如果set是空或者key不存在返回0
+
+smembers key --返回key对应set的所有元素，结果是无序的
+
+sinter key1 key2 --返回所有给定key的交集
+
+sinterstore destkey key1 key2 --取交集结果，并存储到指定集合destkey中
+
+sunion key1 key2 --取并集
+
+sunionstore destkey key1 key2 --取并集结果，并存储到指定集合destkey中
+
+sdiff key1 key2 --返回所有给定key的差集
+
+sdiffstore destkey key1 key2 --取差集结果，并存储到指定集合destkey中
+
+sismember key member --判断member是否在set中，存在返回1,0表示不存在或者key不存在
+</code></pre><h4 id="zset-有序集合"><a href="#zset-有序集合" class="headerlink" title="zset 有序集合"></a>zset 有序集合</h4><p>可以做搜索排行</p>
+<pre><code>zadd key score member--向有序集合中添加一个元素，元素在集合中存在则更新对应score
+
+zrem key member --删除指定元素，1表示成功，如果元素不存在返回0
+
+zincrby key incr member --增加对应member的score值，然后移动元素并保持skip list保持有序。返回更新后的score值
+
+zrank key member --返回指定元素在级合格中的排名（下标），集合中元素是按score从小到大排序的
+
+zrevrank key member --同上，但是结合中元素是按score从大到小排序
+
+zrange key start end --类似lrange操作从集合中去指定区间的元素，返回的是有序结果
+
+zrevrange key start end --同上，返回结果是按score逆序的
+
+zrangebyscore key min max --返回集合中score在给定区间的数量
+
+zcount key min max --返回集合中score在给定区间的数量
+
+zcard key --返回集合中元素个数
+
+zscore key element --返回给定元素对应的score      
+
+zremrangebyrank  key min max --删除集合中排名在给定区间的元素
+
+zremrangebyscore key min max --删除集合中score在给定区间的元素
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/29/Redis配置文件/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/29/Redis配置文件/" itemprop="url">Redis配置文件</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-29T00:00:00+08:00">
+                2018-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>该篇主要是针对Redis的配置文件中各项配置的一个简单说明，为后期Redis的应用提供一个参考</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/03/29/Redis配置文件/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/28/Redis安装-Linux平台/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1317,7 +1913,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">65</span>
+                  <span class="site-state-item-count">68</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1328,7 +1924,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1339,7 +1935,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">24</span>
+                  <span class="site-state-item-count">25</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
