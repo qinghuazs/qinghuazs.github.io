@@ -333,7 +333,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux文件系统的实现/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Linux基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="青花葬水">
@@ -352,7 +352,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/06/12/Linux文件系统的实现/" itemprop="url">Linux文件系统的实现</a></h1>
+                <a class="post-title-link" href="/2018/06/12/Linux基础/" itemprop="url">Linux基础</a></h1>
         
 
         <div class="post-meta">
@@ -426,68 +426,63 @@
       
         
           
-            <blockquote>
-<p>本文转自网络，侵删。 原文地址<a href="https://blog.csdn.net/bv1315008634/article/details/53327002" target="_blank" rel="noopener">https://blog.csdn.net/bv1315008634/article/details/53327002</a></p>
-</blockquote>
-<h3 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h3><p>Linux文件管理从用户的层面介绍了Linux管理文件的方式。Linux有一个树状结构来组织文件。树的顶端为根目录(/)，节点为目录，而末端的叶子为包含数据的文件。当我们给出一个文件的完整路径时，我们从根目录出发，经过沿途各个目录，最终到达文件。</p>
-<p>我们可以对文件进行许多操作，比如打开和读写。在Linux文件管理相关命令中，我们看到许多对文件进行操作的命令。它们大都基于对文件的打开和读写操作。比如cat可以打开文件，读取数据，最后在终端显示：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> cat test.txt</span><br></pre></td></tr></table></figure>
-<p>对于Linux下的程序员来说，了解文件系统的底层组织方式，是深入进行系统编程所必备的。即使是普通的Linux用户，也可以根据相关的内容，设计出更好的系统维护方案。</p>
-<p>操作系统的很多核心组件都是相互关联的，比如虚拟内存管理，物理内存管理，文件系统，缓存系统，IO，设备管理等等，都要放在一起来看才能从整体上理解各个模块到底是如何交互和工作的。这个系列的目的也就是从整体上来理解计算机底层硬件和操作系统的一些重要的组件是如何工作的，从而来指导应用层的开发。这篇讲讲文件系统的重要概念，为后面的IO系统做铺垫。</p>
-<p>文件系统主要有三类 </p>
-<ol>
-<li>位于磁盘的文件系统，在物理磁盘上存储文件，比如NTFS, FAT, ext3, ext4 </li>
-<li>虚拟文件系统，在内核中生成，没有物理的存储介质 </li>
-<li>网络文件系统，位于远程主机上的文件系统，通过网络访问</li>
-</ol>
-<p>一个操作系统可以支持多种底层不同的文件系统，为了给内核和用户进程提供统一的文件系统视图，Linux在用户进程和底层文件系统之间加入了一个抽象层，即虚拟文件系统(Virtual File System, VFS)，进程所有的文件操作都通过VFS，由VFS来适配各种底层不同的文件系统，完成实际的文件操作。 </p>
-<p>通俗的说，VFS就是定义了一个通用文件系统的接口层和适配层，一方面为用户进程提供了一组统一的访问文件，目录和其他对象的统一方法，另一方面又要和不同的底层文件系统进行适配。 </p>
-<p><img src="https://img-blog.csdn.net/20150921111202926" alt=""></p>
-<p>VFS采用了面向对象的思路来设计它的核心组件，只是VFS是用C写的，没有对象的语法，只能用struct来表示。我们按照面向对象的思路来理解VFS。<br>它有4个主要的对象类型： </p>
-<ol>
-<li>超级块对象，代表一个具体的已安装(mount)的文件系统 </li>
-<li>inode对象，表示一个具体的文件 </li>
-<li>目录项对象，代表一个目录项，是路径的一部分，比如一个路径 /home/foo/hello.txt，那么目录项有home, foo, hello.txt </li>
-<li>打开文件对象，表示一个打开的文件，有读写的pos位置，也叫文件句柄，说白了就是open系统调用在内核创建的一个数据结构</li>
-</ol>
-<p>VFS给每个对象都定义了一组操作对象(函数指针)，给出了这些操作的默认实现，底层不同的文件系统可以重写(override)VFS的操作函数来给出自己的具体操作实现，也可以复用VFS的默认实现。实际情况是底层文件系统部分操作由自己单独实现，部分复用了VFS的默认实现。<br>操作对象有: </p>
-<ol>
-<li>super_operations对象，针对超级块对象，包含了内核对特定文件系统所能调用的方法，比如wirte_inode()，sync_fs()等 </li>
-<li>inode_operations对象，针对inode对象，包含了内核对特定文件所能调用的方法，比如create(), link()等 </li>
-<li>dentry_operations对象(directory entry)，针对目录项对象，包含了内核对特定目录所能调用的方法，比如d_compare()和d_delete()方法等 </li>
-<li>file_operations对象，针对打开文件对象，包含了进程对打开文件对象所能调用的方法，比如read()和write()等</li>
-</ol>
-<p>文件系统说白了就是文件内容和存储系统对应的块的映射关系，是来管理文件的存储的。inode-block结构把文件分为了两部分，inode表示元数据，block表示存储文件内容的具体的逻辑块。VFS没有用单独的对象来表示block，block的属性在超级块和inode块中包含了。</p>
-<h3 id="存储设备分区"><a href="#存储设备分区" class="headerlink" title="存储设备分区"></a>存储设备分区</h3><p>文件系统的最终目的是把大量数据有组织的放入持久性(persistant)的存储设备中，比如硬盘和磁盘。这些存储设备与内存不同。它们的存储能力具有持久性，不会因为断电而消失；存储量大，但读取速度慢。</p>
-<p>观察常见存储设备。最开始的区域是MBR，用于Linux开机启动(参考Linux开机启动)。剩余的空间可能分成数个分区(partition)。每个分区有一个相关的分区表(Partition table)，记录分区的相关信息。这个分区表是储存在分区之外的。分区表说明了对应分区的起始位置和分区的大小</p>
-<p><img src="https://img-blog.csdn.net/20150921121719849" alt=""></p>
-<p>我们在Windows系统常常看到C分区、D分区等。Linux系统下也可以有多个分区，但都被挂载在同一个文件系统树上。</p>
-<p>数据被存入到某个分区中。一个典型的Linux分区(partition)包含有下面各个部分:</p>
-<p><img src="https://img-blog.csdn.net/20150921121751207" alt=""></p>
-<p>分区的第一个部分是启动区(Boot block)，它主要是为计算机开机服务的。Linux开机启动后，会首先载入MBR，随后MBR从某个硬盘的启动区加载程序。该程序负责进一步的操作系统的加载和启动。为了方便管理，即使某个分区中没有安装操作系统，Linux也会在该分区预留启动区。</p>
-<p>启动区之后的是超级区(Super block)。它存储有文件系统的相关信息，包括文件系统的类型，inode的数目，数据块的数目。</p>
-<p>随后是多个inodes，它们是实现文件存储的关键。在Linux系统中，一个文件可以分成几个数据块存储，就好像是分散在各地的龙珠一样。为了顺利的收集齐龙珠，我们需要一个“雷达”的指引：该文件对应的inode。每个文件对应一个inode。这个inode中包含多个指针，指向属于该文件各个数据块。当操作系统需要读取文件时，只需要对应inode的”地图”，收集起分散的数据块，就可以收获我们的文件了。</p>
-<p>最后一部分，就是真正储存数据的数据块们(data blocks)了。</p>
-<h3 id="inode简介"><a href="#inode简介" class="headerlink" title="inode简介"></a>inode简介</h3><p>上面我们看到了存储设备的宏观结构。我们要深入到分区的结构，特别是文件在分区中的存储方式。</p>
-<p>文件是文件系统对数据的分割单元。文件系统用目录来组织文件，赋予文件以上下分级的结构。在硬盘上实现这一分级结构的关键，是使用inode来虚拟普通文件和目录文件对象。</p>
-<p>在Linux文件管理中，我们知道，一个文件除了自身的数据之外，还有一个附属信息，即文件的元数据(metadata)。这个元数据用于记录文件的许多信息，比如文件大小，拥有人，所属的组，修改日期等等。元数据并不包含在文件的数据中，而是由操作系统维护的。事实上，这个所谓的元数据就包含在inode中。我们可以用$ls -l filename来查看这些元数据。正如我们上面看到的，inode所占据的区域与数据块的区域不同。每个inode有一个唯一的整数编号(inode number)表示。</p>
-<p>在保存元数据，inode是“文件”从抽象到具体的关键。正如上一节中提到的，inode储存由一些指针，这些指针指向存储设备中的一些数据块，文件的内容就储存在这些数据块中。当Linux想要打开一个文件时，只需要找到文件对应的inode，然后沿着指针，将所有的数据块收集起来，就可以在内存中组成一个文件的数据了。</p>
-<p><img src="https://img-blog.csdn.net/20150921121847465" alt=""></p>
-<p>数据块在1, 32, 0, …</p>
-<p>inode并不是组织文件的唯一方式。最简单的组织文件的方法，是把文件依次顺序的放入存储设备，DVD就采取了类似的方式。但如果有删除操作，删除造成的空余空间夹杂在正常文件之间，很难利用和管理。</p>
-<p>复杂的方式可以使用链表，每个数据块都有一个指针，指向属于同一文件的下一个数据块。这样的好处是可以利用零散的空余空间，坏处是对文件的操作必须按照线性方式进行。如果想随机存取，那么必须遍历链表，直到目标位置。由于这一遍历不是在内存进行，所以速度很慢。</p>
-<p>FAT系统是将上面链表的指针取出，放入到内存的一个数组中。这样，FAT可以根据内存的索引，迅速的找到一个文件。这样做的主要问题是，索引数组的大小与数据块的总数相同。因此，存储设备很大的话，这个索引数组会比较大。</p>
-<p>inode既可以充分利用空间，在内存占据空间不与存储设备相关，解决了上面的问题。但inode也有自己的问题。每个inode能够存储的数据块指针总数是固定的。如果一个文件需要的数据块超过这一总数，inode需要额外的空间来存储多出来的指针。</p>
-<h3 id="inode示例"><a href="#inode示例" class="headerlink" title="inode示例"></a>inode示例</h3><p>在Linux中，我们通过解析路径，根据沿途的目录文件来找到某个文件。目录中的条目除了所包含的文件名，还有对应的inode编号。当我们输入$cat /var/test.txt时，Linux将在根目录文件中找到var这个目录文件的inode编号，然后根据inode合成var的数据。随后，根据var中的记录，找到text.txt的inode编号，沿着inode中的指针，收集数据块，合成text.txt的数据。整个过程中，我们参考了三个inode：根目录文件，var目录文件，text.txt文件的inodes。</p>
-<p>在Linux下，可以使用$stat filename，来查询某个文件对应的inode编号。</p>
-<p><img src="https://img-blog.csdn.net/20150921121955861" alt=""></p>
-<p>在存储设备中实际上存储为：</p>
-<p><img src="https://img-blog.csdn.net/20150921122004392" alt=""></p>
-<p>当我们读取一个文件时，实际上是在目录中找到了这个文件的inode编号，然后根据inode的指针，把数据块组合起来，放入内存供进一步的处理。当我们写入一个文件时，是分配一个空白inode给该文件，将其inode编号记入该文件所属的目录，然后选取空白的数据块，让inode的指针指像这些数据块，并放入内存中的数据。</p>
-<h3 id="文件共享"><a href="#文件共享" class="headerlink" title="文件共享"></a>文件共享</h3><p>在Linux的进程中，当我们打开一个文件时，返回的是一个文件描述符。这个文件描述符是一个数组的下标，对应数组元素为一个指针。有趣的是，这个指针并没有直接指向文件的inode，而是指向了一个文件表格，再通过该表格，指向加载到内存中的目标文件的inode。如下图，一个进程打开了两个文件。</p>
-<p><img src="https://img-blog.csdn.net/20150921122052859" alt=""></p>
-<p>可以看到，每个文件表格中记录了文件打开的状态(status flags)，比如只读，写入等，还记录了每个文件的当前读写位置(offset)。当有两个进程打开同一个文件时，可以有两个文件表格，每个文件表格对应的打开状态和当前位置不同，从而支持一些文件共享的操作，比如同时读取。</p>
-<p>要注意的是进程fork之后的情况，子进程将只复制文件描述符的数组，而和父进程共享内核维护的文件表格和inode。此时要特别小心程序的编写。</p>
+            <h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
+<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
+<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
+<p>基本分区可以马上被使用但不能再分区</p>
+<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
+<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
+<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“/”）</p>
+<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
+<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
+<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
+<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
+<p>盘片被划分为多个扇形区域即扇区</p>
+<p>同一盘片不同半径的同心圆为磁道</p>
+<p>不同盘片相同半径构成的圆柱面即柱面</p>
+<p>存储容量 = 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
+<p>信息记录可以表示为：</p>
+<p>xx磁道（柱面）， xx磁头， xx扇区</p>
+<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
+<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
+<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
+<p>/ 分区</p>
+<p>SWAP分区</p>
+<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm" target="_blank" rel="noopener">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607" target="_blank" rel="noopener">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
+<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054" target="_blank" rel="noopener">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
+<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
+<li><p>/ Linux文件系统的入口，最高级目录</p>
+</li>
+<li><p>/usr/bin、/bin ： 存放所有用户可以执行的命令</p>
+</li>
+<li><p>/usr/sbin、/sbin ： 存放只有root可以执行的命令</p>
+</li>
+<li><p>/home : 用户缺省的宿主目录</p>
+</li>
+<li><p>/proc ： 虚拟文件系统，存放当前进程信息</p>
+</li>
+<li><p>/dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在/dev下</p>
+</li>
+<li><p>/lib : 存放系统程序运行所需的共享库</p>
+</li>
+<li><p>/lost+found : 存放系统出错的检查结果</p>
+</li>
+<li><p>/tmp : 存放临时文件</p>
+</li>
+<li><p>/etc : 存储系统的配置</p>
+</li>
+<li><p>/var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
+</li>
+<li><p>/usr : 存放所有命令、库、手册等</p>
+</li>
+<li><p>/usr/local ： 软件安装的目录</p>
+</li>
+<li><p>/boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
+</li>
+<li><p>/mnt ： 临时系统文件的安装点</p>
+</li>
+</ul>
+<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
 
           
         
@@ -1014,6 +1009,150 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/SpringBoot之actuator监控/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/06/SpringBoot之actuator监控/" itemprop="url">SpringBoot之Actuator监控</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T00:00:00+08:00">
+                2018-06-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>在<code>pom.xml</code>中添加<code>spring-boot-starter-actuator</code>依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>如果只添加<code>actuator</code>依赖，用户可以直接访问监控系统，而不需要权限认证，有安全风险。所以，为了安全性考虑，需要添加<code>spring-boot-start-security</code>依赖。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>添加之后，用户访问监控页面的时候就会跳转到监控的登录页面，输入用户名和密码之后才能进入到监控界面。</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/SpringBoot之在spring-boot-starter-web中用jetty替代tomcat/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1169,150 +1308,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/SpringBoot之actuator监控/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/06/SpringBoot之actuator监控/" itemprop="url">SpringBoot之Actuator监控</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-06T00:00:00+08:00">
-                2018-06-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>在<code>pom.xml</code>中添加<code>spring-boot-starter-actuator</code>依赖<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>如果只添加<code>actuator</code>依赖，用户可以直接访问监控系统，而不需要权限认证，有安全风险。所以，为了安全性考虑，需要添加<code>spring-boot-start-security</code>依赖。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
-<p>添加之后，用户访问监控页面的时候就会跳转到监控的登录页面，输入用户名和密码之后才能进入到监控界面。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/06/SpringBoot之热启动/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1418,6 +1413,157 @@
 <p><img src="images/idea03.png" alt=""></p>
 <h5 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h5><p>某些情况下，自动编辑可能不会生效，如果碰到这种情况，可以使用<font color="red">Ctrl + F9</font>手动编译，不需要去重启服务。</p>
 
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/05/SpringBoot工程创建/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/05/SpringBoot工程创建/" itemprop="url">SpringBoot工程创建</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-05T10:24:00+08:00">
+                2018-06-05
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h4 id="项目的创建"><a href="#项目的创建" class="headerlink" title="项目的创建"></a>项目的创建</h4><p>访问<a href="http://start.spring.io/" target="_blank" rel="noopener">start.spring.io</a>，选择相应的模块，生成代码，导入到IDE中即可</p>
+<p>也可以直接使用IDE进行创建，以idea为例：</p>
+<h5 id="点击新建项目，选择Spring-Initializr，选择JDK和URL"><a href="#点击新建项目，选择Spring-Initializr，选择JDK和URL" class="headerlink" title="点击新建项目，选择Spring Initializr，选择JDK和URL"></a>点击新建项目，选择Spring Initializr，选择JDK和URL</h5><p><img src="https://i.imgur.com/Fjludse.png" alt="输入图片说明" title="屏幕截图.png"></p>
+<h5 id="填写项目相关信息，点击next"><a href="#填写项目相关信息，点击next" class="headerlink" title="填写项目相关信息，点击next"></a>填写项目相关信息，点击next</h5><p><img src="https://i.imgur.com/r3u7MpJ.png" alt="输入图片说明" title="屏幕截图.png"></p>
+<h5 id="选择需要用到的模块，本例中先选择Web，后续如果有用到其他模块，可以再进行添加"><a href="#选择需要用到的模块，本例中先选择Web，后续如果有用到其他模块，可以再进行添加" class="headerlink" title="选择需要用到的模块，本例中先选择Web，后续如果有用到其他模块，可以再进行添加"></a>选择需要用到的模块，本例中先选择Web，后续如果有用到其他模块，可以再进行添加</h5><p><img src="https://i.imgur.com/uiG6lMX.png" alt="输入图片说明" title="屏幕截图.png"></p>
+<h5 id="点击Finish，完成SpringBoot项目的创建"><a href="#点击Finish，完成SpringBoot项目的创建" class="headerlink" title="点击Finish，完成SpringBoot项目的创建"></a>点击Finish，完成SpringBoot项目的创建</h5><p><img src="https://i.imgur.com/kyQakKN.png" alt=""></p>
+<p>创建完成后，会自动创建相应的文件夹，并生成一个【项目名+Application】的Java类，如我的项目名是rabbit，则创建的Java类为 <code>RabbitApplication</code></p>
+<p>如图为自动创建的资源文件和Java类</p>
+<p><img src="https://i.imgur.com/oykxaGv.png" alt="输入图片说明" title="屏幕截图.png"></p>
+<p>RabbitApplication是整个项目的入口类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">RabbitApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">	SpringApplication.run(RabbitApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
           
         
       
@@ -1788,154 +1934,6 @@ vm-max-threads 8
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/Redis安全配置/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/01/Redis安全配置/" itemprop="url">Redis安全配置</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T00:00:00+08:00">
-                2018-04-01
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>1.设置Redis密码</p>
-<p>修改redid.conf文件</p>
-<pre><code>#requirepass foobared
-requirepass yourpassword
-</code></pre><p>重启Redis服务</p>
-<p>2.设置防火墙，关闭Redis的6379端口的对外访问</p>
-<p>一般不建议设置密码，只需要关闭端口的对外访问即可</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1988,7 +1986,7 @@ requirepass yourpassword
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

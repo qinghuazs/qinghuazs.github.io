@@ -426,7 +426,7 @@
       
         
           
-            <p>ArrayList，Java中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE</p>
+            <p>ArrayList，<code>Java</code>中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE</p>
 <p>基于数组实现，所以拥有数组的特点：数据连续，随机访问速度快（实现了RandomAccess标记接口，表明了随机读取的能力）；同样的，因为Java中的数组是不可变的，所以每次的增删数组都涉及到了数组的扩容和拷贝，速度上会较慢（ArrayList如果不考虑扩容的情况，效率和LinkedList不会有太大差别）；</p>
 <h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>在添加元素时，考虑到容量的因素，需要按情况进行扩容，默认的扩容方案如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">//扩容判断  size+1即为minCapacity，可满足add操作的最小容量</span></span><br><span class="line">    elementData[size++] = e;<span class="comment">//在末尾追加元素</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可分配的最大数组长度</span></span><br><span class="line"><span class="comment"> * 一些虚拟机会在数组中保留头文字</span></span><br><span class="line"><span class="comment"> * 去分配一个更大长度的数组可能会导致内存溢出的错误：请求的数组大小超过虚拟机的限制</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> MAX_ARRAY_SIZE = Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureCapacityInternal</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (elementData == EMPTY_ELEMENTDATA) &#123; <span class="comment">//如果列表为空（没有元素）</span></span><br><span class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);<span class="comment">//比较设定的最小容量和默认容量，取其中大最大值为最小容量；即minCapacity不满10，按10处理</span></span><br><span class="line">    &#125;</span><br><span class="line">    ensureExplicitCapacity(minCapacity);<span class="comment">//扩容判断</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">ensureExplicitCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    modCount++;<span class="comment">//修改次数加1，这个字段继承自AbstractList，用于在add  set等操作时进行ConcurrentModificationException异常判断</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)<span class="comment">//判断最小容量和当前列表的大小，注意是elementData.length而不是size</span></span><br><span class="line">        grow(minCapacity);<span class="comment">//当前容量不足，扩容</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">grow</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> oldCapacity = elementData.length;<span class="comment">//原有的容量</span></span><br><span class="line">    <span class="keyword">int</span> newCapacity = oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);<span class="comment">//新容量  原有的容量的1.5倍左右  &gt;&gt; 移位操作  即 1111右移1位变为0111 15-&gt;7</span></span><br><span class="line">    <span class="comment">// int newCapacity = (oldCapacity * 3)/2 + 1;  //JDK1.6的源码</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>) <span class="comment">//如果扩容后的容量比所需的最小容量还小  溢出？？</span></span><br><span class="line">        newCapacity = minCapacity; <span class="comment">//设置最小容量为新的容量</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>) <span class="comment">//再判断新容量是否超出所允许的最大长度  MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8 为什么是这个数？？？ 没搞清楚</span></span><br><span class="line">        newCapacity = hugeCapacity(minCapacity); <span class="comment">//如果新容量超出最大长度，重新扩容</span></span><br><span class="line">    <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);<span class="comment">//数组拷贝，新数组长度为新容量的大小，扩容完毕</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">hugeCapacity</span><span class="params">(<span class="keyword">int</span> minCapacity)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (minCapacity &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> OutOfMemoryError();<span class="comment">//溢出  抛异常  感觉不会出现这种情况</span></span><br><span class="line">    <span class="keyword">return</span> (minCapacity &gt; MAX_ARRAY_SIZE) ? <span class="comment">//如果最小容量超出所允许的最大长度，新容量就用Integer.MAX_VALUE,否则的话就用MAX_ARRAY_SIZE</span></span><br><span class="line">        Integer.MAX_VALUE :</span><br><span class="line">        MAX_ARRAY_SIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -847,6 +847,7 @@
             }
 
 
+​            
             public List<E> subList(int fromIndex, int toIndex) {
                 subListRangeCheck(fromIndex, toIndex, size);
                 return new SubList(this, offset, fromIndex, toIndex);
@@ -1218,152 +1219,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/" itemprop="url">SpringBoot单元测试：Unable to find a @SpringBootConfiguration</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T00:00:00+08:00">
-                2018-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>SpringBoot 下使用 Junit 进行单元测试时，报错：<code>java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test</code>；</p>
-<p>具体报错信息如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">信息: Could not detect default configuration classes for test class [com.qinghuazs.starlight.oss.AliOSSBucketClientTest]: AliOSSBucketClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.</span><br><span class="line">  </span><br><span class="line">java.lang.IllegalStateException: Unable to find a <span class="meta">@SpringBootConfiguration</span>, you need to use <span class="meta">@ContextConfiguration</span> or <span class="meta">@SpringBootTest</span>(classes=...) with your test</span><br><span class="line"></span><br><span class="line">	at org.springframework.util.Assert.state(Assert.java:<span class="number">73</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses(SpringBootTestContextBootstrapper.java:<span class="number">240</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.processMergedContextConfiguration(SpringBootTestContextBootstrapper.java:<span class="number">153</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">395</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">312</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">265</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">108</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:<span class="number">97</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">139</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">124</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">151</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">142</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringRunner.&lt;init&gt;(SpringRunner.java:<span class="number">49</span>)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">26</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:<span class="number">33</span>)</span><br><span class="line">	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">47</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">242</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
-<p>根据报错提示，可以得知 SpringBoot 应用下缺失 <code>@SpringBootConfiguration</code> 类，即 SpringBoot 启动类（<code>@SpringBootApplication</code> 是一个复合注解），增加一个 SpringBoot 启动类即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OSSApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OSSApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/SpringBoot源码解析之SpringApplication/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1480,6 +1335,152 @@
 <p>其中primarySource即为<strong>com.lemon.rabbit.RabbitApplication</strong></p>
 <p>SpringApplication中定义了一些静态的成员属性</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//在非web环境中默认使用的应用程序上下文的类名。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_CONTEXT_CLASS = <span class="string">"org.springframework.context."</span></span><br><span class="line">			+ <span class="string">"annotation.AnnotationConfigApplicationContext"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//应用程序上下文的类名，默认用于web环境。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_WEB_CONTEXT_CLASS = <span class="string">"org.springframework.boot."</span></span><br><span class="line">			+ <span class="string">"web.servlet.context.AnnotationConfigServletWebServerApplicationContext"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] WEB_ENVIRONMENT_CLASSES = &#123; <span class="string">"javax.servlet.Servlet"</span>,</span><br><span class="line">			<span class="string">"org.springframework.web.context.ConfigurableWebApplicationContext"</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_REACTIVE_WEB_CONTEXT_CLASS = <span class="string">"org.springframework."</span></span><br><span class="line">			+ <span class="string">"boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String REACTIVE_WEB_ENVIRONMENT_CLASS = <span class="string">"org.springframework."</span></span><br><span class="line">			+ <span class="string">"web.reactive.DispatcherHandler"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MVC_WEB_ENVIRONMENT_CLASS = <span class="string">"org.springframework."</span></span><br><span class="line">			+ <span class="string">"web.servlet.DispatcherServlet"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//banner的默认存放位置</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BANNER_LOCATION_PROPERTY_VALUE = SpringApplicationBannerPrinter.DEFAULT_BANNER_LOCATION;</span><br><span class="line"></span><br><span class="line"><span class="comment">//旗帜位置属性的关键。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BANNER_LOCATION_PROPERTY = SpringApplicationBannerPrinter.BANNER_LOCATION_PROPERTY;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SYSTEM_PROPERTY_JAVA_AWT_HEADLESS = <span class="string">"java.awt.headless"</span>;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/" itemprop="url">SpringBoot单元测试：Unable to find a @SpringBootConfiguration</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T00:00:00+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>SpringBoot 下使用 Junit 进行单元测试时，报错：<code>java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test</code>；</p>
+<p>具体报错信息如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">信息: Could not detect default configuration classes for test class [com.qinghuazs.starlight.oss.AliOSSBucketClientTest]: AliOSSBucketClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.</span><br><span class="line">  </span><br><span class="line">java.lang.IllegalStateException: Unable to find a <span class="meta">@SpringBootConfiguration</span>, you need to use <span class="meta">@ContextConfiguration</span> or <span class="meta">@SpringBootTest</span>(classes=...) with your test</span><br><span class="line"></span><br><span class="line">	at org.springframework.util.Assert.state(Assert.java:<span class="number">73</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses(SpringBootTestContextBootstrapper.java:<span class="number">240</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.processMergedContextConfiguration(SpringBootTestContextBootstrapper.java:<span class="number">153</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">395</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">312</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">265</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">108</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:<span class="number">97</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">139</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">124</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">151</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">142</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringRunner.&lt;init&gt;(SpringRunner.java:<span class="number">49</span>)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">26</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:<span class="number">33</span>)</span><br><span class="line">	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">47</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">242</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
+<p>根据报错提示，可以得知 SpringBoot 应用下缺失 <code>@SpringBootConfiguration</code> 类，即 SpringBoot 启动类（<code>@SpringBootApplication</code> 是一个复合注解），增加一个 SpringBoot 启动类即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OSSApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OSSApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2488,7 +2489,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">68</span>
+                  <span class="site-state-item-count">69</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
