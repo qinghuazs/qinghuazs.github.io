@@ -558,6 +558,17 @@
       </tags>
   </entry>
   <entry>
+    <title><![CDATA[Nginx入门]]></title>
+    <url>%2F2018%2F06%2F12%2FNginx%E5%85%A5%E9%97%A8%2F</url>
+    <content type="text"><![CDATA[Nginx简介常见的Web服务器Web服务器也称为WWW服务器、HTTP服务器，其主要功能是提供网上信息浏览服务。 Unix和Linux平台下常用的Web服务器有以下几种： Apache Nginx Lighttpd Tomcat IBM WebSphere 其中应用最广泛的是Apache。 嗯，但是我们这篇文章的主角是Nginx，所以如果有同学想了解Apache的话，可以去自己查询相关资料。 Nginx诞生Nginx是俄罗斯人Igor Sysoev编写的一款高性能的HTTP和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。于2004年10月4日发布第一个公开版本1.0，开源协议是类BSD许可协议，目前最新版本是1.15.0（2018-06-05发布） 选择理由支持高并发链接官方测试Nginx能够支持5万并发连接，在实际生产环境中可以支撑2~4万并发连接数。这得益于Nginx使用了最新的epoll（Linux2.6内核）和kqueue（freebsd）网络I/O模型. 内存消耗少成本低廉开源软件，可以免费使用，并且可以用于商业用途 配置文件非常简单支持Rewrite重写规则能够根据域名、URL的不同，将HTTP请求分到不同的后端服务器群组 内置的健康检查功能如果Nginx Proxy后端的某个Web服务器宕机了，不会影响前端访问 节省带宽支持GZIP压缩，可以添加浏览器本地缓存的Header头 稳定性高用于反向代理，宕机的概率微乎其微 支持热部署可以在不间断服务的情况下对软件版本进行升级 Nginx安装配置pcre安装pcre是一个正则表达式库，让nginx支持rewrite需要安装这个库。 下载地址https://ftp.pcre.org/pub/pcre/ 常用支持库安装在CentOS安装软件的时候，可能缺少一部分支持库，而报错。这里首先安装系统常用的支持库。那么在安装的时候就会减少很多的错误的出现。 1# yum install -y gcc gdb strace gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs patch e2fsprogs-devel krb5-devel libidn libidn-devel openldap-devel nss_ldap openldap-clients openldap-servers libevent-devel libevent uuid-devel uuid mysql-devel gcc安装检查是否安装了g++、gcc。rpm -qa | grep gcc 之后需要出现3个包如下图所示。 如果没有出现。需要安装g++、gcc。1# yum install gcc-c++ 上传pcre安装包到/usr/local/soft/pcre下解压压缩包12# cd /usr/local/soft/pcre# tar -zxvf pcre.tar.gz 配置12# cd pcre# ./configure 编译1# make 安装1# make install Nginx安装判断系统是否安装了zlib-devel1# rpm -qa | grep zlib-devel 如果未安装，则使用yum进行安装 下载http://nginx.org/en/download.html 下载稳定版本，不要下载最新版本 解压1# tar -zxvf nginx-1.14.0.tar.gz 配置将软件安装在/usr/local/webserver目录下 12# cd nginx-1.14.0# ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/var/server/soft/pcre 编译和安装12# make# make install 检查是否安装成功12# cd /usr/local/webserver/nginx/sbin# ./nginx -t 显示以下内容表示安装成功 12nginx: the configuration file /usr/local/webserver/nginx/conf/nginx.conf syntax is oknginx: configuration file /usr/local/webserver/nginx/conf/nginx.conf test is successful]]></content>
+      <categories>
+        <category>Nginx</category>
+      </categories>
+      <tags>
+        <tag>Nginx</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[Linux基础]]></title>
     <url>%2F2018%2F06%2F12%2FLinux%E5%9F%BA%E7%A1%80%2F</url>
     <content type="text"><![CDATA[硬盘分区先分区再格式化 —— 分区完成后可以格式化不同的文件系统 硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种 基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录 基本分区可以马上被使用但不能再分区 扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。 对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。 对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“/”） 分区表带有硬盘分区信息 分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘) 最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始 挂载点 mount point磁盘的物理结构硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头 盘片被划分为多个扇形区域即扇区 同一盘片不同半径的同心圆为磁道 不同盘片相同半径构成的圆柱面即柱面 存储容量 = 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数 信息记录可以表示为： xx磁道（柱面）， xx磁头， xx扇区 MBRMBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处 MBR中包含硬盘的主引导程序和硬盘分区表 分区方案至少两个分区 / 分区 SWAP分区 fdiskhttps://www.linuxidc.com/Linux/2014-03/97502.htmhttps://blog.csdn.net/jackyu651/article/details/53070607 dfhttps://blog.csdn.net/huaweitman/article/details/51637054 Linux系统文件构成 / Linux文件系统的入口，最高级目录 /usr/bin、/bin ： 存放所有用户可以执行的命令 /usr/sbin、/sbin ： 存放只有root可以执行的命令 /home : 用户缺省的宿主目录 /proc ： 虚拟文件系统，存放当前进程信息 /dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在/dev下 /lib : 存放系统程序运行所需的共享库 /lost+found : 存放系统出错的检查结果 /tmp : 存放临时文件 /etc : 存储系统的配置 /var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件 /usr : 存放所有命令、库、手册等 /usr/local ： 软件安装的目录 /boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够 /mnt ： 临时系统文件的安装点 SWAP 交换分区虚拟内存，配置为实际物理内存的两倍]]></content>
@@ -577,17 +588,6 @@
       </categories>
       <tags>
         <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title><![CDATA[Nginx入门]]></title>
-    <url>%2F2018%2F06%2F12%2FNginx%E5%85%A5%E9%97%A8%2F</url>
-    <content type="text"><![CDATA[Nginx简介常见的Web服务器Web服务器也称为WWW服务器、HTTP服务器，其主要功能是提供网上信息浏览服务。 Unix和Linux平台下常用的Web服务器有以下几种： Apache Nginx Lighttpd Tomcat IBM WebSphere 其中应用最广泛的是Apache。 嗯，但是我们这篇文章的主角是Nginx，所以如果有同学想了解Apache的话，可以去自己查询相关资料。 Nginx诞生Nginx是俄罗斯人Igor Sysoev编写的一款高性能的HTTP和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。于2004年10月4日发布第一个公开版本1.0，开源协议是类BSD许可协议，目前最新版本是1.15.0（2018-06-05发布） 选择理由支持高并发链接官方测试Nginx能够支持5万并发连接，在实际生产环境中可以支撑2~4万并发连接数。这得益于Nginx使用了最新的epoll（Linux2.6内核）和kqueue（freebsd）网络I/O模型. 内存消耗少成本低廉开源软件，可以免费使用，并且可以用于商业用途 配置文件非常简单支持Rewrite重写规则能够根据域名、URL的不同，将HTTP请求分到不同的后端服务器群组 内置的健康检查功能如果Nginx Proxy后端的某个Web服务器宕机了，不会影响前端访问 节省带宽支持GZIP压缩，可以添加浏览器本地缓存的Header头 稳定性高用于反向代理，宕机的概率微乎其微 支持热部署可以在不间断服务的情况下对软件版本进行升级 Nginx安装配置pcre安装pcre是一个正则表达式库，让nginx支持rewrite需要安装这个库。 下载地址https://ftp.pcre.org/pub/pcre/ 常用支持库安装在CentOS安装软件的时候，可能缺少一部分支持库，而报错。这里首先安装系统常用的支持库。那么在安装的时候就会减少很多的错误的出现。 1# yum install -y gcc gdb strace gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs patch e2fsprogs-devel krb5-devel libidn libidn-devel openldap-devel nss_ldap openldap-clients openldap-servers libevent-devel libevent uuid-devel uuid mysql-devel gcc安装检查是否安装了g++、gcc。rpm -qa | grep gcc 之后需要出现3个包如下图所示。 如果没有出现。需要安装g++、gcc。1# yum install gcc-c++ 上传pcre安装包到/usr/local/soft/pcre下解压压缩包12# cd /usr/local/soft/pcre# tar -zxvf pcre.tar.gz 配置12# cd pcre# ./configure 编译1# make 安装1# make install Nginx安装判断系统是否安装了zlib-devel1# rpm -qa | grep zlib-devel 如果未安装，则使用yum进行安装 下载http://nginx.org/en/download.html 下载稳定版本，不要下载最新版本 解压1# tar -zxvf nginx-1.14.0.tar.gz 配置将软件安装在/usr/local/webserver目录下 12# cd nginx-1.14.0# ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/var/server/soft/pcre 编译和安装12# make# make install 检查是否安装成功12# cd /usr/local/webserver/nginx/sbin# ./nginx -t 显示以下内容表示安装成功 12nginx: the configuration file /usr/local/webserver/nginx/conf/nginx.conf syntax is oknginx: configuration file /usr/local/webserver/nginx/conf/nginx.conf test is successful]]></content>
-      <categories>
-        <category>Nginx</category>
-      </categories>
-      <tags>
-        <tag>Nginx</tag>
       </tags>
   </entry>
   <entry>
