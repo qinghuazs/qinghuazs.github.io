@@ -333,6 +333,325 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/31/Java集合Queue/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/31/Java集合Queue/" itemprop="url">Java集合Queue</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-31T00:00:00+08:00">
+                2018-07-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><p>接口，继承自Collection，Java集合框架中的队列实现。</p>
+<p>除了基本的Collection操作外，队列还提供其他的插入、提取和检查操作。每个方法都存在两种形式：一种抛出异常（操作失败时），另一种返回一个特殊值（null 或 false，具体取决于操作）。插入操作的后一种形式是用于专门为有容量限制的 Queue 实现设计的；在大多数实现中，插入操作不会失败。</p>
+<table>
+<thead>
+<tr>
+<th>操作/结果</th>
+<th>抛出异常</th>
+<th>返回特殊值</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+</tr>
+<tr>
+<td>移除</td>
+<td>remove()</td>
+<td>poll()</td>
+</tr>
+<tr>
+<td>检查</td>
+<td>element()</td>
+<td>peek()</td>
+</tr>
+</tbody>
+</table>
+<p>队列通常（但并非一定）以 FIFO（先进先出）的方式排序各个元素。不过优先级队列和 LIFO 队列（或堆栈）例外，前者根据提供的比较器或元素的自然顺序对元素进行排序，后者按 LIFO（后进先出）的方式对元素进行排序。无论使用哪种排序方式，队列的头 都是调用 remove() 或 poll() 所移除的元素。在 FIFO 队列中，所有的新元素都插入队列的末尾。其他种类的队列可能使用不同的元素放置规则。每个 Queue 实现必须指定其顺序属性。</p>
+<p>如果可能，offer 方法可插入一个元素，否则返回 false。这与 Collection.add 方法不同，该方法只能通过抛出未经检查的异常使添加元素失败。offer 方法设计用于正常的失败情况，而不是出现异常的情况，例如在容量固定（有界）的队列中。</p>
+<p>remove() 和 poll() 方法可移除和返回队列的头。到底从队列中移除哪个元素是队列排序策略的功能，而该策略在各种实现中是不同的。remove() 和 poll() 方法仅在队列为空时其行为有所不同：remove() 方法抛出一个异常，而 poll() 方法则返回 null。</p>
+<p>element() 和 peek() 返回但不移除队列的头。</p>
+<p>Queue 接口并未定义阻塞队列的方法，而这在并发编程中是很常见的。BlockingQueue 接口定义了那些等待元素出现或等待队列中有可用空间的方法，这些方法扩展了此接口。</p>
+<p>Queue 实现通常不允许插入 null 元素，尽管某些实现（如 LinkedList）并不禁止插入 null。即使在允许 null 的实现中，也不应该将 null 插入到 Queue 中，因为 null 也用作 poll 方法的一个特殊返回值，表明队列不包含元素。</p>
+<p>Queue 实现通常未定义 equals 和 hashCode 方法的基于元素的版本，而是从 Object 类继承了基于身份的版本，因为对于具有相同元素但有不同排序属性的队列而言，基于元素的相等性并非总是定义良好的。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e"><a href="#boolean-add-E-e" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><p>将指定的元素插入此队列（如果立即可行且不会违反容量限制），在成功时返回 true，如果当前没有可用的空间，则抛出 IllegalStateException。</p>
+<ul>
+<li>IllegalStateException - 如果由于容量的限制此时不能添加该元素</li>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null 并且此队列不允许 null 元素</li>
+<li>IllegalArgumentException - 如果此元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="boolean-offer-E-e"><a href="#boolean-offer-E-e" class="headerlink" title="boolean offer(E e)"></a>boolean offer(E e)</h4><p>将指定的元素插入此队列（如果立即可行且不会违反容量限制），当使用有容量限制的队列时，<strong>此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常</strong>。</p>
+<p>如果该元素已添加到此队列，则返回 true；否则返回 false</p>
+<ul>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null 并且此队列不允许 null 元素</li>
+<li>IllegalArgumentException - 如果此元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="E-remove"><a href="#E-remove" class="headerlink" title="E remove()"></a>E remove()</h4><p>获取并移除此队列的头。此方法与 poll 唯一的不同在于：此队列为空时将抛出一个异常。 </p>
+<ul>
+<li>NoSuchElementException - 如果此队列为空</li>
+</ul>
+<h4 id="E-poll"><a href="#E-poll" class="headerlink" title="E poll()"></a>E poll()</h4><p>获取并移除此队列的头，如果此队列为空，则返回 null。</p>
+<h4 id="E-element"><a href="#E-element" class="headerlink" title="E element()"></a>E element()</h4><p>获取但是不移除此队列的头。此方法与 peek 唯一的不同在于：此队列为空时将抛出一个异常。</p>
+<ul>
+<li>NoSuchElementException - 如果此队列为空</li>
+</ul>
+<h4 id="E-peek"><a href="#E-peek" class="headerlink" title="E peek()"></a>E peek()</h4><p>获取但不移除此队列的头；如果此队列为空，则返回 null。</p>
+<h2 id="AbstractQueue"><a href="#AbstractQueue" class="headerlink" title="AbstractQueue"></a>AbstractQueue</h2><p>抽象队列类，实现了Queue接口，继承了AbstractCollection。</p>
+<p>此类提供某些Queue操作的骨干实现。此类中的实现适用于基本实现不允许包含null元素时。add、remove 和 element 方法分别基于 offer、poll 和 peek 方法，但是它们通过抛出异常而不是返回 false 或 null 来指示失败。</p>
+<p>扩展此类的 Queue 实现至少必须定义一个不允许插入 null 元素的 Queue.offer(E) 方法，该方法以及 Queue.peek()、Queue.poll()、Collection.size() 和 Collection.iterator() 都支持 Iterator.remove() 方法。通常还要重写其他方法。如果无法满足这些要求，那么可以转而考虑为 AbstractCollection 创建子类。</p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e-1"><a href="#boolean-add-E-e-1" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (offer(e))</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalStateException(<span class="string">"Queue full"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于offer实现，将指定的元素插入到此队列中（如果立即可行且不会违反容量限制），在成功时返回 true，如果当前没有可用空间，则抛出 IllegalStateException。</p>
+<h4 id="E-remove-1"><a href="#E-remove-1" class="headerlink" title="E remove()"></a>E remove()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">remove</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    E x = poll();</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于poll实现，获取并移除此队列的头。此方法与 poll 唯一的不同在于：此队列为空时将抛出一个异常NoSuchElementException。</p>
+<h4 id="E-element-1"><a href="#E-element-1" class="headerlink" title="E element()"></a>E element()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> E <span class="title">element</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    E x = peek();</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NoSuchElementException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>基于peek实现，获取但不移除此队列的头。此方法与 peek 唯一的不同在于：此队列为空时将抛出一个异常NoSuchElementException。</p>
+<h4 id="void-clear"><a href="#void-clear" class="headerlink" title="void clear()"></a>void clear()</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clear</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span> (poll() != <span class="keyword">null</span>)</span><br><span class="line">        ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>移除此队列中的所有元素。此调用返回后，队列将为空。</p>
+<p>此实现重复调用 poll，直到它返回 null 为止。</p>
+<h4 id="boolean-addAll-Collection-lt-extends-E-gt-c"><a href="#boolean-addAll-Collection-lt-extends-E-gt-c" class="headerlink" title="boolean addAll(Collection&lt;? extends E&gt; c)"></a>boolean addAll(Collection&lt;? extends E&gt; c)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="keyword">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> NullPointerException();</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="keyword">this</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException();</span><br><span class="line">    <span class="keyword">boolean</span> modified = <span class="keyword">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (E e : c)</span><br><span class="line">        <span class="keyword">if</span> (add(e))</span><br><span class="line">            modified = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">return</span> modified;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>调用add方法将指定 collection 中的所有元素都添加到此队列中。如果试图将某一队列 addAll 到该队列本身中，则会导致 IllegalArgumentException。此外，如果正在进行此操作时修改指定的 collection，则此操作的行为是不确定的。</p>
+<p>此实现在指定的 collection 上进行迭代，并依次将迭代器返回的每一个元素添加到此队列中。在试图添加某一元素（尤其是 null 元素）时如果遇到了运行时异常，则可能导致在抛出相关异常时只成功地添加了某些元素。</p>
+<ul>
+<li>ClassCastException - 如果指定 collection 元素的类不允许将该元素添加到此队列中</li>
+<li>NullPointerException - 如果指定 collection 包含一个 null 元素并且此队列不允许 null 元素，或者指定 collection 为 null</li>
+<li>IllegalArgumentException - 如果指定 collection 元素的某些属性不允许将该元素添加到此队列中，或者指定 collection 是此队列</li>
+<li>IllegalStateException - 如果此时由于插入限制无法添加所有元素</li>
+</ul>
+<h2 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h2><p>接口，继承自Queue，支持两个附加操作的Queue，这两个操作是：</p>
+<ul>
+<li>获取元素时等待队列变为非空</li>
+<li>存储元素时等待空间变得可用</li>
+</ul>
+<p>BlockingQueue 方法以四种形式出现，对于不能立即满足但可能在将来某一时刻可以满足的操作，这四种形式的处理方式不同：第一种是抛出一个异常，第二种是返回一个特殊值（null 或 false，具体取决于操作），第三种是在操作可以成功前，无限期地阻塞当前线程，第四种是在放弃前只在给定的最大时间限制内阻塞。下表中总结了这些方法：</p>
+<table>
+<thead>
+<tr>
+<th>操作/结果</th>
+<th>抛出异常</th>
+<th>特殊值</th>
+<th>阻塞</th>
+<th>超时</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>插入</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+<td>put(e)</td>
+<td>offer(e, time, unit)</td>
+</tr>
+<tr>
+<td>移除</td>
+<td>remove()</td>
+<td>poll()</td>
+<td>take()</td>
+<td>poll(time, unit)</td>
+</tr>
+<tr>
+<td>检查</td>
+<td>element()</td>
+<td>peek()</td>
+<td>不可用</td>
+<td>不可用</td>
+</tr>
+</tbody>
+</table>
+<p><strong>BlockingQueue 不接受 null 元素</strong>，试图 add、put 或 offer 一个 null 元素时，某些实现会抛出 NullPointerException。null 被用作指示 poll 操作失败的警戒值。</p>
+<p><strong>BlockingQueue可以是限定容量的</strong>。它在任意给定时间都可以有一个 remainingCapacity，超出此容量，便无法无阻塞地 put 附加元素。没有任何内部容量约束的 BlockingQueue 总是报告 Integer.MAX_VALUE 的剩余容量。</p>
+<p><strong>BlockingQueue实现主要用于生产者-使用者队列</strong>，但它另外还支持 Collection 接口。因此，举例来说，使用 remove(x) 从队列中移除任意一个元素是有可能的。然而，这种操作通常不会有效执行，只能有计划地偶尔使用，比如在取消排队信息时。</p>
+<p><strong>BlockingQueue实现是线程安全的</strong>。所有排队方法都可以使用内部锁或其他形式的并发控制来自动达到它们的目的。然而，大量的 Collection 操作（addAll、containsAll、retainAll 和 removeAll）没有必要自动执行，除非在实现中特别说明。因此，举例来说，在只添加了 c 中的一些元素后，addAll(c) 有可能失败（抛出一个异常）。</p>
+<p>BlockingQueue 实质上不 支持使用任何一种“close”或“shutdown”操作来指示不再添加任何项。这种功能的需求和使用有依赖于实现的倾向。例如，一种常用的策略是：对于生产者，插入特殊的 end-of-stream 或 poison 对象，并根据使用者获取这些对象的时间来对它们进行解释。</p>
+<p>以下是基于典型的生产者-使用者场景的一个用例。注意，BlockingQueue 可以安全地与多个生产者和多个使用者一起使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Producer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue queue;</span><br><span class="line">  Producer(BlockingQueue q) &#123; queue = q; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>) &#123; queue.put(produce()); &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123; ... handle ...&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function">Object <span class="title">produce</span><span class="params">()</span> </span>&#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Consumer</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue queue;</span><br><span class="line">  Consumer(BlockingQueue q) &#123; queue = q; &#125;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="keyword">true</span>) &#123; consume(queue.take()); &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123; ... handle ...&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">consume</span><span class="params">(Object x)</span> </span>&#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Setup</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    BlockingQueue q = <span class="keyword">new</span> SomeQueueImplementation();</span><br><span class="line">    Producer p = <span class="keyword">new</span> Producer(q);</span><br><span class="line">    Consumer c1 = <span class="keyword">new</span> Consumer(q);</span><br><span class="line">    Consumer c2 = <span class="keyword">new</span> Consumer(q);</span><br><span class="line">    <span class="keyword">new</span> Thread(p).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(c1).start();</span><br><span class="line">    <span class="keyword">new</span> Thread(c2).start();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>内存一致性效果</strong>：当存在其他并发 collection 时，将对象放入 BlockingQueue 之前的线程中的操作 happen-before 随后通过另一线程从 BlockingQueue 中访问或移除该元素的操作。</p>
+<h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e-2"><a href="#boolean-add-E-e-2" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><p>将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，<em>如果当前没有可用的空间，则抛出 IllegalStateException</em>。<strong>当使用有容量限制的队列时，通常首选 offer</strong></p>
+<h4 id="boolean-offer-E-e-1"><a href="#boolean-offer-E-e-1" class="headerlink" title="boolean offer(E e)"></a>boolean offer(E e)</h4><p>将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，<em>如果当前没有可用的空间，则返回 false</em>。当使用有容量限制的队列时，此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常。</p>
+<h4 id="void-put-E-e-throws-InterruptedException"><a href="#void-put-E-e-throws-InterruptedException" class="headerlink" title="void put(E e) throws InterruptedException"></a>void put(E e) throws InterruptedException</h4><p>将指定元素插入此队列中，将等待可用的空间（如果有必要）。</p>
+<ul>
+<li>InterruptedException - 如果在等待时被中断</li>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null</li>
+<li>IllegalArgumentException - 如果指定元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="boolean-offer-E-e-long-timeout-TimeUnit-unit-throws-InterruptedException"><a href="#boolean-offer-E-e-long-timeout-TimeUnit-unit-throws-InterruptedException" class="headerlink" title="boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException"></a>boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException</h4><p>将指定元素插入此队列中，在到达指定的等待时间前等待可用的空间（如果有必要）。</p>
+<p>如果成功，则返回 true；如果在空间可用前超过了指定的等待时间，则返回 false。</p>
+<ul>
+<li>InterruptedException - 如果在等待时被中断</li>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null</li>
+<li>IllegalArgumentException - 如果指定元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="E-take-throws-InterruptedException"><a href="#E-take-throws-InterruptedException" class="headerlink" title="E take() throws InterruptedException"></a>E take() throws InterruptedException</h4><p>获取并移除此队列的头部，在元素变得可用之前一直等待（如果有必要）。</p>
+<h4 id="E-poll-long-timeout-TimeUnit-unit-throws-InterruptedException"><a href="#E-poll-long-timeout-TimeUnit-unit-throws-InterruptedException" class="headerlink" title="E poll(long timeout, TimeUnit unit) throws InterruptedException;"></a>E poll(long timeout, TimeUnit unit) throws InterruptedException;</h4><p>获取并移除此队列的头部，在指定的等待时间前等待可用的元素（如果有必要）。</p>
+<h4 id="int-remainingCapacity"><a href="#int-remainingCapacity" class="headerlink" title="int remainingCapacity();"></a>int remainingCapacity();</h4><p>返回在无阻塞的理想情况下（不存在内存或资源约束）此队列能接受的附加元素数量，<strong>即剩余容量</strong>；如果没有内部限制，则返回 Integer.MAX_VALUE。</p>
+<p>注意，不能 总是通过检查 remainingCapacity 来判断尝试插入元素是否成功，因为可能出现这样的情况：其他线程即将插入或移除一个元素。</p>
+<h4 id="boolean-remove-Object-o"><a href="#boolean-remove-Object-o" class="headerlink" title="boolean remove(Object o)"></a>boolean remove(Object o)</h4><p>从此队列中移除指定元素的单个实例（如果存在）。更确切地讲，如果此队列包含一个或多个满足 o.equals(e) 的元素 e，则移除该元素。如果此队列包含指定元素（或者此队列由于调用而发生更改），则返回 true。</p>
+<ul>
+<li>ClassCastException - 如果指定元素的类与此队列不兼容（可选）</li>
+<li>NullPointerException - 如果指定元素为 null（可选）</li>
+</ul>
+<h4 id="boolean-contains-Object-o"><a href="#boolean-contains-Object-o" class="headerlink" title="boolean contains(Object o)"></a>boolean contains(Object o)</h4><p>如果此队列包含指定元素，则返回 true。更确切地讲，当且仅当此队列至少包含一个满足 o.equals(e) 的元素 e时，返回 true。</p>
+<h4 id="int-drainTo-Collection-lt-super-E-gt-c"><a href="#int-drainTo-Collection-lt-super-E-gt-c" class="headerlink" title="int drainTo(Collection&lt;? super E&gt; c)"></a>int drainTo(Collection&lt;? super E&gt; c)</h4><p><strong>移除此队列中所有可用的元素，并将它们添加到给定 Collection 中</strong>。此操作可能比反复轮询此队列更有效。在试图向 Collection c 中添加元素没有成功时，可能导致在抛出相关异常时，元素会同时在两个 Collection 中出现，或者在其中一个 Collection 中出现，也可能在两个 Collection 中都不出现。如果试图将一个队列放入自身队列中，则会导致 IllegalArgumentException 异常。此外，如果正在进行此操作时修改指定的 Collection，则此操作行为是不确定的。</p>
+<ul>
+<li>UnsupportedOperationException - 如果指定 Collection 不支持添加元素</li>
+<li>ClassCastException - 如果此队列元素的类不允许将其添加到指定 Collection</li>
+<li>NullPointerException - 如果指定 Collection 为 null</li>
+<li>IllegalArgumentException - 如果指定 Collection 是此队列，或者此队列元素的某些属性不允许将其添加到指定 Collection</li>
+</ul>
+<h4 id="int-drainTo-Collection-lt-super-E-gt-c-int-maxElements"><a href="#int-drainTo-Collection-lt-super-E-gt-c-int-maxElements" class="headerlink" title="int drainTo(Collection&lt;? super E&gt; c, int maxElements);"></a>int drainTo(Collection&lt;? super E&gt; c, int maxElements);</h4><ul>
+<li>maxElements - 传输元素的最大数量</li>
+</ul>
+<p>最多从此队列中移除给定数量的可用元素，并将这些元素添加到给定 Collection 中。在试图向 Collection c 中添加元素没有成功时，可能导致在抛出相关异常时，元素会同时在两个 Collection 中出现，或者在其中一个 Collection 中出现，也可能在两个 Collection 中都不出现。如果试图将一个队列放入自身队列中，则会导致 IllegalArgumentException 异常。此外，如果正在进行此操作时修改指定的 Collection，则此操作行为是不确定的。</p>
+<h2 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h2><p>一个由数组支持的有界阻塞队列。此队列按 FIFO（先进先出）原则对元素进行排序。队列的头部是在队列中存在时间最长的元素。队列的尾部 是在队列中存在时间最短的元素。新元素插入到队列的尾部，队列获取操作则是从队列头部开始获得元素。</p>
+<p>这是一个典型的“有界缓存区”，固定大小的数组在其中保持生产者插入的元素和使用者提取的元素。<strong>一旦创建了这样的缓存区，就不能再增加其容量。试图向已满队列中放入元素会导致操作受阻塞；试图从空队列中提取元素将导致类似阻塞</strong>。</p>
+<p>此类<strong>支持对等待的生产者线程和消费者线程进行排序的可选公平策略</strong>。默认情况下，不保证是这种排序。然而，通过将公平性 (fairness) 设置为 true 而构造的队列允许按照 FIFO 顺序访问线程。公平性通常会降低吞吐量，但也减少了可变性和避免了“不平衡性”。</p>
+<p><font color="red">该队列不允许插入null元素</font>。</p>
+<p>源码分析可以参考<strong><a href="http://www.cnblogs.com/leesf456/p/5533770.html" target="_blank" rel="noopener">http://www.cnblogs.com/leesf456/p/5533770.html</a></strong></p>
+<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><p>基于优先级堆（二叉堆）的<strong>无界优先级队列</strong>，优先级队列的元素按照其自然顺序进行排序，或者根据构造队列时提供的Comparator进行排序，具体取决于所使用的构造方法。</p>
+<p><strong>优先级队列不允许使用null元素</strong>，依靠自然顺序的优先级队列还不允许插入不可比较的对象（避免可能导致的ClassCastException）。</p>
+<p><strong>此队列的<em>头</em> 是按指定排序方式确定的<em>最小</em> 元素</strong>。如果多个元素都是最小值，则头是其中一个元素——选择方法是任意的。队列获取操作 <code>poll</code>、<code>remove</code>、<code>peek</code> 和 <code>element</code> 访问处于队列头的元素。 </p>
+<p><strong>优先级队列是无界的</strong>，但是有一个内部<em>容量</em>，控制着用于存储队列元素的数组大小。它通常至少等于队列的大小。随着不断向优先级队列添加元素，<strong>其容量会自动增加</strong>。无需指定容量增加策略的细节。 </p>
+<p>此类及其迭代器实现了 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Collection.html" target="_blank" rel="noopener"><code>Collection</code></a> 和 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Iterator.html" target="_blank" rel="noopener"><code>Iterator</code></a> 接口的所有<em>可选</em> 方法。方法 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/PriorityQueue.html#iterator(" target="_blank" rel="noopener"><code>iterator()</code></a>) 中提供的迭代器<em>不</em> 保证以任何特定的顺序遍历优先级队列中的元素。如果需要按顺序遍历，请考虑用 <code>Arrays.sort(pq.toArray())</code>。 </p>
+<p><strong>注意，此实现不是同步的。</strong>如果多个线程中的任意线程修改了队列，则这些线程不应同时访问 <code>PriorityQueue</code> 实例。相反，请使用线程安全的 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/concurrent/PriorityBlockingQueue.html" target="_blank" rel="noopener"><code>PriorityBlockingQueue</code></a> 类。 </p>
+<h2 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h2><p>无界阻塞队列，线程安全</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/25/Java集合ArrayList/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -867,7 +1186,7 @@
 
             //越界异常的信息
             private String outOfBoundsMsg(int index) {
-                return "Index: "+index+", Size: "+this.size;
+                returnx "Index: "+index+", Size: "+this.size;
             }
 
             //检查list是否在遍历中发生了改变
@@ -1219,6 +1538,152 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/" itemprop="url">SpringBoot单元测试：Unable to find a @SpringBootConfiguration</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T00:00:00+08:00">
+                2018-07-11
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
+                    <span itemprop="name">SpringBoot</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>SpringBoot 下使用 Junit 进行单元测试时，报错：<code>java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test</code>；</p>
+<p>具体报错信息如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">信息: Could not detect default configuration classes for test class [com.qinghuazs.starlight.oss.AliOSSBucketClientTest]: AliOSSBucketClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.</span><br><span class="line">  </span><br><span class="line">java.lang.IllegalStateException: Unable to find a <span class="meta">@SpringBootConfiguration</span>, you need to use <span class="meta">@ContextConfiguration</span> or <span class="meta">@SpringBootTest</span>(classes=...) with your test</span><br><span class="line"></span><br><span class="line">	at org.springframework.util.Assert.state(Assert.java:<span class="number">73</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses(SpringBootTestContextBootstrapper.java:<span class="number">240</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.processMergedContextConfiguration(SpringBootTestContextBootstrapper.java:<span class="number">153</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">395</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">312</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">265</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">108</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:<span class="number">97</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">139</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">124</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">151</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">142</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringRunner.&lt;init&gt;(SpringRunner.java:<span class="number">49</span>)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">26</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:<span class="number">33</span>)</span><br><span class="line">	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">47</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">242</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
+<p>根据报错提示，可以得知 SpringBoot 应用下缺失 <code>@SpringBootConfiguration</code> 类，即 SpringBoot 启动类（<code>@SpringBootApplication</code> 是一个复合注解），增加一个 SpringBoot 启动类即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OSSApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OSSApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/SpringBoot源码解析之SpringApplication/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1335,152 +1800,6 @@
 <p>其中primarySource即为<strong>com.lemon.rabbit.RabbitApplication</strong></p>
 <p>SpringApplication中定义了一些静态的成员属性</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//在非web环境中默认使用的应用程序上下文的类名。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_CONTEXT_CLASS = <span class="string">"org.springframework.context."</span></span><br><span class="line">			+ <span class="string">"annotation.AnnotationConfigApplicationContext"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//应用程序上下文的类名，默认用于web环境。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_WEB_CONTEXT_CLASS = <span class="string">"org.springframework.boot."</span></span><br><span class="line">			+ <span class="string">"web.servlet.context.AnnotationConfigServletWebServerApplicationContext"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] WEB_ENVIRONMENT_CLASSES = &#123; <span class="string">"javax.servlet.Servlet"</span>,</span><br><span class="line">			<span class="string">"org.springframework.web.context.ConfigurableWebApplicationContext"</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String DEFAULT_REACTIVE_WEB_CONTEXT_CLASS = <span class="string">"org.springframework."</span></span><br><span class="line">			+ <span class="string">"boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String REACTIVE_WEB_ENVIRONMENT_CLASS = <span class="string">"org.springframework."</span></span><br><span class="line">			+ <span class="string">"web.reactive.DispatcherHandler"</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String MVC_WEB_ENVIRONMENT_CLASS = <span class="string">"org.springframework."</span></span><br><span class="line">			+ <span class="string">"web.servlet.DispatcherServlet"</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//banner的默认存放位置</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BANNER_LOCATION_PROPERTY_VALUE = SpringApplicationBannerPrinter.DEFAULT_BANNER_LOCATION;</span><br><span class="line"></span><br><span class="line"><span class="comment">//旗帜位置属性的关键。</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> String BANNER_LOCATION_PROPERTY = SpringApplicationBannerPrinter.BANNER_LOCATION_PROPERTY;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String SYSTEM_PROPERTY_JAVA_AWT_HEADLESS = <span class="string">"java.awt.headless"</span>;</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/07/11/SpringBoot单元测试：Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test/" itemprop="url">SpringBoot单元测试：Unable to find a @SpringBootConfiguration</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T00:00:00+08:00">
-                2018-07-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringBoot/" itemprop="url" rel="index">
-                    <span itemprop="name">SpringBoot</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>SpringBoot 下使用 Junit 进行单元测试时，报错：<code>java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test</code>；</p>
-<p>具体报错信息如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">信息: Could not detect default configuration classes for test class [com.qinghuazs.starlight.oss.AliOSSBucketClientTest]: AliOSSBucketClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.</span><br><span class="line">  </span><br><span class="line">java.lang.IllegalStateException: Unable to find a <span class="meta">@SpringBootConfiguration</span>, you need to use <span class="meta">@ContextConfiguration</span> or <span class="meta">@SpringBootTest</span>(classes=...) with your test</span><br><span class="line"></span><br><span class="line">	at org.springframework.util.Assert.state(Assert.java:<span class="number">73</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses(SpringBootTestContextBootstrapper.java:<span class="number">240</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.processMergedContextConfiguration(SpringBootTestContextBootstrapper.java:<span class="number">153</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">395</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">312</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:<span class="number">265</span>)</span><br><span class="line">	at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:<span class="number">108</span>)</span><br><span class="line">	at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:<span class="number">97</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">139</span>)</span><br><span class="line">	at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:<span class="number">124</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:<span class="number">151</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:<span class="number">142</span>)</span><br><span class="line">	at org.springframework.test.context.junit4.SpringRunner.&lt;init&gt;(SpringRunner.java:<span class="number">49</span>)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)</span><br><span class="line">	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:<span class="number">62</span>)</span><br><span class="line">	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:<span class="number">45</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">423</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:<span class="number">104</span>)</span><br><span class="line">	at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:<span class="number">86</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:<span class="number">26</span>)</span><br><span class="line">	at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:<span class="number">59</span>)</span><br><span class="line">	at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:<span class="number">33</span>)</span><br><span class="line">	at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:<span class="number">36</span>)</span><br><span class="line">	at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:<span class="number">49</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:<span class="number">47</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:<span class="number">242</span>)</span><br><span class="line">	at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:<span class="number">70</span>)</span><br></pre></td></tr></table></figure>
-<p>根据报错提示，可以得知 SpringBoot 应用下缺失 <code>@SpringBootConfiguration</code> 类，即 SpringBoot 启动类（<code>@SpringBootApplication</code> 是一个复合注解），增加一个 SpringBoot 启动类即可。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OSSApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(OSSApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -2125,318 +2444,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/30/CentOS7下安装MySQL8/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/30/CentOS7下安装MySQL8/" itemprop="url">CentOS7下安装MySQL8</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">
-                2018-06-30
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/MySQL/" itemprop="url" rel="index">
-                    <span itemprop="name">MySQL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>本文主要介绍MySQL的yum仓库的使用方法，其中包含了MySQL的安装步骤</p>
-<p>原文<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-upgrading" target="_blank" rel="noopener">MySQL Yum仓库使用快速指南</a></p>
-<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>MySQL Yum仓库提供了在Linux平台上安装MySQL服务器、客户端和其他组件的RPM包。这些包还可以升级和替换安装在Linux发行版上的可以从MySQL中获得的任何第三方MySQL软件包。</p>
-<p>MySQL Yum仓库支持下列Linux发行版：</p>
-<ul>
-<li>EL6和基于el7的平台（例如，Oracle Linux、Red Hat Enterprise Linux和CentOS的对应版本）</li>
-<li>Fedora 27 和 28</li>
-</ul>
-<p>注意：并不是所有版本的MySQL都支持上述所有的Linux版本。如果想确认您的Linux发行版是否支持某个特定版本，请参阅<a href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-repo-select-series" target="_blank" rel="noopener">Selecting a Release Series</a></p>
-<p>这是一个使用MySQL Yum仓库的快速指南。要了解更多信息，请参阅<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-more-info" target="_blank" rel="noopener">补充</a>。</p>
-<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
-<li>MySQL的安装步骤</li>
-<li>安装额外的MySQL产品和组件</li>
-<li>使用MySQL Yum仓库升级MySQL</li>
-<li>替换MySQL的本地第三方发行版</li>
-<li>使用Yum仓库安装MySQL NDB集群</li>
-<li>安装额外的MySQL NDB集群产品和组件</li>
-<li>补充</li>
-</ul>
-<h3 id="MySQL的安装步骤"><a href="#MySQL的安装步骤" class="headerlink" title="MySQL的安装步骤"></a>MySQL的安装步骤</h3><p>注意：下面的介绍是在假设使用第三方分布式RPM包的MySQL还没有安装在您的系统的基础上；如果已经使用RPM包安装了MySQL，请参照【替换MySQL的本地第三方发行版】。</p>
-<h4 id="添加MySQL-Yum仓库"><a href="#添加MySQL-Yum仓库" class="headerlink" title="添加MySQL Yum仓库"></a>添加MySQL Yum仓库</h4><p>首先，将MySQL Yum仓库添加到系统的仓库列表中。</p>
-<p>按照以下步骤进行:</p>
-<p>1.先跳转到MySQL Yum仓库的下载页面<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/repo/yum/</a></p>
-<p>2.为您的平台选择并下载发布包</p>
-<p><img src="mysql1.png" alt="RPM安装包"></p>
-<p>这里我们选择<strong>mysql80-community-release-el7-1.noarch.rpm</strong></p>
-<p>3.使用下面的命令安装下载的版本包，用下载的包的名称替换<strong><em>platform-and-version-specific-package-name</em></strong>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span><br></pre></td></tr></table></figure></p>
-<p>例如，对于基于el7的系统包的版本n，命令如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo rpm -Uvh mysql80-community-release-el7-1.noarch.rpm</span><br></pre></td></tr></table></figure>
-<p>注意：一旦发布包安装在您的系统上，如果Yum在MySQL Yum仓库中找到MySQL升级包或第三方软件包的替代品，那么通过<strong>yum update</strong>命令（支持dnf的系统是<strong>dnf upgrade</strong>）执行的任何系统更新都会自动升级系统上的MySQL包，同时也会替换任何本地的第三方软件包。具体可参考<strong>通过MySQL Yum仓库升级MySQL</strong>和<strong>替换MySQL的本地第三方分发版</strong>以获取详细信息。</p>
-<h4 id="选择一个发行版本"><a href="#选择一个发行版本" class="headerlink" title="选择一个发行版本"></a>选择一个发行版本</h4><p>在使用MySQL Yum仓库时，默认情况下会选择最新的MySQL GA版本。如果这是您想要的，您可以跳到下一个步骤，用Yum安装MySQL。</p>
-<p>在MySQL Yum仓库<a href="http://repo.mysql.com/yum/" target="_blank" rel="noopener">http://repo.mysql.com/yum/</a>中，MySQL社区服务器的不同版本系列托管在不同的子库中。最新的GA系列（目前是MySQL 8.0）的子库默认启用，而所有其他系列（例如，MySQL 5.7系列）的子库在默认情况下都是禁用的。</p>
-<p>使用这个命令查看MySQL Yum仓库中的所有子库，并查看哪些子库是启用或禁用的（对于支持dnf的系统，用dnf替换yum）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum repolist all | grep mysql</span><br></pre></td></tr></table></figure></p>
-<p>要安装最新GA系列的最新版本，不需要配置。要安装最新GA系列以外的特定系列的最新版本，请在运行安装命令之前禁用最新GA系列的子库，并启用特定系列的子库。如果您的平台支持<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令，您可以通过以下命令来实现这一点，例如，执行以下命令禁用8.0系列的子库，并启用5.7系列的子库</p>
-<p>对于不支持dnf的平台:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo yum-config-manager --disable mysql80-community</span><br><span class="line"><span class="meta">shell&gt;</span> sudo yum-config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure></p>
-<p>对于支持dnf的平台<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo dnf config-manager --disable mysql80-community</span><br><span class="line"><span class="meta">shell&gt;</span> sudo dnf config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure></p>
-<p>除了使用<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令之外，您还可以通过手工编辑<strong><em>/etc/yum.repos.d/mysql-community.repo</em></strong>协议文件来选择一个系列。下面是一个发布系列的子库中的典型条目：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[mysql80-community]</span></span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">8.0</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
-<p>找到您想要配置的子库的条目，并编辑<strong>enabled</strong>的选项。指定<strong>enabled=0</strong>来禁用子库，或者<strong>enabled=1</strong>来启用子库。例如，要安装MySQL 5.7，请确保在MySQL 8.0的子库条目中enabled=0，并为5.7系列的条目设置enabled=1：</p>
-<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable to use MySQL 5.7</span></span><br><span class="line"><span class="string">[mysql57-community]</span></span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">5.7</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
-<p>您应该在任何时候只启用子库。当启用多个发布系列的子库时，Yum将使用最新的系列</p>
-<p>通过运行以下命令并检查其输出（对于支持dnf的系统，用dnf替换yum），验证相应的子库是否已启用和禁用。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum repolist enabled | grep mysql</span><br></pre></td></tr></table></figure>
-<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><p>通过以下命令安装MySQL（用于支持dnf的系统，用dnf替换yum）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo yum install mysql-community-server</span><br></pre></td></tr></table></figure>
-<p>这将为MySQL服务器安装软件包，以及其他必需的软件包。</p>
-<h4 id="启动MySQL服务器"><a href="#启动MySQL服务器" class="headerlink" title="启动MySQL服务器"></a>启动MySQL服务器</h4><p>使用下面的命令启动MySQL服务器：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo service mysqld start</span><br></pre></td></tr></table></figure>
-<p>对于基于el7的平台，执行以下命令：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo systemctl start mysqld.service</span><br></pre></td></tr></table></figure>
-<p>您可以使用以下命令检查MySQL服务器的状态：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo service mysqld status</span><br></pre></td></tr></table></figure>
-<p>对于基于el7的平台，使用systemctl：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo systemctl status mysqld.service</span><br></pre></td></tr></table></figure></p>
-<p>MySQL服务器初始化（和MySQL 5.7一样）：在服务器的初始启动时，由于服务器的数据目录是空的，所以会发现以下过程：</p>
-<ul>
-<li>服务器初始化</li>
-<li>在data目录中生成SSL证书和密钥文件</li>
-<li>validate_password插件被安装并启用</li>
-<li>创建一个超级用户帐户的<strong>root‘@’localhost</strong>，超级用户的密码被设置并存储在错误日志文件中。要获取初始密码，请使用以下命令：</li>
-</ul>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo grep 'temporary password' /var/log/mysqld.log</span><br></pre></td></tr></table></figure>
-<p>尽快更改初始密码，通过初始密码登录，并为超级用户帐户设置一个自定义密码：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> mysql -uroot -p</span><br></pre></td></tr></table></figure>
-<p>修改密码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPassword';</span><br></pre></td></tr></table></figure></p>
-<p>注意：MySQL的validate_password插件是默认安装的。这将要求密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符，并且总密码长度至少为8个字符。</p>
-<p>至此， MySQL8.0安装完毕！</p>
-<h4 id="确保MySQL安装（仅针对MySQL-5-6）"><a href="#确保MySQL安装（仅针对MySQL-5-6）" class="headerlink" title="确保MySQL安装（仅针对MySQL 5.6）"></a>确保MySQL安装（仅针对MySQL 5.6）</h4><p>指令<strong>mysql_secure_installation</strong>允许您执行一些重要的操作，如设置根密码、删除匿名用户等等。通过运行它来确保MySQL 5.6已安装成功：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> mysql_secure_installation</span><br></pre></td></tr></table></figure>
-<p>记住您设置的根密码是很重要的。详细信息请参阅<a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html" target="_blank" rel="noopener">mysql_secure_installation — Improve MySQL Installation Security</a></p>
-<p>在安装MySQL 5.7或更高版本后，不要运行mysql_secure_installation，因为该指令的程序已经由Yum仓库安装完成。</p>
-<p>注意：对于基于el7的平台，请查看<a href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-install-compatibility-el7" target="_blank" rel="noopener">Compatibility Information for EL7-based platforms</a></p>
-<h3 id="安装额外的MySQL产品和组件"><a href="#安装额外的MySQL产品和组件" class="headerlink" title="安装额外的MySQL产品和组件"></a>安装额外的MySQL产品和组件</h3><p>您可以使用Yum来安装和管理MySQL的各个组件。其中一些组件已存在MySQL Yum仓库的子库中。使用下面的命令列出MySQL Yum仓库的所有子库中可用的所有MySQL组件的包（对于支持dnf的系统，用dnf替换yum）：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum --disablerepo=\* --enablerepo='mysql*-community*' list available</span><br></pre></td></tr></table></figure>
-<p>使用以下命令安装您所选择的任何包，用包名替换<strong><em>package-name </em></strong>（对于支持dnf的系统，用dnf替换指令中的yum）：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum install package-name</span><br></pre></td></tr></table></figure>
-<p>例如，在Fedora上安装MySQL Workbench：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf install mysql-workbench-community</span><br></pre></td></tr></table></figure>
-<h3 id="用MySQL-Yum仓库升级MySQL"><a href="#用MySQL-Yum仓库升级MySQL" class="headerlink" title="用MySQL Yum仓库升级MySQL"></a>用MySQL Yum仓库升级MySQL</h3><p>注意：在对MySQL进行任何更新之前，请仔细检查<a href="https://dev.mysql.com/doc/refman/8.0/en/upgrading.html" target="_blank" rel="noopener">Upgrading MySQL</a>的说明。在这里说明中，更新之前备份数据库的内容尤其重要。</p>
-<p>使用MySQL Yum仓库进行就地更新(即取代旧版本,然后运行旧的数据文件的新版本)为你的MySQL安装通过以下步骤(假设你已经安装了MySQL与MySQL Yum资源库或RPM包直接从MySQL开发人员下载区域的MySQL下载页面;如果不是这样，请按照以下指示替换MySQL的本地第三方发行版):</p>
-<p>选择一个目标系列</p>
-<p>默认情况下，MySQL Yum库将MySQL更新为您在安装期间选择的发布系列中的最新版本(参见选择发布系列了解详细信息)，这意味着，例如5.7版本。x安装不会更新为8.0。x自动释放。要更新到另一个发布系列，您需要首先禁用所选系列的子存储库(默认情况下，或者您自己)，并启用目标系列的子存储库。要做到这一点，请参阅在选择发布系列以编辑/etc/yum.repo .d/mysql-community中的子存储库条目时给出的一般说明。回购协议文件。要从MySQL 5.7升级到8.0，请执行与选择发布系列所示步骤相反的操作，禁用MySQL 5.7系列的子存储库，并启用MySQL 8.0系列的子存储库。</p>
-<p>一般来说，要从一个发布系列升级到另一个发布系列，请转到下一个系列，而不是跳过一个系列。例如，如果您正在运行MySQL 5.6并希望升级到8.0，请先升级到MySQL 5.7，然后再升级到8.0。</p>
-<p>重要</p>
-<p>关于从MySQL 5.6升级到5.7的重要信息，请参见从MySQL 5.6升级到5.7。</p>
-<p>有关从MySQL 5.7升级到8.0的重要信息，请参见从MySQL 5.7升级到8.0。</p>
-<p>MySQL Yum库不支持就地降级MySQL。按照降级MySQL的说明。</p>
-<p>升级MySQL</p>
-<p>对于不支持dnf的平台，通过以下命令升级MySQL及其组件:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update mysql-server</span><br></pre></td></tr></table></figure>
-<p>对于支持dnf的平台</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf --refresh upgrade mysql-server</span><br></pre></td></tr></table></figure>
-<p>或者，您可以通过告诉Yum更新系统上的所有内容来更新MySQL，这可能会花费更多的时间;对于不支持dnf的平台:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update</span><br></pre></td></tr></table></figure>
-<p>对于支持dnf的平台</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade</span><br></pre></td></tr></table></figure>
-<h3 id="重启MySQL"><a href="#重启MySQL" class="headerlink" title="重启MySQL"></a>重启MySQL</h3><p>MySQL服务器总是在Yum更新后重新启动。一旦服务器重新启动，运行mysql_upgrade来检查并解决旧数据和升级软件之间的任何不兼容问题。mysql_upgrade还可以执行其他功能;请参阅mysql_upgrade -检查和升级MySQL表以了解详细信息。</p>
-<p>您还可以只更新特定的组件。使用以下命令列出MySQL组件的所有已安装包(对于支持dnf的系统，将yum替换为dnf):</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum list installed | grep &quot;^mysql&quot;</span><br></pre></td></tr></table></figure>
-<p>在识别您选择的组件的包名之后，对于不支持dnf的平台，使用以下命令更新包，用包名替换包名:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update package-name</span><br></pre></td></tr></table></figure>
-<p>对于支持dnf的平台</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade package-name</span><br></pre></td></tr></table></figure>
-<p>替换MySQL的本地第三方发行版</p>
-<p>要用MySQL Yum库最新的GA版本(目前来自MySQL 8.0系列)替换从受支持的Linux平台的本地软件仓库安装的第三方MySQL发行版，请执行以下步骤:</p>
-<p>备份数据库<br>为了避免数据丢失，请在尝试使用MySQL Yum库替换MySQL安装之前备份数据库。有关如何备份数据库，请参阅备份和恢复。</p>
-<p>添加MySQL Yum存储库</p>
-<p>通过添加MySQL Yum存储库中给出的说明，将MySQL Yum存储库添加到您的系统的存储库列表中。</p>
-<p>用Yum更新或DNF升级替换本机第三方发行版</p>
-<p>通过设计,MySQL Yum资源库将取代你的本地,第三方MySQL在最新的GA版本(从目前的MySQL 8.0系列)从MySQL百胜库执行Yum更新命令时(或dnf升级dnf-enabled系统)系统,或Yum更新MySQL服务器(或MySQL服务器升级dnf dnf-enabled系统)。</p>
-<p>在使用Yum存储库更新MySQL之后，使用旧版本的共享客户机库编译的应用程序应该继续工作。但是，如果您想重新编译应用程序并动态地将它们与更新后的库链接起来，请参阅升级共享客户机库以获得一些特殊的考虑。</p>
-<p>备注</p>
-<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
-<p>如果您已经从一个非本地存储库下载并安装了MySQL的第三方分发版（例如，来自MariaDB或Percona），那么在MySQL服务器的参考手册中，遵循替换它们的说明是很重要的。</p>
-<p>使用Yum存储库安装MySQL NDB集群、</p>
-<p>备注</p>
-<p>下面的说明假设MySQL服务器和MySQL NDB集群都已经安装在您的系统上;如果不是这样，那么在继续之前，删除MySQL服务器或MySQL NDB集群，包括所有可执行文件、库、配置文件和数据目录。但是，没有必要删除您可能用于在系统上启用MySQL Yum存储库的放行包。</p>
-<p>NDB集群SQL节点包对Perl类：：MethodMaker模块有依赖关系。如果在您的系统上启用了EPEL（Enterprise Linux的额外包），Yum可以处理这种依赖关系;请参阅这里的说明，了解如何启用EPEL存储库。</p>
-<p>MySQL Yum存储库支持MySQL NDB集群的安装，仅用于发布7.5.6和后续版本，并且只支持EL6和EL7平台。对于其他安装NDB集群的方法，请参阅Linux上的NDB集群的安装，或者在Linux上安装NDB集群，这取决于您正在使用的发布系列。</p>
-<p>为MySQL NDB集群添加MySQL Yum存储库</p>
-<p>按照添加MySQL Yum存储库的步骤，将MySQL Yum存储库添加到系统的存储库列表中。如果您之前已经完成了这个步骤，那么请确保您拥有最新版本的发布包，运行以下命令，以支持那些没有启用dnf的平台：</p>
-<p>shell&gt; sudo yum update mysql57-community-release</p>
-<p>对于支持dnf的平台</p>
-<p>shell&gt; sudo dnf –refresh upgrade mysql57-community-release</p>
-<p>选择MySQL NDB集群子存储库</p>
-<p>在MySQL Yum库(<a href="http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL" target="_blank" rel="noopener">http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL</a> NDB集群托管在不同的子存储库中。默认情况下，将启用MySQL服务器最新GA系列的子存储库，并禁用MySQL NDB集群的子存储库。要安装NDB集群，请禁用MySQL服务器的子存储库，并启用NDB集群的子存储库。如果您的平台支持yum-config-manager或dnf config-manager命令，您可以通过发出以下命令来做到这一点，该命令禁用了MySQL 5.7系列的子存储库，并为MySQL NDB集群7.5启用了这个命令;对于不支持dnf的平台:</p>
-<p>shell&gt; sudo yum-config-manager –disable mysql57-community<br>shell&gt; sudo yum-config-manager –enable mysql-cluster-7.5-community</p>
-<p>对于支持dnf的平台</p>
-<p>shell&gt; sudo dnf config-manager –disable mysql57-community<br>shell&gt; sudo dnf config-manager –enable mysql-cluster-7.5-community</p>
-<p>除了使用yconfig管理器或dnf configmanager命令之外，您还可以通过手工编辑/etc/yum.repos.d/mysql-community来选择子存储库。回购协议文件。这是文件中MySQL 5.7个子存储库的示例条目：</p>
-<p>[mysql57-community]<br>name=MySQL 5.7 Community Server<br>baseurl=<a href="http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/" target="_blank" rel="noopener">http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</a><br>enabled=1<br>gpgcheck=1<br>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</p>
-<p>要安装NDB集群7.5，您必须禁用MySQL 5.7的子存储库，方法是为上面的子库条目启用启用=0，并启用NDB集群7.5个子存储库，使其条目=1：</p>
-<p>[mysql-cluster-7.5-community]<br>name=MySQL Cluster 7.5 Community<br>baseurl=<a href="http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/" target="_blank" rel="noopener">http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/</a><br>enabled=1<br>gpgcheck=1<br>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</p>
-<p>在保存文件的更改之后，通过运行以下命令来验证是否启用了正确的子存储库（支持dnf的系统，用dnf替换yum）：</p>
-<p>shell&gt; yum repolist enabled | grep mysql<br>!mysql-cluster-7.5-community/x86_64 MySQL Cluster 7.5 Community               18<br>!mysql-connectors-community/x86_64  MySQL Connectors Community                31<br>!mysql-tools-community/x86_64       MySQL Tools Community                     33</p>
-<p>NDB集群7.5（Community edition）的子存储库现已启用。<br>在列表中还有一些MySQL Yum存储库的其他子存储库，它们在默认情况下是启用的。</p>
-<p>安装MySQL NDB集群</p>
-<p>对于MySQL NDB集群的最小安装，请遵循以下步骤（用于支持dnf的系统，用dnf替换yum中的yum）：</p>
-<p>为SQL节点安装组件：</p>
-<p>shell&gt; sudo yum install mysql-cluster-community-server</p>
-<p>安装完成后，按照启动MySQL服务器的步骤启动和初始化SQL节点。 </p>
-<p>如果您选择使用mysqld——初始化命令（请参阅使用mysqld手动初始化数据目录）来手动初始化数据目录，则会生成根密码并将其存储在SQL节点的错误日志中;有关如何查找密码的MySQL服务器初始化，以及您需要了解的一些事情。</p>
-<p>为管理节点安装可执行文件：</p>
-<p>shell&gt; sudo yum install mysql-cluster-community-management-server</p>
-<p>为数据节点安装可执行文件：</p>
-<p>shell&gt; sudo yum install mysql-cluster-community-data-node</p>
-<p>配置和启动MySQL NDB集群</p>
-<p>关于如何配置MySQL NDB集群和NDB集群的初始启动，请参阅NDB集群的初始配置，了解如何第一次启动它。</p>
-<p>备注</p>
-<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
-<p>安装额外的MySQL NDB集群产品和组件</p>
-<p>您可以使用Yum从MySQL Yum存储库中安装MySQL NDB集群的单个组件和附加产品。<br>要做到这一点，假设您已经在系统的存储库列表中已经有了MySQL Yum存储库（如果没有的话，请遵循使用Yum存储库安装MySQL NDB集群的步骤1和步骤2），遵循在安装额外的MySQL产品和组件时所提供的相同步骤。</p>
-<p>备注</p>
-<p>已知的问题：目前，当您安装测试套件包（mysql-集群-社区测试）时，并不是运行MySQL NDB集群测试套件所需的所有组件。在运行测试套件之前，先安装yum安装（或dnf安装的dnf系统）的下列软件包：</p>
-<ul>
-<li><p>mysql-cluster-community-auto-installer</p>
-</li>
-<li><p>mysql-cluster-community-management-server</p>
-</li>
-<li><p>mysql-cluster-community-data-node</p>
-</li>
-<li><p>mysql-cluster-community-memcached</p>
-</li>
-<li><p>mysql-cluster-community-java</p>
-</li>
-<li><p>mysql-cluster-community-ndbclient-devel</p>
-</li>
-</ul>
-<p>补充</p>
-<p>关于MySQL Yum存储库的更多信息可以在MySQL服务器参考手册的以下部分中找到：<br>Installing MySQL on Linux Using the MySQL Yum Repository</p>
-<p>Replacing a Third-Party Distribution of MySQL Using the MySQL Yum Repository</p>
-<p>Upgrading MySQL with the MySQL Yum Repository</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -2489,7 +2496,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2500,7 +2507,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2511,7 +2518,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

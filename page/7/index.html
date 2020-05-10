@@ -333,6 +333,163 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/02/Redis主从配置/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/04/02/Redis主从配置/" itemprop="url">Redis主从配置</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-02T00:00:00+08:00">
+                2018-04-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>Redis支持将数据同步到多个从服务器上</p>
+<p>1.Master可以有多个slave</p>
+<p>2.多个slave可以练到同一个Master上，也可以连接到其他slave上</p>
+<p>3.主从复制不会阻塞Master，Master可以继续处理客户端发来的请求，反而slave在初次同步数据时则会阻塞不能处理客户端的请求</p>
+<p>4.主从复制可以提高系统的伸缩性，可以用多个slave专门用于客户端的读请求，也可以做简单的数据冗余</p>
+<p>5.可以在Master禁用数据持久化，只在slave上配置数据持久化</p>
+<h4 id="主从复制过程"><a href="#主从复制过程" class="headerlink" title="主从复制过程"></a>主从复制过程</h4><p>1.slave与master建立连接，发送sync同步命令</p>
+<p>2.master启动一个后台进程，将数据库快照保存在文件中，同时master主进程会开始收集新的写命令并缓存起来</p>
+<p>3.后台进程完成写文件后，master就发送文件给slave，slave将文件保存在磁盘上，然后加载到内存恢复数据库快照到slave上</p>
+<p>4.接着master就会把缓存命令转发给slave，而且后续master收到的写命令都会通过开始建立的连接发送给slave</p>
+<p>注意：</p>
+<p>master到slave的同步数据的命令和从客户端发送的命令使用相同的协议格式</p>
+<p>当master和slave的连接断开时slave可以自动重新建立连接</p>
+<p>如果master同时收到多个slave发来的同步连接命令，只会启动一个进程来写数据库镜像，然后发送给所有slave</p>
+<h4 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h4><p>在配置文件中写入配置即可</p>
+<pre><code>slaveof 1.1.1.1 6379      #指定master的IP和端口
+</code></pre>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/01/Redis安全配置/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1275,6 +1432,164 @@ zremrangebyscore key min max --删除集合中score在给定区间的元素
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/NoSQL简介/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/27/NoSQL简介/" itemprop="url">NoSQL简介</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T00:00:00+08:00">
+                2018-03-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>泛指非关系型数据库</p>
+<p>四大分类</p>
+<p>1.键值存储数据库（KV）</p>
+<p>Redis、Memecached</p>
+<p>2.列存储数据库</p>
+<p>通常用来应对分布式存储的海量数据</p>
+<p>键仍然存在，但是指向了多个列</p>
+<p>HBase、Riak</p>
+<p>3.文档型数据库</p>
+<p>MongoDB</p>
+<p>4.图形数据库</p>
+<p>特点：</p>
+<p>数据模型比较简单</p>
+<p>需要灵活性更强的IT系统</p>
+<p>对数据库性能要求较高</p>
+<p>不需要高度的数据一致性</p>
+<p>对于给定Key，比较容易映射复杂值的环境</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/Redis简介/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1398,164 +1713,6 @@ zremrangebyscore key min max --删除集合中score在给定区间的元素
 </ol>
 <h5 id="主从形式"><a href="#主从形式" class="headerlink" title="主从形式"></a>主从形式</h5><p>主节点写，从节点读</p>
 <h5 id="哨兵形式"><a href="#哨兵形式" class="headerlink" title="哨兵形式"></a>哨兵形式</h5><p>哨兵节点去监控主从节点的状态，主节点挂掉之后，哨兵会在从节点之间选取一个节点，提升为主节点；如果主节点重新加入，则变成从节点</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/27/NoSQL简介/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/27/NoSQL简介/" itemprop="url">NoSQL简介</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-27T00:00:00+08:00">
-                2018-03-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>泛指非关系型数据库</p>
-<p>四大分类</p>
-<p>1.键值存储数据库（KV）</p>
-<p>Redis、Memecached</p>
-<p>2.列存储数据库</p>
-<p>通常用来应对分布式存储的海量数据</p>
-<p>键仍然存在，但是指向了多个列</p>
-<p>HBase、Riak</p>
-<p>3.文档型数据库</p>
-<p>MongoDB</p>
-<p>4.图形数据库</p>
-<p>特点：</p>
-<p>数据模型比较简单</p>
-<p>需要灵活性更强的IT系统</p>
-<p>对数据库性能要求较高</p>
-<p>不需要高度的数据一致性</p>
-<p>对于给定Key，比较容易映射复杂值的环境</p>
 
           
         
@@ -2061,7 +2218,7 @@ zremrangebyscore key min max --删除集合中score在给定区间的元素
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -2072,7 +2229,7 @@ zremrangebyscore key min max --删除集合中score在给定区间的元素
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -2083,7 +2240,7 @@ zremrangebyscore key min max --删除集合中score在给定区间的元素
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

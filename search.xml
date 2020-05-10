@@ -1,6 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title><![CDATA[idea的后悔药:本地文件删除后恢复]]></title>
+    <url>%2F2020%2F04%2F27%2Fidea%E5%90%8E%E6%82%94%E8%8D%AF%E5%8A%9F%E8%83%BD%2F</url>
+    <content type="text"><![CDATA[在使用 idea 开发时，创建了一个类，但是这个类并没有纳入到版本控制中，如果不小心把这个类删除了，该怎么办？重新花时间去写一个一样的类？但是项目马上就要交付了，哪有那么多时间重新写一个啊，而且还要花时间把原来的功能重新测试一遍！ 别慌，idea 的 Local History 功能帮你免除这种烦恼！ 现在我们有一个类 Regression ， 这个类里面实现了一些逻辑 Regression 类不小心被删掉了 这时候，可以选中 regression 包，点击右键，从菜单中找到 Local History，再点击 Show History 子菜单 此时，会出现一个弹窗，弹窗内容分为两部分，左侧是 regression 包的操作记录，右侧是每条记录操作的具体内容 根据记录，可以看到5分钟之前删除了 Regression 类，此时我们选中右侧的 Regression 类，右键，点击 Revert Selection 菜单即可恢复 Regression 类]]></content>
+      <categories>
+        <category>idea</category>
+      </categories>
+      <tags>
+        <tag>idea</tag>
+      </tags>
+  </entry>
+  <entry>
     <title><![CDATA[CentOS7配置静态IP]]></title>
     <url>%2F2020%2F01%2F18%2FCentOS7%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP%2F</url>
     <content type="text"><![CDATA[网卡配置文件进入到 /etc/sysconfig/network-scripts 目录，找到网卡配置文件 ifcfg-* 1&gt; cd /etc/sysconfig/network-scripts 配置在 ifcfg-ens192 文件中修改或添加以下信息 123456BOOTPROTO=&quot;static&quot; #dhcp改为static ONBOOT=&quot;yes&quot; #开机启用本配置IPADDR=10.192.89.130 #静态IPGATEWAY=10.192.89.254 #默认网关NETMASK=255.255.255.0 #子网掩码DNS1=10.1.7.7 #DNS 配置 重启网卡服务1&gt; service network restart 查看配置结果]]></content>
@@ -378,17 +389,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SpringBoot源码解析之SpringApplication]]></title>
-    <url>%2F2018%2F07%2F11%2FSpringBoot%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8BSpringApplication%2F</url>
-    <content type="text"><![CDATA[可以用于从Java主方法引导并启动Spring应用程序的类。默认情况下，类将执行以下步骤启动应用程序: 创建适当的ApplicationContext实例(取决于类路径) 注册一个CommandLinePropertySource，以Spring属性的形式暴露命令行参数 刷新应用程序上下文，加载所有的单例bean 触发所有的CommandLineRunner bean 在大多数情况下，静态方法run(Class&lt;?&gt;[] primarySources, String[] args)可以直接从主方法调用，从而引导应用程序: 12345678910@Configuration@EnableAutoConfigurationpublic class MyApplication &#123; // ... Bean definitions public static void main(String[] args) throws Exception &#123; SpringApplication.run(MyApplication.class, args); &#125;&#125; 对于更高级的配置，可以在运行之前创建和定制SpringApplication实例:12345public static void main(String[] args) throws Exception &#123; SpringApplication application = new SpringApplication(MyApplication.class); // ... customize application settings here application.run(args)&#125; springapplication可以从各种不同的来源读取bean。通常建议使用一个@Configuration类来引导应用程序，但是，您也可以从以下设置源: 由AnnotatedBeanDefinitionReader加载的完全限定类名 XmlBeanDefinitionReader装载的XML资源的位置，或者GroovyBeanDefinitionReader装载的groovy脚本 ClassPathBeanDefinitionScanner要扫描的软件包的名称 配置属性也绑定到SpringApplication。这使得可以动态地设置SpringApplication属性，比如额外的源(“spring.main”。来源“-一个CSV列表)标志以表示一个web环境(“spring.main.web-application-type=none”)或标志以关闭横幅(“spring.main.bannermode =off”)。 启动时调用main方法，主要执行SpringApplication.run()方法123public static void main(String[] args) &#123; SpringApplication.run(RabbitApplication.class, args);&#125; SpringApplication的run方法实现 1234567891011/** * Static helper that can be used to run a &#123;@link SpringApplication&#125; from the * specified source using default settings. * @param primarySource the primary source to load * @param args the application arguments (usually passed from a Java main method) * @return the running &#123;@link ApplicationContext&#125; */ public static ConfigurableApplicationContext run(Class&lt;?&gt; primarySource, String... args) &#123; return run(new Class&lt;?&gt;[] &#123; primarySource &#125;, args); &#125; 其中primarySource即为com.lemon.rabbit.RabbitApplication SpringApplication中定义了一些静态的成员属性 1234567891011121314151617181920212223242526272829//在非web环境中默认使用的应用程序上下文的类名。public static final String DEFAULT_CONTEXT_CLASS = "org.springframework.context." + "annotation.AnnotationConfigApplicationContext";//应用程序上下文的类名，默认用于web环境。public static final String DEFAULT_WEB_CONTEXT_CLASS = "org.springframework.boot." + "web.servlet.context.AnnotationConfigServletWebServerApplicationContext";//private static final String[] WEB_ENVIRONMENT_CLASSES = &#123; "javax.servlet.Servlet", "org.springframework.web.context.ConfigurableWebApplicationContext" &#125;;public static final String DEFAULT_REACTIVE_WEB_CONTEXT_CLASS = "org.springframework." + "boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext";private static final String REACTIVE_WEB_ENVIRONMENT_CLASS = "org.springframework." + "web.reactive.DispatcherHandler";private static final String MVC_WEB_ENVIRONMENT_CLASS = "org.springframework." + "web.servlet.DispatcherServlet";//banner的默认存放位置public static final String BANNER_LOCATION_PROPERTY_VALUE = SpringApplicationBannerPrinter.DEFAULT_BANNER_LOCATION;//旗帜位置属性的关键。public static final String BANNER_LOCATION_PROPERTY = SpringApplicationBannerPrinter.BANNER_LOCATION_PROPERTY;private static final String SYSTEM_PROPERTY_JAVA_AWT_HEADLESS = "java.awt.headless";]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[SpringBoot单元测试：Unable to find a @SpringBootConfiguration]]></title>
     <url>%2F2018%2F07%2F11%2FSpringBoot%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95%EF%BC%9AUnable%20to%20find%20a%20%40SpringBootConfiguration%2C%20you%20need%20to%20use%20%40ContextConfiguration%20or%20%40SpringBootTest(classes%3D...)%20with%20your%20test%2F</url>
     <content type="text"><![CDATA[SpringBoot 下使用 Junit 进行单元测试时，报错：java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test； 具体报错信息如下： 1234567891011121314151617181920212223242526272829303132信息: Could not detect default configuration classes for test class [com.qinghuazs.starlight.oss.AliOSSBucketClientTest]: AliOSSBucketClientTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration. java.lang.IllegalStateException: Unable to find a @SpringBootConfiguration, you need to use @ContextConfiguration or @SpringBootTest(classes=...) with your test at org.springframework.util.Assert.state(Assert.java:73) at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.getOrFindConfigurationClasses(SpringBootTestContextBootstrapper.java:240) at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.processMergedContextConfiguration(SpringBootTestContextBootstrapper.java:153) at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:395) at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildDefaultMergedContextConfiguration(AbstractTestContextBootstrapper.java:312) at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildMergedContextConfiguration(AbstractTestContextBootstrapper.java:265) at org.springframework.test.context.support.AbstractTestContextBootstrapper.buildTestContext(AbstractTestContextBootstrapper.java:108) at org.springframework.boot.test.context.SpringBootTestContextBootstrapper.buildTestContext(SpringBootTestContextBootstrapper.java:97) at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:139) at org.springframework.test.context.TestContextManager.&lt;init&gt;(TestContextManager.java:124) at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.createTestContextManager(SpringJUnit4ClassRunner.java:151) at org.springframework.test.context.junit4.SpringJUnit4ClassRunner.&lt;init&gt;(SpringJUnit4ClassRunner.java:142) at org.springframework.test.context.junit4.SpringRunner.&lt;init&gt;(SpringRunner.java:49) at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62) at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) at java.lang.reflect.Constructor.newInstance(Constructor.java:423) at org.junit.internal.builders.AnnotatedBuilder.buildRunner(AnnotatedBuilder.java:104) at org.junit.internal.builders.AnnotatedBuilder.runnerForClass(AnnotatedBuilder.java:86) at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59) at org.junit.internal.builders.AllDefaultPossibilitiesBuilder.runnerForClass(AllDefaultPossibilitiesBuilder.java:26) at org.junit.runners.model.RunnerBuilder.safeRunnerForClass(RunnerBuilder.java:59) at org.junit.internal.requests.ClassRequest.getRunner(ClassRequest.java:33) at org.junit.internal.requests.FilterRequest.getRunner(FilterRequest.java:36) at com.intellij.junit4.JUnit4IdeaTestRunner.startRunnerWithArgs(JUnit4IdeaTestRunner.java:49) at com.intellij.rt.execution.junit.IdeaTestRunner$Repeater.startRunnerWithArgs(IdeaTestRunner.java:47) at com.intellij.rt.execution.junit.JUnitStarter.prepareStreamsAndStart(JUnitStarter.java:242) at com.intellij.rt.execution.junit.JUnitStarter.main(JUnitStarter.java:70) 根据报错提示，可以得知 SpringBoot 应用下缺失 @SpringBootConfiguration 类，即 SpringBoot 启动类（@SpringBootApplication 是一个复合注解），增加一个 SpringBoot 启动类即可。 1234567@SpringBootApplicationpublic class OSSApplication &#123; public static void main(String[] args) &#123; SpringApplication.run(OSSApplication.class, args); &#125;&#125;]]></content>
@@ -398,6 +398,17 @@
       <tags>
         <tag>SpringBoot</tag>
         <tag>单元测试</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SpringBoot源码解析之SpringApplication]]></title>
+    <url>%2F2018%2F07%2F11%2FSpringBoot%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90%E4%B9%8BSpringApplication%2F</url>
+    <content type="text"><![CDATA[可以用于从Java主方法引导并启动Spring应用程序的类。默认情况下，类将执行以下步骤启动应用程序: 创建适当的ApplicationContext实例(取决于类路径) 注册一个CommandLinePropertySource，以Spring属性的形式暴露命令行参数 刷新应用程序上下文，加载所有的单例bean 触发所有的CommandLineRunner bean 在大多数情况下，静态方法run(Class&lt;?&gt;[] primarySources, String[] args)可以直接从主方法调用，从而引导应用程序: 12345678910@Configuration@EnableAutoConfigurationpublic class MyApplication &#123; // ... Bean definitions public static void main(String[] args) throws Exception &#123; SpringApplication.run(MyApplication.class, args); &#125;&#125; 对于更高级的配置，可以在运行之前创建和定制SpringApplication实例:12345public static void main(String[] args) throws Exception &#123; SpringApplication application = new SpringApplication(MyApplication.class); // ... customize application settings here application.run(args)&#125; springapplication可以从各种不同的来源读取bean。通常建议使用一个@Configuration类来引导应用程序，但是，您也可以从以下设置源: 由AnnotatedBeanDefinitionReader加载的完全限定类名 XmlBeanDefinitionReader装载的XML资源的位置，或者GroovyBeanDefinitionReader装载的groovy脚本 ClassPathBeanDefinitionScanner要扫描的软件包的名称 配置属性也绑定到SpringApplication。这使得可以动态地设置SpringApplication属性，比如额外的源(“spring.main”。来源“-一个CSV列表)标志以表示一个web环境(“spring.main.web-application-type=none”)或标志以关闭横幅(“spring.main.bannermode =off”)。 启动时调用main方法，主要执行SpringApplication.run()方法123public static void main(String[] args) &#123; SpringApplication.run(RabbitApplication.class, args);&#125; SpringApplication的run方法实现 1234567891011/** * Static helper that can be used to run a &#123;@link SpringApplication&#125; from the * specified source using default settings. * @param primarySource the primary source to load * @param args the application arguments (usually passed from a Java main method) * @return the running &#123;@link ApplicationContext&#125; */ public static ConfigurableApplicationContext run(Class&lt;?&gt; primarySource, String... args) &#123; return run(new Class&lt;?&gt;[] &#123; primarySource &#125;, args); &#125; 其中primarySource即为com.lemon.rabbit.RabbitApplication SpringApplication中定义了一些静态的成员属性 1234567891011121314151617181920212223242526272829//在非web环境中默认使用的应用程序上下文的类名。public static final String DEFAULT_CONTEXT_CLASS = "org.springframework.context." + "annotation.AnnotationConfigApplicationContext";//应用程序上下文的类名，默认用于web环境。public static final String DEFAULT_WEB_CONTEXT_CLASS = "org.springframework.boot." + "web.servlet.context.AnnotationConfigServletWebServerApplicationContext";//private static final String[] WEB_ENVIRONMENT_CLASSES = &#123; "javax.servlet.Servlet", "org.springframework.web.context.ConfigurableWebApplicationContext" &#125;;public static final String DEFAULT_REACTIVE_WEB_CONTEXT_CLASS = "org.springframework." + "boot.web.reactive.context.AnnotationConfigReactiveWebServerApplicationContext";private static final String REACTIVE_WEB_ENVIRONMENT_CLASS = "org.springframework." + "web.reactive.DispatcherHandler";private static final String MVC_WEB_ENVIRONMENT_CLASS = "org.springframework." + "web.servlet.DispatcherServlet";//banner的默认存放位置public static final String BANNER_LOCATION_PROPERTY_VALUE = SpringApplicationBannerPrinter.DEFAULT_BANNER_LOCATION;//旗帜位置属性的关键。public static final String BANNER_LOCATION_PROPERTY = SpringApplicationBannerPrinter.BANNER_LOCATION_PROPERTY;private static final String SYSTEM_PROPERTY_JAVA_AWT_HEADLESS = "java.awt.headless";]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -511,18 +522,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[OpenSSL生成SSL证书]]></title>
-    <url>%2F2018%2F06%2F22%2FopenSSL%E7%94%9F%E6%88%90SSL%E8%AF%81%E4%B9%A6%2F</url>
-    <content type="text"><![CDATA[创建私钥1openssl genrsa -des3 -passout pass:qinghuazs12345+ -out private.key 2048 -subj &quot;/CN=Finance/OU=qinghuazs/O=qinghuazs/L=HZ/ST=ZJ/C=CN&quot; 根据私钥生成公钥1openssl rsa -in private.key -pubout -out public.key 此处需要输入私钥的密码，直接输入qinghuazs12345+即可 证书请求1openssl req -new -nodes -key private.key -out cert.csr 这里将生成一个新的文件cert.csr，即一个证书请求文件，你可以拿着这个文件去数字证书颁发机构（即CA）申请一个数字证书。CA会给你一个新的文件cacert.pem，那才是包含公钥给对方用的数字证书。 生成证书自签名证书，用于自己测试，不需要CA签发 1openssl req -new -x509 -key private.key -out cacert.pem -days 36500 至此，生成的证书已经可以使用了。]]></content>
-      <categories>
-        <category>OpenSSL</category>
-      </categories>
-      <tags>
-        <tag>OpenSSL</tag>
-        <tag>HTTPS</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[Nginx配置SSL证书]]></title>
     <url>%2F2018%2F06%2F22%2FNginx%E9%85%8D%E7%BD%AESSL%E8%AF%81%E4%B9%A6%2F</url>
     <content type="text"><![CDATA[1234567891011121314151617181920212223server &#123; listen 443; server_name 127.0.0.1; ssl on; ssl_certificate /usr/local/cert/证书名.pem; ssl_certificate_key /usr/local/cert/证书名.key; ssl_session_timeout 5m; ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4; ssl_protocols TLSv1 TLSv1.1 TLSv1.2; ssl_prefer_server_ciphers on; ssl_ciphers HIGH:!aNULL:!MD5; location / &#123; proxy_pass http://127.0.0.1:8089; &#125; error_page 500 502 503 504 /50x.html; location = /50x.html &#123; root html; &#125;&#125;]]></content>
@@ -532,6 +531,18 @@
       <tags>
         <tag>Nginx</tag>
         <tag>OpenSSL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[OpenSSL生成SSL证书]]></title>
+    <url>%2F2018%2F06%2F22%2FopenSSL%E7%94%9F%E6%88%90SSL%E8%AF%81%E4%B9%A6%2F</url>
+    <content type="text"><![CDATA[创建私钥1openssl genrsa -des3 -passout pass:qinghuazs12345+ -out private.key 2048 -subj &quot;/CN=Finance/OU=qinghuazs/O=qinghuazs/L=HZ/ST=ZJ/C=CN&quot; 根据私钥生成公钥1openssl rsa -in private.key -pubout -out public.key 此处需要输入私钥的密码，直接输入qinghuazs12345+即可 证书请求1openssl req -new -nodes -key private.key -out cert.csr 这里将生成一个新的文件cert.csr，即一个证书请求文件，你可以拿着这个文件去数字证书颁发机构（即CA）申请一个数字证书。CA会给你一个新的文件cacert.pem，那才是包含公钥给对方用的数字证书。 生成证书自签名证书，用于自己测试，不需要CA签发 1openssl req -new -x509 -key private.key -out cacert.pem -days 36500 至此，生成的证书已经可以使用了。]]></content>
+      <categories>
+        <category>OpenSSL</category>
+      </categories>
+      <tags>
+        <tag>OpenSSL</tag>
+        <tag>HTTPS</tag>
       </tags>
   </entry>
   <entry>
@@ -550,6 +561,17 @@
     <title><![CDATA[Linux启动顺序]]></title>
     <url>%2F2018%2F06%2F13%2FLinux%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B%2F</url>
     <content type="text"><![CDATA[加载BIOS（load bios）当你打开计算机电源，计算机会首先加载BIOS信息，BIOS信息是如此的重要，以至于计算机必须在最开始就找到它。这是因为BIOS中包含了CPU的相关信息、设备启动顺序信息、硬盘信息、内存信息、时钟信息、PnP特性等等。在此之后，计算机心里就有谱了，知道应该去读取哪个硬件设备了。 读取MBR（read MBR’s config to find out the OS）众所周知，硬盘上第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，它的大小是512字节，别看地方不大，可里面却存放了预启动信息、分区表信息。 系统找到BIOS所指定的硬盘的MBR后，就会将其复制到0×7c00地址所在的物理内存中。其实被复制到物理内存的内容就是Boot Loader，而具体到你的电脑，那就是lilo或者grub了。 Boot LoaderBoot Loader 就是在操作系统内核运行之前运行的一段小程序。通过这段小程序，我们可以初始化硬件设备、建立内存空间的映射图，从而将系统的软硬件环境带到一个合适的状态，以便为最终调用操作系统内核做好一切准备。 Boot Loader有若干种，其中Grub、Lilo和spfdisk是常见的Loader。 我们以Grub为例来讲解吧，毕竟用lilo和spfdisk的人并不多。 系统读取内存中的grub配置信息（一般为menu.lst或grub.lst），并依照此配置信息来启动不同的操作系统。 加载内核 load the kernel of the OS根据grub设定的内核映像所在路径，系统读取内存映像，并进行解压缩操作。此时，屏幕一般会输出“Uncompressing Linux”的提示。当解压缩内核完成后，屏幕输出“OK, booting the kernel”。 系统将解压后的内核放置在内存之中，并调用start_kernel()函数来启动一系列的初始化函数并初始化各种设备，完成Linux核心环境的建立。至此，Linux内核已经建立起来了，基于Linux的程序应该可以正常运行了。 用户层init依据inittab文件来设定运行等级 init process starts内核被加载后，第一个运行的程序便是/sbin/init，该文件会读取/etc/inittab文件，并依据此文件来进行初始化工作。 其实/etc/inittab文件最主要的作用就是设定Linux的运行等级，其设定形式是“：id:5:initdefault:”，这就表明Linux需要运行在等级5上。Linux的运行等级设定如下： 0：关机1：单用户模式2：无网络支持的多用户模式3：有网络支持的多用户模式4：保留，未使用5：有网络支持有X-Window支持的多用户模式6：重新引导系统，即重启 关于/etc/inittab文件的学问，其实还有很多 init进程执行rc.sysinit execute /etc/rc.d/sysinit在设定了运行等级后，Linux系统执行的第一个用户层文件就是/etc/rc.d/rc.sysinit脚本程序，它做的工作非常多，包括设定PATH、设定网络配置（/etc/sysconfig/network）、启动swap分区、设定/proc等等。如果你有兴趣，可以到/etc/rc.d中查看一下rc.sysinit文件，里面的脚本够你看几天的 启动内核模块 start other modules(/etc/modules.conf)具体是依据/etc/modules.conf文件或/etc/modules.d目录下的文件来装载内核模块。 执行不同运行级别的脚本程序 execute the run level scripts根据运行级别的不同，系统会运行rc0.d到rc6.d中的相应的脚本程序，来完成相应的初始化工作和启动相应的服务。 执行/etc/rc.d/rc.local execute /etc/rc.d/rc.local你如果打开了此文件，里面有一句话，读过之后，你就会对此命令的作用一目了然： 123# This script will be executed *after* all the other init scripts.# You can put your own initialization stuff in here if you don’t# want to do the full Sys V style init stuff. rc.local就是在一切初始化工作后，Linux留给用户进行个性化的地方。你可以把你想设置和启动的东西放到这里。 执行/bin/login程序，进入登录状态 execute /bin/login此时，系统已经进入到了等待用户输入username和password的时候了，你已经可以用自己的帐号登入系统了。:) 原文链接：https://blog.csdn.net/wangzhen209/article/details/72377317]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[Linux文件系统的实现]]></title>
+    <url>%2F2018%2F06%2F12%2FLinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0%2F</url>
+    <content type="text"><![CDATA[本文转自网络，侵删。 原文地址https://blog.csdn.net/bv1315008634/article/details/53327002 引言Linux文件管理从用户的层面介绍了Linux管理文件的方式。Linux有一个树状结构来组织文件。树的顶端为根目录(/)，节点为目录，而末端的叶子为包含数据的文件。当我们给出一个文件的完整路径时，我们从根目录出发，经过沿途各个目录，最终到达文件。 我们可以对文件进行许多操作，比如打开和读写。在Linux文件管理相关命令中，我们看到许多对文件进行操作的命令。它们大都基于对文件的打开和读写操作。比如cat可以打开文件，读取数据，最后在终端显示： 1$ cat test.txt 对于Linux下的程序员来说，了解文件系统的底层组织方式，是深入进行系统编程所必备的。即使是普通的Linux用户，也可以根据相关的内容，设计出更好的系统维护方案。 操作系统的很多核心组件都是相互关联的，比如虚拟内存管理，物理内存管理，文件系统，缓存系统，IO，设备管理等等，都要放在一起来看才能从整体上理解各个模块到底是如何交互和工作的。这个系列的目的也就是从整体上来理解计算机底层硬件和操作系统的一些重要的组件是如何工作的，从而来指导应用层的开发。这篇讲讲文件系统的重要概念，为后面的IO系统做铺垫。 文件系统主要有三类 位于磁盘的文件系统，在物理磁盘上存储文件，比如NTFS, FAT, ext3, ext4 虚拟文件系统，在内核中生成，没有物理的存储介质 网络文件系统，位于远程主机上的文件系统，通过网络访问 一个操作系统可以支持多种底层不同的文件系统，为了给内核和用户进程提供统一的文件系统视图，Linux在用户进程和底层文件系统之间加入了一个抽象层，即虚拟文件系统(Virtual File System, VFS)，进程所有的文件操作都通过VFS，由VFS来适配各种底层不同的文件系统，完成实际的文件操作。 通俗的说，VFS就是定义了一个通用文件系统的接口层和适配层，一方面为用户进程提供了一组统一的访问文件，目录和其他对象的统一方法，另一方面又要和不同的底层文件系统进行适配。 VFS采用了面向对象的思路来设计它的核心组件，只是VFS是用C写的，没有对象的语法，只能用struct来表示。我们按照面向对象的思路来理解VFS。它有4个主要的对象类型： 超级块对象，代表一个具体的已安装(mount)的文件系统 inode对象，表示一个具体的文件 目录项对象，代表一个目录项，是路径的一部分，比如一个路径 /home/foo/hello.txt，那么目录项有home, foo, hello.txt 打开文件对象，表示一个打开的文件，有读写的pos位置，也叫文件句柄，说白了就是open系统调用在内核创建的一个数据结构 VFS给每个对象都定义了一组操作对象(函数指针)，给出了这些操作的默认实现，底层不同的文件系统可以重写(override)VFS的操作函数来给出自己的具体操作实现，也可以复用VFS的默认实现。实际情况是底层文件系统部分操作由自己单独实现，部分复用了VFS的默认实现。操作对象有: super_operations对象，针对超级块对象，包含了内核对特定文件系统所能调用的方法，比如wirte_inode()，sync_fs()等 inode_operations对象，针对inode对象，包含了内核对特定文件所能调用的方法，比如create(), link()等 dentry_operations对象(directory entry)，针对目录项对象，包含了内核对特定目录所能调用的方法，比如d_compare()和d_delete()方法等 file_operations对象，针对打开文件对象，包含了进程对打开文件对象所能调用的方法，比如read()和write()等 文件系统说白了就是文件内容和存储系统对应的块的映射关系，是来管理文件的存储的。inode-block结构把文件分为了两部分，inode表示元数据，block表示存储文件内容的具体的逻辑块。VFS没有用单独的对象来表示block，block的属性在超级块和inode块中包含了。 存储设备分区文件系统的最终目的是把大量数据有组织的放入持久性(persistant)的存储设备中，比如硬盘和磁盘。这些存储设备与内存不同。它们的存储能力具有持久性，不会因为断电而消失；存储量大，但读取速度慢。 观察常见存储设备。最开始的区域是MBR，用于Linux开机启动(参考Linux开机启动)。剩余的空间可能分成数个分区(partition)。每个分区有一个相关的分区表(Partition table)，记录分区的相关信息。这个分区表是储存在分区之外的。分区表说明了对应分区的起始位置和分区的大小 我们在Windows系统常常看到C分区、D分区等。Linux系统下也可以有多个分区，但都被挂载在同一个文件系统树上。 数据被存入到某个分区中。一个典型的Linux分区(partition)包含有下面各个部分: 分区的第一个部分是启动区(Boot block)，它主要是为计算机开机服务的。Linux开机启动后，会首先载入MBR，随后MBR从某个硬盘的启动区加载程序。该程序负责进一步的操作系统的加载和启动。为了方便管理，即使某个分区中没有安装操作系统，Linux也会在该分区预留启动区。 启动区之后的是超级区(Super block)。它存储有文件系统的相关信息，包括文件系统的类型，inode的数目，数据块的数目。 随后是多个inodes，它们是实现文件存储的关键。在Linux系统中，一个文件可以分成几个数据块存储，就好像是分散在各地的龙珠一样。为了顺利的收集齐龙珠，我们需要一个“雷达”的指引：该文件对应的inode。每个文件对应一个inode。这个inode中包含多个指针，指向属于该文件各个数据块。当操作系统需要读取文件时，只需要对应inode的”地图”，收集起分散的数据块，就可以收获我们的文件了。 最后一部分，就是真正储存数据的数据块们(data blocks)了。 inode简介上面我们看到了存储设备的宏观结构。我们要深入到分区的结构，特别是文件在分区中的存储方式。 文件是文件系统对数据的分割单元。文件系统用目录来组织文件，赋予文件以上下分级的结构。在硬盘上实现这一分级结构的关键，是使用inode来虚拟普通文件和目录文件对象。 在Linux文件管理中，我们知道，一个文件除了自身的数据之外，还有一个附属信息，即文件的元数据(metadata)。这个元数据用于记录文件的许多信息，比如文件大小，拥有人，所属的组，修改日期等等。元数据并不包含在文件的数据中，而是由操作系统维护的。事实上，这个所谓的元数据就包含在inode中。我们可以用$ls -l filename来查看这些元数据。正如我们上面看到的，inode所占据的区域与数据块的区域不同。每个inode有一个唯一的整数编号(inode number)表示。 在保存元数据，inode是“文件”从抽象到具体的关键。正如上一节中提到的，inode储存由一些指针，这些指针指向存储设备中的一些数据块，文件的内容就储存在这些数据块中。当Linux想要打开一个文件时，只需要找到文件对应的inode，然后沿着指针，将所有的数据块收集起来，就可以在内存中组成一个文件的数据了。 数据块在1, 32, 0, … inode并不是组织文件的唯一方式。最简单的组织文件的方法，是把文件依次顺序的放入存储设备，DVD就采取了类似的方式。但如果有删除操作，删除造成的空余空间夹杂在正常文件之间，很难利用和管理。 复杂的方式可以使用链表，每个数据块都有一个指针，指向属于同一文件的下一个数据块。这样的好处是可以利用零散的空余空间，坏处是对文件的操作必须按照线性方式进行。如果想随机存取，那么必须遍历链表，直到目标位置。由于这一遍历不是在内存进行，所以速度很慢。 FAT系统是将上面链表的指针取出，放入到内存的一个数组中。这样，FAT可以根据内存的索引，迅速的找到一个文件。这样做的主要问题是，索引数组的大小与数据块的总数相同。因此，存储设备很大的话，这个索引数组会比较大。 inode既可以充分利用空间，在内存占据空间不与存储设备相关，解决了上面的问题。但inode也有自己的问题。每个inode能够存储的数据块指针总数是固定的。如果一个文件需要的数据块超过这一总数，inode需要额外的空间来存储多出来的指针。 inode示例在Linux中，我们通过解析路径，根据沿途的目录文件来找到某个文件。目录中的条目除了所包含的文件名，还有对应的inode编号。当我们输入$cat /var/test.txt时，Linux将在根目录文件中找到var这个目录文件的inode编号，然后根据inode合成var的数据。随后，根据var中的记录，找到text.txt的inode编号，沿着inode中的指针，收集数据块，合成text.txt的数据。整个过程中，我们参考了三个inode：根目录文件，var目录文件，text.txt文件的inodes。 在Linux下，可以使用$stat filename，来查询某个文件对应的inode编号。 在存储设备中实际上存储为： 当我们读取一个文件时，实际上是在目录中找到了这个文件的inode编号，然后根据inode的指针，把数据块组合起来，放入内存供进一步的处理。当我们写入一个文件时，是分配一个空白inode给该文件，将其inode编号记入该文件所属的目录，然后选取空白的数据块，让inode的指针指像这些数据块，并放入内存中的数据。 文件共享在Linux的进程中，当我们打开一个文件时，返回的是一个文件描述符。这个文件描述符是一个数组的下标，对应数组元素为一个指针。有趣的是，这个指针并没有直接指向文件的inode，而是指向了一个文件表格，再通过该表格，指向加载到内存中的目标文件的inode。如下图，一个进程打开了两个文件。 可以看到，每个文件表格中记录了文件打开的状态(status flags)，比如只读，写入等，还记录了每个文件的当前读写位置(offset)。当有两个进程打开同一个文件时，可以有两个文件表格，每个文件表格对应的打开状态和当前位置不同，从而支持一些文件共享的操作，比如同时读取。 要注意的是进程fork之后的情况，子进程将只复制文件描述符的数组，而和父进程共享内核维护的文件表格和inode。此时要特别小心程序的编写。]]></content>
       <categories>
         <category>Linux</category>
       </categories>
@@ -580,17 +602,6 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Linux文件系统的实现]]></title>
-    <url>%2F2018%2F06%2F12%2FLinux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0%2F</url>
-    <content type="text"><![CDATA[本文转自网络，侵删。 原文地址https://blog.csdn.net/bv1315008634/article/details/53327002 引言Linux文件管理从用户的层面介绍了Linux管理文件的方式。Linux有一个树状结构来组织文件。树的顶端为根目录(/)，节点为目录，而末端的叶子为包含数据的文件。当我们给出一个文件的完整路径时，我们从根目录出发，经过沿途各个目录，最终到达文件。 我们可以对文件进行许多操作，比如打开和读写。在Linux文件管理相关命令中，我们看到许多对文件进行操作的命令。它们大都基于对文件的打开和读写操作。比如cat可以打开文件，读取数据，最后在终端显示： 1$ cat test.txt 对于Linux下的程序员来说，了解文件系统的底层组织方式，是深入进行系统编程所必备的。即使是普通的Linux用户，也可以根据相关的内容，设计出更好的系统维护方案。 操作系统的很多核心组件都是相互关联的，比如虚拟内存管理，物理内存管理，文件系统，缓存系统，IO，设备管理等等，都要放在一起来看才能从整体上理解各个模块到底是如何交互和工作的。这个系列的目的也就是从整体上来理解计算机底层硬件和操作系统的一些重要的组件是如何工作的，从而来指导应用层的开发。这篇讲讲文件系统的重要概念，为后面的IO系统做铺垫。 文件系统主要有三类 位于磁盘的文件系统，在物理磁盘上存储文件，比如NTFS, FAT, ext3, ext4 虚拟文件系统，在内核中生成，没有物理的存储介质 网络文件系统，位于远程主机上的文件系统，通过网络访问 一个操作系统可以支持多种底层不同的文件系统，为了给内核和用户进程提供统一的文件系统视图，Linux在用户进程和底层文件系统之间加入了一个抽象层，即虚拟文件系统(Virtual File System, VFS)，进程所有的文件操作都通过VFS，由VFS来适配各种底层不同的文件系统，完成实际的文件操作。 通俗的说，VFS就是定义了一个通用文件系统的接口层和适配层，一方面为用户进程提供了一组统一的访问文件，目录和其他对象的统一方法，另一方面又要和不同的底层文件系统进行适配。 VFS采用了面向对象的思路来设计它的核心组件，只是VFS是用C写的，没有对象的语法，只能用struct来表示。我们按照面向对象的思路来理解VFS。它有4个主要的对象类型： 超级块对象，代表一个具体的已安装(mount)的文件系统 inode对象，表示一个具体的文件 目录项对象，代表一个目录项，是路径的一部分，比如一个路径 /home/foo/hello.txt，那么目录项有home, foo, hello.txt 打开文件对象，表示一个打开的文件，有读写的pos位置，也叫文件句柄，说白了就是open系统调用在内核创建的一个数据结构 VFS给每个对象都定义了一组操作对象(函数指针)，给出了这些操作的默认实现，底层不同的文件系统可以重写(override)VFS的操作函数来给出自己的具体操作实现，也可以复用VFS的默认实现。实际情况是底层文件系统部分操作由自己单独实现，部分复用了VFS的默认实现。操作对象有: super_operations对象，针对超级块对象，包含了内核对特定文件系统所能调用的方法，比如wirte_inode()，sync_fs()等 inode_operations对象，针对inode对象，包含了内核对特定文件所能调用的方法，比如create(), link()等 dentry_operations对象(directory entry)，针对目录项对象，包含了内核对特定目录所能调用的方法，比如d_compare()和d_delete()方法等 file_operations对象，针对打开文件对象，包含了进程对打开文件对象所能调用的方法，比如read()和write()等 文件系统说白了就是文件内容和存储系统对应的块的映射关系，是来管理文件的存储的。inode-block结构把文件分为了两部分，inode表示元数据，block表示存储文件内容的具体的逻辑块。VFS没有用单独的对象来表示block，block的属性在超级块和inode块中包含了。 存储设备分区文件系统的最终目的是把大量数据有组织的放入持久性(persistant)的存储设备中，比如硬盘和磁盘。这些存储设备与内存不同。它们的存储能力具有持久性，不会因为断电而消失；存储量大，但读取速度慢。 观察常见存储设备。最开始的区域是MBR，用于Linux开机启动(参考Linux开机启动)。剩余的空间可能分成数个分区(partition)。每个分区有一个相关的分区表(Partition table)，记录分区的相关信息。这个分区表是储存在分区之外的。分区表说明了对应分区的起始位置和分区的大小 我们在Windows系统常常看到C分区、D分区等。Linux系统下也可以有多个分区，但都被挂载在同一个文件系统树上。 数据被存入到某个分区中。一个典型的Linux分区(partition)包含有下面各个部分: 分区的第一个部分是启动区(Boot block)，它主要是为计算机开机服务的。Linux开机启动后，会首先载入MBR，随后MBR从某个硬盘的启动区加载程序。该程序负责进一步的操作系统的加载和启动。为了方便管理，即使某个分区中没有安装操作系统，Linux也会在该分区预留启动区。 启动区之后的是超级区(Super block)。它存储有文件系统的相关信息，包括文件系统的类型，inode的数目，数据块的数目。 随后是多个inodes，它们是实现文件存储的关键。在Linux系统中，一个文件可以分成几个数据块存储，就好像是分散在各地的龙珠一样。为了顺利的收集齐龙珠，我们需要一个“雷达”的指引：该文件对应的inode。每个文件对应一个inode。这个inode中包含多个指针，指向属于该文件各个数据块。当操作系统需要读取文件时，只需要对应inode的”地图”，收集起分散的数据块，就可以收获我们的文件了。 最后一部分，就是真正储存数据的数据块们(data blocks)了。 inode简介上面我们看到了存储设备的宏观结构。我们要深入到分区的结构，特别是文件在分区中的存储方式。 文件是文件系统对数据的分割单元。文件系统用目录来组织文件，赋予文件以上下分级的结构。在硬盘上实现这一分级结构的关键，是使用inode来虚拟普通文件和目录文件对象。 在Linux文件管理中，我们知道，一个文件除了自身的数据之外，还有一个附属信息，即文件的元数据(metadata)。这个元数据用于记录文件的许多信息，比如文件大小，拥有人，所属的组，修改日期等等。元数据并不包含在文件的数据中，而是由操作系统维护的。事实上，这个所谓的元数据就包含在inode中。我们可以用$ls -l filename来查看这些元数据。正如我们上面看到的，inode所占据的区域与数据块的区域不同。每个inode有一个唯一的整数编号(inode number)表示。 在保存元数据，inode是“文件”从抽象到具体的关键。正如上一节中提到的，inode储存由一些指针，这些指针指向存储设备中的一些数据块，文件的内容就储存在这些数据块中。当Linux想要打开一个文件时，只需要找到文件对应的inode，然后沿着指针，将所有的数据块收集起来，就可以在内存中组成一个文件的数据了。 数据块在1, 32, 0, … inode并不是组织文件的唯一方式。最简单的组织文件的方法，是把文件依次顺序的放入存储设备，DVD就采取了类似的方式。但如果有删除操作，删除造成的空余空间夹杂在正常文件之间，很难利用和管理。 复杂的方式可以使用链表，每个数据块都有一个指针，指向属于同一文件的下一个数据块。这样的好处是可以利用零散的空余空间，坏处是对文件的操作必须按照线性方式进行。如果想随机存取，那么必须遍历链表，直到目标位置。由于这一遍历不是在内存进行，所以速度很慢。 FAT系统是将上面链表的指针取出，放入到内存的一个数组中。这样，FAT可以根据内存的索引，迅速的找到一个文件。这样做的主要问题是，索引数组的大小与数据块的总数相同。因此，存储设备很大的话，这个索引数组会比较大。 inode既可以充分利用空间，在内存占据空间不与存储设备相关，解决了上面的问题。但inode也有自己的问题。每个inode能够存储的数据块指针总数是固定的。如果一个文件需要的数据块超过这一总数，inode需要额外的空间来存储多出来的指针。 inode示例在Linux中，我们通过解析路径，根据沿途的目录文件来找到某个文件。目录中的条目除了所包含的文件名，还有对应的inode编号。当我们输入$cat /var/test.txt时，Linux将在根目录文件中找到var这个目录文件的inode编号，然后根据inode合成var的数据。随后，根据var中的记录，找到text.txt的inode编号，沿着inode中的指针，收集数据块，合成text.txt的数据。整个过程中，我们参考了三个inode：根目录文件，var目录文件，text.txt文件的inodes。 在Linux下，可以使用$stat filename，来查询某个文件对应的inode编号。 在存储设备中实际上存储为： 当我们读取一个文件时，实际上是在目录中找到了这个文件的inode编号，然后根据inode的指针，把数据块组合起来，放入内存供进一步的处理。当我们写入一个文件时，是分配一个空白inode给该文件，将其inode编号记入该文件所属的目录，然后选取空白的数据块，让inode的指针指像这些数据块，并放入内存中的数据。 文件共享在Linux的进程中，当我们打开一个文件时，返回的是一个文件描述符。这个文件描述符是一个数组的下标，对应数组元素为一个指针。有趣的是，这个指针并没有直接指向文件的inode，而是指向了一个文件表格，再通过该表格，指向加载到内存中的目标文件的inode。如下图，一个进程打开了两个文件。 可以看到，每个文件表格中记录了文件打开的状态(status flags)，比如只读，写入等，还记录了每个文件的当前读写位置(offset)。当有两个进程打开同一个文件时，可以有两个文件表格，每个文件表格对应的打开状态和当前位置不同，从而支持一些文件共享的操作，比如同时读取。 要注意的是进程fork之后的情况，子进程将只复制文件描述符的数组，而和父进程共享内核维护的文件表格和inode。此时要特别小心程序的编写。]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[SpringBoot之基于Redis的Session共享]]></title>
     <url>%2F2018%2F06%2F08%2FSpringBoot%E4%B9%8BSession%E5%85%B1%E4%BA%AB%2F</url>
     <content type="text"><![CDATA[添加依赖在pom.xml中添加spring-session-data-redis依赖12345&lt;!-- Session共享 --&gt;&lt;dependency&gt; &lt;groupId&gt;org.springframework.session&lt;/groupId&gt; &lt;artifactId&gt;spring-session-data-redis&lt;/artifactId&gt;&lt;/dependency&gt; 配置12345@Configuration@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 60*30)public class SessionRedisConfig &#123;&#125; 注意：maxInactiveIntervalInSeconds字段用来设置Session失效时间，使用Redis Session之后，原SpringBoot的server.session.timeout属性不再生效 测试123456789@RequestMapping("/uid")public String uid(HttpSession session) &#123; UUID uid = (UUID) session.getAttribute("uid"); if (uid == null) &#123; uid = UUID.randomUUID(); &#125; session.setAttribute("uid", uid); return session.getId();&#125; 将上述配置和代码写入到两个不同的项目中，然后访问http://127.0.0.1:8080/uid和http://127.0.0.1:8081/uid，返回的sessionId一致:171f3099c-dcc0-4445-8d5e-57ef96d84412 通过Redis客户端连接可以看到： 1234127.0.0.1:6379&gt; keys *1) &quot;spring:session:sessions:71f3099c-dcc0-4445-8d5e-57ef96d84412&quot;2) &quot;spring:session:expirations:1531014420000&quot;3) &quot;spring:session:sessions:expires:71f3099c-dcc0-4445-8d5e-57ef96d84412&quot;]]></content>
@@ -613,23 +624,23 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[SpringBoot之热启动]]></title>
-    <url>%2F2018%2F06%2F06%2FSpringBoot%E4%B9%8B%E7%83%AD%E5%90%AF%E5%8A%A8%2F</url>
-    <content type="text"><![CDATA[在开发调试阶段，可以配置SpringBoot的热启动，代码修改后实时更新，不需要重新启动项目。 添加依赖在pom.xml中添加依赖。1234567891011121314151617181920&lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt; &lt;scope&gt;provided&lt;/scope&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt;&lt;/dependencies&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;configuration&gt; &lt;fork&gt;true&lt;/fork&gt; &lt;/configuration&gt; &lt;/plugin&gt; &lt;/plugins&gt;&lt;/build&gt; Eclipse到此处，Eclipse已经能够自动编译了 Ideaidea比较特殊，需要设置自动编译 开启自动编译File-&gt;Settings-&gt; Build-Execution-Deployment -&gt; Compiler，勾选 Build Project Automatically. 组合键Shift+Ctrl+A打开配置面板，找到Registry…，点击 找到compiler.automake.allow.when.app.running，勾选，然后退出。 备注某些情况下，自动编辑可能不会生效，如果碰到这种情况，可以使用Ctrl + F9手动编译，不需要去重启服务。]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title><![CDATA[SpringBoot:在spring-boot-starter-web中用jetty替代tomcat]]></title>
     <url>%2F2018%2F06%2F06%2FSpringBoot%E4%B9%8B%E5%9C%A8spring-boot-starter-web%E4%B8%AD%E7%94%A8jetty%E6%9B%BF%E4%BB%A3tomcat%2F</url>
     <content type="text"><![CDATA[在spring-boot-starter-web中用jetty替代tomcat 在spring-boot-starter-web移除现有的依赖项，并把下面的配置加到pom中 1234567891011121314&lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-web&lt;/artifactId&gt; &lt;exclusions&gt; &lt;exclusion&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-tomcat&lt;/artifactId&gt; &lt;/exclusion&gt; &lt;/exclusions&gt;&lt;/dependency&gt;&lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-starter-jetty&lt;/artifactId&gt;&lt;/dependency&gt;]]></content>
       <categories>
         <category>SpringBoot</category>
         <category>经验</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title><![CDATA[SpringBoot之热启动]]></title>
+    <url>%2F2018%2F06%2F06%2FSpringBoot%E4%B9%8B%E7%83%AD%E5%90%AF%E5%8A%A8%2F</url>
+    <content type="text"><![CDATA[在开发调试阶段，可以配置SpringBoot的热启动，代码修改后实时更新，不需要重新启动项目。 添加依赖在pom.xml中添加依赖。1234567891011121314151617181920&lt;dependencies&gt; &lt;dependency&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-devtools&lt;/artifactId&gt; &lt;scope&gt;provided&lt;/scope&gt; &lt;optional&gt;true&lt;/optional&gt; &lt;/dependency&gt;&lt;/dependencies&gt; &lt;build&gt; &lt;plugins&gt; &lt;plugin&gt; &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt; &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt; &lt;configuration&gt; &lt;fork&gt;true&lt;/fork&gt; &lt;/configuration&gt; &lt;/plugin&gt; &lt;/plugins&gt;&lt;/build&gt; Eclipse到此处，Eclipse已经能够自动编译了 Ideaidea比较特殊，需要设置自动编译 开启自动编译File-&gt;Settings-&gt; Build-Execution-Deployment -&gt; Compiler，勾选 Build Project Automatically. 组合键Shift+Ctrl+A打开配置面板，找到Registry…，点击 找到compiler.automake.allow.when.app.running，勾选，然后退出。 备注某些情况下，自动编辑可能不会生效，如果碰到这种情况，可以使用Ctrl + F9手动编译，不需要去重启服务。]]></content>
+      <categories>
+        <category>SpringBoot</category>
       </categories>
       <tags>
         <tag>SpringBoot</tag>
@@ -736,9 +747,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[Redis简介]]></title>
-    <url>%2F2018%2F03%2F27%2FRedis%E7%AE%80%E4%BB%8B%2F</url>
-    <content type="text"><![CDATA[K-V形式存储 优点：对数据高并发读写 对海量数据的高效率存储和访问 对数据的可扩展性和高可用性 缺点：ACID处理非常简单 无法做到太复杂的关系数据模型 数据类型 string 字符串 哈希 list 链表 set 集合 zset 有序集合 持久化RDB AOF 集群策略 主从形式 哨兵形式 3.0之后的集群模式 主从形式主节点写，从节点读 哨兵形式哨兵节点去监控主从节点的状态，主节点挂掉之后，哨兵会在从节点之间选取一个节点，提升为主节点；如果主节点重新加入，则变成从节点]]></content>
+    <title><![CDATA[NoSQL简介]]></title>
+    <url>%2F2018%2F03%2F27%2FNoSQL%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[泛指非关系型数据库 四大分类 1.键值存储数据库（KV） Redis、Memecached 2.列存储数据库 通常用来应对分布式存储的海量数据 键仍然存在，但是指向了多个列 HBase、Riak 3.文档型数据库 MongoDB 4.图形数据库 特点： 数据模型比较简单 需要灵活性更强的IT系统 对数据库性能要求较高 不需要高度的数据一致性 对于给定Key，比较容易映射复杂值的环境]]></content>
       <categories>
         <category>Redis</category>
       </categories>
@@ -747,9 +758,9 @@
       </tags>
   </entry>
   <entry>
-    <title><![CDATA[NoSQL简介]]></title>
-    <url>%2F2018%2F03%2F27%2FNoSQL%E7%AE%80%E4%BB%8B%2F</url>
-    <content type="text"><![CDATA[泛指非关系型数据库 四大分类 1.键值存储数据库（KV） Redis、Memecached 2.列存储数据库 通常用来应对分布式存储的海量数据 键仍然存在，但是指向了多个列 HBase、Riak 3.文档型数据库 MongoDB 4.图形数据库 特点： 数据模型比较简单 需要灵活性更强的IT系统 对数据库性能要求较高 不需要高度的数据一致性 对于给定Key，比较容易映射复杂值的环境]]></content>
+    <title><![CDATA[Redis简介]]></title>
+    <url>%2F2018%2F03%2F27%2FRedis%E7%AE%80%E4%BB%8B%2F</url>
+    <content type="text"><![CDATA[K-V形式存储 优点：对数据高并发读写 对海量数据的高效率存储和访问 对数据的可扩展性和高可用性 缺点：ACID处理非常简单 无法做到太复杂的关系数据模型 数据类型 string 字符串 哈希 list 链表 set 集合 zset 有序集合 持久化RDB AOF 集群策略 主从形式 哨兵形式 3.0之后的集群模式 主从形式主节点写，从节点读 哨兵形式哨兵节点去监控主从节点的状态，主节点挂掉之后，哨兵会在从节点之间选取一个节点，提升为主节点；如果主节点重新加入，则变成从节点]]></content>
       <categories>
         <category>Redis</category>
       </categories>

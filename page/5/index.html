@@ -333,6 +333,318 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/30/CentOS7下安装MySQL8/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/30/CentOS7下安装MySQL8/" itemprop="url">CentOS7下安装MySQL8</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">
+                2018-06-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/MySQL/" itemprop="url" rel="index">
+                    <span itemprop="name">MySQL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>本文主要介绍MySQL的yum仓库的使用方法，其中包含了MySQL的安装步骤</p>
+<p>原文<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-upgrading" target="_blank" rel="noopener">MySQL Yum仓库使用快速指南</a></p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>MySQL Yum仓库提供了在Linux平台上安装MySQL服务器、客户端和其他组件的RPM包。这些包还可以升级和替换安装在Linux发行版上的可以从MySQL中获得的任何第三方MySQL软件包。</p>
+<p>MySQL Yum仓库支持下列Linux发行版：</p>
+<ul>
+<li>EL6和基于el7的平台（例如，Oracle Linux、Red Hat Enterprise Linux和CentOS的对应版本）</li>
+<li>Fedora 27 和 28</li>
+</ul>
+<p>注意：并不是所有版本的MySQL都支持上述所有的Linux版本。如果想确认您的Linux发行版是否支持某个特定版本，请参阅<a href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-repo-select-series" target="_blank" rel="noopener">Selecting a Release Series</a></p>
+<p>这是一个使用MySQL Yum仓库的快速指南。要了解更多信息，请参阅<a href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-more-info" target="_blank" rel="noopener">补充</a>。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li>MySQL的安装步骤</li>
+<li>安装额外的MySQL产品和组件</li>
+<li>使用MySQL Yum仓库升级MySQL</li>
+<li>替换MySQL的本地第三方发行版</li>
+<li>使用Yum仓库安装MySQL NDB集群</li>
+<li>安装额外的MySQL NDB集群产品和组件</li>
+<li>补充</li>
+</ul>
+<h3 id="MySQL的安装步骤"><a href="#MySQL的安装步骤" class="headerlink" title="MySQL的安装步骤"></a>MySQL的安装步骤</h3><p>注意：下面的介绍是在假设使用第三方分布式RPM包的MySQL还没有安装在您的系统的基础上；如果已经使用RPM包安装了MySQL，请参照【替换MySQL的本地第三方发行版】。</p>
+<h4 id="添加MySQL-Yum仓库"><a href="#添加MySQL-Yum仓库" class="headerlink" title="添加MySQL Yum仓库"></a>添加MySQL Yum仓库</h4><p>首先，将MySQL Yum仓库添加到系统的仓库列表中。</p>
+<p>按照以下步骤进行:</p>
+<p>1.先跳转到MySQL Yum仓库的下载页面<a href="http://dev.mysql.com/downloads/repo/yum/" target="_blank" rel="noopener">http://dev.mysql.com/downloads/repo/yum/</a></p>
+<p>2.为您的平台选择并下载发布包</p>
+<p><img src="mysql1.png" alt="RPM安装包"></p>
+<p>这里我们选择<strong>mysql80-community-release-el7-1.noarch.rpm</strong></p>
+<p>3.使用下面的命令安装下载的版本包，用下载的包的名称替换<strong><em>platform-and-version-specific-package-name</em></strong>：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span><br></pre></td></tr></table></figure></p>
+<p>例如，对于基于el7的系统包的版本n，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo rpm -Uvh mysql80-community-release-el7-1.noarch.rpm</span><br></pre></td></tr></table></figure>
+<p>注意：一旦发布包安装在您的系统上，如果Yum在MySQL Yum仓库中找到MySQL升级包或第三方软件包的替代品，那么通过<strong>yum update</strong>命令（支持dnf的系统是<strong>dnf upgrade</strong>）执行的任何系统更新都会自动升级系统上的MySQL包，同时也会替换任何本地的第三方软件包。具体可参考<strong>通过MySQL Yum仓库升级MySQL</strong>和<strong>替换MySQL的本地第三方分发版</strong>以获取详细信息。</p>
+<h4 id="选择一个发行版本"><a href="#选择一个发行版本" class="headerlink" title="选择一个发行版本"></a>选择一个发行版本</h4><p>在使用MySQL Yum仓库时，默认情况下会选择最新的MySQL GA版本。如果这是您想要的，您可以跳到下一个步骤，用Yum安装MySQL。</p>
+<p>在MySQL Yum仓库<a href="http://repo.mysql.com/yum/" target="_blank" rel="noopener">http://repo.mysql.com/yum/</a>中，MySQL社区服务器的不同版本系列托管在不同的子库中。最新的GA系列（目前是MySQL 8.0）的子库默认启用，而所有其他系列（例如，MySQL 5.7系列）的子库在默认情况下都是禁用的。</p>
+<p>使用这个命令查看MySQL Yum仓库中的所有子库，并查看哪些子库是启用或禁用的（对于支持dnf的系统，用dnf替换yum）：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum repolist all | grep mysql</span><br></pre></td></tr></table></figure></p>
+<p>要安装最新GA系列的最新版本，不需要配置。要安装最新GA系列以外的特定系列的最新版本，请在运行安装命令之前禁用最新GA系列的子库，并启用特定系列的子库。如果您的平台支持<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令，您可以通过以下命令来实现这一点，例如，执行以下命令禁用8.0系列的子库，并启用5.7系列的子库</p>
+<p>对于不支持dnf的平台:<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo yum-config-manager --disable mysql80-community</span><br><span class="line"><span class="meta">shell&gt;</span> sudo yum-config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure></p>
+<p>对于支持dnf的平台<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo dnf config-manager --disable mysql80-community</span><br><span class="line"><span class="meta">shell&gt;</span> sudo dnf config-manager --enable mysql57-community</span><br></pre></td></tr></table></figure></p>
+<p>除了使用<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令之外，您还可以通过手工编辑<strong><em>/etc/yum.repos.d/mysql-community.repo</em></strong>协议文件来选择一个系列。下面是一个发布系列的子库中的典型条目：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">[mysql80-community]</span></span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">8.0</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+<p>找到您想要配置的子库的条目，并编辑<strong>enabled</strong>的选项。指定<strong>enabled=0</strong>来禁用子库，或者<strong>enabled=1</strong>来启用子库。例如，要安装MySQL 5.7，请确保在MySQL 8.0的子库条目中enabled=0，并为5.7系列的条目设置enabled=1：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable to use MySQL 5.7</span></span><br><span class="line"><span class="string">[mysql57-community]</span></span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">5.7</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+<p>您应该在任何时候只启用子库。当启用多个发布系列的子库时，Yum将使用最新的系列</p>
+<p>通过运行以下命令并检查其输出（对于支持dnf的系统，用dnf替换yum），验证相应的子库是否已启用和禁用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum repolist enabled | grep mysql</span><br></pre></td></tr></table></figure>
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><p>通过以下命令安装MySQL（用于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo yum install mysql-community-server</span><br></pre></td></tr></table></figure>
+<p>这将为MySQL服务器安装软件包，以及其他必需的软件包。</p>
+<h4 id="启动MySQL服务器"><a href="#启动MySQL服务器" class="headerlink" title="启动MySQL服务器"></a>启动MySQL服务器</h4><p>使用下面的命令启动MySQL服务器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo service mysqld start</span><br></pre></td></tr></table></figure>
+<p>对于基于el7的平台，执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo systemctl start mysqld.service</span><br></pre></td></tr></table></figure>
+<p>您可以使用以下命令检查MySQL服务器的状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo service mysqld status</span><br></pre></td></tr></table></figure>
+<p>对于基于el7的平台，使用systemctl：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo systemctl status mysqld.service</span><br></pre></td></tr></table></figure></p>
+<p>MySQL服务器初始化（和MySQL 5.7一样）：在服务器的初始启动时，由于服务器的数据目录是空的，所以会发现以下过程：</p>
+<ul>
+<li>服务器初始化</li>
+<li>在data目录中生成SSL证书和密钥文件</li>
+<li>validate_password插件被安装并启用</li>
+<li>创建一个超级用户帐户的<strong>root‘@’localhost</strong>，超级用户的密码被设置并存储在错误日志文件中。要获取初始密码，请使用以下命令：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> sudo grep 'temporary password' /var/log/mysqld.log</span><br></pre></td></tr></table></figure>
+<p>尽快更改初始密码，通过初始密码登录，并为超级用户帐户设置一个自定义密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> mysql -uroot -p</span><br></pre></td></tr></table></figure>
+<p>修改密码<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; ALTER USER 'root'@'localhost' IDENTIFIED BY 'MyNewPassword';</span><br></pre></td></tr></table></figure></p>
+<p>注意：MySQL的validate_password插件是默认安装的。这将要求密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符，并且总密码长度至少为8个字符。</p>
+<p>至此， MySQL8.0安装完毕！</p>
+<h4 id="确保MySQL安装（仅针对MySQL-5-6）"><a href="#确保MySQL安装（仅针对MySQL-5-6）" class="headerlink" title="确保MySQL安装（仅针对MySQL 5.6）"></a>确保MySQL安装（仅针对MySQL 5.6）</h4><p>指令<strong>mysql_secure_installation</strong>允许您执行一些重要的操作，如设置根密码、删除匿名用户等等。通过运行它来确保MySQL 5.6已安装成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> mysql_secure_installation</span><br></pre></td></tr></table></figure>
+<p>记住您设置的根密码是很重要的。详细信息请参阅<a href="https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html" target="_blank" rel="noopener">mysql_secure_installation — Improve MySQL Installation Security</a></p>
+<p>在安装MySQL 5.7或更高版本后，不要运行mysql_secure_installation，因为该指令的程序已经由Yum仓库安装完成。</p>
+<p>注意：对于基于el7的平台，请查看<a href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-install-compatibility-el7" target="_blank" rel="noopener">Compatibility Information for EL7-based platforms</a></p>
+<h3 id="安装额外的MySQL产品和组件"><a href="#安装额外的MySQL产品和组件" class="headerlink" title="安装额外的MySQL产品和组件"></a>安装额外的MySQL产品和组件</h3><p>您可以使用Yum来安装和管理MySQL的各个组件。其中一些组件已存在MySQL Yum仓库的子库中。使用下面的命令列出MySQL Yum仓库的所有子库中可用的所有MySQL组件的包（对于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">shell&gt;</span> yum --disablerepo=\* --enablerepo='mysql*-community*' list available</span><br></pre></td></tr></table></figure>
+<p>使用以下命令安装您所选择的任何包，用包名替换<strong><em>package-name </em></strong>（对于支持dnf的系统，用dnf替换指令中的yum）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum install package-name</span><br></pre></td></tr></table></figure>
+<p>例如，在Fedora上安装MySQL Workbench：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf install mysql-workbench-community</span><br></pre></td></tr></table></figure>
+<h3 id="用MySQL-Yum仓库升级MySQL"><a href="#用MySQL-Yum仓库升级MySQL" class="headerlink" title="用MySQL Yum仓库升级MySQL"></a>用MySQL Yum仓库升级MySQL</h3><p>注意：在对MySQL进行任何更新之前，请仔细检查<a href="https://dev.mysql.com/doc/refman/8.0/en/upgrading.html" target="_blank" rel="noopener">Upgrading MySQL</a>的说明。在这里说明中，更新之前备份数据库的内容尤其重要。</p>
+<p>使用MySQL Yum仓库进行就地更新(即取代旧版本,然后运行旧的数据文件的新版本)为你的MySQL安装通过以下步骤(假设你已经安装了MySQL与MySQL Yum资源库或RPM包直接从MySQL开发人员下载区域的MySQL下载页面;如果不是这样，请按照以下指示替换MySQL的本地第三方发行版):</p>
+<p>选择一个目标系列</p>
+<p>默认情况下，MySQL Yum库将MySQL更新为您在安装期间选择的发布系列中的最新版本(参见选择发布系列了解详细信息)，这意味着，例如5.7版本。x安装不会更新为8.0。x自动释放。要更新到另一个发布系列，您需要首先禁用所选系列的子存储库(默认情况下，或者您自己)，并启用目标系列的子存储库。要做到这一点，请参阅在选择发布系列以编辑/etc/yum.repo .d/mysql-community中的子存储库条目时给出的一般说明。回购协议文件。要从MySQL 5.7升级到8.0，请执行与选择发布系列所示步骤相反的操作，禁用MySQL 5.7系列的子存储库，并启用MySQL 8.0系列的子存储库。</p>
+<p>一般来说，要从一个发布系列升级到另一个发布系列，请转到下一个系列，而不是跳过一个系列。例如，如果您正在运行MySQL 5.6并希望升级到8.0，请先升级到MySQL 5.7，然后再升级到8.0。</p>
+<p>重要</p>
+<p>关于从MySQL 5.6升级到5.7的重要信息，请参见从MySQL 5.6升级到5.7。</p>
+<p>有关从MySQL 5.7升级到8.0的重要信息，请参见从MySQL 5.7升级到8.0。</p>
+<p>MySQL Yum库不支持就地降级MySQL。按照降级MySQL的说明。</p>
+<p>升级MySQL</p>
+<p>对于不支持dnf的平台，通过以下命令升级MySQL及其组件:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update mysql-server</span><br></pre></td></tr></table></figure>
+<p>对于支持dnf的平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf --refresh upgrade mysql-server</span><br></pre></td></tr></table></figure>
+<p>或者，您可以通过告诉Yum更新系统上的所有内容来更新MySQL，这可能会花费更多的时间;对于不支持dnf的平台:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update</span><br></pre></td></tr></table></figure>
+<p>对于支持dnf的平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade</span><br></pre></td></tr></table></figure>
+<h3 id="重启MySQL"><a href="#重启MySQL" class="headerlink" title="重启MySQL"></a>重启MySQL</h3><p>MySQL服务器总是在Yum更新后重新启动。一旦服务器重新启动，运行mysql_upgrade来检查并解决旧数据和升级软件之间的任何不兼容问题。mysql_upgrade还可以执行其他功能;请参阅mysql_upgrade -检查和升级MySQL表以了解详细信息。</p>
+<p>您还可以只更新特定的组件。使用以下命令列出MySQL组件的所有已安装包(对于支持dnf的系统，将yum替换为dnf):</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum list installed | grep &quot;^mysql&quot;</span><br></pre></td></tr></table></figure>
+<p>在识别您选择的组件的包名之后，对于不支持dnf的平台，使用以下命令更新包，用包名替换包名:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update package-name</span><br></pre></td></tr></table></figure>
+<p>对于支持dnf的平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade package-name</span><br></pre></td></tr></table></figure>
+<p>替换MySQL的本地第三方发行版</p>
+<p>要用MySQL Yum库最新的GA版本(目前来自MySQL 8.0系列)替换从受支持的Linux平台的本地软件仓库安装的第三方MySQL发行版，请执行以下步骤:</p>
+<p>备份数据库<br>为了避免数据丢失，请在尝试使用MySQL Yum库替换MySQL安装之前备份数据库。有关如何备份数据库，请参阅备份和恢复。</p>
+<p>添加MySQL Yum存储库</p>
+<p>通过添加MySQL Yum存储库中给出的说明，将MySQL Yum存储库添加到您的系统的存储库列表中。</p>
+<p>用Yum更新或DNF升级替换本机第三方发行版</p>
+<p>通过设计,MySQL Yum资源库将取代你的本地,第三方MySQL在最新的GA版本(从目前的MySQL 8.0系列)从MySQL百胜库执行Yum更新命令时(或dnf升级dnf-enabled系统)系统,或Yum更新MySQL服务器(或MySQL服务器升级dnf dnf-enabled系统)。</p>
+<p>在使用Yum存储库更新MySQL之后，使用旧版本的共享客户机库编译的应用程序应该继续工作。但是，如果您想重新编译应用程序并动态地将它们与更新后的库链接起来，请参阅升级共享客户机库以获得一些特殊的考虑。</p>
+<p>备注</p>
+<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
+<p>如果您已经从一个非本地存储库下载并安装了MySQL的第三方分发版（例如，来自MariaDB或Percona），那么在MySQL服务器的参考手册中，遵循替换它们的说明是很重要的。</p>
+<p>使用Yum存储库安装MySQL NDB集群、</p>
+<p>备注</p>
+<p>下面的说明假设MySQL服务器和MySQL NDB集群都已经安装在您的系统上;如果不是这样，那么在继续之前，删除MySQL服务器或MySQL NDB集群，包括所有可执行文件、库、配置文件和数据目录。但是，没有必要删除您可能用于在系统上启用MySQL Yum存储库的放行包。</p>
+<p>NDB集群SQL节点包对Perl类：：MethodMaker模块有依赖关系。如果在您的系统上启用了EPEL（Enterprise Linux的额外包），Yum可以处理这种依赖关系;请参阅这里的说明，了解如何启用EPEL存储库。</p>
+<p>MySQL Yum存储库支持MySQL NDB集群的安装，仅用于发布7.5.6和后续版本，并且只支持EL6和EL7平台。对于其他安装NDB集群的方法，请参阅Linux上的NDB集群的安装，或者在Linux上安装NDB集群，这取决于您正在使用的发布系列。</p>
+<p>为MySQL NDB集群添加MySQL Yum存储库</p>
+<p>按照添加MySQL Yum存储库的步骤，将MySQL Yum存储库添加到系统的存储库列表中。如果您之前已经完成了这个步骤，那么请确保您拥有最新版本的发布包，运行以下命令，以支持那些没有启用dnf的平台：</p>
+<p>shell&gt; sudo yum update mysql57-community-release</p>
+<p>对于支持dnf的平台</p>
+<p>shell&gt; sudo dnf –refresh upgrade mysql57-community-release</p>
+<p>选择MySQL NDB集群子存储库</p>
+<p>在MySQL Yum库(<a href="http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL" target="_blank" rel="noopener">http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL</a> NDB集群托管在不同的子存储库中。默认情况下，将启用MySQL服务器最新GA系列的子存储库，并禁用MySQL NDB集群的子存储库。要安装NDB集群，请禁用MySQL服务器的子存储库，并启用NDB集群的子存储库。如果您的平台支持yum-config-manager或dnf config-manager命令，您可以通过发出以下命令来做到这一点，该命令禁用了MySQL 5.7系列的子存储库，并为MySQL NDB集群7.5启用了这个命令;对于不支持dnf的平台:</p>
+<p>shell&gt; sudo yum-config-manager –disable mysql57-community<br>shell&gt; sudo yum-config-manager –enable mysql-cluster-7.5-community</p>
+<p>对于支持dnf的平台</p>
+<p>shell&gt; sudo dnf config-manager –disable mysql57-community<br>shell&gt; sudo dnf config-manager –enable mysql-cluster-7.5-community</p>
+<p>除了使用yconfig管理器或dnf configmanager命令之外，您还可以通过手工编辑/etc/yum.repos.d/mysql-community来选择子存储库。回购协议文件。这是文件中MySQL 5.7个子存储库的示例条目：</p>
+<p>[mysql57-community]<br>name=MySQL 5.7 Community Server<br>baseurl=<a href="http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/" target="_blank" rel="noopener">http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</a><br>enabled=1<br>gpgcheck=1<br>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</p>
+<p>要安装NDB集群7.5，您必须禁用MySQL 5.7的子存储库，方法是为上面的子库条目启用启用=0，并启用NDB集群7.5个子存储库，使其条目=1：</p>
+<p>[mysql-cluster-7.5-community]<br>name=MySQL Cluster 7.5 Community<br>baseurl=<a href="http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/" target="_blank" rel="noopener">http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/</a><br>enabled=1<br>gpgcheck=1<br>gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</p>
+<p>在保存文件的更改之后，通过运行以下命令来验证是否启用了正确的子存储库（支持dnf的系统，用dnf替换yum）：</p>
+<p>shell&gt; yum repolist enabled | grep mysql<br>!mysql-cluster-7.5-community/x86_64 MySQL Cluster 7.5 Community               18<br>!mysql-connectors-community/x86_64  MySQL Connectors Community                31<br>!mysql-tools-community/x86_64       MySQL Tools Community                     33</p>
+<p>NDB集群7.5（Community edition）的子存储库现已启用。<br>在列表中还有一些MySQL Yum存储库的其他子存储库，它们在默认情况下是启用的。</p>
+<p>安装MySQL NDB集群</p>
+<p>对于MySQL NDB集群的最小安装，请遵循以下步骤（用于支持dnf的系统，用dnf替换yum中的yum）：</p>
+<p>为SQL节点安装组件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-server</p>
+<p>安装完成后，按照启动MySQL服务器的步骤启动和初始化SQL节点。 </p>
+<p>如果您选择使用mysqld——初始化命令（请参阅使用mysqld手动初始化数据目录）来手动初始化数据目录，则会生成根密码并将其存储在SQL节点的错误日志中;有关如何查找密码的MySQL服务器初始化，以及您需要了解的一些事情。</p>
+<p>为管理节点安装可执行文件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-management-server</p>
+<p>为数据节点安装可执行文件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-data-node</p>
+<p>配置和启动MySQL NDB集群</p>
+<p>关于如何配置MySQL NDB集群和NDB集群的初始启动，请参阅NDB集群的初始配置，了解如何第一次启动它。</p>
+<p>备注</p>
+<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
+<p>安装额外的MySQL NDB集群产品和组件</p>
+<p>您可以使用Yum从MySQL Yum存储库中安装MySQL NDB集群的单个组件和附加产品。<br>要做到这一点，假设您已经在系统的存储库列表中已经有了MySQL Yum存储库（如果没有的话，请遵循使用Yum存储库安装MySQL NDB集群的步骤1和步骤2），遵循在安装额外的MySQL产品和组件时所提供的相同步骤。</p>
+<p>备注</p>
+<p>已知的问题：目前，当您安装测试套件包（mysql-集群-社区测试）时，并不是运行MySQL NDB集群测试套件所需的所有组件。在运行测试套件之前，先安装yum安装（或dnf安装的dnf系统）的下列软件包：</p>
+<ul>
+<li><p>mysql-cluster-community-auto-installer</p>
+</li>
+<li><p>mysql-cluster-community-management-server</p>
+</li>
+<li><p>mysql-cluster-community-data-node</p>
+</li>
+<li><p>mysql-cluster-community-memcached</p>
+</li>
+<li><p>mysql-cluster-community-java</p>
+</li>
+<li><p>mysql-cluster-community-ndbclient-devel</p>
+</li>
+</ul>
+<p>补充</p>
+<p>关于MySQL Yum存储库的更多信息可以在MySQL服务器参考手册的以下部分中找到：<br>Installing MySQL on Linux Using the MySQL Yum Repository</p>
+<p>Replacing a Third-Party Distribution of MySQL Using the MySQL Yum Repository</p>
+<p>Upgrading MySQL with the MySQL Yum Repository</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/29/CentOS下PostgreSQL安装/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1080,6 +1392,148 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/Nginx配置SSL证书/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="青花葬水">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/06/22/Nginx配置SSL证书/" itemprop="url">Nginx配置SSL证书</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00+08:00">
+                2018-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
+                    <span itemprop="name">OpenSSL</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen     443;</span><br><span class="line">     server_name  127.0.0.1;</span><br><span class="line"></span><br><span class="line">     ssl on; </span><br><span class="line"></span><br><span class="line">     ssl_certificate   /usr/local/cert/证书名.pem;</span><br><span class="line">     ssl_certificate_key  /usr/local/cert/证书名.key;</span><br><span class="line">     ssl_session_timeout 5m;</span><br><span class="line">     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">     ssl_prefer_server_ciphers on;</span><br><span class="line">     ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line"></span><br><span class="line">     location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8089;        </span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     error_page   500 502 503 504  /50x.html;</span><br><span class="line">     location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/openSSL生成SSL证书/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -1181,148 +1635,6 @@
 <h4 id="生成证书"><a href="#生成证书" class="headerlink" title="生成证书"></a>生成证书</h4><p>自签名证书，用于自己测试，不需要CA签发</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl req -new -x509 -key private.key -out cacert.pem -days 36500</span><br></pre></td></tr></table></figure>
 <p>至此，生成的证书已经可以使用了。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/22/Nginx配置SSL证书/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/22/Nginx配置SSL证书/" itemprop="url">Nginx配置SSL证书</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-22T00:00:00+08:00">
-                2018-06-22
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/OpenSSL/" itemprop="url" rel="index">
-                    <span itemprop="name">OpenSSL</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">     listen     443;</span><br><span class="line">     server_name  127.0.0.1;</span><br><span class="line"></span><br><span class="line">     ssl on; </span><br><span class="line"></span><br><span class="line">     ssl_certificate   /usr/local/cert/证书名.pem;</span><br><span class="line">     ssl_certificate_key  /usr/local/cert/证书名.key;</span><br><span class="line">     ssl_session_timeout 5m;</span><br><span class="line">     ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:ECDHE:ECDH:AES:HIGH:!NULL:!aNULL:!MD5:!ADH:!RC4;</span><br><span class="line">     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;</span><br><span class="line">     ssl_prefer_server_ciphers on;</span><br><span class="line">     ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line"></span><br><span class="line">     location / &#123;</span><br><span class="line">        proxy_pass http://127.0.0.1:8089;        </span><br><span class="line">     &#125;</span><br><span class="line"></span><br><span class="line">     error_page   500 502 503 504  /50x.html;</span><br><span class="line">     location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">     &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
           
         
@@ -1677,188 +1989,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/12/Nginx入门/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="青花葬水">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/06/12/Nginx入门/" itemprop="url">Nginx入门</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-12T00:00:00+08:00">
-                2018-06-12
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/Nginx/" itemprop="url" rel="index">
-                    <span itemprop="name">Nginx</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h3 id="Nginx简介"><a href="#Nginx简介" class="headerlink" title="Nginx简介"></a>Nginx简介</h3><h4 id="常见的Web服务器"><a href="#常见的Web服务器" class="headerlink" title="常见的Web服务器"></a>常见的Web服务器</h4><p>Web服务器也称为WWW服务器、HTTP服务器，其主要功能是提供网上信息浏览服务。</p>
-<p>Unix和Linux平台下常用的Web服务器有以下几种：</p>
-<ul>
-<li>Apache</li>
-<li>Nginx</li>
-<li>Lighttpd</li>
-<li>Tomcat</li>
-<li>IBM WebSphere</li>
-</ul>
-<p>其中应用最广泛的是Apache。</p>
-<p>嗯，但是我们这篇文章的主角是Nginx，所以如果有同学想了解Apache的话，可以去自己查询相关资料。</p>
-<h4 id="Nginx诞生"><a href="#Nginx诞生" class="headerlink" title="Nginx诞生"></a>Nginx诞生</h4><p>Nginx是俄罗斯人Igor Sysoev编写的一款高性能的HTTP和反向代理服务器，也是一个 IMAP/POP3/SMTP 代理服务器。于2004年10月4日发布第一个公开版本1.0，开源协议是类BSD许可协议，目前最新版本是1.15.0（2018-06-05发布）</p>
-<h4 id="选择理由"><a href="#选择理由" class="headerlink" title="选择理由"></a>选择理由</h4><h5 id="支持高并发链接"><a href="#支持高并发链接" class="headerlink" title="支持高并发链接"></a>支持高并发链接</h5><p>官方测试Nginx能够支持5万并发连接，在实际生产环境中可以支撑2~4万并发连接数。这得益于Nginx使用了最新的epoll（Linux2.6内核）和kqueue（freebsd）网络I/O模型.</p>
-<h5 id="内存消耗少"><a href="#内存消耗少" class="headerlink" title="内存消耗少"></a>内存消耗少</h5><h5 id="成本低廉"><a href="#成本低廉" class="headerlink" title="成本低廉"></a>成本低廉</h5><p>开源软件，可以免费使用，并且可以用于商业用途</p>
-<h5 id="配置文件非常简单"><a href="#配置文件非常简单" class="headerlink" title="配置文件非常简单"></a>配置文件非常简单</h5><h5 id="支持Rewrite重写规则"><a href="#支持Rewrite重写规则" class="headerlink" title="支持Rewrite重写规则"></a>支持Rewrite重写规则</h5><p>能够根据域名、URL的不同，将HTTP请求分到不同的后端服务器群组</p>
-<h5 id="内置的健康检查功能"><a href="#内置的健康检查功能" class="headerlink" title="内置的健康检查功能"></a>内置的健康检查功能</h5><p>如果Nginx Proxy后端的某个Web服务器宕机了，不会影响前端访问</p>
-<h5 id="节省带宽"><a href="#节省带宽" class="headerlink" title="节省带宽"></a>节省带宽</h5><p>支持GZIP压缩，可以添加浏览器本地缓存的Header头</p>
-<h5 id="稳定性高"><a href="#稳定性高" class="headerlink" title="稳定性高"></a>稳定性高</h5><p>用于反向代理，宕机的概率微乎其微</p>
-<h5 id="支持热部署"><a href="#支持热部署" class="headerlink" title="支持热部署"></a>支持热部署</h5><p>可以在不间断服务的情况下对软件版本进行升级</p>
-<h3 id="Nginx安装配置"><a href="#Nginx安装配置" class="headerlink" title="Nginx安装配置"></a>Nginx安装配置</h3><h4 id="pcre安装"><a href="#pcre安装" class="headerlink" title="pcre安装"></a>pcre安装</h4><p>pcre是一个正则表达式库，让nginx支持rewrite需要安装这个库。</p>
-<h5 id="下载地址"><a href="#下载地址" class="headerlink" title="下载地址"></a>下载地址</h5><p><a href="https://ftp.pcre.org/pub/pcre/" target="_blank" rel="noopener">https://ftp.pcre.org/pub/pcre/</a></p>
-<h5 id="常用支持库安装"><a href="#常用支持库安装" class="headerlink" title="常用支持库安装"></a>常用支持库安装</h5><p>在CentOS安装软件的时候，可能缺少一部分支持库，而报错。这里首先安装系统常用的支持库。那么在安装的时候就会减少很多的错误的出现。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install -y gcc gdb strace gcc-c++ autoconf libjpeg libjpeg-devel libpng libpng-devel freetype freetype-devel libxml2 libxml2-devel zlib zlib-devel glibc glibc-devel glib2 glib2-devel bzip2 bzip2-devel ncurses ncurses-devel curl curl-devel e2fsprogs patch e2fsprogs-devel krb5-devel libidn libidn-devel openldap-devel nss_ldap openldap-clients openldap-servers libevent-devel libevent uuid-devel uuid mysql-devel</span><br></pre></td></tr></table></figure>
-<h5 id="gcc安装"><a href="#gcc安装" class="headerlink" title="gcc安装"></a>gcc安装</h5><p>检查是否安装了g++、gcc。rpm -qa | grep gcc 之后需要出现3个包如下图所示。</p>
-<p><img src="https://www.linuxidc.com/upload/2016_08/16081010262925.png" alt=""></p>
-<p>如果没有出现。需要安装g++、gcc。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># yum install gcc-c++</span><br></pre></td></tr></table></figure></p>
-<h5 id="上传pcre安装包到-usr-local-soft-pcre下"><a href="#上传pcre安装包到-usr-local-soft-pcre下" class="headerlink" title="上传pcre安装包到/usr/local/soft/pcre下"></a>上传pcre安装包到/usr/local/soft/pcre下</h5><h5 id="解压压缩包"><a href="#解压压缩包" class="headerlink" title="解压压缩包"></a>解压压缩包</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd /usr/local/soft/pcre</span><br><span class="line"># tar -zxvf pcre.tar.gz</span><br></pre></td></tr></table></figure>
-<h5 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd pcre</span><br><span class="line"># ./configure</span><br></pre></td></tr></table></figure>
-<h5 id="编译"><a href="#编译" class="headerlink" title="编译"></a>编译</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># make</span><br></pre></td></tr></table></figure>
-<h5 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># make install</span><br></pre></td></tr></table></figure>
-<h4 id="Nginx安装"><a href="#Nginx安装" class="headerlink" title="Nginx安装"></a>Nginx安装</h4><h5 id="判断系统是否安装了zlib-devel"><a href="#判断系统是否安装了zlib-devel" class="headerlink" title="判断系统是否安装了zlib-devel"></a>判断系统是否安装了zlib-devel</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># rpm -qa | grep zlib-devel</span><br></pre></td></tr></table></figure>
-<p>如果未安装，则使用yum进行安装</p>
-<h5 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h5><p><a href="http://nginx.org/en/download.html" target="_blank" rel="noopener">http://nginx.org/en/download.html</a></p>
-<p>下载稳定版本，不要下载最新版本</p>
-<h5 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># tar -zxvf nginx-1.14.0.tar.gz</span><br></pre></td></tr></table></figure>
-<h5 id="配置-1"><a href="#配置-1" class="headerlink" title="配置"></a>配置</h5><p>将软件安装在/usr/local/webserver目录下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd nginx-1.14.0</span><br><span class="line"># ./configure --prefix=/usr/local/webserver/nginx --with-http_stub_status_module --with-http_ssl_module --with-pcre=/var/server/soft/pcre</span><br></pre></td></tr></table></figure>
-<h5 id="编译和安装"><a href="#编译和安装" class="headerlink" title="编译和安装"></a>编译和安装</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># make</span><br><span class="line"># make install</span><br></pre></td></tr></table></figure>
-<h5 id="检查是否安装成功"><a href="#检查是否安装成功" class="headerlink" title="检查是否安装成功"></a>检查是否安装成功</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"># cd /usr/local/webserver/nginx/sbin</span><br><span class="line"># ./nginx -t</span><br></pre></td></tr></table></figure>
-<p>显示以下内容表示安装成功</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nginx: the configuration file /usr/local/webserver/nginx/conf/nginx.conf syntax is ok</span><br><span class="line">nginx: configuration file /usr/local/webserver/nginx/conf/nginx.conf test is successful</span><br></pre></td></tr></table></figure>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1911,7 +2041,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">69</span>
+                  <span class="site-state-item-count">70</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1922,7 +2052,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">24</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1933,7 +2063,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">25</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
