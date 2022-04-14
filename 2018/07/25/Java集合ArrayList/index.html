@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width">
 <meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
 
-
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
@@ -13,22 +14,22 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
 
-<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="ArrayList，Java中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE 基于数组实现，所以拥有数组的特点：数据连续，随机访问速度快（实现了RandomAccess标记接口，表明了随机读取的能力）；同样的，因为Java中的数组是不可变的，所以每次的增删数组都涉及到了数组的扩容和拷贝，速度上会较慢（ArrayList如果不考虑扩容的情况，效率和LinkedList不">
+    <meta name="description" content="ArrayList Java 中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE  基于数组实现，所以拥有数组的特点：数据连续，随机访问速度快（实现了RandomAccess标记接口，表明了随机读取的能力）；同样的，因为Java中的数组是不可变的，所以每次的增删数组都涉及到了数组的扩容和拷贝，速度上会较慢（ArrayList如果不考虑扩容的情况，效率和LinkedLis">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java集合ArrayList">
 <meta property="og:url" content="http://example.com/2018/07/25/Java%E9%9B%86%E5%90%88ArrayList/index.html">
 <meta property="og:site_name" content="青花小记">
-<meta property="og:description" content="ArrayList，Java中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE 基于数组实现，所以拥有数组的特点：数据连续，随机访问速度快（实现了RandomAccess标记接口，表明了随机读取的能力）；同样的，因为Java中的数组是不可变的，所以每次的增删数组都涉及到了数组的扩容和拷贝，速度上会较慢（ArrayList如果不考虑扩容的情况，效率和LinkedList不">
+<meta property="og:description" content="ArrayList Java 中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE  基于数组实现，所以拥有数组的特点：数据连续，随机访问速度快（实现了RandomAccess标记接口，表明了随机读取的能力）；同样的，因为Java中的数组是不可变的，所以每次的增删数组都涉及到了数组的扩容和拷贝，速度上会较慢（ArrayList如果不考虑扩容的情况，效率和LinkedLis">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2018-07-25T03:04:00.000Z">
-<meta property="article:modified_time" content="2020-04-04T13:38:51.817Z">
+<meta property="article:modified_time" content="2022-04-14T14:09:08.431Z">
 <meta property="article:author" content="qinghuazs">
 <meta property="article:tag" content="Java">
 <meta name="twitter:card" content="summary">
@@ -158,12 +159,19 @@
       <span class="links-of-author-item">
         <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
       </span>
-      <span class="links-of-author-item">
-        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
-      </span>
   </div>
 
 
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.iocoder.cn/" title="https:&#x2F;&#x2F;www.iocoder.cn&#x2F;" rel="noopener" target="_blank">艿艿源码</a>
+        </li>
+    </ul>
+  </div>
 
         </div>
       </div>
@@ -179,6 +187,8 @@
     <i class="fa fa-arrow-up"></i>
     <span>0%</span>
   </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
 
 <noscript>
   <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
@@ -232,7 +242,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2020-04-04 21:38:51" itemprop="dateModified" datetime="2020-04-04T21:38:51+08:00">2020-04-04</time>
+      <time title="修改时间：2022-04-14 22:09:08" itemprop="dateModified" datetime="2022-04-14T22:09:08+08:00">2022-04-14</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
@@ -245,6 +255,20 @@
     </span>
 
   
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>12k</span>
+    </span>
 </div>
 
         </div>
@@ -254,7 +278,8 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>ArrayList，<code>Java</code>中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE</p>
+        <mark class="label [primary]">ArrayList</mark> Java 中的动态数组实现，默认容量为10，最大容量为Integer.MAX_VALUE
+
 <p>基于数组实现，所以拥有数组的特点：数据连续，随机访问速度快（实现了RandomAccess标记接口，表明了随机读取的能力）；同样的，因为Java中的数组是不可变的，所以每次的增删数组都涉及到了数组的扩容和拷贝，速度上会较慢（ArrayList如果不考虑扩容的情况，效率和LinkedList不会有太大差别）；</p>
 <h2 id="扩容"><a href="#扩容" class="headerlink" title="扩容"></a>扩容</h2><p>在添加元素时，考虑到容量的因素，需要按情况进行扩容，默认的扩容方案如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    ensureCapacityInternal(size + <span class="number">1</span>);  <span class="comment">//扩容判断  size+1即为minCapacity，可满足add操作的最小容量</span></span><br><span class="line">    elementData[size++] = e;<span class="comment">//在末尾追加元素</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 可分配的最大数组长度</span></span><br><span class="line"><span class="comment"> * 一些虚拟机会在数组中保留头文字</span></span><br><span class="line"><span class="comment"> * 去分配一个更大长度的数组可能会导致内存溢出的错误：请求的数组大小超过虚拟机的限制</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">MAX_ARRAY_SIZE</span> <span class="operator">=</span> Integer.MAX_VALUE - <span class="number">8</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">ensureCapacityInternal</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (elementData == EMPTY_ELEMENTDATA) &#123; <span class="comment">//如果列表为空（没有元素）</span></span><br><span class="line">        minCapacity = Math.max(DEFAULT_CAPACITY, minCapacity);<span class="comment">//比较设定的最小容量和默认容量，取其中大最大值为最小容量；即minCapacity不满10，按10处理</span></span><br><span class="line">    &#125;</span><br><span class="line">    ensureExplicitCapacity(minCapacity);<span class="comment">//扩容判断</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">ensureExplicitCapacity</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    modCount++;<span class="comment">//修改次数加1，这个字段继承自AbstractList，用于在add  set等操作时进行ConcurrentModificationException异常判断</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (minCapacity - elementData.length &gt; <span class="number">0</span>)<span class="comment">//判断最小容量和当前列表的大小，注意是elementData.length而不是size</span></span><br><span class="line">        grow(minCapacity);<span class="comment">//当前容量不足，扩容</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">grow</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="type">int</span> <span class="variable">oldCapacity</span> <span class="operator">=</span> elementData.length;<span class="comment">//原有的容量</span></span><br><span class="line">    <span class="type">int</span> <span class="variable">newCapacity</span> <span class="operator">=</span> oldCapacity + (oldCapacity &gt;&gt; <span class="number">1</span>);<span class="comment">//新容量  原有的容量的1.5倍左右  &gt;&gt; 移位操作  即 1111右移1位变为0111 15-&gt;7</span></span><br><span class="line">    <span class="comment">// int newCapacity = (oldCapacity * 3)/2 + 1;  //JDK1.6的源码</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - minCapacity &lt; <span class="number">0</span>) <span class="comment">//如果扩容后的容量比所需的最小容量还小  溢出？？</span></span><br><span class="line">        newCapacity = minCapacity; <span class="comment">//设置最小容量为新的容量</span></span><br><span class="line">    <span class="keyword">if</span> (newCapacity - MAX_ARRAY_SIZE &gt; <span class="number">0</span>) <span class="comment">//再判断新容量是否超出所允许的最大长度  MAX_ARRAY_SIZE = Integer.MAX_VALUE - 8 为什么是这个数？？？ 没搞清楚</span></span><br><span class="line">        newCapacity = hugeCapacity(minCapacity); <span class="comment">//如果新容量超出最大长度，重新扩容</span></span><br><span class="line">    <span class="comment">// minCapacity is usually close to size, so this is a win:</span></span><br><span class="line">    elementData = Arrays.copyOf(elementData, newCapacity);<span class="comment">//数组拷贝，新数组长度为新容量的大小，扩容完毕</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">hugeCapacity</span><span class="params">(<span class="type">int</span> minCapacity)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (minCapacity &lt; <span class="number">0</span>) <span class="comment">// overflow</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">OutOfMemoryError</span>();<span class="comment">//溢出  抛异常  感觉不会出现这种情况</span></span><br><span class="line">    <span class="keyword">return</span> (minCapacity &gt; MAX_ARRAY_SIZE) ? <span class="comment">//如果最小容量超出所允许的最大长度，新容量就用Integer.MAX_VALUE,否则的话就用MAX_ARRAY_SIZE</span></span><br><span class="line">        Integer.MAX_VALUE :</span><br><span class="line">        MAX_ARRAY_SIZE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -703,11 +728,11 @@
 
 
 ​			
-            public List<E> subList(int fromIndex, int toIndex) {
-                subListRangeCheck(fromIndex, toIndex, size);
-                return new SubList(this, offset, fromIndex, toIndex);
-            }
-            
+​	        public List<E> subList(int fromIndex, int toIndex) {
+​	            subListRangeCheck(fromIndex, toIndex, size);
+​	            return new SubList(this, offset, fromIndex, toIndex);
+​	        }
+​			
             //是否发生越界
             private void rangeCheck(int index) {
                 if (index < 0 || index >= this.size)
@@ -741,7 +766,7 @@
 
     <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Java/" rel="tag"># Java</a>
+              <a href="/tags/Java/" rel="tag"><i class="fa fa-tag"></i> Java</a>
           </div>
 
         
@@ -780,7 +805,33 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+  <span class="author" itemprop="copyrightHolder">创作不易，文章转载请注明出处</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">221k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
 </div>
 
     </div>
@@ -788,15 +839,18 @@
 
   
   <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
-<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
 
   
 
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
 
 
 
 
   
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
 
