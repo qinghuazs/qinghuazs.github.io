@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本节主要内容是如何通过开发一个简单的”Hello World!” web应用突出Spring Boot 的一些关键特性。 我们使用 Maven 来构建这个项目，因为大多数 IDE 都支持它。  spring.io 网站包含了许多使用 Spring Boot 的”入门”指南。 如果你需要解决一个特定的问题，首先检查那里。 通过访问 start.spring.io 并从依赖项查询中选择”Web”sta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="04.开发你的第一个SpringBoot应用">
+<meta property="og:url" content="http://example.com/2019/06/19/04.%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AASpringBoot%E5%BA%94%E7%94%A8/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="本节主要内容是如何通过开发一个简单的”Hello World!” web应用突出Spring Boot 的一些关键特性。 我们使用 Maven 来构建这个项目，因为大多数 IDE 都支持它。  spring.io 网站包含了许多使用 Spring Boot 的”入门”指南。 如果你需要解决一个特定的问题，首先检查那里。 通过访问 start.spring.io 并从依赖项查询中选择”Web”sta">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2019-06-19T00:15:00.000Z">
+<meta property="article:modified_time" content="2019-06-19T00:15:47.072Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="SpringBoot翻译">
+<meta property="article:tag" content="2.1.5.RELEASE">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2019/06/19/04.%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AASpringBoot%E5%BA%94%E7%94%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2019/06/19/04.%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AASpringBoot%E5%BA%94%E7%94%A8/","path":"2019/06/19/04.开发你的第一个SpringBoot应用/","title":"04.开发你的第一个SpringBoot应用"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>04.开发你的第一个SpringBoot应用 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-POM-%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">创建 POM 文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0-Classpath-%E4%BE%9D%E8%B5%96"><span class="nav-number">2.</span> <span class="nav-text">添加 Classpath 依赖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E4%BB%A3%E7%A0%81"><span class="nav-number">3.</span> <span class="nav-text">编写代码</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#RestController-%E5%92%8C-RequestMapping-%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.1.</span> <span class="nav-text">@RestController 和 @RequestMapping 注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#EnableAutoConfiguration-%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.2.</span> <span class="nav-text">@EnableAutoConfiguration 注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%80%9Cmain%E2%80%9D-%E6%96%B9%E6%B3%95"><span class="nav-number">3.3.</span> <span class="nav-text">“main” 方法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BF%90%E8%A1%8C%E7%A4%BA%E4%BE%8B"><span class="nav-number">4.</span> <span class="nav-text">运行示例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%8F%AF%E6%89%A7%E8%A1%8C-Jar"><span class="nav-number">5.</span> <span class="nav-text">创建一个可执行 Jar</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/19/04.%E5%BC%80%E5%8F%91%E4%BD%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AASpringBoot%E5%BA%94%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="04.开发你的第一个SpringBoot应用 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          04.开发你的第一个SpringBoot应用
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2019-06-19 08:15:00 / 修改时间：08:15:47" itemprop="dateCreated datePublished" datetime="2019-06-19T08:15:00+08:00">2019-06-19</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot%E7%BF%BB%E8%AF%91/" itemprop="url" rel="index"><span itemprop="name">SpringBoot翻译</span></a>
+        </span>
+          ，
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot%E7%BF%BB%E8%AF%91/2-1-5-RELEASE/" itemprop="url" rel="index"><span itemprop="name">2.1.5.RELEASE</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本节主要内容是如何通过开发一个简单的”Hello World!” web应用突出Spring Boot 的一些关键特性。 我们使用 Maven 来构建这个项目，因为大多数 IDE 都支持它。</p>
+<blockquote>
+<p><a target="_blank" rel="noopener" href="https://spring.io/">spring.io</a> 网站包含了许多使用 Spring Boot 的”入门”<a target="_blank" rel="noopener" href="https://spring.io/guides">指南</a>。 如果你需要解决一个特定的问题，首先检查那里。</p>
+<p>通过访问 <a target="_blank" rel="noopener" href="https://start.spring.io/">start.spring.io</a> 并从依赖项查询中选择”Web”starter，可以快捷地完成以下步骤。 这样做会生成一个新的项目结构，以便您可以立即开始编码。 查看 <a target="_blank" rel="noopener" href="https://docs.spring.io/initializr/docs/current/reference/html/#user-guide">Spring Initializr 文档</a>了解更多细节。</p>
+</blockquote>
+<p>在我们开始之前，打开一个终端并运行以下命令，以确保你已经安装了 Java 和 Maven 的有效版本:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">java -version</span></span><br><span class="line">java version &quot;1.8.0_102&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_102-b14)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.102-b14, mixed mode)</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mvn -v</span></span><br><span class="line">Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-17T14:33:14-04:00)</span><br><span class="line">Maven home: /usr/local/Cellar/maven/3.3.9/libexec</span><br><span class="line">Java version: 1.8.0_102, vendor: Oracle Corporation</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>这个示例需要在它自己的文件夹中创建。 接下来的介绍假设你已经创建了一个合适的文件夹，并且这个文件夹就是你的工作目录。</p>
+</blockquote>
+<h2 id="创建-POM-文件"><a href="#创建-POM-文件" class="headerlink" title="创建 POM 文件"></a>创建 POM 文件</h2><p>我们首先需要创建一个 Maven <code>pom.xml</code> 文件。<code>pom.xml</code> 是用于构建项目的配方。 打开文本编辑器，添加以下内容:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span>?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span> <span class="attr">xmlns:xsi</span>=<span class="string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">&quot;http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.example<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>myproject<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">&lt;!-- Additional lines to be added here... --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><code>pom.xml</code> 文件会为您提供一个工作构建。 您可以通过运行 <code>mvn package</code> 来测试它(现在，您可以先忽略 “jar will be empty - no content was marked for inclusion!” 的警告)。</p>
+<blockquote>
+<p>现在，您可以将项目导入到 IDE 中(大多数Java IDE 都包含对 Maven 的内置支持)。 为了简单起见，我们继续使用纯文本编辑器。</p>
+</blockquote>
+<h2 id="添加-Classpath-依赖"><a href="#添加-Classpath-依赖" class="headerlink" title="添加 Classpath 依赖"></a>添加 Classpath 依赖</h2><p>Spring Boot 提供了很多 “Starter”，你可以将这些 jar 包添加到 classpath 中。在本例中，我们已经在 POM 文件的 <code>parent</code> 标签中使用了 <code>spring-boot-starter-parent</code>。<code>spring-boot-starter-parent</code> 是一个特殊的 Starter，它提供了一些有用的Maven的默认值。同时也提供了一个 <code>dependency-management</code> 标签，这些你可以省略部分依赖的 <code>version</code> 标记。</p>
+<p>其他 “Starter” 提供了在开发特定类型的应用程序时可能需要的依赖项。 因为我们正在开发一个 web 应用程序，所以我们添加了一个 <code>spring-boot-starter-web</code> 依赖项。 在此之前，我们可以通过运行以下命令查看我们当前已有的内容:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mvn dependency:tree</span></span><br><span class="line"></span><br><span class="line">[INFO] com.example:myproject:jar:0.0.1-SNAPSHOT</span><br></pre></td></tr></table></figure>
+
+<p><code>mvn dependency:tree</code> 命令以树的形式展示当前项目的依赖项。 您可以看到，<code>spring-boot-starter-parent</code> 本身并不提供任何依赖性。 要添加必要的依赖项，请编辑 <code>pom.xml</code> 并在 <code>&lt;parent&gt;</code> 节点下面添加 <code>spring-boot-starter-web</code> 依赖项:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果再次运行 <code>mvn dependency:tree</code> ，您会看到现在有许多附加的依赖项，包括 Tomcat web 服务器和 Spring Boot 本身。</p>
+<h2 id="编写代码"><a href="#编写代码" class="headerlink" title="编写代码"></a>编写代码</h2><p>为了完成我们的应用程序，我们需要创建一个 Java 文件。 默认情况下，Maven 从 <code>src/main/java</code> 下编译源代码，因此需要创建该文件夹结构，然后添加一个名为 <code>src/main/java/Examole.java</code> 的文件，该文件内容如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.springframework.boot.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="meta">@EnableAutoConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Example</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@RequestMapping(&quot;/&quot;)</span></span><br><span class="line">	String <span class="title function_">home</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&quot;Hello World!&quot;</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		SpringApplication.run(Example.class, args);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>虽然这里没有很多代码，但是有很多事情正在进行。 在接下来的几节中，我们将逐步介绍重要的部分。</p>
+<h3 id="RestController-和-RequestMapping-注解"><a href="#RestController-和-RequestMapping-注解" class="headerlink" title="@RestController 和 @RequestMapping 注解"></a>@RestController 和 @RequestMapping 注解</h3><p><code>Example</code> 类的第一个注解是 <code>@RestController</code>。 这是一个称为 <em>stereotype</em> 注解。 它为阅读代码的人提供了提示；对 Spring 来说，它提供了特殊的角色。 在这种情况下，我们的类是一个 web <code>@Controller</code>，因此 Spring 在处理传入的 web 请求时会考虑它。</p>
+<p><code>@RequestMapping</code> 注解提供”路由”信息。 它告诉 Spring，任何带有 <code>/</code> 路径的 HTTP 请求都应该映射到 <code>home</code> 方法。<code>@RestController</code> 注解告诉 Spring 将结果以字符串的形式直接返回给调用方。</p>
+<blockquote>
+<p><code>@RestController </code>和 <code>@RequestMapping</code> 注解是 Spring MVC 的注解。 (它们不是 Spring Boot 特有的。) 有关更多细节，请参见 Spring 参考文档中的 <a target="_blank" rel="noopener" href="https://docs.spring.io/spring/docs/5.1.7.RELEASE/spring-framework-reference/web.html#mvc">MVC 部分</a>。</p>
+</blockquote>
+<h3 id="EnableAutoConfiguration-注解"><a href="#EnableAutoConfiguration-注解" class="headerlink" title="@EnableAutoConfiguration 注解"></a>@EnableAutoConfiguration 注解</h3><p>第二个类级别的注解是 <code>@EnableAutoConfiguration</code>。 这个注解告诉 Spring Boot 根据你添加的 jar 依赖项”猜测”您希望如何配置 Spring。 由于 <code>spring-boot-starter-web</code> 添加了 Tomcat 和 Spring MVC，因此自动装配假定您正在开发 web 应用程序并相应地设置 Spring。</p>
+<blockquote>
+<p>Starter 和 自动装配</p>
+<p>自动装配被设计成与”Starter”一起工作，但是这两个概念并没有直接联系在一起。 您可以在 Starter 之外自由选择 jar 依赖项。 Spring Boot 仍然尽最大努力自动配置应用程序。</p>
+</blockquote>
+<h3 id="“main”-方法"><a href="#“main”-方法" class="headerlink" title="“main” 方法"></a>“main” 方法</h3><p>我们应用的最后一部分是 <code>main</code> 方法。 这只是遵循 Java 约定的应用程序入口点的标准方法。 我们的主方法委托给Spring Boot 的 <code>SpringApplication</code> 类，通过调用 <code>run</code> 来实现。 <code>SpringApplication</code> 启动我们的应用程序，启动 Spring，然后启动自动配置的 Tomcat web 服务器。 我们需要将 <code>Example.class</code> 作为参数传递给 <code>run</code> 方法，以告诉 <code>SpringApplication</code> 哪个是主 Spring 组件。  <code>args</code> 数组暴露出来以接收命令行参数。</p>
+<h2 id="运行示例"><a href="#运行示例" class="headerlink" title="运行示例"></a>运行示例</h2><p>此时，您的应用程序应该可以工作了。 由于使用了 <code>spring-boot-starter-parent</code> POM，因此可以使用一个有用的 <code>run</code> 目标来启动应用程序。 输入 <code>mvn spring-boot:run</code> 从根项目目录启动应用程序。 你应该看到类似下面的输出:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mvn spring-boot:run</span></span><br><span class="line"></span><br><span class="line">  .   ____          _            __ _ _</span><br><span class="line"> /\\ / ___&#x27;_ __ _ _(_)_ __  __ _ \ \ \ \</span><br><span class="line">( ( )\___ | &#x27;_ | &#x27;_| | &#x27;_ \/ _` | \ \ \ \</span><br><span class="line"> \\/  ___)| |_)| | | | | || (_| |  ) ) ) )</span><br><span class="line">  &#x27;  |____| .__|_| |_|_| |_\__, | / / / /</span><br><span class="line"> =========|_|==============|___/=/_/_/_/</span><br><span class="line"> :: Spring Boot ::  (v2.1.5.RELEASE)</span><br><span class="line">....... . . .	</span><br><span class="line">....... . . . (log output here)</span><br><span class="line">....... . . .</span><br><span class="line">........ Started Example in 2.222 seconds (JVM running for 6.514)</span><br></pre></td></tr></table></figure>
+
+<p>打开web 浏览器访问 <code>localhost: 8080</code>，可以看到如下输出:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
+
+<p>可以按 <code>ctrl-c</code>退出应用程序。</p>
+<h2 id="创建一个可执行-Jar"><a href="#创建一个可执行-Jar" class="headerlink" title="创建一个可执行 Jar"></a>创建一个可执行 Jar</h2><p>我们通过创建一个完全自包含的可执行 jar 文件来完成示例，该文件可以在生产环境中运行。 可执行的 jar (有时称为”fat jars”)是存档文件，其中包含您编译的类以及您的代码需要运行的所有 jar 依赖项。</p>
+<blockquote>
+<p>可执行的 jar 和 Java<br>Java 没有提供加载嵌套 jar 文件(jar 文件本身包含在 jar 中)的标准方法。 如果您希望分发一个自包含的应用程序，这可能会有问题。<br>为了解决这个问题，许多开发人员使用”超级”罐子(uber jar)。 一个 uber jar 将应用程序的所有依赖项的所有类打包到一个归档文件中。这种方法的问题在于，很难看到应用程序中有哪些库。如果在多个 jar 中使用相同的文件名(但内容不同) ，也会出现问题。<br>Spring Boot 采用了一种<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.1.5.RELEASE/reference/htmlsingle/#executable-jar">不同的方法</a>，它可以让您直接嵌套 jar。</p>
+</blockquote>
+<p>要创建一个可执行的 jar，我们需要将 <code>spring-boot-maven-plugin</code> 添加到 <code>pom.xml</code> 中。 为此，在 <code>dependencies</code> 部分下面插入以下行:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><code>spring-boot-starter-parent</code> POM 包括 <code>&lt;executions&gt;</code> 配置用于绑定 <code>repackage</code> 目标。 如果不使用父 POM，则需要自己声明此配置。 有关详细信息，请参阅<a target="_blank" rel="noopener" href="https://docs.spring.io/spring-boot/docs/2.1.5.RELEASE/maven-plugin/usage.html">插件文档</a>。</p>
+</blockquote>
+<p>保存 <code>pom.xml</code> 并从命令行运行 <code>mvn package</code>，如下所示:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">mvn package</span></span><br><span class="line"></span><br><span class="line">[INFO] Scanning for projects...</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Building myproject 0.0.1-SNAPSHOT</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] .... ..</span><br><span class="line">[INFO] --- maven-jar-plugin:2.4:jar (default-jar) @ myproject ---</span><br><span class="line">[INFO] Building jar: /Users/developer/example/spring-boot-example/target/myproject-0.0.1-SNAPSHOT.jar</span><br><span class="line">[INFO]</span><br><span class="line">[INFO] --- spring-boot-maven-plugin:2.1.5.RELEASE:repackage (default) @ myproject ---</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+
+<p>如果查看 <code>target</code> 目录，应该会看到 <code>myproject-0.0.1-SNAPSHOT.jar</code>。 文件大小应该在10MB 左右。 如果你想查看jar 包内部的信息，你可以使用 <code>jar tvf</code>，如下所示:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">jar tvf target/myproject-0.0.1-SNAPSHOT.jar</span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>target</code> 目录下，您还应该看到一个更小的文件，名为 <code>myproject-0.0.1-SNAPSHOT.jar.original</code>。 这是 Maven 在被 Spring Boot 重新打包之前创建的原始 jar 文件。</p>
+<p>要运行该应用程序，请使用 <code>java-jar</code> 命令，如下所示:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">$ </span><span class="language-bash">java -jar target/myproject-0.0.1-SNAPSHOT.jar</span></span><br><span class="line"></span><br><span class="line">  .   ____          _            __ _ _</span><br><span class="line"> /\\ / ___&#x27;_ __ _ _(_)_ __  __ _ \ \ \ \</span><br><span class="line">( ( )\___ | &#x27;_ | &#x27;_| | &#x27;_ \/ _` | \ \ \ \</span><br><span class="line"> \\/  ___)| |_)| | | | | || (_| |  ) ) ) )</span><br><span class="line">  &#x27;  |____| .__|_| |_|_| |_\__, | / / / /</span><br><span class="line"> =========|_|==============|___/=/_/_/_/</span><br><span class="line"> :: Spring Boot ::  (v2.1.5.RELEASE)</span><br><span class="line">....... . . .</span><br><span class="line">....... . . . (log output here)</span><br><span class="line">....... . . .</span><br><span class="line">........ Started Example in 2.536 seconds (JVM running for 2.864)</span><br></pre></td></tr></table></figure>
+
+<p>可以按<code>ctrl-c</code> 退出应用程序。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringBoot%E7%BF%BB%E8%AF%91/" rel="tag"># SpringBoot翻译</a>
+              <a href="/tags/2-1-5-RELEASE/" rel="tag"># 2.1.5.RELEASE</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2019/06/19/03.SpringBoot%E5%AE%89%E8%A3%85/" rel="prev" title="03.SpringBoot安装">
+                  <i class="fa fa-chevron-left"></i> 03.SpringBoot安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2020/01/08/Idea%E6%B3%A8%E5%86%8C%E7%A0%81/" rel="next" title="Idea 注册码">
+                  Idea 注册码 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

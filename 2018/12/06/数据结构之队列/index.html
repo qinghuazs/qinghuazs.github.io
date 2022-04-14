@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="队列（queue），是先进先出（FIFO, First-In-First-Out）的线性表。在具体应用中通常用链表或者数组来实现。 队列的操作方式和堆栈类似，唯一的区别在于队列只允许新数据在后端进行添加。 队列只允许在后端（称为 rear ）进行插入操作，在前端（称为 front ）进行删除操作。进行插入操作的端称为队尾，进行删除操作的端称为队头。从队头删除元素的操作叫做出队，从队尾追加元素的操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据结构之队列">
+<meta property="og:url" content="http://example.com/2018/12/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%98%9F%E5%88%97/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="队列（queue），是先进先出（FIFO, First-In-First-Out）的线性表。在具体应用中通常用链表或者数组来实现。 队列的操作方式和堆栈类似，唯一的区别在于队列只允许新数据在后端进行添加。 队列只允许在后端（称为 rear ）进行插入操作，在前端（称为 front ）进行删除操作。进行插入操作的端称为队尾，进行删除操作的端称为队头。从队头删除元素的操作叫做出队，从队尾追加元素的操作">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-06T08:04:00.000Z">
+<meta property="article:modified_time" content="2018-12-09T00:56:31.329Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/12/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%98%9F%E5%88%97/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/12/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%98%9F%E5%88%97/","path":"2018/12/06/数据结构之队列/","title":"数据结构之队列"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>数据结构之队列 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97"><span class="nav-number">1.</span> <span class="nav-text">顺序队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.1.</span> <span class="nav-text">Java实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%95"><span class="nav-number">1.2.</span> <span class="nav-text">测试</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%81%87%E6%BA%A2%E5%87%BA"><span class="nav-number">1.3.</span> <span class="nav-text">假溢出</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97"><span class="nav-number">2.</span> <span class="nav-text">循环队列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Java%E5%AE%9E%E7%8E%B0-1"><span class="nav-number">2.2.</span> <span class="nav-text">Java实现</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%951"><span class="nav-number">2.3.</span> <span class="nav-text">测试1</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%952"><span class="nav-number">2.4.</span> <span class="nav-text">测试2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%8B%E8%AF%953"><span class="nav-number">2.5.</span> <span class="nav-text">测试3</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E5%BC%8F%E9%98%9F%E5%88%97"><span class="nav-number">3.</span> <span class="nav-text">链式队列</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/06/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B9%8B%E9%98%9F%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="数据结构之队列 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          数据结构之队列
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-06 16:04:00" itemprop="dateCreated datePublished" datetime="2018-12-06T16:04:00+08:00">2018-12-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-12-09 08:56:31" itemprop="dateModified" datetime="2018-12-09T08:56:31+08:00">2018-12-09</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>队列（queue），是先进先出（FIFO, First-In-First-Out）的线性表。在具体应用中通常用链表或者数组来实现。</p>
+<p>队列的操作方式和堆栈类似，唯一的区别在于<font color="red">队列只允许新数据在后端进行添加</font>。</p>
+<p>队列只允许在后端（称为 rear ）进行插入操作，在前端（称为 front ）进行删除操作。进行插入操作的端称为队尾，进行删除操作的端称为队头。从队头删除元素的操作叫做出队，从队尾追加元素的操作叫做入队。</p>
+<p>队列可分为三种：顺序队列、循环队列、双端队列</p>
+<h3 id="顺序队列"><a href="#顺序队列" class="headerlink" title="顺序队列"></a>顺序队列</h3><p>顺序存储结构存储的队列称为顺序队列。和顺序表一样，用一个一维数组存。队头在数组的低下标端，队尾设在高下表端。队头，队尾指针值是数组元素的下标。队头指针始终指向队头结点的前一个结点位置，初始值为-1（理论上应该为0，但是Java中索引是从0开始的，索引为0代表队列中第一个元素，所以定为-1）。队尾指针是指向队尾结点位置，初始值也为-1。</p>
+<p>队列中没有元素时，称为空队列， </p>
+<ul>
+<li><p>初始化条件：<code>front=rear=-1</code> </p>
+</li>
+<li><p>队列空的条件：<code>front=rear</code></p>
+</li>
+<li><p>队列满的条件： <code>rear = MAXSIZE</code></p>
+</li>
+</ul>
+<h4 id="Java实现"><a href="#Java实现" class="headerlink" title="Java实现"></a>Java实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">OrderQueue</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Object[] data;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="variable">front</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="variable">rear</span> <span class="operator">=</span> -<span class="number">1</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 队列的长度</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> length;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_LENGTH</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 默认长度的队列</span></span><br><span class="line"><span class="comment">	 * 创建一个新的实例OrderQueue.</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">OrderQueue</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (length == <span class="number">0</span>) &#123;</span><br><span class="line">			length = DEFAULT_LENGTH;</span><br><span class="line">		&#125;</span><br><span class="line">		data = <span class="keyword">new</span> <span class="title class_">Object</span>[length];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 指定队列的长度</span></span><br><span class="line"><span class="comment">	 * 创建一个新的实例OrderQueue.</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> length</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">OrderQueue</span><span class="params">(<span class="type">int</span> length)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.length = length;</span><br><span class="line">		data = <span class="keyword">new</span> <span class="title class_">Object</span>[length];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 入队</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:02:30</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title function_">in</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (rear == length-<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		data[++rear] = obj;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 入列</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:11:15</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> obj</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">pull</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (rear == length-<span class="number">1</span>) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>(<span class="string">&quot;队列已满&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		data[++rear] = obj;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 出队</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:18:57</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title function_">out</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(front == rear) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		front++;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> data[front];</span><br><span class="line">		data[front] = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 出队</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@author</span> qinghuazangshui 2018年7月27日 上午11:19:06</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@since</span> v1.0</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="type">boolean</span> <span class="title function_">push</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span>(front == rear) &#123;</span><br><span class="line">			<span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IndexOutOfBoundsException</span>(<span class="string">&quot;队列已空&quot;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		front++;</span><br><span class="line">		data[front] = <span class="literal">null</span>;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(Arrays.toString(data));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestOrderQueue</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">OrderQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OrderQueue</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">			<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line">		queue.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>循环向队列中添加元素，队列的默认长度是10，插入操作结束后打印当前队列的内容</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">null</span><br><span class="line">null</span><br><span class="line">null</span><br><span class="line">[10, 11, 12, 13, 14, 15, 16, 17, 18, 19]</span><br></pre></td></tr></table></figure>
+<p>可以看到，当插入10个元素后开始返回null值，表示队列已满，插入失败；最终打印的结果也只有10个元素。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestOrderQueue</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">OrderQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OrderQueue</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">			<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">			<span class="comment">//System.out.println(obj);</span></span><br><span class="line">		&#125;</span><br><span class="line">		queue.print();</span><br><span class="line">		</span><br><span class="line">		System.out.println(<span class="string">&quot;-----------分割线------------&quot;</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">			<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.out();</span><br><span class="line">			<span class="keyword">if</span>(obj == <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(obj);</span><br><span class="line">		&#125;</span><br><span class="line">		queue.print();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="number">19</span>]</span><br><span class="line">-----------分割线------------</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="number">19</span></span><br><span class="line">[<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>]</span><br></pre></td></tr></table></figure>
+
+<p>每次出队都返回此次出队的元素，并将队头指针向后移动一位，同时将原有索引的位置置空</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestOrderQueue</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">		<span class="type">OrderQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OrderQueue</span>();</span><br><span class="line">		<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">			<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">			<span class="comment">//System.out.println(obj);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//queue.print();</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//System.out.println(&quot;-----------分割线------------&quot;);</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">			<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.out();</span><br><span class="line">			<span class="keyword">if</span>(obj == <span class="literal">null</span>) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//System.out.println(obj);</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//queue.print();</span></span><br><span class="line">		</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(<span class="number">10</span>);</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>将所有元素出队后，再向队列中添加元素，返回null值，即添加失败；但是队列中明明10个位置都是空的，可用的。这就是顺序队列中的<strong>假溢出</strong>问题。</p>
+<h4 id="假溢出"><a href="#假溢出" class="headerlink" title="假溢出"></a>假溢出</h4><p>队尾指针已经指向队尾，即rear &#x3D; length-1；但是队列的前面部分仍有可用空间，但是此时已经不能再向队列中插入元素了，此种情况称为“假溢出”</p>
+<p>解决假溢出的方法，可以在每次元素出队时，所有元素整体向前移动，让空的存储单元留在队尾</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title function_">out2</span><span class="params">()</span> &#123;</span><br><span class="line">	<span class="keyword">if</span>(front == rear) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	front++;</span><br><span class="line">	<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> data[front];</span><br><span class="line">	</span><br><span class="line">	Object[] temp = <span class="keyword">new</span> <span class="title class_">Object</span>[length];</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=front+<span class="number">1</span>; i&lt;=rear; i++) &#123;</span><br><span class="line">		temp[i-<span class="number">1</span>] = data[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=rear+<span class="number">1</span>; i&lt;length; i++) &#123;</span><br><span class="line">		temp[i] = <span class="literal">null</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	data = temp;</span><br><span class="line">	front = -<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>测试</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">OrderQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OrderQueue</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	System.out.println(queue.out2());</span><br><span class="line">	queue.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">10</span><br><span class="line">[11, 12, 13, 14, 15, 16, 17, 18, 19, null]</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，不再出现假溢出的问题</p>
+<p>但是，这种处理方式涉及到大量的对象创建和数据移动，性能很低；还有一种较巧妙的解决方法，那就是循环队列</p>
+<h3 id="循环队列"><a href="#循环队列" class="headerlink" title="循环队列"></a>循环队列</h3><p>循环队列可以更简单防止伪溢出的发生，但队列大小是固定的。</p>
+<p>循环队列应用范围广泛，比如Linux内核当中的环形缓冲区就是基于循环队列来设计的。</p>
+<p>循环队列：采用环状顺序表来存放队列元素，有两个指针，其中 front 指针指向队列的队头元素，rear指针指向队尾元素的下一个位置，往队列中加进或取出元素时分别改变这两个变量的计数。当头尾指针（front &#x2F; rear）指向队列尾的元素（下标：QueueSize-1）时，其加1操作的结果是指向向量的下界0。</p>
+<p>循环队列中，由于入队时尾指针向前追赶头指针；出队时头指针向前追赶尾指针，造成队空和队满时头尾指针均相等。因此，无法通过条件front&#x3D;&#x3D;rear来判别队列是”空”还是”满”。</p>
+<p>解决这个问题的方法至少有三种：</p>
+<ul>
+<li>另设一布尔变量以区别队列的空和满；</li>
+<li>少用一个元素的空间。约定入队前，测试尾指针在循环意义下加1后是否等于头指针，若相等则认为队满（注意：rear所指的单元始终为空）；</li>
+<li>使用一个计数器记录队列中元素的总数（即队列长度）。</li>
+</ul>
+<p>此处我们采用第二种方式，少用一个元素的空间，根据尾指针在循环意义下加1后是否等于头指针判断队列是否满</p>
+<h4 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h4><ul>
+<li>初始化条件： <code>front == rear == 0</code></li>
+<li>队列满条件： <code>MOD(rear+1,m) == front</code></li>
+<li>队列空条件： <code>front == rear</code></li>
+<li>队头指针推进计算: <code>front = MOD(front+1,m)</code></li>
+<li>队尾指针推进计算: <code>rear = MOD(rear+1,m)</code></li>
+</ul>
+<h4 id="Java实现-1"><a href="#Java实现-1" class="headerlink" title="Java实现"></a>Java实现</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CycleQueue</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> Object[] data;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="variable">front</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> <span class="variable">rear</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DEFAULT_CAPACITY</span> <span class="operator">=</span> <span class="number">10</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> length;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">CycleQueue</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.data = <span class="keyword">new</span> <span class="title class_">Object</span>[DEFAULT_CAPACITY];</span><br><span class="line">		length = data.length;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">full</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> ((rear + <span class="number">1</span>) % length == front) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">empty</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (front == rear) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title function_">in</span><span class="params">(Object obj)</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (full()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		data[rear] = obj;</span><br><span class="line">		rear = (rear + <span class="number">1</span>) % length;</span><br><span class="line">		<span class="keyword">return</span> obj;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">synchronized</span> Object <span class="title function_">out</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">if</span> (empty()) &#123;</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> data[front];</span><br><span class="line">		data[front] = <span class="literal">null</span>;</span><br><span class="line">		front = (front + <span class="number">1</span>) % length;</span><br><span class="line">		<span class="keyword">return</span> obj;	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">print</span><span class="params">()</span> &#123;</span><br><span class="line">		System.out.println(Arrays.toString(data));</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试1"><a href="#测试1" class="headerlink" title="测试1"></a>测试1</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">CycleQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CycleQueue</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>尝试向循环队列中插入元素，当插入9个元素后，判定队列已满（空闲一个元素位置，用于区分队列满和队列空），所以不再插入元素。</p>
+<p>输出结果:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line"><span class="literal">null</span></span><br><span class="line"><span class="literal">null</span></span><br><span class="line"><span class="literal">null</span></span><br><span class="line"><span class="literal">null</span></span><br><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="literal">null</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="测试2"><a href="#测试2" class="headerlink" title="测试2"></a>测试2</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">CycleQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CycleQueue</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">		<span class="comment">//System.out.println(obj);</span></span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	System.out.println(<span class="string">&quot;-----------分割线------------&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.out();</span><br><span class="line">		<span class="keyword">if</span>(obj == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		System.out.println(obj);</span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line">       System.out.println(queue.empty());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从循环队列中取元素，然后再打印查看效果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="literal">null</span>]</span><br><span class="line">-----------分割线------------</span><br><span class="line"><span class="number">10</span></span><br><span class="line"><span class="number">11</span></span><br><span class="line"><span class="number">12</span></span><br><span class="line"><span class="number">13</span></span><br><span class="line"><span class="number">14</span></span><br><span class="line"><span class="number">15</span></span><br><span class="line"><span class="number">16</span></span><br><span class="line"><span class="number">17</span></span><br><span class="line"><span class="number">18</span></span><br><span class="line">[<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>]</span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，调用出队方法后，队列中元素置为null，队列为空</p>
+<h4 id="测试3"><a href="#测试3" class="headerlink" title="测试3"></a>测试3</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">	<span class="type">CycleQueue</span> <span class="variable">queue</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CycleQueue</span>();</span><br><span class="line">	<span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">10</span>; i&lt;<span class="number">23</span>; i++) &#123;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.in(i);</span><br><span class="line">		<span class="comment">//System.out.println(obj);</span></span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	System.out.println(<span class="string">&quot;-----------分割线------------&quot;</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="literal">true</span>) &#123;</span><br><span class="line">		<span class="type">Object</span> <span class="variable">obj</span> <span class="operator">=</span> queue.out();</span><br><span class="line">		<span class="keyword">if</span>(obj == <span class="literal">null</span>) &#123;</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//System.out.println(obj);</span></span><br><span class="line">	&#125;</span><br><span class="line">	queue.print();</span><br><span class="line">	</span><br><span class="line">	System.out.println(queue.empty());</span><br><span class="line"></span><br><span class="line">	queue.in(<span class="number">20</span>);</span><br><span class="line">	queue.in(<span class="number">21</span>);</span><br><span class="line">	queue.in(<span class="number">22</span>);</span><br><span class="line">	queue.in(<span class="number">23</span>);</span><br><span class="line">	queue.in(<span class="number">24</span>);</span><br><span class="line">	queue.in(<span class="number">25</span>);</span><br><span class="line">	queue.in(<span class="number">26</span>);</span><br><span class="line">	queue.in(<span class="number">27</span>);</span><br><span class="line">	queue.in(<span class="number">28</span>);</span><br><span class="line">	queue.in(<span class="number">29</span>);</span><br><span class="line">	queue.print();</span><br><span class="line">	</span><br><span class="line">	System.out.println(queue.full());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>队列为空后，再向队列中插入元素，输出结果：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">10</span>, <span class="number">11</span>, <span class="number">12</span>, <span class="number">13</span>, <span class="number">14</span>, <span class="number">15</span>, <span class="number">16</span>, <span class="number">17</span>, <span class="number">18</span>, <span class="literal">null</span>]</span><br><span class="line">-----------分割线------------</span><br><span class="line">[<span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>]</span><br><span class="line"><span class="literal">true</span></span><br><span class="line">[<span class="number">21</span>, <span class="number">22</span>, <span class="number">23</span>, <span class="number">24</span>, <span class="number">25</span>, <span class="number">26</span>, <span class="number">27</span>, <span class="number">28</span>, <span class="literal">null</span>, <span class="number">20</span>]</span><br><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+<p>可以看到空元素的位置发生了变化，元素29因为队列已满，并没有插入成功，调用full()方法返回true，队列已满。</p>
+<h3 id="链式队列"><a href="#链式队列" class="headerlink" title="链式队列"></a>链式队列</h3><p>TODO  </p>
+<p>等整理完链表的实现再来完善</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/08/17/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="prev" title="">
+                  <i class="fa fa-chevron-left"></i> 
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/12/12/MyBatisPlus%E4%B8%BB%E9%94%AE%E8%AE%BE%E7%BD%AE%E7%AD%96%E7%95%A5/" rel="next" title="MyBatisPlus主键设置策略">
+                  MyBatisPlus主键设置策略 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

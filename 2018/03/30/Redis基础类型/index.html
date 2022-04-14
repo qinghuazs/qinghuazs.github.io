@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="String 字符串类型二进制安全，可以包含任何数据，比如jpg图片或者序列化的对象；从内部实现看，string其实可以看做byte数组，最大上限是1G字节 语法set name qinghuazangshui --赋值 set key value  get name --获取内容 get key  setnx (not exist)  setnx name qinghua  --存在则修改，不存">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis基础类型">
+<meta property="og:url" content="http://example.com/2018/03/30/Redis%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="String 字符串类型二进制安全，可以包含任何数据，比如jpg图片或者序列化的对象；从内部实现看，string其实可以看做byte数组，最大上限是1G字节 语法set name qinghuazangshui --赋值 set key value  get name --获取内容 get key  setnx (not exist)  setnx name qinghua  --存在则修改，不存">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-07-01T04:07:12.000Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/03/30/Redis%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/03/30/Redis%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/","path":"2018/03/30/Redis基础类型/","title":"Redis基础类型"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis基础类型 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#String-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">String 字符串类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95"><span class="nav-number">1.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">Hash类型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AF%AD%E6%B3%95-1"><span class="nav-number">2.1.</span> <span class="nav-text">语法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#List%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">List类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#set%E9%9B%86%E5%90%88"><span class="nav-number">4.</span> <span class="nav-text">set集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#zset-%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88"><span class="nav-number">5.</span> <span class="nav-text">zset 有序集合</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/30/Redis%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis基础类型 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis基础类型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-30T00:00:00+08:00">2018-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-07-01 12:07:12" itemprop="dateModified" datetime="2018-07-01T12:07:12+08:00">2018-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h4 id="String-字符串类型"><a href="#String-字符串类型" class="headerlink" title="String 字符串类型"></a>String 字符串类型</h4><p>二进制安全，可以包含任何数据，比如jpg图片或者序列化的对象；从内部实现看，string其实可以看做byte数组，最大上限是1G字节</p>
+<h5 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h5><pre><code>set name qinghuazangshui --赋值 set key value
+
+get name --获取内容 get key
+
+setnx (not exist)
+
+setnx name qinghua  --存在则修改，不存在则赋值  setnx key value
+
+setex (expired)
+
+setex name 10 qinghua2 --设置过期时间
+
+setrange name 2 qaq --从第二位开始替换，替换成qaq
+
+mset key1 value1 key2 value2 --设置多个键值
+
+mget key1 key2 key3 --一次性取多个值
+
+getset name qinghua3 --返回旧值，返回新值 getset key value
+
+incr age  --递增操作，数字类型 incr key,相当于++操作，如果value不是int类型的会返回错误，incr一个不存在的key，则设置key的值为1
+
+decr age --递减操作，数字类型 decr key， 相当于--操作，decr一个不存在的key，则设置key的值为-1
+
+incrby/decrby age 3 --增加/减少指定的值 incrby/decrby key integer 
+
+append name 123 --追加
+</code></pre>
+<h4 id="Hash类型"><a href="#Hash类型" class="headerlink" title="Hash类型"></a>Hash类型</h4><p>Hash类型是String类型key和value的映射表，或者说是一个String集合</p>
+<p>添加、删除操作都是O(1)(平均)</p>
+<p>适合存储对象</p>
+<p>相对而言，将一个对象类型存储在Hash类型里要比存储在String类型里占用更少的内存空间，并方便存取整个对象；省内存的原因是新建一个hash对象时开始使用zipmap来存储的。</p>
+<p>如果field或者value的大小超出一定限制后，redis会在内部自动将zipmap替换成正常的hash实现，可以在配置文件中设置最大值</p>
+<pre><code>hash-max-zipmap-entries 64 #配置字段最多64个
+
+hash-max-zipmap-value 512 #配置value最大为512字节
+</code></pre>
+<h5 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h5><pre><code>hset user id 1 --设置属性和值 hset key field value
+
+hset user name qinghua
+
+hset user age 18
+
+hget user id --取值 hget key field
+
+hget user name 
+
+hmset user id  2 name qinghua2 age 20 --批量设置键值 hmset key field1 value1 field2 value2...
+
+hmget user id name age --批量取值 hmget key field1 field2...
+
+hexists user age --是否存在键值 hexists key field 
+
+hlen user --user的长度 hlen key 返回指定hash的field的数量 
+
+hkeys user --获取user的所有键  返回hash的所有field
+
+hvals user --获取user下的所有值 hvals key
+
+hgetall user --返回hash的所有的键值 hgetall key 
+
+hdel key field --删除指定的hash field
+
+hincrby key field integer --将制定hash field加上指定值
+</code></pre>
+<h4 id="List类型"><a href="#List类型" class="headerlink" title="List类型"></a>List类型</h4><p>链表结构（双向链表）的集合，即可以理解为一个每个子元素都是string类型的双向链表</p>
+<p>主要功能有push、pop、获取元素等，可以在头部或尾部增删元素，操作中key理解为链表的名字</p>
+<p>既可以作为栈，也可以作为队列</p>
+<pre><code>lpush list qinghua  --从头部添加元素，返回1表示成功，0表示key存在且不是list类型 lpush key string
+
+rpush list zangshui --在尾部添加元素 rpush key string
+
+linsert list before zangshui qaq --插入
+
+lrange list 0 -1 --遍历List，-1代表最后的索引位置  lrange key start end 返回指定区间内的元素，下标从0开始，复制表示从后面计算，-1表示倒数第一个元素，key不存在返回空列表
+
+lset key index value--将制定下表的元素替换掉，成功返回1
+
+lrem list 1 qinghua --删除元素，返回删除的元素个数 lrem key count value 从list的头部（正数）或尾部（负数）删除一定数量匹配value的元素，返回删除的元素数量，count为0时删除全部
+
+ltrim key start end--保留指定key的值范围内的数据，截取 list指定区间内元素，成功返回 1，key不存在返回错误
+
+lpop key--从头部删除元素，并返回删除元素
+
+rpop key--从尾部删除元素，并返回删除元素
+
+rpoplpush --从尾部删除元素，然后从头部插入元素
+
+lindex --返回名称为key的list中index位置的元素
+
+llen key--返回元素的个数,即返回key对应的list的长度，如果key不存在返回0，如果key对应类型不是list返回错误    
+</code></pre>
+<h4 id="set集合"><a href="#set集合" class="headerlink" title="set集合"></a>set集合</h4><p>string类型的无序集合，通过hashtable实现，实现集合的交集、并集、差集操作，查找的复杂度为O(1)，hashtable会随着添加或者删除自动的调整大小，需要注意的是调整hash table大小的时候需要同步（获取写锁），会阻塞其他读写操作。</p>
+<p>最大可以包含2^32-1个元素</p>
+<p>set中不允许重复</p>
+<pre><code>sadd set1 aaa --添加元素 sadd key member 成功返回1,如果元素以及在集合中则返回0，key对应的set不存在则返回错误
+
+srem key member --从key对应set中移除指定元素，成功返回1，如果member在集合中不存在或者key不存在返回0，如果key对应的不是set类型的值返回错误
+
+spop key --删除并返回key对应set中随机的一个元素，如果set是空或者key不存在返回nil
+
+srandmember key -- 同spop，随机取set中的一个元素，但是不删除元素
+
+smove srckey destkey member --从srckey对应set中移除member并添加到destkey对应set中，整个操作是原子的。成功返回1，如果member在srckey中不存在返回0，如果key不是set类型返回错误
+
+scard key --返回set中元素的个数，如果set是空或者key不存在返回0
+
+smembers key --返回key对应set的所有元素，结果是无序的
+
+sinter key1 key2 --返回所有给定key的交集
+
+sinterstore destkey key1 key2 --取交集结果，并存储到指定集合destkey中
+
+sunion key1 key2 --取并集
+
+sunionstore destkey key1 key2 --取并集结果，并存储到指定集合destkey中
+
+sdiff key1 key2 --返回所有给定key的差集
+
+sdiffstore destkey key1 key2 --取差集结果，并存储到指定集合destkey中
+
+sismember key member --判断member是否在set中，存在返回1,0表示不存在或者key不存在
+</code></pre>
+<h4 id="zset-有序集合"><a href="#zset-有序集合" class="headerlink" title="zset 有序集合"></a>zset 有序集合</h4><p>可以做搜索排行</p>
+<pre><code>zadd key score member--向有序集合中添加一个元素，元素在集合中存在则更新对应score
+
+zrem key member --删除指定元素，1表示成功，如果元素不存在返回0
+
+zincrby key incr member --增加对应member的score值，然后移动元素并保持skip list保持有序。返回更新后的score值
+
+zrank key member --返回指定元素在级合格中的排名（下标），集合中元素是按score从小到大排序的
+
+zrevrank key member --同上，但是结合中元素是按score从大到小排序
+
+zrange key start end --类似lrange操作从集合中去指定区间的元素，返回的是有序结果
+
+zrevrange key start end --同上，返回结果是按score逆序的
+
+zrangebyscore key min max --返回集合中score在给定区间的数量
+
+zcount key min max --返回集合中score在给定区间的数量
+
+zcard key --返回集合中元素个数
+
+zscore key element --返回给定元素对应的score      
+
+zremrangebyrank  key min max --删除集合中排名在给定区间的元素
+
+zremrangebyscore key min max --删除集合中score在给定区间的元素
+</code></pre>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/03/29/Redis%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" rel="prev" title="Redis配置文件">
+                  <i class="fa fa-chevron-left"></i> Redis配置文件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/03/31/Redis%E9%AB%98%E7%BA%A7%E5%91%BD%E4%BB%A4/" rel="next" title="Redis高级命令">
+                  Redis高级命令 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

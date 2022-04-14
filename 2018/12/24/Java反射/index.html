@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Java反射机制是在运行过程中，对于任意一个类，能够动态的获取对象的属性和方法 作用 获取类的变量，调用类的私有方法 增加代码的灵活性  获取类的Class对象通过对象的getClass()方法123String str &#x3D; &quot;Hello World&quot;;Class&lt;?&gt; clazz &#x3D; str.getClass();System.out.println(clazz)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java反射">
+<meta property="og:url" content="http://example.com/2018/12/24/Java%E5%8F%8D%E5%B0%84/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="Java反射机制是在运行过程中，对于任意一个类，能够动态的获取对象的属性和方法 作用 获取类的变量，调用类的私有方法 增加代码的灵活性  获取类的Class对象通过对象的getClass()方法123String str &#x3D; &quot;Hello World&quot;;Class&lt;?&gt; clazz &#x3D; str.getClass();System.out.println(clazz)">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-12-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2019-02-22T09:45:19.396Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/12/24/Java%E5%8F%8D%E5%B0%84/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/12/24/Java%E5%8F%8D%E5%B0%84/","path":"2018/12/24/Java反射/","title":"Java反射"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java反射 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E7%B1%BB%E7%9A%84Class%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">获取类的Class对象</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E5%AF%B9%E8%B1%A1%E7%9A%84getClass-%E6%96%B9%E6%B3%95"><span class="nav-number">2.1.</span> <span class="nav-text">通过对象的getClass()方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%B1%BB%E7%9A%84-class%E5%B1%9E%E6%80%A7"><span class="nav-number">2.2.</span> <span class="nav-text">通过类的.class属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Class%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95forName-String-className"><span class="nav-number">2.3.</span> <span class="nav-text">通过Class类的静态方法forName(String className)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">3.</span> <span class="nav-text">应用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%89%80%E6%9C%89%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">获取所有的构造方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95%E6%9E%84%E5%BB%BA%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.2.</span> <span class="nav-text">通过构造方法构建实例对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%9A%E8%BF%87Class%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%AE%9E%E4%BE%8B%E5%AF%B9%E8%B1%A1"><span class="nav-number">3.3.</span> <span class="nav-text">通过Class对象创建实例对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%B1%9E%E6%80%A7"><span class="nav-number">3.4.</span> <span class="nav-text">获取属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%96%B9%E6%B3%95"><span class="nav-number">3.5.</span> <span class="nav-text">获取方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E6%B3%A8%E8%A7%A3"><span class="nav-number">3.6.</span> <span class="nav-text">获取注解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">3.7.</span> <span class="nav-text">其他</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BE%85%E8%A1%A5%E5%85%85"><span class="nav-number">5.</span> <span class="nav-text">待补充</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/24/Java%E5%8F%8D%E5%B0%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java反射 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java反射
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-12-24 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-24T00:00:00+08:00">2018-12-24</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2019-02-22 17:45:19" itemprop="dateModified" datetime="2019-02-22T17:45:19+08:00">2019-02-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Java反射机制是在运行过程中，对于任意一个类，能够动态的获取对象的属性和方法</p>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ol>
+<li>获取类的变量，调用类的私有方法</li>
+<li>增加代码的灵活性</li>
+</ol>
+<h3 id="获取类的Class对象"><a href="#获取类的Class对象" class="headerlink" title="获取类的Class对象"></a>获取类的Class对象</h3><h4 id="通过对象的getClass-方法"><a href="#通过对象的getClass-方法" class="headerlink" title="通过对象的getClass()方法"></a>通过对象的getClass()方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">str</span> <span class="operator">=</span> <span class="string">&quot;Hello World&quot;</span>;</span><br><span class="line">Class&lt;?&gt; clazz = str.getClass();</span><br><span class="line">System.out.println(clazz);</span><br></pre></td></tr></table></figure>
+
+<p>输入结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过类的-class属性"><a href="#通过类的-class属性" class="headerlink" title="通过类的.class属性"></a>通过类的.class属性</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; clazz2 = String.class;</span><br><span class="line">System.out.println(clazz2);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br></pre></td></tr></table></figure>
+
+<h4 id="通过Class类的静态方法forName-String-className"><a href="#通过Class类的静态方法forName-String-className" class="headerlink" title="通过Class类的静态方法forName(String className)"></a>通过Class类的静态方法forName(String className)</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; clazz3 = Class.forName(<span class="string">&quot;java.lang.String&quot;</span>);</span><br><span class="line">System.out.println(clazz3);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：使用这种方法，需要写上包名，不需要写.class</p>
+</blockquote>
+<h3 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h3><p>先创建一个实体类User，具体内容如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> String password;</span><br><span class="line">	<span class="keyword">private</span> <span class="type">int</span> level;</span><br><span class="line">	<span class="keyword">private</span> String phone;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">User</span><span class="params">()</span> &#123;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">User</span><span class="params">(<span class="type">int</span> id, String name, String password, <span class="type">int</span> level, String phone)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.id = id;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.password = password;</span><br><span class="line">		<span class="built_in">this</span>.level = level;</span><br><span class="line">		<span class="built_in">this</span>.phone = phone;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">User</span><span class="params">(<span class="type">int</span> id, String name, String password)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.id = id;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">		<span class="built_in">this</span>.password = password;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="title function_">User</span><span class="params">(<span class="type">int</span> id, String name)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.id = id;</span><br><span class="line">		<span class="built_in">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="获取所有的构造方法"><a href="#获取所有的构造方法" class="headerlink" title="获取所有的构造方法"></a>获取所有的构造方法</h4><ul>
+<li>public Constructor&lt;?&gt;[] getConstructors()</li>
+</ul>
+<p>获得所有 public 访问权限的构造方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; clazz = Class.forName(<span class="string">&quot;org.spirit.lemon.reflect.User&quot;</span>);</span><br><span class="line">		</span><br><span class="line">System.out.println(<span class="string">&quot;获取所有的公共构造方法：&quot;</span>);</span><br><span class="line">Constructor&lt;?&gt;[] constructors = clazz.getConstructors();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; constructors.length; i++) &#123;</span><br><span class="line">	System.out.println(constructors[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> 输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">获取所有的公共构造方法：</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String,java.lang.String)</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String,java.lang.String,<span class="type">int</span>,java.lang.String)</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User()</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，只输出了三个public修饰的构造方法，私有的构造方法并未输出</p>
+<ul>
+<li>public Constructor<T> getConstructor(Class&lt;?&gt;… parameterTypes)</li>
+</ul>
+<p>获得指定的构造方法，注意只能获得 public 权限的构造方法，其他访问权限的获取不到</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;获取指定的公共构造方法:&quot;</span>);</span><br><span class="line">Constructor&lt;?&gt; constructor = clazz.getConstructor(Integer.class, String.class, String.class);</span><br><span class="line">System.out.println(constructor);</span><br><span class="line">System.out.println();</span><br><span class="line">		</span><br><span class="line">System.out.println(<span class="string">&quot;私有构造方法测试：&quot;</span>);</span><br><span class="line">constructor = clazz.getConstructor(Integer.class, String.class);</span><br><span class="line">System.out.println(constructor);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">获取指定的公共构造方法:</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String,java.lang.String)</span><br><span class="line"></span><br><span class="line">私有构造方法测试：</span><br><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.NoSuchMethodException: org.spirit.lemon.reflect.User.&lt;init&gt;(java.lang.Integer, java.lang.String)</span><br><span class="line">	at java.lang.Class.getConstructor0(Class.java:<span class="number">3082</span>)</span><br><span class="line">	at java.lang.Class.getConstructor(Class.java:<span class="number">1825</span>)</span><br><span class="line">	at org.spirit.lemon.reflect.Test.main(Test.java:<span class="number">37</span>)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到，只能获取public修饰的构造方法，在获取private修饰的构造方法时，抛出了异常信息</p>
+<ul>
+<li>public Constructor&lt;?&gt;[] getDeclaredConstructors()</li>
+</ul>
+<p>获得所有的构造方法，包括（public, private,protected,默认权限的） </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;获取所有的公共构造方法(包括私有构造方法)：&quot;</span>);</span><br><span class="line">Constructor[] constructors = clazz.getDeclaredConstructors();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; constructors.length; i++) &#123;</span><br><span class="line">	System.out.println(constructors[i]);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">获取所有的公共构造方法(包括私有构造方法)：</span><br><span class="line"><span class="keyword">private</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String)</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String,java.lang.String)</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String,java.lang.String,<span class="type">int</span>,java.lang.String)</span><br><span class="line"><span class="keyword">public</span> org.spirit.lemon.reflect.User()</span><br></pre></td></tr></table></figure>
+
+<p>不仅输出了public修饰的构造方法，private的构造方法也有输出</p>
+<ul>
+<li>public Constructor<T> getDeclaredConstructor(Class&lt;?&gt;… parameterTypes)</li>
+</ul>
+<p>获得指定的构造方法，注意可以获取到任何访问权限的构造方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(<span class="string">&quot;获取指定的构造方法(私有构造方法也可以获取)：&quot;</span>);</span><br><span class="line"><span class="type">Constructor</span> <span class="variable">constructor</span> <span class="operator">=</span> clazz.getDeclaredConstructor(Integer.class, String.class);</span><br><span class="line">System.out.println(constructor);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">获取指定的构造方法(私有构造方法也可以获取)：</span><br><span class="line"><span class="keyword">private</span> org.spirit.lemon.reflect.User(java.lang.Integer,java.lang.String)</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，private修饰的构造方法也可以获取到</p>
+<h4 id="通过构造方法构建实例对象"><a href="#通过构造方法构建实例对象" class="headerlink" title="通过构造方法构建实例对象"></a>通过构造方法构建实例对象</h4><p>获取到构造方法Constructor的对象之后，可以通过Constructor对象创建类的实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Constructor</span> <span class="variable">constructor</span> <span class="operator">=</span> clazz.getDeclaredConstructor(Integer.class, String.class, String.class);</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User)constructor.newInstance(<span class="number">1</span>, <span class="string">&quot;lemon&quot;</span>, <span class="string">&quot;a12345+&quot;</span>);</span><br><span class="line">System.out.println(user.toString());</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User [id=<span class="number">1</span>, name=lemon, password=a12345+, level=<span class="literal">null</span>, phone=<span class="literal">null</span>]</span><br></pre></td></tr></table></figure>
+
+<p>不过<strong>私有构造方法好像是不能通过这个方式创建对象的</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Constructor</span> <span class="variable">constructor</span> <span class="operator">=</span> clazz.getDeclaredConstructor(Integer.class, String.class);</span><br><span class="line"><span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> (User)constructor.newInstance(<span class="number">1</span>, <span class="string">&quot;lemon&quot;</span>);</span><br><span class="line">System.out.println(user.toString());</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Exception in thread <span class="string">&quot;main&quot;</span> java.lang.IllegalAccessException: Class org.spirit.lemon.reflect.Test can not access a member of <span class="keyword">class</span> <span class="title class_">org</span>.spirit.lemon.reflect.User with modifiers <span class="string">&quot;private&quot;</span></span><br><span class="line">	at sun.reflect.Reflection.ensureMemberAccess(Reflection.java:<span class="number">102</span>)</span><br><span class="line">	at java.lang.reflect.AccessibleObject.slowCheckMemberAccess(AccessibleObject.java:<span class="number">296</span>)</span><br><span class="line">	at java.lang.reflect.AccessibleObject.checkAccess(AccessibleObject.java:<span class="number">288</span>)</span><br><span class="line">	at java.lang.reflect.Constructor.newInstance(Constructor.java:<span class="number">413</span>)</span><br><span class="line">	at org.spirit.lemon.reflect.Test.main(Test.java:<span class="number">55</span>)</span><br></pre></td></tr></table></figure>
+
+<p>抛出异常，对象创建失败</p>
+<h4 id="通过Class对象创建实例对象"><a href="#通过Class对象创建实例对象" class="headerlink" title="通过Class对象创建实例对象"></a>通过Class对象创建实例对象</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">User</span> <span class="variable">user2</span> <span class="operator">=</span> (User)clazz.newInstance(); <span class="comment">//User.class.newInstance()也可以实现</span></span><br><span class="line">System.out.println(user2.toString());</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">User [id=<span class="number">0</span>, name=<span class="literal">null</span>, password=<span class="literal">null</span>, level=<span class="literal">null</span>, phone=<span class="literal">null</span>]</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p> 更多创建对象的方法可以参考<a target="_blank" rel="noopener" href="https://blog.csdn.net/w410589502/article/details/56489294">Java 创建对象的几种方式</a></p>
+</blockquote>
+<h4 id="获取属性"><a href="#获取属性" class="headerlink" title="获取属性"></a>获取属性</h4><p>添加Student类，继承User的属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span>  <span class="title class_">User</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> String cardNo;</span><br><span class="line">	<span class="keyword">private</span> Integer profession;</span><br><span class="line">	<span class="keyword">public</span> String cls;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">()</span> &#123;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> <span class="title function_">Student</span><span class="params">(String cardNo, Integer profession)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>();</span><br><span class="line">		<span class="built_in">this</span>.cardNo = cardNo;</span><br><span class="line">		<span class="built_in">this</span>.profession = profession;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">public</span> String <span class="title function_">getCardNo</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> cardNo;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCardNo</span><span class="params">(String cardNo)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.cardNo = cardNo;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> Integer <span class="title function_">getProfession</span><span class="params">()</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> profession;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setProfession</span><span class="params">(Integer profession)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.profession = profession;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getCls</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> cls;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setCls</span><span class="params">(String cls)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.cls = cls;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">toString</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Student [cardNo=&quot;</span> + cardNo + <span class="string">&quot;, profession=&quot;</span> + profession + <span class="string">&quot;, cls=&quot;</span> + cls + <span class="string">&quot;, id=&quot;</span> + id + <span class="string">&quot;, name=&quot;</span> + name</span><br><span class="line">                + <span class="string">&quot;, password=&quot;</span> + password + <span class="string">&quot;, level=&quot;</span> + level + <span class="string">&quot;, phone=&quot;</span> + phone + <span class="string">&quot;]&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>public Field[] getDeclaredFields()</li>
+</ul>
+<p>返回 <code>Field</code> 对象的一个数组，包括public、private、protected和default属性，但是<strong>不包括继承的属性</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">Class&lt;?&gt; clazz = Student.class;	</span><br><span class="line"></span><br><span class="line"><span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">student.setCardNo(<span class="string">&quot;1001&quot;</span>);</span><br><span class="line">student.setProfession(<span class="number">11055225</span>);</span><br><span class="line">student.setCls(<span class="string">&quot;数媒2班&quot;</span>);</span><br><span class="line"></span><br><span class="line">Field[] fields = clazz.getDeclaredFields();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; fields.length; i++) &#123;</span><br><span class="line">	<span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> fields[i];</span><br><span class="line">    field.setAccessible(<span class="literal">true</span>); <span class="comment">//设置属性可访问，否则私有属性无法获取值，抛出IllegalAccessException</span></span><br><span class="line">    </span><br><span class="line">	System.out.println(field);<span class="comment">//属性字段对象</span></span><br><span class="line">			</span><br><span class="line">	System.out.println(field.getName());<span class="comment">//属性名</span></span><br><span class="line">	System.out.println(field.getType());<span class="comment">//属性的类型</span></span><br><span class="line">    </span><br><span class="line">    System.out.println(field.get(student));<span class="comment">//获取对象指定属性的值</span></span><br><span class="line">			</span><br><span class="line">	System.out.println(<span class="string">&quot;-------------------------&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> java.lang.String org.spirit.lemon.reflect.Student.cardNo</span><br><span class="line">cardNo</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line"><span class="number">1001</span></span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">private</span> java.lang.Integer org.spirit.lemon.reflect.Student.profession</span><br><span class="line">profession</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.Integer</span><br><span class="line"><span class="number">11055225</span></span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.cls</span><br><span class="line">cls</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">数媒<span class="number">2</span>班</span><br><span class="line">-------------------------</span><br></pre></td></tr></table></figure>
+<ul>
+<li>public Field[] getFields()</li>
+</ul>
+<p>获取类的公共属性，包括继承的属性；私有属性无法获取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Field[] fields = clazz.getFields();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; fields.length; i++) &#123;</span><br><span class="line">	<span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> fields[i];</span><br><span class="line">	field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">            </span><br><span class="line">	System.out.println(field);</span><br><span class="line">            </span><br><span class="line">	System.out.println(field.getName());</span><br><span class="line">	System.out.println(field.getType());</span><br><span class="line">            </span><br><span class="line">	System.out.println(field.get(student));</span><br><span class="line">            </span><br><span class="line">	System.out.println(<span class="string">&quot;-------------------------&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.cls</span><br><span class="line">cls</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">数媒<span class="number">2</span>班</span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">public</span> <span class="type">int</span> org.spirit.lemon.reflect.User.id</span><br><span class="line">id</span><br><span class="line"><span class="type">int</span></span><br><span class="line"><span class="number">0</span></span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.User.name</span><br><span class="line">name</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line"><span class="literal">null</span></span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.User.password</span><br><span class="line">password</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line"><span class="literal">null</span></span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">public</span> java.lang.Integer org.spirit.lemon.reflect.User.level</span><br><span class="line">level</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.Integer</span><br><span class="line"><span class="literal">null</span></span><br><span class="line">-------------------------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.User.phone</span><br><span class="line">phone</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line"><span class="literal">null</span></span><br><span class="line">-------------------------</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，cardNo和profession两个私有属性没有输出</p>
+<ul>
+<li>public Field getDeclaredField(String name)</li>
+</ul>
+<p>获取指定属性的Field对象，包括private属性；不可以获取继承自父类的属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> clazz.getDeclaredField(<span class="string">&quot;cls&quot;</span>);</span><br><span class="line">field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">System.out.println(field);</span><br><span class="line">        </span><br><span class="line">System.out.println(field.getName());</span><br><span class="line">System.out.println(field.getType());</span><br><span class="line">        </span><br><span class="line">System.out.println(field.get(student));</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">public java.lang.String org.spirit.lemon.reflect.Student.cls</span><br><span class="line">cls</span><br><span class="line">class java.lang.String</span><br><span class="line">数媒2班</span><br></pre></td></tr></table></figure>
+<ul>
+<li>public Field getField(String name)</li>
+</ul>
+<p>获取指定属性的Field对象，包括继承自父类的属性；只能获取public修饰的属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Field</span> <span class="variable">field</span> <span class="operator">=</span> clazz.getField(<span class="string">&quot;cls&quot;</span>);</span><br><span class="line">field.setAccessible(<span class="literal">true</span>);</span><br><span class="line">        </span><br><span class="line">System.out.println(field);</span><br><span class="line">        </span><br><span class="line">System.out.println(field.getName());</span><br><span class="line">System.out.println(field.getType());</span><br><span class="line">        </span><br><span class="line">System.out.println(field.get(student));</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.User.name</span><br><span class="line">name</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line"><span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="获取方法"><a href="#获取方法" class="headerlink" title="获取方法"></a>获取方法</h4><p>在User类中添加方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;User&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Student类中添加私有方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">test2</span><span class="params">()</span> &#123;</span><br><span class="line">	System.out.println(<span class="string">&quot;Student&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>public Method[] getDeclaredMethods()</li>
+</ul>
+<p>获取所有的方法，包括private方法，但是不包括继承自父类的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Method[] methods = clazz.getDeclaredMethods();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; methods.length; i++) &#123;</span><br><span class="line">	<span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> methods[i];</span><br><span class="line">	System.out.println(method);</span><br><span class="line">	System.out.println(method.getName());<span class="comment">//方法名</span></span><br><span class="line">	System.out.println(method.getReturnType());<span class="comment">//返回值</span></span><br><span class="line">			</span><br><span class="line">	<span class="keyword">if</span> (method.getName().contains(<span class="string">&quot;test2&quot;</span>)) &#123;</span><br><span class="line">		method.setAccessible(<span class="literal">true</span>);<span class="comment">//设置可访问，否则私有方法执行报错</span></span><br><span class="line">		System.out.println(<span class="string">&quot;执行test2方法：&quot;</span>);</span><br><span class="line">		method.invoke(student, args);<span class="comment">//执行方法</span></span><br><span class="line">	&#125;</span><br><span class="line">	System.out.println(<span class="string">&quot;---------分割线----------&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.toString()</span><br><span class="line">toString</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.setCls(java.lang.String)</span><br><span class="line">setCls</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.test2()</span><br><span class="line">test2</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">执行test2方法：</span><br><span class="line">Student</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.setCardNo(java.lang.String)</span><br><span class="line">setCardNo</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.setProfession(java.lang.Integer)</span><br><span class="line">setProfession</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.getCardNo()</span><br><span class="line">getCardNo</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.getCls()</span><br><span class="line">getCls</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> java.lang.Integer org.spirit.lemon.reflect.Student.getProfession()</span><br><span class="line">getProfession</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.Integer</span><br><span class="line">---------分割线----------</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，User的方法test并没有获取到</p>
+<ul>
+<li>public Method[] getMethods()</li>
+</ul>
+<p>获取类的方法，包括继承自父类的方法；但是只能获取public修饰的方法，私有方法不能获取</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Method[] methods = clazz.getMethods();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; methods.length; i++) &#123;</span><br><span class="line">	<span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> methods[i];</span><br><span class="line">	System.out.println(method);</span><br><span class="line">	System.out.println(method.getName());<span class="comment">//方法名</span></span><br><span class="line">	System.out.println(method.getReturnType());<span class="comment">//返回值</span></span><br><span class="line">			</span><br><span class="line">	System.out.println(<span class="string">&quot;---------分割线----------&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.toString()</span><br><span class="line">toString</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.setProfession(java.lang.Integer)</span><br><span class="line">setProfession</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.setCardNo(java.lang.String)</span><br><span class="line">setCardNo</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.setCls(java.lang.String)</span><br><span class="line">setCls</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.getCardNo()</span><br><span class="line">getCardNo</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> java.lang.Integer org.spirit.lemon.reflect.Student.getProfession()</span><br><span class="line">getProfession</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.Integer</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> java.lang.String org.spirit.lemon.reflect.Student.getCls()</span><br><span class="line">getCls</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.String</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.User.test()</span><br><span class="line">test</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> java.lang.Object.wait() <span class="keyword">throws</span> java.lang.InterruptedException</span><br><span class="line">wait</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> java.lang.Object.wait(<span class="type">long</span>,<span class="type">int</span>) <span class="keyword">throws</span> java.lang.InterruptedException</span><br><span class="line">wait</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> java.lang.Object.wait(<span class="type">long</span>) <span class="keyword">throws</span> java.lang.InterruptedException</span><br><span class="line">wait</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> java.lang.Object.equals(java.lang.Object)</span><br><span class="line">equals</span><br><span class="line"><span class="type">boolean</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">native</span> <span class="type">int</span> java.lang.Object.hashCode()</span><br><span class="line">hashCode</span><br><span class="line"><span class="type">int</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> java.lang.Class java.lang.Object.getClass()</span><br><span class="line">getClass</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">java</span>.lang.Class</span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> java.lang.Object.notify()</span><br><span class="line">notify</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> java.lang.Object.notifyAll()</span><br><span class="line">notifyAll</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">---------分割线----------</span><br></pre></td></tr></table></figure>
+
+<p>可以看到Student的私有方法test2()并没有打印出来</p>
+<ul>
+<li>public Method getDeclaredMethod(String name, Class&lt;?&gt;… parameterTypes)</li>
+</ul>
+<p>获取本类指定的方法，包括私有方法；但是不能获取继承自父类的方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> clazz.getDeclaredMethod(<span class="string">&quot;test2&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">System.out.println(method);</span><br><span class="line">System.out.println(method.getName());<span class="comment">//方法名</span></span><br><span class="line">System.out.println(method.getReturnType());<span class="comment">//返回值</span></span><br><span class="line">		</span><br><span class="line">method.setAccessible(<span class="literal">true</span>);</span><br><span class="line">method.invoke(student, args);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">void</span> org.spirit.lemon.reflect.Student.test2()</span><br><span class="line">test2</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">Student</span><br></pre></td></tr></table></figure>
+<ul>
+<li>public Method getMethod(String name, Class&lt;?&gt;… parameterTypes)</li>
+</ul>
+<p>获取指定的方法，包括继承自父类的方法，但是只能获取public方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> clazz.getMethod(<span class="string">&quot;test&quot;</span>, <span class="literal">null</span>);</span><br><span class="line">System.out.println(method);</span><br><span class="line">System.out.println(method.getName());<span class="comment">//方法名</span></span><br><span class="line">System.out.println(method.getReturnType());<span class="comment">//返回值</span></span><br><span class="line">method.invoke(student, args);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> org.spirit.lemon.reflect.User.test()</span><br><span class="line">test</span><br><span class="line"><span class="keyword">void</span></span><br><span class="line">User</span><br></pre></td></tr></table></figure>
+<h4 id="获取注解"><a href="#获取注解" class="headerlink" title="获取注解"></a>获取注解</h4><p>通过Class对象也可以获取对应的类的注解信息。自定义注解就可以通过获取类&#x2F;方法&#x2F;属性的注解信息来判定是否需要进行必要的逻辑处理。</p>
+<p>在类Student的声明上添加两个注解，如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Description(&quot;test&quot;)</span></span><br><span class="line"><span class="meta">@Deprecated</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> <span class="keyword">extends</span>  <span class="title class_">User</span>&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>public Annotation[] getAnnotations()</li>
+</ul>
+<p>获取类的注解信息，返回注解类的对象数组；可以获取到继承自父类的注解信息（@Inherited修饰的注解才行）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Annotation[] annotations = clazz.getAnnotations();</span><br><span class="line"><span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; annotations.length; i++) &#123;</span><br><span class="line">	<span class="type">Annotation</span> <span class="variable">annotation</span> <span class="operator">=</span> annotations[i];</span><br><span class="line">	System.out.println(annotation);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@com</span>.sun.org.glassfish.gmbal.Description(key=, value=test)</span><br><span class="line"><span class="meta">@java</span>.lang.Deprecated()</span><br></pre></td></tr></table></figure>
+
+<p>可以看出，获取到了类的注解信息</p>
+<ul>
+<li>public Annotation[] getDeclaredAnnotations()</li>
+</ul>
+<p>获取直接作用在类上的注解信息，不包含继承的注解</p>
+<ul>
+<li>public <A extends Annotation> A getDeclaredAnnotation(Class<A> annotationClass)</li>
+</ul>
+<p>获取类的指定类型的注解信息，如果该类配置了指定注解，返回注解的对象信息，否则返回null</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Annotation</span> <span class="variable">annotation</span> <span class="operator">=</span> clazz.getDeclaredAnnotation(Deprecated.class);</span><br><span class="line">System.out.println(annotation);</span><br><span class="line">		</span><br><span class="line">annotation = clazz.getDeclaredAnnotation(Documented.class);</span><br><span class="line">System.out.println(annotation);</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@java</span>.lang.Deprecated()</span><br><span class="line"><span class="literal">null</span></span><br></pre></td></tr></table></figure>
+
+<p>Student声明了Deprecated注解，未声明Documented注解，所以第二行输出null</p>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><p>也可以通过Class类获取包(Package)、修饰符、父类、泛型等其他信息，此处不做介绍了。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>个人在开发过程中用到反射的地方并不是很多，但是使用的框架中（如Spring）大量的应用了反射技术，了解反射的使用方法有助于了解这些框架的实现；</p>
+<p>此外，反射会额外的消耗系统资源，效率上较直接创建对象、方法调用较差，但是更加灵活、方便。</p>
+<h3 id="待补充"><a href="#待补充" class="headerlink" title="待补充"></a>待补充</h3><ul>
+<li>反射的实现原理</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/12/24/SpringMVC/" rel="prev" title="SpringMVC">
+                  <i class="fa fa-chevron-left"></i> SpringMVC
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2019/01/05/SpringBoot%E5%86%85%E7%BD%AETocmat%E5%87%BA%E7%8E%B0Trace%E8%AF%B7%E6%B1%82%E6%BC%8F%E6%B4%9E/" rel="next" title="SpringBoot内置Tocmat出现Trace请求漏洞">
+                  SpringBoot内置Tocmat出现Trace请求漏洞 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

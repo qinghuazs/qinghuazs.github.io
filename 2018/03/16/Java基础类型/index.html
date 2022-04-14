@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="计算机中的常用单位位 bit计算机中的最小单元，缩写为b，值为0或1，表示一位的二进制信息 字节 byte计算机中的基本单位，缩写为B，1字节 &#x3D; 8位，即1byte &#x3D; 8bit 千字节 KB1KB &#x3D; 1024B 兆字节 MB1MB &#x3D; 1024KB 吉字节 GB又称千兆字节， 1GB &#x3D; 1024MB 其他单位TB 万亿字节 太字节  PB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java基础类型">
+<meta property="og:url" content="http://example.com/2018/03/16/Java%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="计算机中的常用单位位 bit计算机中的最小单元，缩写为b，值为0或1，表示一位的二进制信息 字节 byte计算机中的基本单位，缩写为B，1字节 &#x3D; 8位，即1byte &#x3D; 8bit 千字节 KB1KB &#x3D; 1024B 兆字节 MB1MB &#x3D; 1024KB 吉字节 GB又称千兆字节， 1GB &#x3D; 1024MB 其他单位TB 万亿字节 太字节  PB">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-03-15T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-07-01T04:14:36.000Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/03/16/Java%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/03/16/Java%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/","path":"2018/03/16/Java基础类型/","title":"Java基础类型"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Java基础类型 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E6%9C%BA%E4%B8%AD%E7%9A%84%E5%B8%B8%E7%94%A8%E5%8D%95%E4%BD%8D"><span class="nav-number">1.</span> <span class="nav-text">计算机中的常用单位</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BD%8D-bit"><span class="nav-number">1.1.</span> <span class="nav-text">位 bit</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AD%97%E8%8A%82-byte"><span class="nav-number">1.2.</span> <span class="nav-text">字节 byte</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8D%83%E5%AD%97%E8%8A%82-KB"><span class="nav-number">1.3.</span> <span class="nav-text">千字节 KB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%86%E5%AD%97%E8%8A%82-MB"><span class="nav-number">1.4.</span> <span class="nav-text">兆字节 MB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%89%E5%AD%97%E8%8A%82-GB"><span class="nav-number">1.5.</span> <span class="nav-text">吉字节 GB</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%8D%95%E4%BD%8D"><span class="nav-number">1.6.</span> <span class="nav-text">其他单位</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B%E5%8F%8A%E5%85%B6%E5%8C%85%E8%A3%85%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">基础类型及其包装类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#boolean"><span class="nav-number">2.1.</span> <span class="nav-text">boolean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#char"><span class="nav-number">2.2.</span> <span class="nav-text">char</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B4%E5%9E%8B"><span class="nav-number">2.3.</span> <span class="nav-text">整型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B"><span class="nav-number">2.4.</span> <span class="nav-text">浮点型</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Double%E7%9A%84%E7%89%B9%E6%AE%8A%E5%80%BC"><span class="nav-number">2.4.1.</span> <span class="nav-text">Double的特殊值</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/03/16/Java%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Java基础类型 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java基础类型
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-03-16 00:00:00" itemprop="dateCreated datePublished" datetime="2018-03-16T00:00:00+08:00">2018-03-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-07-01 12:14:36" itemprop="dateModified" datetime="2018-07-01T12:14:36+08:00">2018-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="计算机中的常用单位"><a href="#计算机中的常用单位" class="headerlink" title="计算机中的常用单位"></a>计算机中的常用单位</h3><h4 id="位-bit"><a href="#位-bit" class="headerlink" title="位 bit"></a>位 bit</h4><p>计算机中的最小单元，缩写为b，值为0或1，表示一位的二进制信息</p>
+<h4 id="字节-byte"><a href="#字节-byte" class="headerlink" title="字节 byte"></a>字节 byte</h4><p>计算机中的基本单位，缩写为B，1字节 &#x3D; 8位，即1byte &#x3D; 8bit</p>
+<h4 id="千字节-KB"><a href="#千字节-KB" class="headerlink" title="千字节 KB"></a>千字节 KB</h4><p>1KB &#x3D; 1024B</p>
+<h4 id="兆字节-MB"><a href="#兆字节-MB" class="headerlink" title="兆字节 MB"></a>兆字节 MB</h4><p>1MB &#x3D; 1024KB</p>
+<h4 id="吉字节-GB"><a href="#吉字节-GB" class="headerlink" title="吉字节 GB"></a>吉字节 GB</h4><p>又称千兆字节， 1GB &#x3D; 1024MB</p>
+<h4 id="其他单位"><a href="#其他单位" class="headerlink" title="其他单位"></a>其他单位</h4><p>TB 万亿字节 太字节 </p>
+<p>PB 千万亿字节 拍字节</p>
+<p>EB 百亿亿字节 艾字节</p>
+<p>ZB 十万亿亿字节 泽字节</p>
+<p>YB 一亿亿亿字节 尧字节</p>
+<p>BB 一千亿亿亿字节</p>
+<p>NB </p>
+<p>DB</p>
+<p>转化时，都以1024计算</p>
+<h3 id="基础类型及其包装类型"><a href="#基础类型及其包装类型" class="headerlink" title="基础类型及其包装类型"></a>基础类型及其包装类型</h3><table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th align="right">存储空间大小</th>
+<th align="right">最大值</th>
+<th align="right">最小值</th>
+<th align="center">包装类类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="center">Boolean</td>
+</tr>
+<tr>
+<td>char</td>
+<td align="right">16bit</td>
+<td align="right">Unicode 0</td>
+<td align="right">Unicode 2^16-1</td>
+<td align="center">Character</td>
+</tr>
+<tr>
+<td>byte</td>
+<td align="right">8bit</td>
+<td align="right">-128</td>
+<td align="right">127</td>
+<td align="center">Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td align="right">16bit</td>
+<td align="right">-2^15</td>
+<td align="right">2^15-1</td>
+<td align="center">Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td align="right">32bit</td>
+<td align="right">-2^31</td>
+<td align="right">2^31-1</td>
+<td align="center">Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td align="right">64bit</td>
+<td align="right">-2^63</td>
+<td align="right">2^63-1</td>
+<td align="center">Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td align="right">32bit</td>
+<td align="right">IEEE754</td>
+<td align="right">IEEE754</td>
+<td align="center">Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td align="right">64bit</td>
+<td align="right">IEEE754</td>
+<td align="right">IEEE754</td>
+<td align="center">Double</td>
+</tr>
+</tbody></table>
+<h4 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h4><p>boolean所占用的存储空间的大小没有明确指定，仅定义为能取字面值true和false</p>
+<h4 id="char"><a href="#char" class="headerlink" title="char"></a>char</h4><p>即Unicode字符</p>
+<p>char类型的字符中包含某些特殊字符，即转义字符</p>
+<p>常见的转义字符如下</p>
+<ul>
+<li>\b 退格</li>
+<li>\t 制表</li>
+<li>\n 换行</li>
+<li>\r 回车</li>
+<li>&quot; 双引号</li>
+<li>&#39; 单引号</li>
+<li>\\ 反斜杠</li>
+</ul>
+<h4 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h4><p>Java中，整形的默认类型为int，默认值为0</p>
+<p>byte和short主要用于特定的应用场合，如底层的文件处理</p>
+<p><strong>long类型的字面值都应该加L加以区分</strong>，如11L表示的long类型的11，而11则表示的是int类型的11</p>
+<h4 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h4><p>float为单精度浮点型。默认值是0.0F</p>
+<p>double是双精度浮点型，默认值是0.0</p>
+<p>浮点型的默认类型是double</p>
+<p>同long类型类似，float的表示要在字面量后方加F进行区分</p>
+<p>float和double都不能表示精确的值，如货币，主要原因是浮点数值采用二进制系统表示，而在二进制系统中无法精确的表示分数1&#x2F;10，这就好像十进制无法精确的表示1&#x2F;3一样。如果想要进行高精度的计算，可以使用BigDecimal类，该类大体上也属于“包装类”，但是并没有对应的基础类型。</p>
+<h5 id="Double的特殊值"><a href="#Double的特殊值" class="headerlink" title="Double的特殊值"></a>Double的特殊值</h5><p>Double.POSITIVE_INFINITY 正无穷大</p>
+<p>Double.NEGATIVE_INFINITY 负无穷大</p>
+<p>Double.NaN 非数字</p>
+<blockquote>
+<p>注意：不能使用 x &#x3D;&#x3D; Double.NaN 的方法检测一个特定值是否等于Double.NaN，可以使用Double.isNaN()方法</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java/" rel="tag"># Java</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/03/17/%E5%86%85%E9%83%A8%E7%B1%BB/" rel="next" title="内部类">
+                  内部类 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

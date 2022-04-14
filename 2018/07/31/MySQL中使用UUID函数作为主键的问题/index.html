@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="对于 InnoDB 这种聚集主键类型的引擎来说，数据会按照主键进行物理排序，这对 auto_increment int 是个好消息，因为后一次插入的主键位置总是在最后。但是对 uuid 来说，这却是个坏消息，因为 uuid 是杂乱无章的，每次插入的主键位置是不确定的，可能在开头，也可能在中间，在进行主键物理排序的时候，势必会造成大量的 IO操作影响效率，因此不适合使用 UUID 做物理主键。比较适">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MySQL中使用UUID函数作为主键的问题">
+<meta property="og:url" content="http://example.com/2018/07/31/MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UUID%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="对于 InnoDB 这种聚集主键类型的引擎来说，数据会按照主键进行物理排序，这对 auto_increment int 是个好消息，因为后一次插入的主键位置总是在最后。但是对 uuid 来说，这却是个坏消息，因为 uuid 是杂乱无章的，每次插入的主键位置是不确定的，可能在开头，也可能在中间，在进行主键物理排序的时候，势必会造成大量的 IO操作影响效率，因此不适合使用 UUID 做物理主键。比较适">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-31T09:39:16.000Z">
+<meta property="article:modified_time" content="2018-07-31T09:39:16.000Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/07/31/MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UUID%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/07/31/MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UUID%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%E7%9A%84%E9%97%AE%E9%A2%98/","path":"2018/07/31/MySQL中使用UUID函数作为主键的问题/","title":"MySQL中使用UUID函数作为主键的问题"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>MySQL中使用UUID函数作为主键的问题 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#GUID"><span class="nav-number">1.</span> <span class="nav-text">GUID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E5%94%AF%E4%B8%80%E6%80%A7ID%E9%97%AE%E9%A2%98"><span class="nav-number">2.</span> <span class="nav-text">全局唯一性ID问题</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/07/31/MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UUID%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="MySQL中使用UUID函数作为主键的问题 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MySQL中使用UUID函数作为主键的问题
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-07-31 17:39:16" itemprop="dateCreated datePublished" datetime="2018-07-31T17:39:16+08:00">2018-07-31</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>对于 InnoDB 这种聚集主键类型的引擎来说，数据会按照主键进行物理排序，这对 auto_increment int 是个好消息，因为后一次插入的主键位置总是在最后。但是对 uuid 来说，这却是个坏消息，因为 uuid 是杂乱无章的，每次插入的主键位置是不确定的，可能在开头，也可能在中间，在进行主键物理排序的时候，势必会造成大量的 IO操作影响效率，因此不适合使用 UUID 做物理主键。比较适合的做法是把uuid作为逻辑主键，物理主键依然使用自增ID。</p>
+<h3 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h3><p>全局唯一标识符，简称GUID（Globally Unique Identifier），是一种由算法生成的唯一标识，通常表示成32个十六进制数字组成的字符串，实质上是一个128位长的二进制整数。</p>
+<p>GUID的主要目的是产生完全唯一的数字，在理想情况下，任何计算机和计算机集群都不会生成两个相同的GUID，GUID的总量也足够大，达到了2^128个，所以随机生成两个相同的GUID的可能性是非常小的，但是并不为0；所以，用于生成GUID的算法通常都加入了非随机的参数（如时间），以保证重复的情况不会发生。</p>
+<p>GUID已经广泛使用于数据库表格的主键。由于主键需要用作索引，于是就产生了一个性能问题：<strong>当主键足够随机时，新的记录就必须插入到原有的索引中间，而不能仅仅排在最后</strong>。</p>
+<p>为缓解这个问题并仍然提供足够的随机程度以避免GUID的重复，人们就创造了一些新的算法来生成序列化的GUID。</p>
+<p>2002年8月，吉米尼尔森（Jimmy Nilsson）给出了第一种方法，并称之为“COMB”（combined guid&#x2F;timestamp，意思是：组合GUID&#x2F;时间戳）。他将GUID中数据4的最后6字节用系统时间的最低位替换。经测试，这对随机性的影响很小，但是有一个副作用即是其创建的时间可以从GUID中轻松还原。</p>
+<p>自从Microsoft SQL Server 2005版开始，微软在Transact-SQL中加入了一个新函数，叫做NEWSEQUENTIALID()，用来生成主键增大的GUID，<strong>但一旦服务器重新启动，其再次生成的GUID可能反而变小（但仍然保持唯一）</strong>。这在很大程度上提高了索引的性能，但并不能保证所生成的GUID已知增大。这个函数产生的GUID很简单就可以预测，因此不适合用于安全目的。</p>
+<p>2006年，一些程序员发现，在一些平台上的Oracle软件中，SYS_GUID函数能返回序列化的GUID。但这个实际上是一个BUG导致的。</p>
+<h3 id="全局唯一性ID问题"><a href="#全局唯一性ID问题" class="headerlink" title="全局唯一性ID问题"></a>全局唯一性ID问题</h3><p><a target="_blank" rel="noopener" href="https://tech.meituan.com/MT_Leaf.html">https://tech.meituan.com/MT_Leaf.html</a></p>
+<p>文中的思路可以借鉴，目前先只使用snowflake来处理</p>
+<p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/relucent/p/4955340.html">https://www.cnblogs.com/relucent/p/4955340.html</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/07/31/Java%E9%9B%86%E5%90%88Queue/" rel="prev" title="Java集合Queue">
+                  <i class="fa fa-chevron-left"></i> Java集合Queue
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/08/17/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="next" title="">
+                   <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

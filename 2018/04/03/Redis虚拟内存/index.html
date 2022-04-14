@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Redis的虚拟内存和操作系统的虚拟内存不是一码事，但是思路和目的都是相同的： 就是暂时把不常访问的数据从内存交换到磁盘中，从而腾出宝贵的内存空间 Redis在用户态实现了自己的虚拟内存机制 主要的理由有以下两点：  操作系统的虚拟内存是以4k&#x2F;页为最小单位进行交换的。而Redis 的大多数对象都远小于4k，所以一个操作系统页上可能有多个Redis对象。另外Redis的集合对象类型如li">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Redis虚拟内存">
+<meta property="og:url" content="http://example.com/2018/04/03/Redis%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="Redis的虚拟内存和操作系统的虚拟内存不是一码事，但是思路和目的都是相同的： 就是暂时把不常访问的数据从内存交换到磁盘中，从而腾出宝贵的内存空间 Redis在用户态实现了自己的虚拟内存机制 主要的理由有以下两点：  操作系统的虚拟内存是以4k&#x2F;页为最小单位进行交换的。而Redis 的大多数对象都远小于4k，所以一个操作系统页上可能有多个Redis对象。另外Redis的集合对象类型如li">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-04-02T16:00:00.000Z">
+<meta property="article:modified_time" content="2018-07-01T04:08:08.000Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="Redis">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2018/04/03/Redis%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/04/03/Redis%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/","path":"2018/04/03/Redis虚拟内存/","title":"Redis虚拟内存"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Redis虚拟内存 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E9%85%8D%E7%BD%AE"><span class="nav-number">1.</span> <span class="nav-text">虚拟内存配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98%E5%B7%A5%E4%BD%9C%E6%96%B9%E5%BC%8F%E7%AE%80%E4%BB%8B"><span class="nav-number">2.</span> <span class="nav-text">Redis虚拟内存工作方式简介</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%93vm-max-threads%E8%AE%BE%E7%BD%AE%E4%B8%BA0%E6%97%B6%EF%BC%88%E9%98%BB%E5%A1%9E%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-number">2.1.</span> <span class="nav-text">当vm-max-threads设置为0时（阻塞方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8D%A2%E5%87%BA"><span class="nav-number">2.1.1.</span> <span class="nav-text">换出</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8D%A2%E5%85%A5"><span class="nav-number">2.1.2.</span> <span class="nav-text">换入</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BD%93vm-max-threads%E8%AE%BE%E7%BD%AE%E4%B8%BA%E5%A4%A7%E4%BA%8E0%E6%97%B6%EF%BC%88%E5%B7%A5%E4%BD%9C%E7%BA%BF%E7%A8%8B%E6%96%B9%E5%BC%8F%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">当vm-max-threads设置为大于0时（工作线程方式）</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8D%A2%E5%87%BA-1"><span class="nav-number">2.2.1.</span> <span class="nav-text">换出</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#%E6%8D%A2%E5%85%A5-1"><span class="nav-number">2.2.2.</span> <span class="nav-text">换入</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/04/03/Redis%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Redis虚拟内存 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Redis虚拟内存
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-04-03 00:00:00" itemprop="dateCreated datePublished" datetime="2018-04-03T00:00:00+08:00">2018-04-03</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2018-07-01 12:08:08" itemprop="dateModified" datetime="2018-07-01T12:08:08+08:00">2018-07-01</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>Redis的虚拟内存和操作系统的虚拟内存不是一码事，但是思路和目的都是相同的：</p>
+<p>就是暂时把不常访问的数据从内存交换到磁盘中，从而腾出宝贵的内存空间</p>
+<p>Redis在用户态实现了自己的虚拟内存机制</p>
+<p>主要的理由有以下两点：</p>
+<ol>
+<li><p>操作系统的虚拟内存是以4k&#x2F;页为最小单位进行交换的。而Redis 的大多数对象都远小于4k，所以一个操作系统页上可能有多个Redis对象。另外Redis的集合对象类型如list,set可能存在于多个操作系统页上，最终可能造成只有10%的key 被经常访问，但是所有操作系统页都会被操作系统认为是活跃的，这样只有内存真正耗尽时操作系统才会进行页的交换。</p>
+</li>
+<li><p>相比操作系统的交换方式，Redis 可以将被交换到磁盘的对象进行压缩,保存到磁盘的对象可以去除指针和对象元数据信息。一般压缩后的对象会比内存中的对象小10 倍。这样Redis 的虚拟内存会比操作系统的虚拟内存少做很多IO 操作。</p>
+</li>
+</ol>
+<h4 id="虚拟内存配置"><a href="#虚拟内存配置" class="headerlink" title="虚拟内存配置"></a>虚拟内存配置</h4><pre><code>#开启虚拟内存的功能
+vm-enabled yes
+
+#交换出来value保存的文件路径/tmp/redis.swap
+vm-swap-file /tmp/redis.swap
+
+#redis使用的最大内存上限，超出上限后redis开始狡猾value到磁盘swap文件中，建议设置为系统空闲内存的60%~80%
+vm-max-memory 268435456
+
+#每个Redis页的大小 字节
+vm-page-size 32
+
+#最多在文件中使用多少个页，交换文件的大小 = (vm-page-size * vm-pages)
+vm-pages 1334217728
+
+#用于执行value对象换入换出的工作线程数量，0表示不使用工作线程
+vm-max-threads 8
+</code></pre>
+<p>Redis的虚拟内存在设计上为了保证key 的查询速度，只会将value 交换到swap 文件中。如果是由于太多key很小的value造成的内存问题，那么redis 的虚拟内存并不能解决问题。和操作系统一样redis 也是按页来交换对象的。redis 规定同一个页只能保存一个对象。但是一个对象可以保存在多个页中。在redis 使用的内存没超过vm-max-memory 之前是不会交换任何value 的。当超过最大内存限制后，redis 会选择把较老的对象交换到swap文件中去。如果两个对象一样老会优先交换比较大的对象， 精确的交换计算公式swappability &#x3D; age*log(size_in_memory)。对于vm-page-size 的设置应该根据自己应用将页的大小设置为可以容纳大多数对象的尺寸。太大了会浪费磁盘空间，太小了会造成交换文件出现过多碎片。对于交换文件中的每个页，redis 会在内存中用一个1bit 值来对应记录页的空闲状态。所以像上面配置中页数量(vm-pages 134217728 )会占用16MB 内存用来记录页的空闲状态。vm-max-threads 表示用做交换任务的工作线程数量。如果大于0 推荐设为服务器的cpu 的核心数。如果是0 则交换过程在主线程进行。</p>
+<h4 id="Redis虚拟内存工作方式简介"><a href="#Redis虚拟内存工作方式简介" class="headerlink" title="Redis虚拟内存工作方式简介"></a>Redis虚拟内存工作方式简介</h4><h5 id="当vm-max-threads设置为0时（阻塞方式）"><a href="#当vm-max-threads设置为0时（阻塞方式）" class="headerlink" title="当vm-max-threads设置为0时（阻塞方式）"></a>当vm-max-threads设置为0时（阻塞方式）</h5><h6 id="换出"><a href="#换出" class="headerlink" title="换出"></a>换出</h6><p>主线程定期检查发现内存超出最大上限后，会直接以阻塞的方式，将选中的对象保存到swap文件中，并释放对象占用的内存空间，此过程会一直重复直到下面条件满足：</p>
+<p>1.内存使用降到最大限制以下</p>
+<p>2.swap文件满了</p>
+<p>3.几乎全部的对象都被交换到磁盘</p>
+<h6 id="换入"><a href="#换入" class="headerlink" title="换入"></a>换入</h6><p>当有客户端请求已经被换出的value时，主线程会以阻塞的方式从swap文件中加载对应的value对象，加载时会阻塞所有客户端，然后处理该客户端的请求</p>
+<h5 id="当vm-max-threads设置为大于0时（工作线程方式）"><a href="#当vm-max-threads设置为大于0时（工作线程方式）" class="headerlink" title="当vm-max-threads设置为大于0时（工作线程方式）"></a>当vm-max-threads设置为大于0时（工作线程方式）</h5><h6 id="换出-1"><a href="#换出-1" class="headerlink" title="换出"></a>换出</h6><p>当主线程检测到使用内存超过最大上限，会将选中要交换的对象信息放到一个队列中交给工作线程后台处理，主线程会继续处理客户端请求</p>
+<h6 id="换入-1"><a href="#换入-1" class="headerlink" title="换入"></a>换入</h6><p>如果有客户端请求的key已经被换出了，主线程会先阻塞发出命令的客户端，然后将加载对象的信息放到一个队列中，让工作线程去加载。加载完毕后工作线程通知主线程，主线程再执行客户端的命令，这种方式值阻塞请求的value是已经被换出key的客户端</p>
+<p>总的来说，阻塞方式的性能更好一点，因为不需要线程同步、创建线程和恢复被阻塞的客户端等开销，但是也相应的牺牲了响应性</p>
+<p>工作线程方式主线程不会阻塞在磁盘IO上，所以响应性更好</p>
+<p>如果应用不太经常发生换入换出，而且也不太在意有点延迟的话，推荐使用阻塞方式</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Redis/" rel="tag"># Redis</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/04/02/Redis%E4%B8%BB%E4%BB%8E%E9%85%8D%E7%BD%AE/" rel="prev" title="Redis主从配置">
+                  <i class="fa fa-chevron-left"></i> Redis主从配置
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/06/05/SpringBoot%E5%B7%A5%E7%A8%8B%E5%88%9B%E5%BB%BA/" rel="next" title="SpringBoot工程创建">
+                  SpringBoot工程创建 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

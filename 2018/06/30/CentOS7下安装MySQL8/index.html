@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="本文主要介绍MySQL的yum仓库的使用方法，其中包含了MySQL的安装步骤 原文MySQL Yum仓库使用快速指南 摘要MySQL Yum仓库提供了在Linux平台上安装MySQL服务器、客户端和其他组件的RPM包。这些包还可以升级和替换安装在Linux发行版上的可以从MySQL中获得的任何第三方MySQL软件包。 MySQL Yum仓库支持下列Linux发行版：  EL6和基于el7的平台（例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CentOS7下安装MySQL8">
+<meta property="og:url" content="http://example.com/2018/06/30/CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85MySQL8/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="本文主要介绍MySQL的yum仓库的使用方法，其中包含了MySQL的安装步骤 原文MySQL Yum仓库使用快速指南 摘要MySQL Yum仓库提供了在Linux平台上安装MySQL服务器、客户端和其他组件的RPM包。这些包还可以升级和替换安装在Linux发行版上的可以从MySQL中获得的任何第三方MySQL软件包。 MySQL Yum仓库支持下列Linux发行版：  EL6和基于el7的平台（例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/mysql1.png">
+<meta property="article:published_time" content="2018-06-29T16:00:00.000Z">
+<meta property="article:modified_time" content="2020-03-26T12:01:18.363Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="MySQL">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/mysql1.png">
+
+
+<link rel="canonical" href="http://example.com/2018/06/30/CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85MySQL8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2018/06/30/CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85MySQL8/","path":"2018/06/30/CentOS7下安装MySQL8/","title":"CentOS7下安装MySQL8"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>CentOS7下安装MySQL8 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%91%98%E8%A6%81"><span class="nav-number">1.</span> <span class="nav-text">摘要</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#MySQL%E7%9A%84%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4"><span class="nav-number">3.</span> <span class="nav-text">MySQL的安装步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0MySQL-Yum%E4%BB%93%E5%BA%93"><span class="nav-number">3.1.</span> <span class="nav-text">添加MySQL Yum仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%80%89%E6%8B%A9%E4%B8%80%E4%B8%AA%E5%8F%91%E8%A1%8C%E7%89%88%E6%9C%AC"><span class="nav-number">3.2.</span> <span class="nav-text">选择一个发行版本</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%89%E8%A3%85MySQL"><span class="nav-number">3.3.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8MySQL%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.4.</span> <span class="nav-text">启动MySQL服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A1%AE%E4%BF%9DMySQL%E5%AE%89%E8%A3%85%EF%BC%88%E4%BB%85%E9%92%88%E5%AF%B9MySQL-5-6%EF%BC%89"><span class="nav-number">3.5.</span> <span class="nav-text">确保MySQL安装（仅针对MySQL 5.6）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E9%A2%9D%E5%A4%96%E7%9A%84MySQL%E4%BA%A7%E5%93%81%E5%92%8C%E7%BB%84%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">安装额外的MySQL产品和组件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%94%A8MySQL-Yum%E4%BB%93%E5%BA%93%E5%8D%87%E7%BA%A7MySQL"><span class="nav-number">5.</span> <span class="nav-text">用MySQL Yum仓库升级MySQL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%90%AFMySQL"><span class="nav-number">6.</span> <span class="nav-text">重启MySQL</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://stackoverflow.com/users/7740964/qinghuazangshui" title="StackOverflow → https:&#x2F;&#x2F;stackoverflow.com&#x2F;users&#x2F;7740964&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="stack-overflow fa-fw"></i>StackOverflow</a>
+      </span>
+  </div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/06/30/CentOS7%E4%B8%8B%E5%AE%89%E8%A3%85MySQL8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="CentOS7下安装MySQL8 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          CentOS7下安装MySQL8
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2018-06-30 00:00:00" itemprop="dateCreated datePublished" datetime="2018-06-30T00:00:00+08:00">2018-06-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2020-03-26 20:01:18" itemprop="dateModified" datetime="2020-03-26T20:01:18+08:00">2020-03-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/MySQL/" itemprop="url" rel="index"><span itemprop="name">MySQL</span></a>
+        </span>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>本文主要介绍MySQL的yum仓库的使用方法，其中包含了MySQL的安装步骤</p>
+<p>原文<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-upgrading">MySQL Yum仓库使用快速指南</a></p>
+<h3 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h3><p>MySQL Yum仓库提供了在Linux平台上安装MySQL服务器、客户端和其他组件的RPM包。这些包还可以升级和替换安装在Linux发行版上的可以从MySQL中获得的任何第三方MySQL软件包。</p>
+<p>MySQL Yum仓库支持下列Linux发行版：</p>
+<ul>
+<li>EL6和基于el7的平台（例如，Oracle Linux、Red Hat Enterprise Linux和CentOS的对应版本）</li>
+<li>Fedora 27 和 28</li>
+</ul>
+<p>注意：并不是所有版本的MySQL都支持上述所有的Linux版本。如果想确认您的Linux发行版是否支持某个特定版本，请参阅<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-repo-select-series">Selecting a Release Series</a></p>
+<p>这是一个使用MySQL Yum仓库的快速指南。要了解更多信息，请参阅<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/mysql-yum-repo-quick-guide/en/#repo-qg-yum-more-info">补充</a>。</p>
+<h3 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h3><ul>
+<li>MySQL的安装步骤</li>
+<li>安装额外的MySQL产品和组件</li>
+<li>使用MySQL Yum仓库升级MySQL</li>
+<li>替换MySQL的本地第三方发行版</li>
+<li>使用Yum仓库安装MySQL NDB集群</li>
+<li>安装额外的MySQL NDB集群产品和组件</li>
+<li>补充</li>
+</ul>
+<h3 id="MySQL的安装步骤"><a href="#MySQL的安装步骤" class="headerlink" title="MySQL的安装步骤"></a>MySQL的安装步骤</h3><p>注意：下面的介绍是在假设使用第三方分布式RPM包的MySQL还没有安装在您的系统的基础上；如果已经使用RPM包安装了MySQL，请参照【替换MySQL的本地第三方发行版】。</p>
+<h4 id="添加MySQL-Yum仓库"><a href="#添加MySQL-Yum仓库" class="headerlink" title="添加MySQL Yum仓库"></a>添加MySQL Yum仓库</h4><p>首先，将MySQL Yum仓库添加到系统的仓库列表中。</p>
+<p>按照以下步骤进行:</p>
+<p>1.先跳转到MySQL Yum仓库的下载页面<a target="_blank" rel="noopener" href="http://dev.mysql.com/downloads/repo/yum/">http://dev.mysql.com/downloads/repo/yum/</a></p>
+<p>2.为您的平台选择并下载发布包</p>
+<p><img src="/mysql1.png" alt="RPM安装包"></p>
+<p>这里我们选择<strong>mysql80-community-release-el7-1.noarch.rpm</strong></p>
+<p>3.使用下面的命令安装下载的版本包，用下载的包的名称替换<em><strong>platform-and-version-specific-package-name</strong></em>：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo rpm -Uvh platform-and-version-specific-package-name.rpm</span></span><br></pre></td></tr></table></figure>
+<p>例如，对于基于el7的系统包的版本n，命令如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo rpm -Uvh mysql80-community-release-el7-1.noarch.rpm</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：一旦发布包安装在您的系统上，如果Yum在MySQL Yum仓库中找到MySQL升级包或第三方软件包的替代品，那么通过<strong>yum update</strong>命令（支持dnf的系统是<strong>dnf upgrade</strong>）执行的任何系统更新都会自动升级系统上的MySQL包，同时也会替换任何本地的第三方软件包。具体可参考<strong>通过MySQL Yum仓库升级MySQL</strong>和<strong>替换MySQL的本地第三方分发版</strong>以获取详细信息。</p>
+<h4 id="选择一个发行版本"><a href="#选择一个发行版本" class="headerlink" title="选择一个发行版本"></a>选择一个发行版本</h4><p>在使用MySQL Yum仓库时，默认情况下会选择最新的MySQL GA版本。如果这是您想要的，您可以跳到下一个步骤，用Yum安装MySQL。</p>
+<p>在MySQL Yum仓库<a target="_blank" rel="noopener" href="http://repo.mysql.com/yum/">http://repo.mysql.com/yum/</a>中，MySQL社区服务器的不同版本系列托管在不同的子库中。最新的GA系列（目前是MySQL 8.0）的子库默认启用，而所有其他系列（例如，MySQL 5.7系列）的子库在默认情况下都是禁用的。</p>
+<p>使用这个命令查看MySQL Yum仓库中的所有子库，并查看哪些子库是启用或禁用的（对于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">yum repolist all | grep mysql</span></span><br></pre></td></tr></table></figure>
+
+<p>要安装最新GA系列的最新版本，不需要配置。要安装最新GA系列以外的特定系列的最新版本，请在运行安装命令之前禁用最新GA系列的子库，并启用特定系列的子库。如果您的平台支持<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令，您可以通过以下命令来实现这一点，例如，执行以下命令禁用8.0系列的子库，并启用5.7系列的子库</p>
+<p>对于不支持dnf的平台:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo yum-config-manager --<span class="built_in">disable</span> mysql80-community</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo yum-config-manager --<span class="built_in">enable</span> mysql57-community</span></span><br></pre></td></tr></table></figure>
+
+<p>对于支持dnf的平台</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo dnf config-manager --<span class="built_in">disable</span> mysql80-community</span></span><br><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo dnf config-manager --<span class="built_in">enable</span> mysql57-community</span></span><br></pre></td></tr></table></figure>
+
+<p>除了使用<strong>yum-config-manager</strong>或<strong>dnf config-manager</strong>命令之外，您还可以通过手工编辑***&#x2F;etc&#x2F;yum.repos.d&#x2F;mysql-community.repo***协议文件来选择一个系列。下面是一个发布系列的子库中的典型条目：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="string">mysql80-community</span>]</span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">8.0</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-8.0-community/el/7/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+
+<p>找到您想要配置的子库的条目，并编辑<strong>enabled</strong>的选项。指定<strong>enabled&#x3D;0</strong>来禁用子库，或者<strong>enabled&#x3D;1</strong>来启用子库。例如，要安装MySQL 5.7，请确保在MySQL 8.0的子库条目中enabled&#x3D;0，并为5.7系列的条目设置enabled&#x3D;1：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Enable to use MySQL 5.7</span></span><br><span class="line">[<span class="string">mysql57-community</span>]</span><br><span class="line"><span class="string">name=MySQL</span> <span class="number">5.7</span> <span class="string">Community</span> <span class="string">Server</span></span><br><span class="line"><span class="string">baseurl=http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</span></span><br><span class="line"><span class="string">enabled=1</span></span><br><span class="line"><span class="string">gpgcheck=1</span></span><br><span class="line"><span class="string">gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-mysql</span></span><br></pre></td></tr></table></figure>
+
+<p>您应该在任何时候只启用子库。当启用多个发布系列的子库时，Yum将使用最新的系列</p>
+<p>通过运行以下命令并检查其输出（对于支持dnf的系统，用dnf替换yum），验证相应的子库是否已启用和禁用。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">yum repolist enabled | grep mysql</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h4><p>通过以下命令安装MySQL（用于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo yum install mysql-community-server</span></span><br></pre></td></tr></table></figure>
+
+<p>这将为MySQL服务器安装软件包，以及其他必需的软件包。</p>
+<h4 id="启动MySQL服务器"><a href="#启动MySQL服务器" class="headerlink" title="启动MySQL服务器"></a>启动MySQL服务器</h4><p>使用下面的命令启动MySQL服务器：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo service mysqld start</span></span><br></pre></td></tr></table></figure>
+
+<p>对于基于el7的平台，执行以下命令：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo systemctl start mysqld.service</span></span><br></pre></td></tr></table></figure>
+
+<p>您可以使用以下命令检查MySQL服务器的状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo service mysqld status</span></span><br></pre></td></tr></table></figure>
+
+<p>对于基于el7的平台，使用systemctl：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo systemctl status mysqld.service</span></span><br></pre></td></tr></table></figure>
+
+<p>MySQL服务器初始化（和MySQL 5.7一样）：在服务器的初始启动时，由于服务器的数据目录是空的，所以会发现以下过程：</p>
+<ul>
+<li>服务器初始化</li>
+<li>在data目录中生成SSL证书和密钥文件</li>
+<li>validate_password插件被安装并启用</li>
+<li>创建一个超级用户帐户的<strong>root‘@’localhost</strong>，超级用户的密码被设置并存储在错误日志文件中。要获取初始密码，请使用以下命令：</li>
+</ul>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">sudo grep <span class="string">&#x27;temporary password&#x27;</span> /var/log/mysqld.log</span></span><br></pre></td></tr></table></figure>
+
+<p>尽快更改初始密码，通过初始密码登录，并为超级用户帐户设置一个自定义密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysql -uroot -p</span></span><br></pre></td></tr></table></figure>
+
+<p>修改密码</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql<span class="operator">&gt;</span> <span class="keyword">ALTER</span> <span class="keyword">USER</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;localhost&#x27;</span> IDENTIFIED <span class="keyword">BY</span> <span class="string">&#x27;MyNewPassword&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>注意：MySQL的validate_password插件是默认安装的。这将要求密码至少包含一个大写字母、一个小写字母、一个数字和一个特殊字符，并且总密码长度至少为8个字符。</p>
+<p>至此， MySQL8.0安装完毕！</p>
+<h4 id="确保MySQL安装（仅针对MySQL-5-6）"><a href="#确保MySQL安装（仅针对MySQL-5-6）" class="headerlink" title="确保MySQL安装（仅针对MySQL 5.6）"></a>确保MySQL安装（仅针对MySQL 5.6）</h4><p>指令<strong>mysql_secure_installation</strong>允许您执行一些重要的操作，如设置根密码、删除匿名用户等等。通过运行它来确保MySQL 5.6已安装成功：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">mysql_secure_installation</span></span><br></pre></td></tr></table></figure>
+
+<p>记住您设置的根密码是很重要的。详细信息请参阅<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/mysql-secure-installation.html">mysql_secure_installation — Improve MySQL Installation Security</a></p>
+<p>在安装MySQL 5.7或更高版本后，不要运行mysql_secure_installation，因为该指令的程序已经由Yum仓库安装完成。</p>
+<p>注意：对于基于el7的平台，请查看<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/linux-installation-yum-repo.html#yum-install-compatibility-el7">Compatibility Information for EL7-based platforms</a></p>
+<h3 id="安装额外的MySQL产品和组件"><a href="#安装额外的MySQL产品和组件" class="headerlink" title="安装额外的MySQL产品和组件"></a>安装额外的MySQL产品和组件</h3><p>您可以使用Yum来安装和管理MySQL的各个组件。其中一些组件已存在MySQL Yum仓库的子库中。使用下面的命令列出MySQL Yum仓库的所有子库中可用的所有MySQL组件的包（对于支持dnf的系统，用dnf替换yum）：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">shell&gt; </span><span class="language-bash">yum --disablerepo=\* --enablerepo=<span class="string">&#x27;mysql*-community*&#x27;</span> list available</span></span><br></pre></td></tr></table></figure>
+
+<p>使用以下命令安装您所选择的任何包，用包名替换***package-name ***（对于支持dnf的系统，用dnf替换指令中的yum）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum install package-name</span><br></pre></td></tr></table></figure>
+
+<p>例如，在Fedora上安装MySQL Workbench：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf install mysql-workbench-community</span><br></pre></td></tr></table></figure>
+
+<h3 id="用MySQL-Yum仓库升级MySQL"><a href="#用MySQL-Yum仓库升级MySQL" class="headerlink" title="用MySQL Yum仓库升级MySQL"></a>用MySQL Yum仓库升级MySQL</h3><p>注意：在对MySQL进行任何更新之前，请仔细检查<a target="_blank" rel="noopener" href="https://dev.mysql.com/doc/refman/8.0/en/upgrading.html">Upgrading MySQL</a>的说明。在这里说明中，更新之前备份数据库的内容尤其重要。</p>
+<p>使用MySQL Yum仓库进行就地更新(即取代旧版本,然后运行旧的数据文件的新版本)为你的MySQL安装通过以下步骤(假设你已经安装了MySQL与MySQL Yum资源库或RPM包直接从MySQL开发人员下载区域的MySQL下载页面;如果不是这样，请按照以下指示替换MySQL的本地第三方发行版):</p>
+<p>选择一个目标系列</p>
+<p>默认情况下，MySQL Yum库将MySQL更新为您在安装期间选择的发布系列中的最新版本(参见选择发布系列了解详细信息)，这意味着，例如5.7版本。x安装不会更新为8.0。x自动释放。要更新到另一个发布系列，您需要首先禁用所选系列的子存储库(默认情况下，或者您自己)，并启用目标系列的子存储库。要做到这一点，请参阅在选择发布系列以编辑&#x2F;etc&#x2F;yum.repo .d&#x2F;mysql-community中的子存储库条目时给出的一般说明。回购协议文件。要从MySQL 5.7升级到8.0，请执行与选择发布系列所示步骤相反的操作，禁用MySQL 5.7系列的子存储库，并启用MySQL 8.0系列的子存储库。</p>
+<p>一般来说，要从一个发布系列升级到另一个发布系列，请转到下一个系列，而不是跳过一个系列。例如，如果您正在运行MySQL 5.6并希望升级到8.0，请先升级到MySQL 5.7，然后再升级到8.0。</p>
+<p>重要</p>
+<p>关于从MySQL 5.6升级到5.7的重要信息，请参见从MySQL 5.6升级到5.7。</p>
+<p>有关从MySQL 5.7升级到8.0的重要信息，请参见从MySQL 5.7升级到8.0。</p>
+<p>MySQL Yum库不支持就地降级MySQL。按照降级MySQL的说明。</p>
+<p>升级MySQL</p>
+<p>对于不支持dnf的平台，通过以下命令升级MySQL及其组件:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update mysql-server</span><br></pre></td></tr></table></figure>
+
+
+<p>对于支持dnf的平台</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf --refresh upgrade mysql-server</span><br></pre></td></tr></table></figure>
+
+<p>或者，您可以通过告诉Yum更新系统上的所有内容来更新MySQL，这可能会花费更多的时间;对于不支持dnf的平台:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update</span><br></pre></td></tr></table></figure>
+
+
+<p>对于支持dnf的平台</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade</span><br></pre></td></tr></table></figure>
+
+<h3 id="重启MySQL"><a href="#重启MySQL" class="headerlink" title="重启MySQL"></a>重启MySQL</h3><p>MySQL服务器总是在Yum更新后重新启动。一旦服务器重新启动，运行mysql_upgrade来检查并解决旧数据和升级软件之间的任何不兼容问题。mysql_upgrade还可以执行其他功能;请参阅mysql_upgrade -检查和升级MySQL表以了解详细信息。</p>
+<p>您还可以只更新特定的组件。使用以下命令列出MySQL组件的所有已安装包(对于支持dnf的系统，将yum替换为dnf):</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum list installed | grep &quot;^mysql&quot;</span><br></pre></td></tr></table></figure>
+
+<p>在识别您选择的组件的包名之后，对于不支持dnf的平台，使用以下命令更新包，用包名替换包名:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo yum update package-name</span><br></pre></td></tr></table></figure>
+
+<p>对于支持dnf的平台</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sudo dnf upgrade package-name</span><br></pre></td></tr></table></figure>
+
+
+<p>替换MySQL的本地第三方发行版</p>
+<p>要用MySQL Yum库最新的GA版本(目前来自MySQL 8.0系列)替换从受支持的Linux平台的本地软件仓库安装的第三方MySQL发行版，请执行以下步骤:</p>
+<p>备份数据库<br>为了避免数据丢失，请在尝试使用MySQL Yum库替换MySQL安装之前备份数据库。有关如何备份数据库，请参阅备份和恢复。</p>
+<p>添加MySQL Yum存储库</p>
+<p>通过添加MySQL Yum存储库中给出的说明，将MySQL Yum存储库添加到您的系统的存储库列表中。</p>
+<p>用Yum更新或DNF升级替换本机第三方发行版</p>
+<p>通过设计,MySQL Yum资源库将取代你的本地,第三方MySQL在最新的GA版本(从目前的MySQL 8.0系列)从MySQL百胜库执行Yum更新命令时(或dnf升级dnf-enabled系统)系统,或Yum更新MySQL服务器(或MySQL服务器升级dnf dnf-enabled系统)。</p>
+<p>在使用Yum存储库更新MySQL之后，使用旧版本的共享客户机库编译的应用程序应该继续工作。但是，如果您想重新编译应用程序并动态地将它们与更新后的库链接起来，请参阅升级共享客户机库以获得一些特殊的考虑。</p>
+<p>备注</p>
+<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
+<p>如果您已经从一个非本地存储库下载并安装了MySQL的第三方分发版（例如，来自MariaDB或Percona），那么在MySQL服务器的参考手册中，遵循替换它们的说明是很重要的。</p>
+<p>使用Yum存储库安装MySQL NDB集群、</p>
+<p>备注</p>
+<p>下面的说明假设MySQL服务器和MySQL NDB集群都已经安装在您的系统上;如果不是这样，那么在继续之前，删除MySQL服务器或MySQL NDB集群，包括所有可执行文件、库、配置文件和数据目录。但是，没有必要删除您可能用于在系统上启用MySQL Yum存储库的放行包。</p>
+<p>NDB集群SQL节点包对Perl类：：MethodMaker模块有依赖关系。如果在您的系统上启用了EPEL（Enterprise Linux的额外包），Yum可以处理这种依赖关系;请参阅这里的说明，了解如何启用EPEL存储库。</p>
+<p>MySQL Yum存储库支持MySQL NDB集群的安装，仅用于发布7.5.6和后续版本，并且只支持EL6和EL7平台。对于其他安装NDB集群的方法，请参阅Linux上的NDB集群的安装，或者在Linux上安装NDB集群，这取决于您正在使用的发布系列。</p>
+<p>为MySQL NDB集群添加MySQL Yum存储库</p>
+<p>按照添加MySQL Yum存储库的步骤，将MySQL Yum存储库添加到系统的存储库列表中。如果您之前已经完成了这个步骤，那么请确保您拥有最新版本的发布包，运行以下命令，以支持那些没有启用dnf的平台：</p>
+<p>shell&gt; sudo yum update mysql57-community-release</p>
+<p>对于支持dnf的平台</p>
+<p>shell&gt; sudo dnf –refresh upgrade mysql57-community-release</p>
+<p>选择MySQL NDB集群子存储库</p>
+<p>在MySQL Yum库(<a target="_blank" rel="noopener" href="http://repo.sqmyl.com/yum/)%E4%B8%AD%EF%BC%8CMySQL%E7%A4%BE%E5%8C%BA%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%92%8CMySQL">http://repo.sqmyl.com/yum/)中，MySQL社区服务器和MySQL</a> NDB集群托管在不同的子存储库中。默认情况下，将启用MySQL服务器最新GA系列的子存储库，并禁用MySQL NDB集群的子存储库。要安装NDB集群，请禁用MySQL服务器的子存储库，并启用NDB集群的子存储库。如果您的平台支持yum-config-manager或dnf config-manager命令，您可以通过发出以下命令来做到这一点，该命令禁用了MySQL 5.7系列的子存储库，并为MySQL NDB集群7.5启用了这个命令;对于不支持dnf的平台:</p>
+<p>shell&gt; sudo yum-config-manager –disable mysql57-community<br>shell&gt; sudo yum-config-manager –enable mysql-cluster-7.5-community</p>
+<p>对于支持dnf的平台</p>
+<p>shell&gt; sudo dnf config-manager –disable mysql57-community<br>shell&gt; sudo dnf config-manager –enable mysql-cluster-7.5-community</p>
+<p>除了使用yconfig管理器或dnf configmanager命令之外，您还可以通过手工编辑&#x2F;etc&#x2F;yum.repos.d&#x2F;mysql-community来选择子存储库。回购协议文件。这是文件中MySQL 5.7个子存储库的示例条目：</p>
+<p>[mysql57-community]<br>name&#x3D;MySQL 5.7 Community Server<br>baseurl&#x3D;<a target="_blank" rel="noopener" href="http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/">http://repo.mysql.com/yum/mysql-5.7-community/el/6/$basearch/</a><br>enabled&#x3D;1<br>gpgcheck&#x3D;1<br>gpgkey&#x3D;file:&#x2F;&#x2F;&#x2F;etc&#x2F;pki&#x2F;rpm-gpg&#x2F;RPM-GPG-KEY-mysql</p>
+<p>要安装NDB集群7.5，您必须禁用MySQL 5.7的子存储库，方法是为上面的子库条目启用启用&#x3D;0，并启用NDB集群7.5个子存储库，使其条目&#x3D;1：</p>
+<p>[mysql-cluster-7.5-community]<br>name&#x3D;MySQL Cluster 7.5 Community<br>baseurl&#x3D;<a target="_blank" rel="noopener" href="http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/">http://repo.mysql.com/yum/mysql-cluster-7.5-community/el/6/$basearch/</a><br>enabled&#x3D;1<br>gpgcheck&#x3D;1<br>gpgkey&#x3D;file:&#x2F;&#x2F;&#x2F;etc&#x2F;pki&#x2F;rpm-gpg&#x2F;RPM-GPG-KEY-mysql</p>
+<p>在保存文件的更改之后，通过运行以下命令来验证是否启用了正确的子存储库（支持dnf的系统，用dnf替换yum）：</p>
+<p>shell&gt; yum repolist enabled | grep mysql<br>!mysql-cluster-7.5-community&#x2F;x86_64 MySQL Cluster 7.5 Community               18<br>!mysql-connectors-community&#x2F;x86_64  MySQL Connectors Community                31<br>!mysql-tools-community&#x2F;x86_64       MySQL Tools Community                     33</p>
+<p>NDB集群7.5（Community edition）的子存储库现已启用。<br>在列表中还有一些MySQL Yum存储库的其他子存储库，它们在默认情况下是启用的。</p>
+<p>安装MySQL NDB集群</p>
+<p>对于MySQL NDB集群的最小安装，请遵循以下步骤（用于支持dnf的系统，用dnf替换yum中的yum）：</p>
+<p>为SQL节点安装组件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-server</p>
+<p>安装完成后，按照启动MySQL服务器的步骤启动和初始化SQL节点。 </p>
+<p>如果您选择使用mysqld——初始化命令（请参阅使用mysqld手动初始化数据目录）来手动初始化数据目录，则会生成根密码并将其存储在SQL节点的错误日志中;有关如何查找密码的MySQL服务器初始化，以及您需要了解的一些事情。</p>
+<p>为管理节点安装可执行文件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-management-server</p>
+<p>为数据节点安装可执行文件：</p>
+<p>shell&gt; sudo yum install mysql-cluster-community-data-node</p>
+<p>配置和启动MySQL NDB集群</p>
+<p>关于如何配置MySQL NDB集群和NDB集群的初始启动，请参阅NDB集群的初始配置，了解如何第一次启动它。</p>
+<p>备注</p>
+<p>对于基于el7的平台：查看基于el7的平台的兼容性信息。</p>
+<p>安装额外的MySQL NDB集群产品和组件</p>
+<p>您可以使用Yum从MySQL Yum存储库中安装MySQL NDB集群的单个组件和附加产品。<br>要做到这一点，假设您已经在系统的存储库列表中已经有了MySQL Yum存储库（如果没有的话，请遵循使用Yum存储库安装MySQL NDB集群的步骤1和步骤2），遵循在安装额外的MySQL产品和组件时所提供的相同步骤。</p>
+<p>备注</p>
+<p>已知的问题：目前，当您安装测试套件包（mysql-集群-社区测试）时，并不是运行MySQL NDB集群测试套件所需的所有组件。在运行测试套件之前，先安装yum安装（或dnf安装的dnf系统）的下列软件包：</p>
+<ul>
+<li><p>mysql-cluster-community-auto-installer</p>
+</li>
+<li><p>mysql-cluster-community-management-server</p>
+</li>
+<li><p>mysql-cluster-community-data-node</p>
+</li>
+<li><p>mysql-cluster-community-memcached</p>
+</li>
+<li><p>mysql-cluster-community-java</p>
+</li>
+<li><p>mysql-cluster-community-ndbclient-devel</p>
+</li>
+</ul>
+<p>补充</p>
+<p>关于MySQL Yum存储库的更多信息可以在MySQL服务器参考手册的以下部分中找到：<br>Installing MySQL on Linux Using the MySQL Yum Repository</p>
+<p>Replacing a Third-Party Distribution of MySQL Using the MySQL Yum Repository</p>
+<p>Upgrading MySQL with the MySQL Yum Repository</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/MySQL/" rel="tag"># MySQL</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2018/06/29/CentOS%E4%B8%8BPostgreSQL%E5%AE%89%E8%A3%85/" rel="prev" title="CentOS6下PostgreSQL安装">
+                  <i class="fa fa-chevron-left"></i> CentOS6下PostgreSQL安装
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2018/07/01/SpringBoot%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BE%E6%A0%87/" rel="next" title="SpringBoot设置项目的图标">
+                  SpringBoot设置项目的图标 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">qinghuazs</span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
