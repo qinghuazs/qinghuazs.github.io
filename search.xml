@@ -1,6 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>01.SpringBoot简介</title>
+    <url>/2019/06/18/01.SpringBoot%E4%BB%8B%E7%BB%8D/</url>
+    <content><![CDATA[<p>Spring Boot 使您可以轻松地创建可独立运行的、生产级的基于 Spring 的应用程序。 我们对 Spring 平台和第三方库进行了封装，因此您可以轻松上手。 大多数 Spring Boot 应用程序只需要很少的 Spring 配置。</p>
+<p>您可以使用 Spring Boot 创建 Java 应用程序，这些应用程序可以通过使用 <code>java -jar</code> 或更传统的 war 包形式部署启动。 我们还提供了一个命令行工具来运行 “spring 脚本”。</p>
+<p>我们的主要目标是：</p>
+<ul>
+<li>为所有 Spring 开发提供快速且广泛的合适的入门体验</li>
+<li>开箱即用，但是当默认值不能满足需求时，需要修改配置</li>
+<li> 提供大型项目所共有的一系列非功能特性(如嵌入式服务器、安全性、度量、健康检查和外部化配置)</li>
+<li> 绝对没有代码生成，也不需要 XML 配置</li>
+</ul>
+]]></content>
+      <categories>
+        <category>SpringBoot翻译</category>
+        <category>2.1.5.RELEASE</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot翻译</tag>
+        <tag>2.1.5.RELEASE</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>02.SpringBoot系统要求</title>
     <url>/2019/06/18/02.SpringBoot%E7%B3%BB%E7%BB%9F%E8%A6%81%E6%B1%82/</url>
     <content><![CDATA[<p>Spring Boot 2.1.5.RELEASE 需要 JDK8 并且兼容 JDK11。Spring Framework 5.1.7.RELEASE 或更高的版本。</p>
@@ -43,28 +65,6 @@
 </tr>
 </tbody></table>
 <p>您还可以将 Spring Boot 应用程序部署到任何兼容 Servlet 3.1以上的容器中。</p>
-]]></content>
-      <categories>
-        <category>SpringBoot翻译</category>
-        <category>2.1.5.RELEASE</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot翻译</tag>
-        <tag>2.1.5.RELEASE</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>01.SpringBoot简介</title>
-    <url>/2019/06/18/01.SpringBoot%E4%BB%8B%E7%BB%8D/</url>
-    <content><![CDATA[<p>Spring Boot 使您可以轻松地创建可独立运行的、生产级的基于 Spring 的应用程序。 我们对 Spring 平台和第三方库进行了封装，因此您可以轻松上手。 大多数 Spring Boot 应用程序只需要很少的 Spring 配置。</p>
-<p>您可以使用 Spring Boot 创建 Java 应用程序，这些应用程序可以通过使用 <code>java -jar</code> 或更传统的 war 包形式部署启动。 我们还提供了一个命令行工具来运行 “spring 脚本”。</p>
-<p>我们的主要目标是：</p>
-<ul>
-<li>为所有 Spring 开发提供快速且广泛的合适的入门体验</li>
-<li>开箱即用，但是当默认值不能满足需求时，需要修改配置</li>
-<li> 提供大型项目所共有的一系列非功能特性(如嵌入式服务器、安全性、度量、健康检查和外部化配置)</li>
-<li> 绝对没有代码生成，也不需要 XML 配置</li>
-</ul>
 ]]></content>
       <categories>
         <category>SpringBoot翻译</category>
@@ -680,21 +680,6 @@
       </tags>
   </entry>
   <entry>
-    <title>CentOS7安装：Operating System Not Found</title>
-    <url>/2020/01/18/CentOS7%E5%AE%89%E8%A3%85%EF%BC%9AOperating%20System%20Not%20Found/</url>
-    <content><![CDATA[<p>虚拟机下安装CentOS7时报错：Operating System Not Found，具体信息如下截图</p>
-<p><img src="https://i.imgur.com/C8jDi3W.png"></p>
-<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>关闭虚拟机电源，在选择镜像的地方勾选 <code>Connect At Power On</code> 选项，并选择 CentOS7 的镜像，重启电源即可。</p>
-<p><img src="https://i.imgur.com/TpGKo0n.png"></p>
-]]></content>
-      <categories>
-        <category>CentOS7</category>
-      </categories>
-      <tags>
-        <tag>CentOS7</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CentOS7配置静态IP</title>
     <url>/2020/01/18/CentOS7%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP/</url>
     <content><![CDATA[<h3 id="网卡配置文件"><a href="#网卡配置文件" class="headerlink" title="网卡配置文件"></a>网卡配置文件</h3><p>进入到 <code>/etc/sysconfig/network-scripts</code> 目录，找到网卡配置文件 <strong>ifcfg-</strong>*</p>
@@ -707,6 +692,21 @@
 <h3 id="重启网卡服务"><a href="#重启网卡服务" class="headerlink" title="重启网卡服务"></a>重启网卡服务</h3><figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">&gt; service network restart</span><br></pre></td></tr></table></figure>
 
 <h3 id="查看配置结果"><a href="#查看配置结果" class="headerlink" title="查看配置结果"></a>查看配置结果</h3><p><img src="https://i.imgur.com/3UuDm1b.png"></p>
+]]></content>
+      <categories>
+        <category>CentOS7</category>
+      </categories>
+      <tags>
+        <tag>CentOS7</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CentOS7安装：Operating System Not Found</title>
+    <url>/2020/01/18/CentOS7%E5%AE%89%E8%A3%85%EF%BC%9AOperating%20System%20Not%20Found/</url>
+    <content><![CDATA[<p>虚拟机下安装CentOS7时报错：Operating System Not Found，具体信息如下截图</p>
+<p><img src="https://i.imgur.com/C8jDi3W.png"></p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>关闭虚拟机电源，在选择镜像的地方勾选 <code>Connect At Power On</code> 选项，并选择 CentOS7 的镜像，重启电源即可。</p>
+<p><img src="https://i.imgur.com/TpGKo0n.png"></p>
 ]]></content>
       <categories>
         <category>CentOS7</category>
@@ -959,125 +959,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Java基础类型</title>
-    <url>/2018/03/16/Java%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/</url>
-    <content><![CDATA[<h3 id="计算机中的常用单位"><a href="#计算机中的常用单位" class="headerlink" title="计算机中的常用单位"></a>计算机中的常用单位</h3><h4 id="位-bit"><a href="#位-bit" class="headerlink" title="位 bit"></a>位 bit</h4><p>计算机中的最小单元，缩写为b，值为0或1，表示一位的二进制信息</p>
-<h4 id="字节-byte"><a href="#字节-byte" class="headerlink" title="字节 byte"></a>字节 byte</h4><p>计算机中的基本单位，缩写为B，1字节 &#x3D; 8位，即1byte &#x3D; 8bit</p>
-<h4 id="千字节-KB"><a href="#千字节-KB" class="headerlink" title="千字节 KB"></a>千字节 KB</h4><p>1KB &#x3D; 1024B</p>
-<h4 id="兆字节-MB"><a href="#兆字节-MB" class="headerlink" title="兆字节 MB"></a>兆字节 MB</h4><p>1MB &#x3D; 1024KB</p>
-<h4 id="吉字节-GB"><a href="#吉字节-GB" class="headerlink" title="吉字节 GB"></a>吉字节 GB</h4><p>又称千兆字节， 1GB &#x3D; 1024MB</p>
-<h4 id="其他单位"><a href="#其他单位" class="headerlink" title="其他单位"></a>其他单位</h4><p>TB 万亿字节 太字节 </p>
-<p>PB 千万亿字节 拍字节</p>
-<p>EB 百亿亿字节 艾字节</p>
-<p>ZB 十万亿亿字节 泽字节</p>
-<p>YB 一亿亿亿字节 尧字节</p>
-<p>BB 一千亿亿亿字节</p>
-<p>NB </p>
-<p>DB</p>
-<p>转化时，都以1024计算</p>
-<h3 id="基础类型及其包装类型"><a href="#基础类型及其包装类型" class="headerlink" title="基础类型及其包装类型"></a>基础类型及其包装类型</h3><table>
-<thead>
-<tr>
-<th>基本类型</th>
-<th align="right">存储空间大小</th>
-<th align="right">最大值</th>
-<th align="right">最小值</th>
-<th align="center">包装类类型</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>boolean</td>
-<td align="right">-</td>
-<td align="right">-</td>
-<td align="right">-</td>
-<td align="center">Boolean</td>
-</tr>
-<tr>
-<td>char</td>
-<td align="right">16bit</td>
-<td align="right">Unicode 0</td>
-<td align="right">Unicode 2^16-1</td>
-<td align="center">Character</td>
-</tr>
-<tr>
-<td>byte</td>
-<td align="right">8bit</td>
-<td align="right">-128</td>
-<td align="right">127</td>
-<td align="center">Byte</td>
-</tr>
-<tr>
-<td>short</td>
-<td align="right">16bit</td>
-<td align="right">-2^15</td>
-<td align="right">2^15-1</td>
-<td align="center">Short</td>
-</tr>
-<tr>
-<td>int</td>
-<td align="right">32bit</td>
-<td align="right">-2^31</td>
-<td align="right">2^31-1</td>
-<td align="center">Integer</td>
-</tr>
-<tr>
-<td>long</td>
-<td align="right">64bit</td>
-<td align="right">-2^63</td>
-<td align="right">2^63-1</td>
-<td align="center">Long</td>
-</tr>
-<tr>
-<td>float</td>
-<td align="right">32bit</td>
-<td align="right">IEEE754</td>
-<td align="right">IEEE754</td>
-<td align="center">Float</td>
-</tr>
-<tr>
-<td>double</td>
-<td align="right">64bit</td>
-<td align="right">IEEE754</td>
-<td align="right">IEEE754</td>
-<td align="center">Double</td>
-</tr>
-</tbody></table>
-<h4 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h4><p>boolean所占用的存储空间的大小没有明确指定，仅定义为能取字面值true和false</p>
-<h4 id="char"><a href="#char" class="headerlink" title="char"></a>char</h4><p>即Unicode字符</p>
-<p>char类型的字符中包含某些特殊字符，即转义字符</p>
-<p>常见的转义字符如下</p>
-<ul>
-<li>\b 退格</li>
-<li>\t 制表</li>
-<li>\n 换行</li>
-<li>\r 回车</li>
-<li>&quot; 双引号</li>
-<li>&#39; 单引号</li>
-<li>\\ 反斜杠</li>
-</ul>
-<h4 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h4><p>Java中，整形的默认类型为int，默认值为0</p>
-<p>byte和short主要用于特定的应用场合，如底层的文件处理</p>
-<p><strong>long类型的字面值都应该加L加以区分</strong>，如11L表示的long类型的11，而11则表示的是int类型的11</p>
-<h4 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h4><p>float为单精度浮点型。默认值是0.0F</p>
-<p>double是双精度浮点型，默认值是0.0</p>
-<p>浮点型的默认类型是double</p>
-<p>同long类型类似，float的表示要在字面量后方加F进行区分</p>
-<p>float和double都不能表示精确的值，如货币，主要原因是浮点数值采用二进制系统表示，而在二进制系统中无法精确的表示分数1&#x2F;10，这就好像十进制无法精确的表示1&#x2F;3一样。如果想要进行高精度的计算，可以使用BigDecimal类，该类大体上也属于“包装类”，但是并没有对应的基础类型。</p>
-<h5 id="Double的特殊值"><a href="#Double的特殊值" class="headerlink" title="Double的特殊值"></a>Double的特殊值</h5><p>Double.POSITIVE_INFINITY 正无穷大</p>
-<p>Double.NEGATIVE_INFINITY 负无穷大</p>
-<p>Double.NaN 非数字</p>
-<blockquote>
-<p>注意：不能使用 x &#x3D;&#x3D; Double.NaN 的方法检测一个特定值是否等于Double.NaN，可以使用Double.isNaN()方法</p>
-</blockquote>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Java反射</title>
     <url>/2018/12/24/Java%E5%8F%8D%E5%B0%84/</url>
     <content><![CDATA[<p>Java反射机制是在运行过程中，对于任意一个类，能够动态的获取对象的属性和方法</p>
@@ -1290,6 +1171,125 @@
       </tags>
   </entry>
   <entry>
+    <title>Java基础类型</title>
+    <url>/2018/03/16/Java%E5%9F%BA%E7%A1%80%E7%B1%BB%E5%9E%8B/</url>
+    <content><![CDATA[<h3 id="计算机中的常用单位"><a href="#计算机中的常用单位" class="headerlink" title="计算机中的常用单位"></a>计算机中的常用单位</h3><h4 id="位-bit"><a href="#位-bit" class="headerlink" title="位 bit"></a>位 bit</h4><p>计算机中的最小单元，缩写为b，值为0或1，表示一位的二进制信息</p>
+<h4 id="字节-byte"><a href="#字节-byte" class="headerlink" title="字节 byte"></a>字节 byte</h4><p>计算机中的基本单位，缩写为B，1字节 &#x3D; 8位，即1byte &#x3D; 8bit</p>
+<h4 id="千字节-KB"><a href="#千字节-KB" class="headerlink" title="千字节 KB"></a>千字节 KB</h4><p>1KB &#x3D; 1024B</p>
+<h4 id="兆字节-MB"><a href="#兆字节-MB" class="headerlink" title="兆字节 MB"></a>兆字节 MB</h4><p>1MB &#x3D; 1024KB</p>
+<h4 id="吉字节-GB"><a href="#吉字节-GB" class="headerlink" title="吉字节 GB"></a>吉字节 GB</h4><p>又称千兆字节， 1GB &#x3D; 1024MB</p>
+<h4 id="其他单位"><a href="#其他单位" class="headerlink" title="其他单位"></a>其他单位</h4><p>TB 万亿字节 太字节 </p>
+<p>PB 千万亿字节 拍字节</p>
+<p>EB 百亿亿字节 艾字节</p>
+<p>ZB 十万亿亿字节 泽字节</p>
+<p>YB 一亿亿亿字节 尧字节</p>
+<p>BB 一千亿亿亿字节</p>
+<p>NB </p>
+<p>DB</p>
+<p>转化时，都以1024计算</p>
+<h3 id="基础类型及其包装类型"><a href="#基础类型及其包装类型" class="headerlink" title="基础类型及其包装类型"></a>基础类型及其包装类型</h3><table>
+<thead>
+<tr>
+<th>基本类型</th>
+<th align="right">存储空间大小</th>
+<th align="right">最大值</th>
+<th align="right">最小值</th>
+<th align="center">包装类类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>boolean</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="right">-</td>
+<td align="center">Boolean</td>
+</tr>
+<tr>
+<td>char</td>
+<td align="right">16bit</td>
+<td align="right">Unicode 0</td>
+<td align="right">Unicode 2^16-1</td>
+<td align="center">Character</td>
+</tr>
+<tr>
+<td>byte</td>
+<td align="right">8bit</td>
+<td align="right">-128</td>
+<td align="right">127</td>
+<td align="center">Byte</td>
+</tr>
+<tr>
+<td>short</td>
+<td align="right">16bit</td>
+<td align="right">-2^15</td>
+<td align="right">2^15-1</td>
+<td align="center">Short</td>
+</tr>
+<tr>
+<td>int</td>
+<td align="right">32bit</td>
+<td align="right">-2^31</td>
+<td align="right">2^31-1</td>
+<td align="center">Integer</td>
+</tr>
+<tr>
+<td>long</td>
+<td align="right">64bit</td>
+<td align="right">-2^63</td>
+<td align="right">2^63-1</td>
+<td align="center">Long</td>
+</tr>
+<tr>
+<td>float</td>
+<td align="right">32bit</td>
+<td align="right">IEEE754</td>
+<td align="right">IEEE754</td>
+<td align="center">Float</td>
+</tr>
+<tr>
+<td>double</td>
+<td align="right">64bit</td>
+<td align="right">IEEE754</td>
+<td align="right">IEEE754</td>
+<td align="center">Double</td>
+</tr>
+</tbody></table>
+<h4 id="boolean"><a href="#boolean" class="headerlink" title="boolean"></a>boolean</h4><p>boolean所占用的存储空间的大小没有明确指定，仅定义为能取字面值true和false</p>
+<h4 id="char"><a href="#char" class="headerlink" title="char"></a>char</h4><p>即Unicode字符</p>
+<p>char类型的字符中包含某些特殊字符，即转义字符</p>
+<p>常见的转义字符如下</p>
+<ul>
+<li>\b 退格</li>
+<li>\t 制表</li>
+<li>\n 换行</li>
+<li>\r 回车</li>
+<li>&quot; 双引号</li>
+<li>&#39; 单引号</li>
+<li>\\ 反斜杠</li>
+</ul>
+<h4 id="整型"><a href="#整型" class="headerlink" title="整型"></a>整型</h4><p>Java中，整形的默认类型为int，默认值为0</p>
+<p>byte和short主要用于特定的应用场合，如底层的文件处理</p>
+<p><strong>long类型的字面值都应该加L加以区分</strong>，如11L表示的long类型的11，而11则表示的是int类型的11</p>
+<h4 id="浮点型"><a href="#浮点型" class="headerlink" title="浮点型"></a>浮点型</h4><p>float为单精度浮点型。默认值是0.0F</p>
+<p>double是双精度浮点型，默认值是0.0</p>
+<p>浮点型的默认类型是double</p>
+<p>同long类型类似，float的表示要在字面量后方加F进行区分</p>
+<p>float和double都不能表示精确的值，如货币，主要原因是浮点数值采用二进制系统表示，而在二进制系统中无法精确的表示分数1&#x2F;10，这就好像十进制无法精确的表示1&#x2F;3一样。如果想要进行高精度的计算，可以使用BigDecimal类，该类大体上也属于“包装类”，但是并没有对应的基础类型。</p>
+<h5 id="Double的特殊值"><a href="#Double的特殊值" class="headerlink" title="Double的特殊值"></a>Double的特殊值</h5><p>Double.POSITIVE_INFINITY 正无穷大</p>
+<p>Double.NEGATIVE_INFINITY 负无穷大</p>
+<p>Double.NaN 非数字</p>
+<blockquote>
+<p>注意：不能使用 x &#x3D;&#x3D; Double.NaN 的方法检测一个特定值是否等于Double.NaN，可以使用Double.isNaN()方法</p>
+</blockquote>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
     <title></title>
     <url>/2018/08/17/Java%E7%BA%BF%E7%A8%8B%E6%B1%A0/</url>
     <content><![CDATA[<hr>
@@ -1365,265 +1365,6 @@
 <p><img src="https://i.imgur.com/PMg0miA.gif"> </p>
 <p>可以看到，结果依次输出，相当于顺序执行各个任务。 </p>
 ]]></content>
-  </entry>
-  <entry>
-    <title>Java集合Queue</title>
-    <url>/2018/07/31/Java%E9%9B%86%E5%90%88Queue/</url>
-    <content><![CDATA[<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><p>接口，继承自Collection，Java集合框架中的队列实现。</p>
-<p>除了基本的Collection操作外，队列还提供其他的插入、提取和检查操作。每个方法都存在两种形式：一种抛出异常（操作失败时），另一种返回一个特殊值（null 或 false，具体取决于操作）。插入操作的后一种形式是用于专门为有容量限制的 Queue 实现设计的；在大多数实现中，插入操作不会失败。</p>
-<table>
-<thead>
-<tr>
-<th>操作&#x2F;结果</th>
-<th>抛出异常</th>
-<th>返回特殊值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>插入</td>
-<td>add(e)</td>
-<td>offer(e)</td>
-</tr>
-<tr>
-<td>移除</td>
-<td>remove()</td>
-<td>poll()</td>
-</tr>
-<tr>
-<td>检查</td>
-<td>element()</td>
-<td>peek()</td>
-</tr>
-</tbody></table>
-<p>队列通常（但并非一定）以 FIFO（先进先出）的方式排序各个元素。不过优先级队列和 LIFO 队列（或堆栈）例外，前者根据提供的比较器或元素的自然顺序对元素进行排序，后者按 LIFO（后进先出）的方式对元素进行排序。无论使用哪种排序方式，队列的头 都是调用 remove() 或 poll() 所移除的元素。在 FIFO 队列中，所有的新元素都插入队列的末尾。其他种类的队列可能使用不同的元素放置规则。每个 Queue 实现必须指定其顺序属性。</p>
-<p>如果可能，offer 方法可插入一个元素，否则返回 false。这与 Collection.add 方法不同，该方法只能通过抛出未经检查的异常使添加元素失败。offer 方法设计用于正常的失败情况，而不是出现异常的情况，例如在容量固定（有界）的队列中。</p>
-<p>remove() 和 poll() 方法可移除和返回队列的头。到底从队列中移除哪个元素是队列排序策略的功能，而该策略在各种实现中是不同的。remove() 和 poll() 方法仅在队列为空时其行为有所不同：remove() 方法抛出一个异常，而 poll() 方法则返回 null。</p>
-<p>element() 和 peek() 返回但不移除队列的头。</p>
-<p>Queue 接口并未定义并发编程中常见的阻塞队列的方法。BlockingQueue 接口定义了那些等待元素出现或等待队列中有可用空间的方法，这些方法扩展了此接口。</p>
-<p>Queue 实现通常不允许插入 null 元素，尽管某些实现（如 LinkedList）并不禁止插入 null。即使在允许 null 的实现中，也不应该将 null 插入到 Queue 中，因为 null 也用作 poll 方法的一个特殊返回值，表明队列不包含元素。</p>
-<p>Queue 实现通常未定义 equals 和 hashCode 方法的基于元素的版本，而是从 Object 类继承了基于身份的版本，因为对于具有相同元素但有不同排序属性的队列而言，基于元素的相等性不总是很好定义。</p>
-<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e"><a href="#boolean-add-E-e" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><p>将指定的元素插入此队列，如果队列没满，且可以立即插入，则返回 true。其他异常情况如下：</p>
-<ul>
-<li>IllegalStateException - 如果由于容量的限制此时不能添加该元素</li>
-<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
-<li>NullPointerException - 如果指定元素为 null 并且此队列不允许 null 元素</li>
-<li>IllegalArgumentException - 如果此元素的某些属性不允许将其添加到此队列</li>
-</ul>
-<h4 id="boolean-offer-E-e"><a href="#boolean-offer-E-e" class="headerlink" title="boolean offer(E e)"></a>boolean offer(E e)</h4><p>将指定的元素插入此队列（如果立即可行且不会违反容量限制），当使用有容量限制的队列时，<strong>此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常</strong>。</p>
-<p>如果该元素已添加到此队列，则返回 true；否则返回 false</p>
-<ul>
-<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
-<li>NullPointerException - 如果指定元素为 null 并且此队列不允许 null 元素</li>
-<li>IllegalArgumentException - 如果此元素的某些属性不允许将其添加到此队列</li>
-</ul>
-<h4 id="E-remove"><a href="#E-remove" class="headerlink" title="E remove()"></a>E remove()</h4><p>获取并移除此队列的头。此方法与 poll 唯一的不同在于：此队列为空时将抛出一个异常。 </p>
-<ul>
-<li>NoSuchElementException - 如果此队列为空</li>
-</ul>
-<h4 id="E-poll"><a href="#E-poll" class="headerlink" title="E poll()"></a>E poll()</h4><p>获取并移除此队列的头，如果此队列为空，则返回 null。</p>
-<h4 id="E-element"><a href="#E-element" class="headerlink" title="E element()"></a>E element()</h4><p>获取但是不移除此队列的头。此方法与 peek 唯一的不同在于：此队列为空时将抛出一个异常。</p>
-<ul>
-<li>NoSuchElementException - 如果此队列为空</li>
-</ul>
-<h4 id="E-peek"><a href="#E-peek" class="headerlink" title="E peek()"></a>E peek()</h4><p>获取但不移除此队列的头；如果此队列为空，则返回 null。</p>
-<h2 id="AbstractQueue"><a href="#AbstractQueue" class="headerlink" title="AbstractQueue"></a>AbstractQueue</h2><p>抽象队列类，实现了Queue接口，继承了AbstractCollection。</p>
-<p>此类提供某些Queue操作的骨干实现。此类中的实现适用于基本实现不允许包含null元素时。add、remove 和 element 方法分别基于 offer、poll 和 peek 方法，但是它们通过抛出异常而不是返回 false 或 null 来指示失败。</p>
-<p>扩展此类的 Queue 实现至少必须定义一个不允许插入 null 元素的 Queue.offer(E) 方法，该方法以及 Queue.peek()、Queue.poll()、Collection.size() 和 Collection.iterator() 都支持 Iterator.remove() 方法。通常还要重写其他方法。如果无法满足这些要求，那么可以转而考虑为 AbstractCollection 创建子类。</p>
-<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e-1"><a href="#boolean-add-E-e-1" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (offer(e))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Queue full&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基于offer实现，将指定的元素插入到此队列中（如果立即可行且不会违反容量限制），在成功时返回 true，如果当前没有可用空间，则抛出 IllegalStateException。</p>
-<h4 id="E-remove-1"><a href="#E-remove-1" class="headerlink" title="E remove()"></a>E remove()</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> E <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">E</span> <span class="variable">x</span> <span class="operator">=</span> poll();</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基于poll实现，获取并移除此队列的头。此方法与 poll 唯一的不同在于：此队列为空时将抛出一个异常NoSuchElementException。</p>
-<h4 id="E-element-1"><a href="#E-element-1" class="headerlink" title="E element()"></a>E element()</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> E <span class="title function_">element</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">E</span> <span class="variable">x</span> <span class="operator">=</span> peek();</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>基于peek实现，获取但不移除此队列的头。此方法与 peek 唯一的不同在于：此队列为空时将抛出一个异常NoSuchElementException。</p>
-<h4 id="void-clear"><a href="#void-clear" class="headerlink" title="void clear()"></a>void clear()</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (poll() != <span class="literal">null</span>)</span><br><span class="line">        ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>移除此队列中的所有元素。此调用返回后，队列将为空。</p>
-<p>此实现重复调用 poll，直到它返回 null 为止。</p>
-<h4 id="boolean-addAll-Collection-lt-extends-E-gt-c"><a href="#boolean-addAll-Collection-lt-extends-E-gt-c" class="headerlink" title="boolean addAll(Collection&lt;? extends E&gt; c)"></a>boolean addAll(Collection&lt;? extends E&gt; c)</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="built_in">this</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">modified</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (E e : c)</span><br><span class="line">        <span class="keyword">if</span> (add(e))</span><br><span class="line">            modified = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> modified;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>调用add方法将指定 collection 中的所有元素都添加到此队列中。如果试图将某一队列 addAll 到该队列本身中，则会导致 IllegalArgumentException。此外，如果正在进行此操作时修改指定的 collection，则此操作的行为是不确定的。</p>
-<p>此实现在指定的 collection 上进行迭代，并依次将迭代器返回的每一个元素添加到此队列中。在试图添加某一元素（尤其是 null 元素）时如果遇到了运行时异常，则可能导致在抛出相关异常时只成功地添加了某些元素。</p>
-<ul>
-<li>ClassCastException - 如果指定 collection 元素的类不允许将该元素添加到此队列中</li>
-<li>NullPointerException - 如果指定 collection 包含一个 null 元素并且此队列不允许 null 元素，或者指定 collection 为 null</li>
-<li>IllegalArgumentException - 如果指定 collection 元素的某些属性不允许将该元素添加到此队列中，或者指定 collection 是此队列</li>
-<li>IllegalStateException - 如果此时由于插入限制无法添加所有元素</li>
-</ul>
-<h2 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h2><p>接口，继承自Queue，支持两个附加操作的Queue，这两个操作是：</p>
-<ul>
-<li>获取元素时等待队列变为非空</li>
-<li>存储元素时等待空间变得可用</li>
-</ul>
-<p>BlockingQueue 方法以四种形式出现，对于不能立即满足但可能在将来某一时刻可以满足的操作，这四种形式的处理方式不同：第一种是抛出一个异常，第二种是返回一个特殊值（null 或 false，具体取决于操作），第三种是在操作成功前，无限期地阻塞当前线程，第四种是在给定的最大时间限制内阻塞，超时失败。下表中总结了这些方法：</p>
-<table>
-<thead>
-<tr>
-<th>操作&#x2F;结果</th>
-<th>抛出异常</th>
-<th>返回特殊值</th>
-<th>阻塞等待</th>
-<th>超时等待</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>插入</td>
-<td>add(e)</td>
-<td>offer(e)</td>
-<td>put(e)</td>
-<td>offer(e, time, unit)</td>
-</tr>
-<tr>
-<td>移除</td>
-<td>remove()</td>
-<td>poll()</td>
-<td>take()</td>
-<td>poll(time, unit)</td>
-</tr>
-<tr>
-<td>检索</td>
-<td>element()</td>
-<td>peek()</td>
-<td>不可用</td>
-<td>不可用</td>
-</tr>
-</tbody></table>
-<p><strong>BlockingQueue 不接受 null 元素</strong>，试图 add、put 或 offer 一个 null 元素时，某些实现会抛出 NullPointerException。null 被用作指示 poll 操作失败的警戒值。</p>
-<p><strong>BlockingQueue可以是限定容量的</strong>。它在任意给定时间都可以有一个 remainingCapacity，超出此容量，便无法无阻塞地 put 附加元素。没有任何内部容量约束的 BlockingQueue 总是报告 Integer.MAX_VALUE 的剩余容量。</p>
-<p><strong>BlockingQueue实现主要用于生产者-使用者队列</strong>，但它另外还支持 Collection 接口。因此，举例来说，使用 remove(x) 从队列中移除任意一个元素是有可能的。然而，这种操作通常不会有效执行，只能有计划地偶尔使用，比如在取消排队信息时。</p>
-<p><strong>BlockingQueue实现是线程安全的</strong>。所有排队方法都可以使用内部锁或其他形式的并发控制来自动达到它们的目的。然而，大量的 Collection 操作（addAll、containsAll、retainAll 和 removeAll）没有必要自动执行，除非在实现中特别说明。因此，举例来说，在只添加了 c 中的一些元素后，addAll(c) 有可能失败（抛出一个异常）。</p>
-<p>BlockingQueue 实质上不 支持使用任何一种“close”或“shutdown”操作来指示不再添加任何项。这种功能的需求和使用有依赖于实现的倾向。例如，一种常用的策略是：对于生产者，插入特殊的 end-of-stream 或 poison 对象，并根据使用者获取这些对象的时间来对它们进行解释。</p>
-<p>以下是基于典型的生产者-使用者场景的一个用例。注意，BlockingQueue 可以安全地与多个生产者和多个使用者一起使用。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Producer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue queue;</span><br><span class="line">  Producer(BlockingQueue q) &#123; queue = q; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="literal">true</span>) &#123; queue.put(produce()); &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123; ... handle ...&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  Object <span class="title function_">produce</span><span class="params">()</span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Consumer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue queue;</span><br><span class="line">  Consumer(BlockingQueue q) &#123; queue = q; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="literal">true</span>) &#123; consume(queue.take()); &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123; ... handle ...&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">consume</span><span class="params">(Object x)</span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Setup</span> &#123;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">BlockingQueue</span> <span class="variable">q</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SomeQueueImplementation</span>();</span><br><span class="line">    <span class="type">Producer</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Producer</span>(q);</span><br><span class="line">    <span class="type">Consumer</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Consumer</span>(q);</span><br><span class="line">    <span class="type">Consumer</span> <span class="variable">c2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Consumer</span>(q);</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(p).start();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(c1).start();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(c2).start();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><strong>内存一致性效果</strong>：当存在其他并发 collection 时，将对象放入 BlockingQueue 之前的线程中的操作 happen-before 随后通过另一线程从 BlockingQueue 中访问或移除该元素的操作。</p>
-<h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e-2"><a href="#boolean-add-E-e-2" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><p>将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，<em>如果当前没有可用的空间，则抛出 IllegalStateException</em>。<strong>当使用有容量限制的队列时，通常首选 offer</strong></p>
-<h4 id="boolean-offer-E-e-1"><a href="#boolean-offer-E-e-1" class="headerlink" title="boolean offer(E e)"></a>boolean offer(E e)</h4><p>将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，<em>如果当前没有可用的空间，则返回 false</em>。当使用有容量限制的队列时，此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常。</p>
-<h4 id="void-put-E-e-throws-InterruptedException"><a href="#void-put-E-e-throws-InterruptedException" class="headerlink" title="void put(E e) throws InterruptedException"></a>void put(E e) throws InterruptedException</h4><p>将指定元素插入此队列中，将等待可用的空间（如果有必要）。</p>
-<ul>
-<li>InterruptedException - 如果在等待时被中断</li>
-<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
-<li>NullPointerException - 如果指定元素为 null</li>
-<li>IllegalArgumentException - 如果指定元素的某些属性不允许将其添加到此队列</li>
-</ul>
-<h4 id="boolean-offer-E-e-long-timeout-TimeUnit-unit-throws-InterruptedException"><a href="#boolean-offer-E-e-long-timeout-TimeUnit-unit-throws-InterruptedException" class="headerlink" title="boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException"></a>boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException</h4><p>将指定元素插入此队列中，在到达指定的等待时间前等待可用的空间（如果有必要）。</p>
-<p>如果成功，则返回 true；如果在空间可用前超过了指定的等待时间，则返回 false。</p>
-<ul>
-<li>InterruptedException - 如果在等待时被中断</li>
-<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
-<li>NullPointerException - 如果指定元素为 null</li>
-<li>IllegalArgumentException - 如果指定元素的某些属性不允许将其添加到此队列</li>
-</ul>
-<h4 id="E-take-throws-InterruptedException"><a href="#E-take-throws-InterruptedException" class="headerlink" title="E take() throws InterruptedException"></a>E take() throws InterruptedException</h4><p>获取并移除此队列的头部，在元素变得可用之前一直等待（如果有必要）。</p>
-<h4 id="E-poll-long-timeout-TimeUnit-unit-throws-InterruptedException"><a href="#E-poll-long-timeout-TimeUnit-unit-throws-InterruptedException" class="headerlink" title="E poll(long timeout, TimeUnit unit) throws InterruptedException;"></a>E poll(long timeout, TimeUnit unit) throws InterruptedException;</h4><p>获取并移除此队列的头部，在指定的等待时间前等待可用的元素（如果有必要）。</p>
-<h4 id="int-remainingCapacity"><a href="#int-remainingCapacity" class="headerlink" title="int remainingCapacity();"></a>int remainingCapacity();</h4><p>返回在无阻塞的理想情况下（不存在内存或资源约束）此队列能接受的附加元素数量，<strong>即剩余容量</strong>；如果没有内部限制，则返回 Integer.MAX_VALUE。</p>
-<p>注意，不能 总是通过检查 remainingCapacity 来判断尝试插入元素是否成功，因为可能出现这样的情况：其他线程即将插入或移除一个元素。</p>
-<h4 id="boolean-remove-Object-o"><a href="#boolean-remove-Object-o" class="headerlink" title="boolean remove(Object o)"></a>boolean remove(Object o)</h4><p>从此队列中移除指定元素的单个实例（如果存在）。更确切地讲，如果此队列包含一个或多个满足 o.equals(e) 的元素 e，则移除该元素。如果此队列包含指定元素（或者此队列由于调用而发生更改），则返回 true。</p>
-<ul>
-<li>ClassCastException - 如果指定元素的类与此队列不兼容（可选）</li>
-<li>NullPointerException - 如果指定元素为 null（可选）</li>
-</ul>
-<h4 id="boolean-contains-Object-o"><a href="#boolean-contains-Object-o" class="headerlink" title="boolean contains(Object o)"></a>boolean contains(Object o)</h4><p>如果此队列包含指定元素，则返回 true。更确切地讲，当且仅当此队列至少包含一个满足 o.equals(e) 的元素 e时，返回 true。</p>
-<h4 id="int-drainTo-Collection-lt-super-E-gt-c"><a href="#int-drainTo-Collection-lt-super-E-gt-c" class="headerlink" title="int drainTo(Collection&lt;? super E&gt; c)"></a>int drainTo(Collection&lt;? super E&gt; c)</h4><p><strong>移除此队列中所有可用的元素，并将它们添加到给定 Collection 中</strong>。此操作可能比反复轮询此队列更有效。在试图向 Collection c 中添加元素没有成功时，可能导致在抛出相关异常时，元素会同时在两个 Collection 中出现，或者在其中一个 Collection 中出现，也可能在两个 Collection 中都不出现。如果试图将一个队列放入自身队列中，则会导致 IllegalArgumentException 异常。此外，如果正在进行此操作时修改指定的 Collection，则此操作行为是不确定的。</p>
-<ul>
-<li>UnsupportedOperationException - 如果指定 Collection 不支持添加元素</li>
-<li>ClassCastException - 如果此队列元素的类不允许将其添加到指定 Collection</li>
-<li>NullPointerException - 如果指定 Collection 为 null</li>
-<li>IllegalArgumentException - 如果指定 Collection 是此队列，或者此队列元素的某些属性不允许将其添加到指定 Collection</li>
-</ul>
-<h4 id="int-drainTo-Collection-lt-super-E-gt-c-int-maxElements"><a href="#int-drainTo-Collection-lt-super-E-gt-c-int-maxElements" class="headerlink" title="int drainTo(Collection&lt;? super E&gt; c, int maxElements);"></a>int drainTo(Collection&lt;? super E&gt; c, int maxElements);</h4><ul>
-<li>maxElements - 传输元素的最大数量</li>
-</ul>
-<p>最多从此队列中移除给定数量的可用元素，并将这些元素添加到给定 Collection 中。在试图向 Collection c 中添加元素没有成功时，可能导致在抛出相关异常时，元素会同时在两个 Collection 中出现，或者在其中一个 Collection 中出现，也可能在两个 Collection 中都不出现。如果试图将一个队列放入自身队列中，则会导致 IllegalArgumentException 异常。此外，如果正在进行此操作时修改指定的 Collection，则此操作行为是不确定的。</p>
-<h2 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h2><p>一个由数组支持的有界阻塞队列。此队列按 FIFO（先进先出）原则对元素进行排序。队列的头部是在队列中存在时间最长的元素。队列的尾部 是在队列中存在时间最短的元素。新元素插入到队列的尾部，队列获取操作则是从队列头部开始获得元素。</p>
-<p>这是一个典型的“有界缓存区”，固定大小的数组在其中保持生产者插入的元素和使用者提取的元素。<strong>一旦创建了这样的缓存区，就不能再增加其容量。试图向已满队列中放入元素会导致操作受阻塞；试图从空队列中提取元素将导致类似阻塞</strong>。</p>
-<p>此类<strong>支持对等待的生产者线程和消费者线程进行排序的可选公平策略</strong>。默认情况下，不保证是这种排序。然而，通过将公平性 (fairness) 设置为 true 而构造的队列允许按照 FIFO 顺序访问线程。公平性通常会降低吞吐量，但也减少了可变性和避免了“不平衡性”。</p>
-<p><font color='red'>该队列不允许插入null元素</font>。</p>
-<p>源码分析可以参考**<a href="http://www.cnblogs.com/leesf456/p/5533770.html">http://www.cnblogs.com/leesf456/p/5533770.html</a>**</p>
-<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><p>基于优先级堆（二叉堆）的<strong>无界优先级队列</strong>，优先级队列的元素按照其自然顺序进行排序，或者根据构造队列时提供的Comparator进行排序，具体取决于所使用的构造方法。</p>
-<p><strong>优先级队列不允许使用null元素</strong>，依靠自然顺序的优先级队列还不允许插入不可比较的对象（避免可能导致的ClassCastException）。</p>
-<p><em><em>此队列的</em>头* 是按指定排序方式确定的*最小</em> 元素**。如果多个元素都是最小值，则头是其中一个元素——选择方法是任意的。队列获取操作 <code>poll</code>、<code>remove</code>、<code>peek</code> 和 <code>element</code> 访问处于队列头的元素。 </p>
-<p><strong>优先级队列是无界的</strong>，但是有一个内部<em>容量</em>，控制着用于存储队列元素的数组大小。它通常至少等于队列的大小。随着不断向优先级队列添加元素，<strong>其容量会自动增加</strong>。无需指定容量增加策略的细节。 </p>
-<p>此类及其迭代器实现了 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Collection.html"><code>Collection</code></a> 和 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Iterator.html"><code>Iterator</code></a> 接口的所有<em>可选</em> 方法。方法 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/PriorityQueue.html#iterator()"><code>iterator()</code></a> 中提供的迭代器<em>不</em> 保证以任何特定的顺序遍历优先级队列中的元素。如果需要按顺序遍历，请考虑用 <code>Arrays.sort(pq.toArray())</code>。 </p>
-<p><strong>注意，此实现不是同步的。</strong>如果多个线程中的任意线程修改了队列，则这些线程不应同时访问 <code>PriorityQueue</code> 实例。相反，请使用线程安全的 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/concurrent/PriorityBlockingQueue.html"><code>PriorityBlockingQueue</code></a> 类。 </p>
-<h2 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h2><p>无界阻塞队列，线程安全</p>
-]]></content>
-      <categories>
-        <category>Java</category>
-      </categories>
-      <tags>
-        <tag>Java</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Linux基础</title>
-    <url>/2018/06/12/Linux%E5%9F%BA%E7%A1%80/</url>
-    <content><![CDATA[<h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
-<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
-<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
-<p>基本分区可以马上被使用但不能再分区</p>
-<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
-<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
-<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“&#x2F;”）</p>
-<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
-<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
-<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
-<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
-<p>盘片被划分为多个扇形区域即扇区</p>
-<p>同一盘片不同半径的同心圆为磁道</p>
-<p>不同盘片相同半径构成的圆柱面即柱面</p>
-<p>存储容量 &#x3D; 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
-<p>信息记录可以表示为：</p>
-<p>xx磁道（柱面）， xx磁头， xx扇区</p>
-<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
-<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
-<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
-<p>&#x2F; 分区</p>
-<p>SWAP分区</p>
-<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
-<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
-<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
-<li><p>&#x2F; Linux文件系统的入口，最高级目录</p>
-</li>
-<li><p>&#x2F;usr&#x2F;bin、&#x2F;bin ： 存放所有用户可以执行的命令</p>
-</li>
-<li><p>&#x2F;usr&#x2F;sbin、&#x2F;sbin ： 存放只有root可以执行的命令</p>
-</li>
-<li><p>&#x2F;home : 用户缺省的宿主目录</p>
-</li>
-<li><p>&#x2F;proc ： 虚拟文件系统，存放当前进程信息</p>
-</li>
-<li><p>&#x2F;dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在&#x2F;dev下</p>
-</li>
-<li><p>&#x2F;lib : 存放系统程序运行所需的共享库</p>
-</li>
-<li><p>&#x2F;lost+found : 存放系统出错的检查结果</p>
-</li>
-<li><p>&#x2F;tmp : 存放临时文件</p>
-</li>
-<li><p>&#x2F;etc : 存储系统的配置</p>
-</li>
-<li><p>&#x2F;var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
-</li>
-<li><p>&#x2F;usr : 存放所有命令、库、手册等</p>
-</li>
-<li><p>&#x2F;usr&#x2F;local ： 软件安装的目录</p>
-</li>
-<li><p>&#x2F;boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
-</li>
-<li><p>&#x2F;mnt ： 临时系统文件的安装点</p>
-</li>
-</ul>
-<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
-]]></content>
-      <categories>
-        <category>Linux</category>
-      </categories>
-      <tags>
-        <tag>Linux</tag>
-      </tags>
   </entry>
   <entry>
     <title>Java集合ArrayList</title>
@@ -2116,6 +1857,298 @@
       </tags>
   </entry>
   <entry>
+    <title>Java集合Queue</title>
+    <url>/2018/07/31/Java%E9%9B%86%E5%90%88Queue/</url>
+    <content><![CDATA[<h2 id="Queue"><a href="#Queue" class="headerlink" title="Queue"></a>Queue</h2><p>接口，继承自Collection，Java集合框架中的队列实现。</p>
+<p>除了基本的Collection操作外，队列还提供其他的插入、提取和检查操作。每个方法都存在两种形式：一种抛出异常（操作失败时），另一种返回一个特殊值（null 或 false，具体取决于操作）。插入操作的后一种形式是用于专门为有容量限制的 Queue 实现设计的；在大多数实现中，插入操作不会失败。</p>
+<table>
+<thead>
+<tr>
+<th>操作&#x2F;结果</th>
+<th>抛出异常</th>
+<th>返回特殊值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+</tr>
+<tr>
+<td>移除</td>
+<td>remove()</td>
+<td>poll()</td>
+</tr>
+<tr>
+<td>检查</td>
+<td>element()</td>
+<td>peek()</td>
+</tr>
+</tbody></table>
+<p>队列通常（但并非一定）以 FIFO（先进先出）的方式排序各个元素。不过优先级队列和 LIFO 队列（或堆栈）例外，前者根据提供的比较器或元素的自然顺序对元素进行排序，后者按 LIFO（后进先出）的方式对元素进行排序。无论使用哪种排序方式，队列的头 都是调用 remove() 或 poll() 所移除的元素。在 FIFO 队列中，所有的新元素都插入队列的末尾。其他种类的队列可能使用不同的元素放置规则。每个 Queue 实现必须指定其顺序属性。</p>
+<p>如果可能，offer 方法可插入一个元素，否则返回 false。这与 Collection.add 方法不同，该方法只能通过抛出未经检查的异常使添加元素失败。offer 方法设计用于正常的失败情况，而不是出现异常的情况，例如在容量固定（有界）的队列中。</p>
+<p>remove() 和 poll() 方法可移除和返回队列的头。到底从队列中移除哪个元素是队列排序策略的功能，而该策略在各种实现中是不同的。remove() 和 poll() 方法仅在队列为空时其行为有所不同：remove() 方法抛出一个异常，而 poll() 方法则返回 null。</p>
+<p>element() 和 peek() 返回但不移除队列的头。</p>
+<p>Queue 接口并未定义并发编程中常见的阻塞队列的方法。BlockingQueue 接口定义了那些等待元素出现或等待队列中有可用空间的方法，这些方法扩展了此接口。</p>
+<p>Queue 实现通常不允许插入 null 元素，尽管某些实现（如 LinkedList）并不禁止插入 null。即使在允许 null 的实现中，也不应该将 null 插入到 Queue 中，因为 null 也用作 poll 方法的一个特殊返回值，表明队列不包含元素。</p>
+<p>Queue 实现通常未定义 equals 和 hashCode 方法的基于元素的版本，而是从 Object 类继承了基于身份的版本，因为对于具有相同元素但有不同排序属性的队列而言，基于元素的相等性不总是很好定义。</p>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e"><a href="#boolean-add-E-e" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><p>将指定的元素插入此队列，如果队列没满，且可以立即插入，则返回 true。其他异常情况如下：</p>
+<ul>
+<li>IllegalStateException - 如果由于容量的限制此时不能添加该元素</li>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null 并且此队列不允许 null 元素</li>
+<li>IllegalArgumentException - 如果此元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="boolean-offer-E-e"><a href="#boolean-offer-E-e" class="headerlink" title="boolean offer(E e)"></a>boolean offer(E e)</h4><p>将指定的元素插入此队列（如果立即可行且不会违反容量限制），当使用有容量限制的队列时，<strong>此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常</strong>。</p>
+<p>如果该元素已添加到此队列，则返回 true；否则返回 false</p>
+<ul>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null 并且此队列不允许 null 元素</li>
+<li>IllegalArgumentException - 如果此元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="E-remove"><a href="#E-remove" class="headerlink" title="E remove()"></a>E remove()</h4><p>获取并移除此队列的头。此方法与 poll 唯一的不同在于：此队列为空时将抛出一个异常。 </p>
+<ul>
+<li>NoSuchElementException - 如果此队列为空</li>
+</ul>
+<h4 id="E-poll"><a href="#E-poll" class="headerlink" title="E poll()"></a>E poll()</h4><p>获取并移除此队列的头，如果此队列为空，则返回 null。</p>
+<h4 id="E-element"><a href="#E-element" class="headerlink" title="E element()"></a>E element()</h4><p>获取但是不移除此队列的头。此方法与 peek 唯一的不同在于：此队列为空时将抛出一个异常。</p>
+<ul>
+<li>NoSuchElementException - 如果此队列为空</li>
+</ul>
+<h4 id="E-peek"><a href="#E-peek" class="headerlink" title="E peek()"></a>E peek()</h4><p>获取但不移除此队列的头；如果此队列为空，则返回 null。</p>
+<h2 id="AbstractQueue"><a href="#AbstractQueue" class="headerlink" title="AbstractQueue"></a>AbstractQueue</h2><p>抽象队列类，实现了Queue接口，继承了AbstractCollection。</p>
+<p>此类提供某些Queue操作的骨干实现。此类中的实现适用于基本实现不允许包含null元素时。add、remove 和 element 方法分别基于 offer、poll 和 peek 方法，但是它们通过抛出异常而不是返回 false 或 null 来指示失败。</p>
+<p>扩展此类的 Queue 实现至少必须定义一个不允许插入 null 元素的 Queue.offer(E) 方法，该方法以及 Queue.peek()、Queue.poll()、Collection.size() 和 Collection.iterator() 都支持 Iterator.remove() 方法。通常还要重写其他方法。如果无法满足这些要求，那么可以转而考虑为 AbstractCollection 创建子类。</p>
+<h3 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e-1"><a href="#boolean-add-E-e-1" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">add</span><span class="params">(E e)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (offer(e))</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalStateException</span>(<span class="string">&quot;Queue full&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基于offer实现，将指定的元素插入到此队列中（如果立即可行且不会违反容量限制），在成功时返回 true，如果当前没有可用空间，则抛出 IllegalStateException。</p>
+<h4 id="E-remove-1"><a href="#E-remove-1" class="headerlink" title="E remove()"></a>E remove()</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> E <span class="title function_">remove</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">E</span> <span class="variable">x</span> <span class="operator">=</span> poll();</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基于poll实现，获取并移除此队列的头。此方法与 poll 唯一的不同在于：此队列为空时将抛出一个异常NoSuchElementException。</p>
+<h4 id="E-element-1"><a href="#E-element-1" class="headerlink" title="E element()"></a>E element()</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> E <span class="title function_">element</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">E</span> <span class="variable">x</span> <span class="operator">=</span> peek();</span><br><span class="line">    <span class="keyword">if</span> (x != <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NoSuchElementException</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>基于peek实现，获取但不移除此队列的头。此方法与 peek 唯一的不同在于：此队列为空时将抛出一个异常NoSuchElementException。</p>
+<h4 id="void-clear"><a href="#void-clear" class="headerlink" title="void clear()"></a>void clear()</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">clear</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">while</span> (poll() != <span class="literal">null</span>)</span><br><span class="line">        ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>移除此队列中的所有元素。此调用返回后，队列将为空。</p>
+<p>此实现重复调用 poll，直到它返回 null 为止。</p>
+<h4 id="boolean-addAll-Collection-lt-extends-E-gt-c"><a href="#boolean-addAll-Collection-lt-extends-E-gt-c" class="headerlink" title="boolean addAll(Collection&lt;? extends E&gt; c)"></a>boolean addAll(Collection&lt;? extends E&gt; c)</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">addAll</span><span class="params">(Collection&lt;? extends E&gt; c)</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="literal">null</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">NullPointerException</span>();</span><br><span class="line">    <span class="keyword">if</span> (c == <span class="built_in">this</span>)</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">IllegalArgumentException</span>();</span><br><span class="line">    <span class="type">boolean</span> <span class="variable">modified</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">for</span> (E e : c)</span><br><span class="line">        <span class="keyword">if</span> (add(e))</span><br><span class="line">            modified = <span class="literal">true</span>;</span><br><span class="line">    <span class="keyword">return</span> modified;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调用add方法将指定 collection 中的所有元素都添加到此队列中。如果试图将某一队列 addAll 到该队列本身中，则会导致 IllegalArgumentException。此外，如果正在进行此操作时修改指定的 collection，则此操作的行为是不确定的。</p>
+<p>此实现在指定的 collection 上进行迭代，并依次将迭代器返回的每一个元素添加到此队列中。在试图添加某一元素（尤其是 null 元素）时如果遇到了运行时异常，则可能导致在抛出相关异常时只成功地添加了某些元素。</p>
+<ul>
+<li>ClassCastException - 如果指定 collection 元素的类不允许将该元素添加到此队列中</li>
+<li>NullPointerException - 如果指定 collection 包含一个 null 元素并且此队列不允许 null 元素，或者指定 collection 为 null</li>
+<li>IllegalArgumentException - 如果指定 collection 元素的某些属性不允许将该元素添加到此队列中，或者指定 collection 是此队列</li>
+<li>IllegalStateException - 如果此时由于插入限制无法添加所有元素</li>
+</ul>
+<h2 id="BlockingQueue"><a href="#BlockingQueue" class="headerlink" title="BlockingQueue"></a>BlockingQueue</h2><p>接口，继承自Queue，支持两个附加操作的Queue，这两个操作是：</p>
+<ul>
+<li>获取元素时等待队列变为非空</li>
+<li>存储元素时等待空间变得可用</li>
+</ul>
+<p>BlockingQueue 方法以四种形式出现，对于不能立即满足但可能在将来某一时刻可以满足的操作，这四种形式的处理方式不同：第一种是抛出一个异常，第二种是返回一个特殊值（null 或 false，具体取决于操作），第三种是在操作成功前，无限期地阻塞当前线程，第四种是在给定的最大时间限制内阻塞，超时失败。下表中总结了这些方法：</p>
+<table>
+<thead>
+<tr>
+<th>操作&#x2F;结果</th>
+<th>抛出异常</th>
+<th>返回特殊值</th>
+<th>阻塞等待</th>
+<th>超时等待</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插入</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+<td>put(e)</td>
+<td>offer(e, time, unit)</td>
+</tr>
+<tr>
+<td>移除</td>
+<td>remove()</td>
+<td>poll()</td>
+<td>take()</td>
+<td>poll(time, unit)</td>
+</tr>
+<tr>
+<td>检索</td>
+<td>element()</td>
+<td>peek()</td>
+<td>不可用</td>
+<td>不可用</td>
+</tr>
+</tbody></table>
+<p><strong>BlockingQueue 不接受 null 元素</strong>，试图 add、put 或 offer 一个 null 元素时，某些实现会抛出 NullPointerException。null 被用作指示 poll 操作失败的警戒值。</p>
+<p><strong>BlockingQueue可以是限定容量的</strong>。它在任意给定时间都可以有一个 remainingCapacity，超出此容量，便无法无阻塞地 put 附加元素。没有任何内部容量约束的 BlockingQueue 总是报告 Integer.MAX_VALUE 的剩余容量。</p>
+<p><strong>BlockingQueue实现主要用于生产者-使用者队列</strong>，但它另外还支持 Collection 接口。因此，举例来说，使用 remove(x) 从队列中移除任意一个元素是有可能的。然而，这种操作通常不会有效执行，只能有计划地偶尔使用，比如在取消排队信息时。</p>
+<p><strong>BlockingQueue实现是线程安全的</strong>。所有排队方法都可以使用内部锁或其他形式的并发控制来自动达到它们的目的。然而，大量的 Collection 操作（addAll、containsAll、retainAll 和 removeAll）没有必要自动执行，除非在实现中特别说明。因此，举例来说，在只添加了 c 中的一些元素后，addAll(c) 有可能失败（抛出一个异常）。</p>
+<p>BlockingQueue 实质上不 支持使用任何一种“close”或“shutdown”操作来指示不再添加任何项。这种功能的需求和使用有依赖于实现的倾向。例如，一种常用的策略是：对于生产者，插入特殊的 end-of-stream 或 poison 对象，并根据使用者获取这些对象的时间来对它们进行解释。</p>
+<p>以下是基于典型的生产者-使用者场景的一个用例。注意，BlockingQueue 可以安全地与多个生产者和多个使用者一起使用。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Producer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue queue;</span><br><span class="line">  Producer(BlockingQueue q) &#123; queue = q; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="literal">true</span>) &#123; queue.put(produce()); &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123; ... handle ...&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  Object <span class="title function_">produce</span><span class="params">()</span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Consumer</span> <span class="keyword">implements</span> <span class="title class_">Runnable</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">final</span> BlockingQueue queue;</span><br><span class="line">  Consumer(BlockingQueue q) &#123; queue = q; &#125;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">run</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">      <span class="keyword">while</span>(<span class="literal">true</span>) &#123; consume(queue.take()); &#125;</span><br><span class="line">    &#125; <span class="keyword">catch</span> (InterruptedException ex) &#123; ... handle ...&#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">consume</span><span class="params">(Object x)</span> &#123; ... &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Setup</span> &#123;</span><br><span class="line">  <span class="keyword">void</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">BlockingQueue</span> <span class="variable">q</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SomeQueueImplementation</span>();</span><br><span class="line">    <span class="type">Producer</span> <span class="variable">p</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Producer</span>(q);</span><br><span class="line">    <span class="type">Consumer</span> <span class="variable">c1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Consumer</span>(q);</span><br><span class="line">    <span class="type">Consumer</span> <span class="variable">c2</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Consumer</span>(q);</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(p).start();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(c1).start();</span><br><span class="line">    <span class="keyword">new</span> <span class="title class_">Thread</span>(c2).start();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>内存一致性效果</strong>：当存在其他并发 collection 时，将对象放入 BlockingQueue 之前的线程中的操作 happen-before 随后通过另一线程从 BlockingQueue 中访问或移除该元素的操作。</p>
+<h3 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h3><h4 id="boolean-add-E-e-2"><a href="#boolean-add-E-e-2" class="headerlink" title="boolean add(E e)"></a>boolean add(E e)</h4><p>将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，<em>如果当前没有可用的空间，则抛出 IllegalStateException</em>。<strong>当使用有容量限制的队列时，通常首选 offer</strong></p>
+<h4 id="boolean-offer-E-e-1"><a href="#boolean-offer-E-e-1" class="headerlink" title="boolean offer(E e)"></a>boolean offer(E e)</h4><p>将指定元素插入此队列中（如果立即可行且不会违反容量限制），成功时返回 true，<em>如果当前没有可用的空间，则返回 false</em>。当使用有容量限制的队列时，此方法通常要优于 add(E)，后者可能无法插入元素，而只是抛出一个异常。</p>
+<h4 id="void-put-E-e-throws-InterruptedException"><a href="#void-put-E-e-throws-InterruptedException" class="headerlink" title="void put(E e) throws InterruptedException"></a>void put(E e) throws InterruptedException</h4><p>将指定元素插入此队列中，将等待可用的空间（如果有必要）。</p>
+<ul>
+<li>InterruptedException - 如果在等待时被中断</li>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null</li>
+<li>IllegalArgumentException - 如果指定元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="boolean-offer-E-e-long-timeout-TimeUnit-unit-throws-InterruptedException"><a href="#boolean-offer-E-e-long-timeout-TimeUnit-unit-throws-InterruptedException" class="headerlink" title="boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException"></a>boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException</h4><p>将指定元素插入此队列中，在到达指定的等待时间前等待可用的空间（如果有必要）。</p>
+<p>如果成功，则返回 true；如果在空间可用前超过了指定的等待时间，则返回 false。</p>
+<ul>
+<li>InterruptedException - 如果在等待时被中断</li>
+<li>ClassCastException - 如果指定元素的类不允许将其添加到此队列</li>
+<li>NullPointerException - 如果指定元素为 null</li>
+<li>IllegalArgumentException - 如果指定元素的某些属性不允许将其添加到此队列</li>
+</ul>
+<h4 id="E-take-throws-InterruptedException"><a href="#E-take-throws-InterruptedException" class="headerlink" title="E take() throws InterruptedException"></a>E take() throws InterruptedException</h4><p>获取并移除此队列的头部，在元素变得可用之前一直等待（如果有必要）。</p>
+<h4 id="E-poll-long-timeout-TimeUnit-unit-throws-InterruptedException"><a href="#E-poll-long-timeout-TimeUnit-unit-throws-InterruptedException" class="headerlink" title="E poll(long timeout, TimeUnit unit) throws InterruptedException;"></a>E poll(long timeout, TimeUnit unit) throws InterruptedException;</h4><p>获取并移除此队列的头部，在指定的等待时间前等待可用的元素（如果有必要）。</p>
+<h4 id="int-remainingCapacity"><a href="#int-remainingCapacity" class="headerlink" title="int remainingCapacity();"></a>int remainingCapacity();</h4><p>返回在无阻塞的理想情况下（不存在内存或资源约束）此队列能接受的附加元素数量，<strong>即剩余容量</strong>；如果没有内部限制，则返回 Integer.MAX_VALUE。</p>
+<p>注意，不能 总是通过检查 remainingCapacity 来判断尝试插入元素是否成功，因为可能出现这样的情况：其他线程即将插入或移除一个元素。</p>
+<h4 id="boolean-remove-Object-o"><a href="#boolean-remove-Object-o" class="headerlink" title="boolean remove(Object o)"></a>boolean remove(Object o)</h4><p>从此队列中移除指定元素的单个实例（如果存在）。更确切地讲，如果此队列包含一个或多个满足 o.equals(e) 的元素 e，则移除该元素。如果此队列包含指定元素（或者此队列由于调用而发生更改），则返回 true。</p>
+<ul>
+<li>ClassCastException - 如果指定元素的类与此队列不兼容（可选）</li>
+<li>NullPointerException - 如果指定元素为 null（可选）</li>
+</ul>
+<h4 id="boolean-contains-Object-o"><a href="#boolean-contains-Object-o" class="headerlink" title="boolean contains(Object o)"></a>boolean contains(Object o)</h4><p>如果此队列包含指定元素，则返回 true。更确切地讲，当且仅当此队列至少包含一个满足 o.equals(e) 的元素 e时，返回 true。</p>
+<h4 id="int-drainTo-Collection-lt-super-E-gt-c"><a href="#int-drainTo-Collection-lt-super-E-gt-c" class="headerlink" title="int drainTo(Collection&lt;? super E&gt; c)"></a>int drainTo(Collection&lt;? super E&gt; c)</h4><p><strong>移除此队列中所有可用的元素，并将它们添加到给定 Collection 中</strong>。此操作可能比反复轮询此队列更有效。在试图向 Collection c 中添加元素没有成功时，可能导致在抛出相关异常时，元素会同时在两个 Collection 中出现，或者在其中一个 Collection 中出现，也可能在两个 Collection 中都不出现。如果试图将一个队列放入自身队列中，则会导致 IllegalArgumentException 异常。此外，如果正在进行此操作时修改指定的 Collection，则此操作行为是不确定的。</p>
+<ul>
+<li>UnsupportedOperationException - 如果指定 Collection 不支持添加元素</li>
+<li>ClassCastException - 如果此队列元素的类不允许将其添加到指定 Collection</li>
+<li>NullPointerException - 如果指定 Collection 为 null</li>
+<li>IllegalArgumentException - 如果指定 Collection 是此队列，或者此队列元素的某些属性不允许将其添加到指定 Collection</li>
+</ul>
+<h4 id="int-drainTo-Collection-lt-super-E-gt-c-int-maxElements"><a href="#int-drainTo-Collection-lt-super-E-gt-c-int-maxElements" class="headerlink" title="int drainTo(Collection&lt;? super E&gt; c, int maxElements);"></a>int drainTo(Collection&lt;? super E&gt; c, int maxElements);</h4><ul>
+<li>maxElements - 传输元素的最大数量</li>
+</ul>
+<p>最多从此队列中移除给定数量的可用元素，并将这些元素添加到给定 Collection 中。在试图向 Collection c 中添加元素没有成功时，可能导致在抛出相关异常时，元素会同时在两个 Collection 中出现，或者在其中一个 Collection 中出现，也可能在两个 Collection 中都不出现。如果试图将一个队列放入自身队列中，则会导致 IllegalArgumentException 异常。此外，如果正在进行此操作时修改指定的 Collection，则此操作行为是不确定的。</p>
+<h2 id="ArrayBlockingQueue"><a href="#ArrayBlockingQueue" class="headerlink" title="ArrayBlockingQueue"></a>ArrayBlockingQueue</h2><p>一个由数组支持的有界阻塞队列。此队列按 FIFO（先进先出）原则对元素进行排序。队列的头部是在队列中存在时间最长的元素。队列的尾部 是在队列中存在时间最短的元素。新元素插入到队列的尾部，队列获取操作则是从队列头部开始获得元素。</p>
+<p>这是一个典型的“有界缓存区”，固定大小的数组在其中保持生产者插入的元素和使用者提取的元素。<strong>一旦创建了这样的缓存区，就不能再增加其容量。试图向已满队列中放入元素会导致操作受阻塞；试图从空队列中提取元素将导致类似阻塞</strong>。</p>
+<p>此类<strong>支持对等待的生产者线程和消费者线程进行排序的可选公平策略</strong>。默认情况下，不保证是这种排序。然而，通过将公平性 (fairness) 设置为 true 而构造的队列允许按照 FIFO 顺序访问线程。公平性通常会降低吞吐量，但也减少了可变性和避免了“不平衡性”。</p>
+<p><font color='red'>该队列不允许插入null元素</font>。</p>
+<p>源码分析可以参考**<a href="http://www.cnblogs.com/leesf456/p/5533770.html">http://www.cnblogs.com/leesf456/p/5533770.html</a>**</p>
+<h2 id="PriorityQueue"><a href="#PriorityQueue" class="headerlink" title="PriorityQueue"></a>PriorityQueue</h2><p>基于优先级堆（二叉堆）的<strong>无界优先级队列</strong>，优先级队列的元素按照其自然顺序进行排序，或者根据构造队列时提供的Comparator进行排序，具体取决于所使用的构造方法。</p>
+<p><strong>优先级队列不允许使用null元素</strong>，依靠自然顺序的优先级队列还不允许插入不可比较的对象（避免可能导致的ClassCastException）。</p>
+<p><em><em>此队列的</em>头* 是按指定排序方式确定的*最小</em> 元素**。如果多个元素都是最小值，则头是其中一个元素——选择方法是任意的。队列获取操作 <code>poll</code>、<code>remove</code>、<code>peek</code> 和 <code>element</code> 访问处于队列头的元素。 </p>
+<p><strong>优先级队列是无界的</strong>，但是有一个内部<em>容量</em>，控制着用于存储队列元素的数组大小。它通常至少等于队列的大小。随着不断向优先级队列添加元素，<strong>其容量会自动增加</strong>。无需指定容量增加策略的细节。 </p>
+<p>此类及其迭代器实现了 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Collection.html"><code>Collection</code></a> 和 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/Iterator.html"><code>Iterator</code></a> 接口的所有<em>可选</em> 方法。方法 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/PriorityQueue.html#iterator()"><code>iterator()</code></a> 中提供的迭代器<em>不</em> 保证以任何特定的顺序遍历优先级队列中的元素。如果需要按顺序遍历，请考虑用 <code>Arrays.sort(pq.toArray())</code>。 </p>
+<p><strong>注意，此实现不是同步的。</strong>如果多个线程中的任意线程修改了队列，则这些线程不应同时访问 <code>PriorityQueue</code> 实例。相反，请使用线程安全的 <a href="http://tool.oschina.net/uploads/apidocs/jdk-zh/java/util/concurrent/PriorityBlockingQueue.html"><code>PriorityBlockingQueue</code></a> 类。 </p>
+<h2 id="PriorityBlockingQueue"><a href="#PriorityBlockingQueue" class="headerlink" title="PriorityBlockingQueue"></a>PriorityBlockingQueue</h2><p>无界阻塞队列，线程安全</p>
+]]></content>
+      <categories>
+        <category>Java</category>
+      </categories>
+      <tags>
+        <tag>Java</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux基础</title>
+    <url>/2018/06/12/Linux%E5%9F%BA%E7%A1%80/</url>
+    <content><![CDATA[<h3 id="硬盘分区"><a href="#硬盘分区" class="headerlink" title="硬盘分区"></a>硬盘分区</h3><p>先分区再格式化 —— 分区完成后可以格式化不同的文件系统</p>
+<p>硬盘的分区主要分为基本分区（primary partion，也可以叫主分区）和扩展分区(extension partion)两种</p>
+<p>基本分区和扩展分区的数目之和不能大于四个 —— 分区表上最多只能记录四条记录</p>
+<p>基本分区可以马上被使用但不能再分区</p>
+<p>扩展分区必须再进行分区后才能使用，也就是说它必须还要进行二次分区。那么由扩展分区再分下去的是什么呢？它就是逻辑分区（logical partion），况且逻辑分区没有数量上限制。</p>
+<p>对red hat linux用户来说无论有几个分区，分给哪一目录使用，它归根结底就只有一个根目录，一个独立且唯一的文件结构。red hat linux中每个分区都是用来组成整个文件系统的一部分，因为它采用了一种叫“载入”的处理方法，它的整个文件系统中包含了一整套的文件和目录，且将一个 分区和一个目录联系起来。这时要载入的一个分区将使它的存储空间在一个目录下获得。</p>
+<p>对red hat linux来说，你可以把系统文件分几个区来装（必须要说明载入点），也可以就装在同一个分区中（载入点是“&#x2F;”）</p>
+<h4 id="分区表"><a href="#分区表" class="headerlink" title="分区表"></a>分区表</h4><p>带有硬盘分区信息</p>
+<p>分区名的前两个字母标明分区所在设备的类型，通常是hd(IDE磁盘)或sd(SCSI磁盘)</p>
+<p>最后的数字代表分区，前四个分区是用数字1到4排列的，记录主分区和扩展分区的信息，逻辑分区从5开始</p>
+<h4 id="挂载点-mount-point"><a href="#挂载点-mount-point" class="headerlink" title="挂载点 mount point"></a>挂载点 mount point</h4><h4 id="磁盘的物理结构"><a href="#磁盘的物理结构" class="headerlink" title="磁盘的物理结构"></a>磁盘的物理结构</h4><p>硬盘有数个盘片，每隔盘片有两个面，每个面一个磁头</p>
+<p>盘片被划分为多个扇形区域即扇区</p>
+<p>同一盘片不同半径的同心圆为磁道</p>
+<p>不同盘片相同半径构成的圆柱面即柱面</p>
+<p>存储容量 &#x3D; 磁头数 x 磁道（柱面）数 x 每道扇区数 x 每扇区字节数</p>
+<p>信息记录可以表示为：</p>
+<p>xx磁道（柱面）， xx磁头， xx扇区</p>
+<h4 id="MBR"><a href="#MBR" class="headerlink" title="MBR"></a>MBR</h4><p>MBR位于硬盘第一个物理扇区（绝对扇区）柱面0，磁头0，扇区1处</p>
+<p>MBR中包含硬盘的主引导程序和硬盘分区表</p>
+<h4 id="分区方案"><a href="#分区方案" class="headerlink" title="分区方案"></a>分区方案</h4><p>至少两个分区</p>
+<p>&#x2F; 分区</p>
+<p>SWAP分区</p>
+<h4 id="fdisk"><a href="#fdisk" class="headerlink" title="fdisk"></a>fdisk</h4><p><a href="https://www.linuxidc.com/Linux/2014-03/97502.htm">https://www.linuxidc.com/Linux/2014-03/97502.htm</a><br><a href="https://blog.csdn.net/jackyu651/article/details/53070607">https://blog.csdn.net/jackyu651/article/details/53070607</a></p>
+<h4 id="df"><a href="#df" class="headerlink" title="df"></a>df</h4><p><a href="https://blog.csdn.net/huaweitman/article/details/51637054">https://blog.csdn.net/huaweitman/article/details/51637054</a></p>
+<h3 id="Linux系统文件构成"><a href="#Linux系统文件构成" class="headerlink" title="Linux系统文件构成"></a>Linux系统文件构成</h3><ul>
+<li><p>&#x2F; Linux文件系统的入口，最高级目录</p>
+</li>
+<li><p>&#x2F;usr&#x2F;bin、&#x2F;bin ： 存放所有用户可以执行的命令</p>
+</li>
+<li><p>&#x2F;usr&#x2F;sbin、&#x2F;sbin ： 存放只有root可以执行的命令</p>
+</li>
+<li><p>&#x2F;home : 用户缺省的宿主目录</p>
+</li>
+<li><p>&#x2F;proc ： 虚拟文件系统，存放当前进程信息</p>
+</li>
+<li><p>&#x2F;dev : 存放设备文件，因为分区在硬盘上，硬盘是设备，所以分区信息全部在&#x2F;dev下</p>
+</li>
+<li><p>&#x2F;lib : 存放系统程序运行所需的共享库</p>
+</li>
+<li><p>&#x2F;lost+found : 存放系统出错的检查结果</p>
+</li>
+<li><p>&#x2F;tmp : 存放临时文件</p>
+</li>
+<li><p>&#x2F;etc : 存储系统的配置</p>
+</li>
+<li><p>&#x2F;var : 包含经常发生变动的文件，如日志文件、计划任务等，存放临时文件</p>
+</li>
+<li><p>&#x2F;usr : 存放所有命令、库、手册等</p>
+</li>
+<li><p>&#x2F;usr&#x2F;local ： 软件安装的目录</p>
+</li>
+<li><p>&#x2F;boot ： 内核文件及自举程序文件保存位置，存放启动文件 128M足够</p>
+</li>
+<li><p>&#x2F;mnt ： 临时系统文件的安装点</p>
+</li>
+</ul>
+<h4 id="SWAP-交换分区"><a href="#SWAP-交换分区" class="headerlink" title="SWAP 交换分区"></a>SWAP 交换分区</h4><p>虚拟内存，配置为实际物理内存的两倍</p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Linux启动顺序</title>
+    <url>/2018/06/13/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
+    <content><![CDATA[<h3 id="加载BIOS（load-bios）"><a href="#加载BIOS（load-bios）" class="headerlink" title="加载BIOS（load bios）"></a>加载BIOS（load bios）</h3><p>当你打开计算机电源，计算机会首先加载BIOS信息，BIOS信息是如此的重要，以至于计算机必须在最开始就找到它。这是因为BIOS中包含了CPU的相关信息、设备启动顺序信息、硬盘信息、内存信息、时钟信息、PnP特性等等。在此之后，计算机心里就有谱了，知道应该去读取哪个硬件设备了。</p>
+<h3 id="读取MBR（read-MBR’s-config-to-find-out-the-OS）"><a href="#读取MBR（read-MBR’s-config-to-find-out-the-OS）" class="headerlink" title="读取MBR（read MBR’s config to find out the OS）"></a>读取MBR（read MBR’s config to find out the OS）</h3><p>众所周知，硬盘上第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，它的大小是512字节，别看地方不大，可里面却存放了预启动信息、分区表信息。</p>
+<p>系统找到BIOS所指定的硬盘的MBR后，就会将其复制到0×7c00地址所在的物理内存中。其实被复制到物理内存的内容就是Boot Loader，而具体到你的电脑，那就是lilo或者grub了。</p>
+<h3 id="Boot-Loader"><a href="#Boot-Loader" class="headerlink" title="Boot Loader"></a>Boot Loader</h3><p>Boot Loader 就是在操作系统内核运行之前运行的一段小程序。通过这段小程序，我们可以初始化硬件设备、建立内存空间的映射图，从而将系统的软硬件环境带到一个合适的状态，以便为最终调用操作系统内核做好一切准备。</p>
+<p>Boot Loader有若干种，其中Grub、Lilo和spfdisk是常见的Loader。</p>
+<p>我们以Grub为例来讲解吧，毕竟用lilo和spfdisk的人并不多。</p>
+<p>系统读取内存中的grub配置信息（一般为menu.lst或grub.lst），并依照此配置信息来启动不同的操作系统。</p>
+<h3 id="加载内核-load-the-kernel-of-the-OS"><a href="#加载内核-load-the-kernel-of-the-OS" class="headerlink" title="加载内核 load the kernel of the OS"></a>加载内核 load the kernel of the OS</h3><p>根据grub设定的内核映像所在路径，系统读取内存映像，并进行解压缩操作。此时，屏幕一般会输出“Uncompressing Linux”的提示。当解压缩内核完成后，屏幕输出“OK, booting the kernel”。</p>
+<p>系统将解压后的内核放置在内存之中，并调用start_kernel()函数来启动一系列的初始化函数并初始化各种设备，完成Linux核心环境的建立。至此，Linux内核已经建立起来了，基于Linux的程序应该可以正常运行了。</p>
+<h3 id="用户层init依据inittab文件来设定运行等级-init-process-starts"><a href="#用户层init依据inittab文件来设定运行等级-init-process-starts" class="headerlink" title="用户层init依据inittab文件来设定运行等级 init process starts"></a>用户层init依据inittab文件来设定运行等级 init process starts</h3><p>内核被加载后，第一个运行的程序便是&#x2F;sbin&#x2F;init，该文件会读取&#x2F;etc&#x2F;inittab文件，并依据此文件来进行初始化工作。</p>
+<p>其实&#x2F;etc&#x2F;inittab文件最主要的作用就是设定Linux的运行等级，其设定形式是“：id:5:initdefault:”，这就表明Linux需要运行在等级5上。Linux的运行等级设定如下：</p>
+<p>0：关机<br>1：单用户模式<br>2：无网络支持的多用户模式<br>3：有网络支持的多用户模式<br>4：保留，未使用<br>5：有网络支持有X-Window支持的多用户模式<br>6：重新引导系统，即重启</p>
+<p>关于&#x2F;etc&#x2F;inittab文件的学问，其实还有很多</p>
+<h3 id="init进程执行rc-sysinit-execute-x2F-etc-x2F-rc-d-x2F-sysinit"><a href="#init进程执行rc-sysinit-execute-x2F-etc-x2F-rc-d-x2F-sysinit" class="headerlink" title="init进程执行rc.sysinit execute &#x2F;etc&#x2F;rc.d&#x2F;sysinit"></a>init进程执行rc.sysinit execute &#x2F;etc&#x2F;rc.d&#x2F;sysinit</h3><p>在设定了运行等级后，Linux系统执行的第一个用户层文件就是&#x2F;etc&#x2F;rc.d&#x2F;rc.sysinit脚本程序，它做的工作非常多，包括设定PATH、设定网络配置（&#x2F;etc&#x2F;sysconfig&#x2F;network）、启动swap分区、设定&#x2F;proc等等。如果你有兴趣，可以到&#x2F;etc&#x2F;rc.d中查看一下rc.sysinit文件，里面的脚本够你看几天的</p>
+<h3 id="启动内核模块-start-other-modules-x2F-etc-x2F-modules-conf"><a href="#启动内核模块-start-other-modules-x2F-etc-x2F-modules-conf" class="headerlink" title="启动内核模块 start other modules(&#x2F;etc&#x2F;modules.conf)"></a>启动内核模块 start other modules(&#x2F;etc&#x2F;modules.conf)</h3><p>具体是依据&#x2F;etc&#x2F;modules.conf文件或&#x2F;etc&#x2F;modules.d目录下的文件来装载内核模块。</p>
+<h3 id="执行不同运行级别的脚本程序-execute-the-run-level-scripts"><a href="#执行不同运行级别的脚本程序-execute-the-run-level-scripts" class="headerlink" title="执行不同运行级别的脚本程序 execute the run level scripts"></a>执行不同运行级别的脚本程序 execute the run level scripts</h3><p>根据运行级别的不同，系统会运行rc0.d到rc6.d中的相应的脚本程序，来完成相应的初始化工作和启动相应的服务。</p>
+<h3 id="执行-x2F-etc-x2F-rc-d-x2F-rc-local-execute-x2F-etc-x2F-rc-d-x2F-rc-local"><a href="#执行-x2F-etc-x2F-rc-d-x2F-rc-local-execute-x2F-etc-x2F-rc-d-x2F-rc-local" class="headerlink" title="执行&#x2F;etc&#x2F;rc.d&#x2F;rc.local execute &#x2F;etc&#x2F;rc.d&#x2F;rc.local"></a>执行&#x2F;etc&#x2F;rc.d&#x2F;rc.local execute &#x2F;etc&#x2F;rc.d&#x2F;rc.local</h3><p>你如果打开了此文件，里面有一句话，读过之后，你就会对此命令的作用一目了然：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># This script will be executed *after* all the other init scripts.</span><br><span class="line"># You can put your own initialization stuff in here if you don’t</span><br><span class="line"># want to do the full Sys V style init stuff.</span><br></pre></td></tr></table></figure>
+
+<p>rc.local就是在一切初始化工作后，Linux留给用户进行个性化的地方。你可以把你想设置和启动的东西放到这里。</p>
+<h3 id="执行-x2F-bin-x2F-login程序，进入登录状态-execute-x2F-bin-x2F-login"><a href="#执行-x2F-bin-x2F-login程序，进入登录状态-execute-x2F-bin-x2F-login" class="headerlink" title="执行&#x2F;bin&#x2F;login程序，进入登录状态 execute &#x2F;bin&#x2F;login"></a>执行&#x2F;bin&#x2F;login程序，进入登录状态 execute &#x2F;bin&#x2F;login</h3><p>此时，系统已经进入到了等待用户输入username和password的时候了，你已经可以用自己的帐号登入系统了。:)</p>
+<p>原文链接：<a href="https://blog.csdn.net/wangzhen209/article/details/72377317">https://blog.csdn.net/wangzhen209/article/details/72377317</a></p>
+]]></content>
+      <categories>
+        <category>Linux</category>
+      </categories>
+      <tags>
+        <tag>Linux</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux文件系统的实现</title>
     <url>/2018/06/12/Linux%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%AE%9E%E7%8E%B0/</url>
     <content><![CDATA[<blockquote>
@@ -2190,36 +2223,23 @@
       </tags>
   </entry>
   <entry>
-    <title>Linux启动顺序</title>
-    <url>/2018/06/13/Linux%E7%9A%84%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B/</url>
-    <content><![CDATA[<h3 id="加载BIOS（load-bios）"><a href="#加载BIOS（load-bios）" class="headerlink" title="加载BIOS（load bios）"></a>加载BIOS（load bios）</h3><p>当你打开计算机电源，计算机会首先加载BIOS信息，BIOS信息是如此的重要，以至于计算机必须在最开始就找到它。这是因为BIOS中包含了CPU的相关信息、设备启动顺序信息、硬盘信息、内存信息、时钟信息、PnP特性等等。在此之后，计算机心里就有谱了，知道应该去读取哪个硬件设备了。</p>
-<h3 id="读取MBR（read-MBR’s-config-to-find-out-the-OS）"><a href="#读取MBR（read-MBR’s-config-to-find-out-the-OS）" class="headerlink" title="读取MBR（read MBR’s config to find out the OS）"></a>读取MBR（read MBR’s config to find out the OS）</h3><p>众所周知，硬盘上第0磁道第一个扇区被称为MBR，也就是Master Boot Record，即主引导记录，它的大小是512字节，别看地方不大，可里面却存放了预启动信息、分区表信息。</p>
-<p>系统找到BIOS所指定的硬盘的MBR后，就会将其复制到0×7c00地址所在的物理内存中。其实被复制到物理内存的内容就是Boot Loader，而具体到你的电脑，那就是lilo或者grub了。</p>
-<h3 id="Boot-Loader"><a href="#Boot-Loader" class="headerlink" title="Boot Loader"></a>Boot Loader</h3><p>Boot Loader 就是在操作系统内核运行之前运行的一段小程序。通过这段小程序，我们可以初始化硬件设备、建立内存空间的映射图，从而将系统的软硬件环境带到一个合适的状态，以便为最终调用操作系统内核做好一切准备。</p>
-<p>Boot Loader有若干种，其中Grub、Lilo和spfdisk是常见的Loader。</p>
-<p>我们以Grub为例来讲解吧，毕竟用lilo和spfdisk的人并不多。</p>
-<p>系统读取内存中的grub配置信息（一般为menu.lst或grub.lst），并依照此配置信息来启动不同的操作系统。</p>
-<h3 id="加载内核-load-the-kernel-of-the-OS"><a href="#加载内核-load-the-kernel-of-the-OS" class="headerlink" title="加载内核 load the kernel of the OS"></a>加载内核 load the kernel of the OS</h3><p>根据grub设定的内核映像所在路径，系统读取内存映像，并进行解压缩操作。此时，屏幕一般会输出“Uncompressing Linux”的提示。当解压缩内核完成后，屏幕输出“OK, booting the kernel”。</p>
-<p>系统将解压后的内核放置在内存之中，并调用start_kernel()函数来启动一系列的初始化函数并初始化各种设备，完成Linux核心环境的建立。至此，Linux内核已经建立起来了，基于Linux的程序应该可以正常运行了。</p>
-<h3 id="用户层init依据inittab文件来设定运行等级-init-process-starts"><a href="#用户层init依据inittab文件来设定运行等级-init-process-starts" class="headerlink" title="用户层init依据inittab文件来设定运行等级 init process starts"></a>用户层init依据inittab文件来设定运行等级 init process starts</h3><p>内核被加载后，第一个运行的程序便是&#x2F;sbin&#x2F;init，该文件会读取&#x2F;etc&#x2F;inittab文件，并依据此文件来进行初始化工作。</p>
-<p>其实&#x2F;etc&#x2F;inittab文件最主要的作用就是设定Linux的运行等级，其设定形式是“：id:5:initdefault:”，这就表明Linux需要运行在等级5上。Linux的运行等级设定如下：</p>
-<p>0：关机<br>1：单用户模式<br>2：无网络支持的多用户模式<br>3：有网络支持的多用户模式<br>4：保留，未使用<br>5：有网络支持有X-Window支持的多用户模式<br>6：重新引导系统，即重启</p>
-<p>关于&#x2F;etc&#x2F;inittab文件的学问，其实还有很多</p>
-<h3 id="init进程执行rc-sysinit-execute-x2F-etc-x2F-rc-d-x2F-sysinit"><a href="#init进程执行rc-sysinit-execute-x2F-etc-x2F-rc-d-x2F-sysinit" class="headerlink" title="init进程执行rc.sysinit execute &#x2F;etc&#x2F;rc.d&#x2F;sysinit"></a>init进程执行rc.sysinit execute &#x2F;etc&#x2F;rc.d&#x2F;sysinit</h3><p>在设定了运行等级后，Linux系统执行的第一个用户层文件就是&#x2F;etc&#x2F;rc.d&#x2F;rc.sysinit脚本程序，它做的工作非常多，包括设定PATH、设定网络配置（&#x2F;etc&#x2F;sysconfig&#x2F;network）、启动swap分区、设定&#x2F;proc等等。如果你有兴趣，可以到&#x2F;etc&#x2F;rc.d中查看一下rc.sysinit文件，里面的脚本够你看几天的</p>
-<h3 id="启动内核模块-start-other-modules-x2F-etc-x2F-modules-conf"><a href="#启动内核模块-start-other-modules-x2F-etc-x2F-modules-conf" class="headerlink" title="启动内核模块 start other modules(&#x2F;etc&#x2F;modules.conf)"></a>启动内核模块 start other modules(&#x2F;etc&#x2F;modules.conf)</h3><p>具体是依据&#x2F;etc&#x2F;modules.conf文件或&#x2F;etc&#x2F;modules.d目录下的文件来装载内核模块。</p>
-<h3 id="执行不同运行级别的脚本程序-execute-the-run-level-scripts"><a href="#执行不同运行级别的脚本程序-execute-the-run-level-scripts" class="headerlink" title="执行不同运行级别的脚本程序 execute the run level scripts"></a>执行不同运行级别的脚本程序 execute the run level scripts</h3><p>根据运行级别的不同，系统会运行rc0.d到rc6.d中的相应的脚本程序，来完成相应的初始化工作和启动相应的服务。</p>
-<h3 id="执行-x2F-etc-x2F-rc-d-x2F-rc-local-execute-x2F-etc-x2F-rc-d-x2F-rc-local"><a href="#执行-x2F-etc-x2F-rc-d-x2F-rc-local-execute-x2F-etc-x2F-rc-d-x2F-rc-local" class="headerlink" title="执行&#x2F;etc&#x2F;rc.d&#x2F;rc.local execute &#x2F;etc&#x2F;rc.d&#x2F;rc.local"></a>执行&#x2F;etc&#x2F;rc.d&#x2F;rc.local execute &#x2F;etc&#x2F;rc.d&#x2F;rc.local</h3><p>你如果打开了此文件，里面有一句话，读过之后，你就会对此命令的作用一目了然：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line"># This script will be executed *after* all the other init scripts.</span><br><span class="line"># You can put your own initialization stuff in here if you don’t</span><br><span class="line"># want to do the full Sys V style init stuff.</span><br></pre></td></tr></table></figure>
+    <title>MyBatis-Plus基于PostgreSQL的代码自动生成</title>
+    <url>/2018/07/13/MyBatisPlus%E5%9F%BA%E4%BA%8EPostgreSQL%E7%9A%84%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/</url>
+    <content><![CDATA[<p>在MyBatis Plus的代码自动生成器基础上做了一定的修改和优化，配置更加清晰、易懂</p>
+<h4 id="相关jar包引入"><a href="#相关jar包引入" class="headerlink" title="相关jar包引入"></a>相关jar包引入</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis.plus.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis.plus.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.velocity<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>velocity<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;velocity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<p>rc.local就是在一切初始化工作后，Linux留给用户进行个性化的地方。你可以把你想设置和启动的东西放到这里。</p>
-<h3 id="执行-x2F-bin-x2F-login程序，进入登录状态-execute-x2F-bin-x2F-login"><a href="#执行-x2F-bin-x2F-login程序，进入登录状态-execute-x2F-bin-x2F-login" class="headerlink" title="执行&#x2F;bin&#x2F;login程序，进入登录状态 execute &#x2F;bin&#x2F;login"></a>执行&#x2F;bin&#x2F;login程序，进入登录状态 execute &#x2F;bin&#x2F;login</h3><p>此时，系统已经进入到了等待用户输入username和password的时候了，你已经可以用自己的帐号登入系统了。:)</p>
-<p>原文链接：<a href="https://blog.csdn.net/wangzhen209/article/details/72377317">https://blog.csdn.net/wangzhen209/article/details/72377317</a></p>
-]]></content>
+<p>MP默认使用的是velocity模板引擎，所以还是要引入这个包的，如果是使用其他的模板引擎，如FreeMarker，则可以引入FreeMarker的包</p>
+<p>引入了mybatis-plus-boot-starter和mybatis-plus的包后，不要再引入mybatis-spring-boot-starter相关的包，以免引起jar包冲突</p>
+<h4 id="配置数据库连接信息"><a href="#配置数据库连接信息" class="headerlink" title="配置数据库连接信息"></a>配置数据库连接信息</h4><p>在配置文件中配置数据库连接的信息，代码生成器中直接读取配置文件的信息，不需要重复配置</p>
+<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PostgreSQLGenerator</span> <span class="keyword">implements</span> <span class="title class_">EnvironmentAware</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Environment env;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String driverClassName;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostgreSQLGenerator</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.driverClassName = env.getProperty(<span class="string">&quot;spring.datasource.driverClassName&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.username = env.getProperty(<span class="string">&quot;spring.datasource.username&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.password = env.getProperty(<span class="string">&quot;spring.datasource.password&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.url = env.getProperty(<span class="string">&quot;spring.datasource.url&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">generator</span><span class="params">(String[] tables, Integer result)</span> &#123;</span><br><span class="line">        <span class="type">AutoGenerator</span> <span class="variable">generator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AutoGenerator</span>();</span><br><span class="line">        generator.setGlobalConfig(globalConfig());</span><br><span class="line">        generator.setDataSource(dataSourceConfig());</span><br><span class="line">        generator.setStrategy(strategyConfig(tables));</span><br><span class="line">        generator.setPackageInfo(packageConfig());</span><br><span class="line">        <span class="comment">//generator.setCfg(injectionConfig(result));</span></span><br><span class="line"><span class="comment">//        if (1 == result) &#123;</span></span><br><span class="line"><span class="comment">//            generator.setTemplateEngine(new FreemarkerTemplateEngine());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        generator.execute();</span><br><span class="line">        <span class="comment">// 打印注入设置</span></span><br><span class="line">        <span class="comment">//System.err.println(generator.getCfg().getMap().get(&quot;abc&quot;));</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 全局配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> GlobalConfig <span class="title function_">globalConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">GlobalConfig</span> <span class="variable">gc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GlobalConfig</span>();</span><br><span class="line">        gc.setOutputDir(<span class="string">&quot;D://mybatis//&quot;</span>);</span><br><span class="line">        gc.setFileOverride(<span class="literal">true</span>);</span><br><span class="line">        gc.setActiveRecord(<span class="literal">true</span>);<span class="comment">// 开启 activeRecord 模式</span></span><br><span class="line">        gc.setEnableCache(<span class="literal">false</span>);<span class="comment">// XML 二级缓存</span></span><br><span class="line">        gc.setBaseResultMap(<span class="literal">true</span>);<span class="comment">// XML ResultMap</span></span><br><span class="line">        gc.setBaseColumnList(<span class="literal">false</span>);<span class="comment">// XML columList</span></span><br><span class="line">        <span class="comment">//gc.setKotlin(true) 是否生成 kotlin 代码</span></span><br><span class="line">        gc.setAuthor(<span class="string">&quot;wangxinglei&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义文件命名，注意 %s 会自动填充表实体属性！</span></span><br><span class="line">        <span class="comment">// gc.setEntityName(&quot;%sEntity&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setMapperName(&quot;%sDao&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setXmlName(&quot;%sDao&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setServiceName(&quot;MP%sService&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setServiceImplName(&quot;%sServiceDiy&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setControllerName(&quot;%sAction&quot;);</span></span><br><span class="line">        <span class="keyword">return</span> gc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模板引擎配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> TemplateConfig <span class="title function_">templateConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据源配置，从配置文件获取</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> DataSourceConfig <span class="title function_">dataSourceConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        init();</span><br><span class="line"></span><br><span class="line">        <span class="type">DataSourceConfig</span> <span class="variable">dsc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataSourceConfig</span>();</span><br><span class="line">        dsc.setSchemaname(<span class="string">&quot;public&quot;</span>);</span><br><span class="line">        dsc.setDbType(DbType.POSTGRE_SQL);</span><br><span class="line">        dsc.setTypeConvert(<span class="keyword">new</span> <span class="title class_">PostgreSqlTypeConvert</span>());</span><br><span class="line">        dsc.setDbQuery(<span class="keyword">new</span> <span class="title class_">PostgreSqlQuery</span>());</span><br><span class="line">        dsc.setDriverName(driverClassName);</span><br><span class="line">        dsc.setUsername(username);</span><br><span class="line">        dsc.setPassword(password);</span><br><span class="line">        dsc.setUrl(url);</span><br><span class="line">        <span class="keyword">return</span> dsc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 策略配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> StrategyConfig <span class="title function_">strategyConfig</span><span class="params">(String[] tables)</span> &#123;</span><br><span class="line">        <span class="comment">// 策略配置</span></span><br><span class="line">        <span class="type">StrategyConfig</span> <span class="variable">strategy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StrategyConfig</span>();</span><br><span class="line">        <span class="comment">// strategy.setCapitalMode(true);// 全局大写命名</span></span><br><span class="line">        <span class="comment">// strategy.setDbColumnUnderline(true);//全局下划线命名</span></span><br><span class="line">        strategy.setTablePrefix(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;tbl_&quot;</span>&#125;);<span class="comment">// 此处可以修改为您的表前缀</span></span><br><span class="line">        <span class="comment">//strategy.setFieldPrefix(new String[]&#123;&quot;A_&quot;&#125;);</span></span><br><span class="line">        strategy.setNaming(NamingStrategy.underline_to_camel);<span class="comment">// 表名生成策略</span></span><br><span class="line">        strategy.setColumnNaming(NamingStrategy.underline_to_camel);<span class="comment">// 允许字段策略独立设置，默认为 naming 策略</span></span><br><span class="line">        strategy.setInclude(tables); <span class="comment">// 需要生成的表</span></span><br><span class="line"><span class="comment">//        strategy.setExclude(new String[]&#123;&quot;test&quot;&#125;); // 排除生成的表</span></span><br><span class="line">        <span class="comment">// 自定义实体父类</span></span><br><span class="line">        <span class="comment">// strategy.setSuperEntityClass(&quot;com.baomidou.demo.TestEntity&quot;);</span></span><br><span class="line">        <span class="comment">// 自定义实体，公共字段</span></span><br><span class="line">        <span class="comment">// strategy.setSuperEntityColumns(new String[] &#123; &quot;test_id&quot;, &quot;age&quot; &#125;);</span></span><br><span class="line">        <span class="comment">// 自定义 mapper 父类</span></span><br><span class="line">        strategy.setSuperMapperClass(<span class="string">&quot;com.baomidou.mybatisplus.mapper.BaseMapper&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义 service 父类</span></span><br><span class="line">        strategy.setSuperServiceClass(<span class="string">&quot;com.baomidou.mybatisplus.service.IService&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义 service 实现类父类</span></span><br><span class="line">        strategy.setSuperServiceImplClass(<span class="string">&quot;com.baomidou.springwind.service.impl.ServiceImpl&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义 controller 父类</span></span><br><span class="line">        <span class="comment">// strategy.setSuperControllerClass(&quot;com.baomidou.demo.TestController&quot;);</span></span><br><span class="line">        <span class="comment">// 【实体】是否生成字段常量（默认 false）</span></span><br><span class="line">        <span class="comment">// public static final String ID = &quot;test_id&quot;;</span></span><br><span class="line">        <span class="comment">// strategy.setEntityColumnConstant(true);</span></span><br><span class="line">        <span class="comment">// 【实体】是否为构建者模型（默认 false）</span></span><br><span class="line">        <span class="comment">// public User setName(String name) &#123;this.name = name; return this;&#125;</span></span><br><span class="line">        <span class="comment">// strategy.setEntityBuliderModel(true);</span></span><br><span class="line">        <span class="keyword">return</span> strategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 包配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> PackageConfig <span class="title function_">packageConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">PackageConfig</span> <span class="variable">pc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PackageConfig</span>();</span><br><span class="line">        <span class="comment">//pc.setModuleName(&quot;test&quot;);</span></span><br><span class="line">        pc.setParent(<span class="string">&quot;com.lemon.rabbit&quot;</span>);<span class="comment">// 自定义包路径</span></span><br><span class="line">        pc.setController(<span class="string">&quot;controller&quot;</span>);<span class="comment">// 这里是控制器包名，默认 web</span></span><br><span class="line">        pc.setEntity(<span class="string">&quot;model&quot;</span>);</span><br><span class="line">        pc.setMapper(<span class="string">&quot;mapper&quot;</span>);</span><br><span class="line">        pc.setXml(<span class="string">&quot;mapping&quot;</span>);</span><br><span class="line">        pc.setService(<span class="string">&quot;service&quot;</span>);</span><br><span class="line">        pc.setServiceImpl(<span class="string">&quot;service.impl&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> pc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> result</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> InjectionConfig <span class="title function_">injectionConfig</span><span class="params">(Integer result)</span> &#123;</span><br><span class="line">        <span class="comment">// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值</span></span><br><span class="line">        <span class="type">InjectionConfig</span> <span class="variable">cfg</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InjectionConfig</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initMap</span><span class="params">()</span> &#123;</span><br><span class="line">                Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">                map.put(<span class="string">&quot;abc&quot;</span>, <span class="built_in">this</span>.getConfig().getGlobalConfig().getAuthor() + <span class="string">&quot;-mp&quot;</span>);</span><br><span class="line">                <span class="built_in">this</span>.setMap(map);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        List&lt;FileOutConfig&gt; focList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        focList.add(<span class="keyword">new</span> <span class="title class_">FileOutConfig</span>(<span class="string">&quot;/templates/dto.java&quot;</span> + ((<span class="number">1</span> == result) ? <span class="string">&quot;.ftl&quot;</span> : <span class="string">&quot;.vm&quot;</span>)) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> String <span class="title function_">outputFile</span><span class="params">(TableInfo tableInfo)</span> &#123;</span><br><span class="line">                <span class="comment">// 自定义输入文件名称</span></span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;D://test/my_&quot;</span> + tableInfo.getEntityName() + <span class="string">&quot;.java&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        cfg.setFileOutConfigList(focList);</span><br><span class="line">        <span class="keyword">return</span> cfg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setEnvironment</span><span class="params">(Environment environment)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.env = environment;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>在单元测试中直接调用postgreSQLGenerator的generator方法即可，第一个参数填入对应的表名，可以写一个，也可以写多个，然后执行用例即可生成。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DatabaseGeneratorTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PostgreSQLGenerator postgreSQLGenerator;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setup</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        String[] tables = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;tbl_city&quot;</span>&#125;;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        postgreSQLGenerator.generator(tables, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>Linux</category>
+        <category>MyBatis</category>
       </categories>
       <tags>
-        <tag>Linux</tag>
+        <tag>MyBatis</tag>
       </tags>
   </entry>
   <entry>
@@ -2326,48 +2346,6 @@
       </tags>
   </entry>
   <entry>
-    <title>MyBatis-Plus基于PostgreSQL的代码自动生成</title>
-    <url>/2018/07/13/MyBatisPlus%E5%9F%BA%E4%BA%8EPostgreSQL%E7%9A%84%E4%BB%A3%E7%A0%81%E8%87%AA%E5%8A%A8%E7%94%9F%E6%88%90/</url>
-    <content><![CDATA[<p>在MyBatis Plus的代码自动生成器基础上做了一定的修改和优化，配置更加清晰、易懂</p>
-<h4 id="相关jar包引入"><a href="#相关jar包引入" class="headerlink" title="相关jar包引入"></a>相关jar包引入</h4><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis.plus.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.baomidou<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-plus<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;mybatis.plus.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.velocity<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>velocity<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>$&#123;velocity.version&#125;<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>MP默认使用的是velocity模板引擎，所以还是要引入这个包的，如果是使用其他的模板引擎，如FreeMarker，则可以引入FreeMarker的包</p>
-<p>引入了mybatis-plus-boot-starter和mybatis-plus的包后，不要再引入mybatis-spring-boot-starter相关的包，以免引起jar包冲突</p>
-<h4 id="配置数据库连接信息"><a href="#配置数据库连接信息" class="headerlink" title="配置数据库连接信息"></a>配置数据库连接信息</h4><p>在配置文件中配置数据库连接的信息，代码生成器中直接读取配置文件的信息，不需要重复配置</p>
-<h4 id="具体实现"><a href="#具体实现" class="headerlink" title="具体实现"></a>具体实现</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PostgreSQLGenerator</span> <span class="keyword">implements</span> <span class="title class_">EnvironmentAware</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> Environment env;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String driverClassName;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> String url;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">PostgreSQLGenerator</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.driverClassName = env.getProperty(<span class="string">&quot;spring.datasource.driverClassName&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.username = env.getProperty(<span class="string">&quot;spring.datasource.username&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.password = env.getProperty(<span class="string">&quot;spring.datasource.password&quot;</span>);</span><br><span class="line">        <span class="built_in">this</span>.url = env.getProperty(<span class="string">&quot;spring.datasource.url&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">generator</span><span class="params">(String[] tables, Integer result)</span> &#123;</span><br><span class="line">        <span class="type">AutoGenerator</span> <span class="variable">generator</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AutoGenerator</span>();</span><br><span class="line">        generator.setGlobalConfig(globalConfig());</span><br><span class="line">        generator.setDataSource(dataSourceConfig());</span><br><span class="line">        generator.setStrategy(strategyConfig(tables));</span><br><span class="line">        generator.setPackageInfo(packageConfig());</span><br><span class="line">        <span class="comment">//generator.setCfg(injectionConfig(result));</span></span><br><span class="line"><span class="comment">//        if (1 == result) &#123;</span></span><br><span class="line"><span class="comment">//            generator.setTemplateEngine(new FreemarkerTemplateEngine());</span></span><br><span class="line"><span class="comment">//        &#125;</span></span><br><span class="line">        generator.execute();</span><br><span class="line">        <span class="comment">// 打印注入设置</span></span><br><span class="line">        <span class="comment">//System.err.println(generator.getCfg().getMap().get(&quot;abc&quot;));</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 全局配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> GlobalConfig <span class="title function_">globalConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">GlobalConfig</span> <span class="variable">gc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GlobalConfig</span>();</span><br><span class="line">        gc.setOutputDir(<span class="string">&quot;D://mybatis//&quot;</span>);</span><br><span class="line">        gc.setFileOverride(<span class="literal">true</span>);</span><br><span class="line">        gc.setActiveRecord(<span class="literal">true</span>);<span class="comment">// 开启 activeRecord 模式</span></span><br><span class="line">        gc.setEnableCache(<span class="literal">false</span>);<span class="comment">// XML 二级缓存</span></span><br><span class="line">        gc.setBaseResultMap(<span class="literal">true</span>);<span class="comment">// XML ResultMap</span></span><br><span class="line">        gc.setBaseColumnList(<span class="literal">false</span>);<span class="comment">// XML columList</span></span><br><span class="line">        <span class="comment">//gc.setKotlin(true) 是否生成 kotlin 代码</span></span><br><span class="line">        gc.setAuthor(<span class="string">&quot;wangxinglei&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义文件命名，注意 %s 会自动填充表实体属性！</span></span><br><span class="line">        <span class="comment">// gc.setEntityName(&quot;%sEntity&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setMapperName(&quot;%sDao&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setXmlName(&quot;%sDao&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setServiceName(&quot;MP%sService&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setServiceImplName(&quot;%sServiceDiy&quot;);</span></span><br><span class="line">        <span class="comment">// gc.setControllerName(&quot;%sAction&quot;);</span></span><br><span class="line">        <span class="keyword">return</span> gc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 模板引擎配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> TemplateConfig <span class="title function_">templateConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 数据源配置，从配置文件获取</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> DataSourceConfig <span class="title function_">dataSourceConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        init();</span><br><span class="line"></span><br><span class="line">        <span class="type">DataSourceConfig</span> <span class="variable">dsc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DataSourceConfig</span>();</span><br><span class="line">        dsc.setSchemaname(<span class="string">&quot;public&quot;</span>);</span><br><span class="line">        dsc.setDbType(DbType.POSTGRE_SQL);</span><br><span class="line">        dsc.setTypeConvert(<span class="keyword">new</span> <span class="title class_">PostgreSqlTypeConvert</span>());</span><br><span class="line">        dsc.setDbQuery(<span class="keyword">new</span> <span class="title class_">PostgreSqlQuery</span>());</span><br><span class="line">        dsc.setDriverName(driverClassName);</span><br><span class="line">        dsc.setUsername(username);</span><br><span class="line">        dsc.setPassword(password);</span><br><span class="line">        dsc.setUrl(url);</span><br><span class="line">        <span class="keyword">return</span> dsc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 策略配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> StrategyConfig <span class="title function_">strategyConfig</span><span class="params">(String[] tables)</span> &#123;</span><br><span class="line">        <span class="comment">// 策略配置</span></span><br><span class="line">        <span class="type">StrategyConfig</span> <span class="variable">strategy</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StrategyConfig</span>();</span><br><span class="line">        <span class="comment">// strategy.setCapitalMode(true);// 全局大写命名</span></span><br><span class="line">        <span class="comment">// strategy.setDbColumnUnderline(true);//全局下划线命名</span></span><br><span class="line">        strategy.setTablePrefix(<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;tbl_&quot;</span>&#125;);<span class="comment">// 此处可以修改为您的表前缀</span></span><br><span class="line">        <span class="comment">//strategy.setFieldPrefix(new String[]&#123;&quot;A_&quot;&#125;);</span></span><br><span class="line">        strategy.setNaming(NamingStrategy.underline_to_camel);<span class="comment">// 表名生成策略</span></span><br><span class="line">        strategy.setColumnNaming(NamingStrategy.underline_to_camel);<span class="comment">// 允许字段策略独立设置，默认为 naming 策略</span></span><br><span class="line">        strategy.setInclude(tables); <span class="comment">// 需要生成的表</span></span><br><span class="line"><span class="comment">//        strategy.setExclude(new String[]&#123;&quot;test&quot;&#125;); // 排除生成的表</span></span><br><span class="line">        <span class="comment">// 自定义实体父类</span></span><br><span class="line">        <span class="comment">// strategy.setSuperEntityClass(&quot;com.baomidou.demo.TestEntity&quot;);</span></span><br><span class="line">        <span class="comment">// 自定义实体，公共字段</span></span><br><span class="line">        <span class="comment">// strategy.setSuperEntityColumns(new String[] &#123; &quot;test_id&quot;, &quot;age&quot; &#125;);</span></span><br><span class="line">        <span class="comment">// 自定义 mapper 父类</span></span><br><span class="line">        strategy.setSuperMapperClass(<span class="string">&quot;com.baomidou.mybatisplus.mapper.BaseMapper&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义 service 父类</span></span><br><span class="line">        strategy.setSuperServiceClass(<span class="string">&quot;com.baomidou.mybatisplus.service.IService&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义 service 实现类父类</span></span><br><span class="line">        strategy.setSuperServiceImplClass(<span class="string">&quot;com.baomidou.springwind.service.impl.ServiceImpl&quot;</span>);</span><br><span class="line">        <span class="comment">// 自定义 controller 父类</span></span><br><span class="line">        <span class="comment">// strategy.setSuperControllerClass(&quot;com.baomidou.demo.TestController&quot;);</span></span><br><span class="line">        <span class="comment">// 【实体】是否生成字段常量（默认 false）</span></span><br><span class="line">        <span class="comment">// public static final String ID = &quot;test_id&quot;;</span></span><br><span class="line">        <span class="comment">// strategy.setEntityColumnConstant(true);</span></span><br><span class="line">        <span class="comment">// 【实体】是否为构建者模型（默认 false）</span></span><br><span class="line">        <span class="comment">// public User setName(String name) &#123;this.name = name; return this;&#125;</span></span><br><span class="line">        <span class="comment">// strategy.setEntityBuliderModel(true);</span></span><br><span class="line">        <span class="keyword">return</span> strategy;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 包配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> PackageConfig <span class="title function_">packageConfig</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">PackageConfig</span> <span class="variable">pc</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PackageConfig</span>();</span><br><span class="line">        <span class="comment">//pc.setModuleName(&quot;test&quot;);</span></span><br><span class="line">        pc.setParent(<span class="string">&quot;com.lemon.rabbit&quot;</span>);<span class="comment">// 自定义包路径</span></span><br><span class="line">        pc.setController(<span class="string">&quot;controller&quot;</span>);<span class="comment">// 这里是控制器包名，默认 web</span></span><br><span class="line">        pc.setEntity(<span class="string">&quot;model&quot;</span>);</span><br><span class="line">        pc.setMapper(<span class="string">&quot;mapper&quot;</span>);</span><br><span class="line">        pc.setXml(<span class="string">&quot;mapping&quot;</span>);</span><br><span class="line">        pc.setService(<span class="string">&quot;service&quot;</span>);</span><br><span class="line">        pc.setServiceImpl(<span class="string">&quot;service.impl&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> pc;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 自定义配置</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> result</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> InjectionConfig <span class="title function_">injectionConfig</span><span class="params">(Integer result)</span> &#123;</span><br><span class="line">        <span class="comment">// 注入自定义配置，可以在 VM 中使用 cfg.abc 设置的值</span></span><br><span class="line">        <span class="type">InjectionConfig</span> <span class="variable">cfg</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">InjectionConfig</span>() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">initMap</span><span class="params">()</span> &#123;</span><br><span class="line">                Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();</span><br><span class="line">                map.put(<span class="string">&quot;abc&quot;</span>, <span class="built_in">this</span>.getConfig().getGlobalConfig().getAuthor() + <span class="string">&quot;-mp&quot;</span>);</span><br><span class="line">                <span class="built_in">this</span>.setMap(map);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;;</span><br><span class="line">        List&lt;FileOutConfig&gt; focList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">        focList.add(<span class="keyword">new</span> <span class="title class_">FileOutConfig</span>(<span class="string">&quot;/templates/dto.java&quot;</span> + ((<span class="number">1</span> == result) ? <span class="string">&quot;.ftl&quot;</span> : <span class="string">&quot;.vm&quot;</span>)) &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="keyword">public</span> String <span class="title function_">outputFile</span><span class="params">(TableInfo tableInfo)</span> &#123;</span><br><span class="line">                <span class="comment">// 自定义输入文件名称</span></span><br><span class="line">                <span class="keyword">return</span> <span class="string">&quot;D://test/my_&quot;</span> + tableInfo.getEntityName() + <span class="string">&quot;.java&quot;</span>;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        cfg.setFileOutConfigList(focList);</span><br><span class="line">        <span class="keyword">return</span> cfg;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setEnvironment</span><span class="params">(Environment environment)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.env = environment;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p>在单元测试中直接调用postgreSQLGenerator的generator方法即可，第一个参数填入对应的表名，可以写一个，也可以写多个，然后执行用例即可生成。</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="meta">@RunWith(SpringRunner.class)</span></span><br><span class="line"><span class="meta">@SpringBootTest</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DatabaseGeneratorTest</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PostgreSQLGenerator postgreSQLGenerator;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setup</span><span class="params">()</span> &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">contextLoads</span><span class="params">()</span> <span class="keyword">throws</span> Exception&#123;</span><br><span class="line">        String[] tables = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;tbl_city&quot;</span>&#125;;</span><br><span class="line">        <span class="type">Integer</span> <span class="variable">result</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">        postgreSQLGenerator.generator(tables, <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>MyBatis</category>
-      </categories>
-      <tags>
-        <tag>MyBatis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>MySQL中使用UUID函数作为主键的问题</title>
-    <url>/2018/07/31/MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UUID%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%E7%9A%84%E9%97%AE%E9%A2%98/</url>
-    <content><![CDATA[<p>对于 InnoDB 这种聚集主键类型的引擎来说，数据会按照主键进行物理排序，这对 auto_increment int 是个好消息，因为后一次插入的主键位置总是在最后。但是对 uuid 来说，这却是个坏消息，因为 uuid 是杂乱无章的，每次插入的主键位置是不确定的，可能在开头，也可能在中间，在进行主键物理排序的时候，势必会造成大量的 IO操作影响效率，因此不适合使用 UUID 做物理主键。比较适合的做法是把uuid作为逻辑主键，物理主键依然使用自增ID。</p>
-<h3 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h3><p>全局唯一标识符，简称GUID（Globally Unique Identifier），是一种由算法生成的唯一标识，通常表示成32个十六进制数字组成的字符串，实质上是一个128位长的二进制整数。</p>
-<p>GUID的主要目的是产生完全唯一的数字，在理想情况下，任何计算机和计算机集群都不会生成两个相同的GUID，GUID的总量也足够大，达到了2^128个，所以随机生成两个相同的GUID的可能性是非常小的，但是并不为0；所以，用于生成GUID的算法通常都加入了非随机的参数（如时间），以保证重复的情况不会发生。</p>
-<p>GUID已经广泛使用于数据库表格的主键。由于主键需要用作索引，于是就产生了一个性能问题：<strong>当主键足够随机时，新的记录就必须插入到原有的索引中间，而不能仅仅排在最后</strong>。</p>
-<p>为缓解这个问题并仍然提供足够的随机程度以避免GUID的重复，人们就创造了一些新的算法来生成序列化的GUID。</p>
-<p>2002年8月，吉米尼尔森（Jimmy Nilsson）给出了第一种方法，并称之为“COMB”（combined guid&#x2F;timestamp，意思是：组合GUID&#x2F;时间戳）。他将GUID中数据4的最后6字节用系统时间的最低位替换。经测试，这对随机性的影响很小，但是有一个副作用即是其创建的时间可以从GUID中轻松还原。</p>
-<p>自从Microsoft SQL Server 2005版开始，微软在Transact-SQL中加入了一个新函数，叫做NEWSEQUENTIALID()，用来生成主键增大的GUID，<strong>但一旦服务器重新启动，其再次生成的GUID可能反而变小（但仍然保持唯一）</strong>。这在很大程度上提高了索引的性能，但并不能保证所生成的GUID已知增大。这个函数产生的GUID很简单就可以预测，因此不适合用于安全目的。</p>
-<p>2006年，一些程序员发现，在一些平台上的Oracle软件中，SYS_GUID函数能返回序列化的GUID。但这个实际上是一个BUG导致的。</p>
-<h3 id="全局唯一性ID问题"><a href="#全局唯一性ID问题" class="headerlink" title="全局唯一性ID问题"></a>全局唯一性ID问题</h3><p><a href="https://tech.meituan.com/MT_Leaf.html">https://tech.meituan.com/MT_Leaf.html</a></p>
-<p>文中的思路可以借鉴，目前先只使用snowflake来处理</p>
-<p><a href="https://www.cnblogs.com/relucent/p/4955340.html">https://www.cnblogs.com/relucent/p/4955340.html</a></p>
-]]></content>
-      <categories>
-        <category>MySQL</category>
-      </categories>
-      <tags>
-        <tag>MySQL</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>MySQL查询缓存</title>
     <url>/2018/12/18/MySQL%E6%9F%A5%E8%AF%A2%E7%BC%93%E5%AD%98/</url>
     <content><![CDATA[<p>MySQL 查询缓存存储客户端请求的查询结果信息( SELECT 语句)。MySQL 服务器在接收到相同的请求时，会直接将查询缓存中的结果返回给客户端，不再去数据库中重新查询。而且，查询缓存是在多个会话中共享的，一个客户端的查询缓存结果可以被另一个客户端的相同请求复用，从而加快了查询效率。</p>
@@ -2418,6 +2396,28 @@
 <li><p>FLUSH TABLES 关闭所有打开的表，该操作将同步清空查询缓存中的内容</p>
 </li>
 </ul>
+]]></content>
+      <categories>
+        <category>MySQL</category>
+      </categories>
+      <tags>
+        <tag>MySQL</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>MySQL中使用UUID函数作为主键的问题</title>
+    <url>/2018/07/31/MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UUID%E5%87%BD%E6%95%B0%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE%E7%9A%84%E9%97%AE%E9%A2%98/</url>
+    <content><![CDATA[<p>对于 InnoDB 这种聚集主键类型的引擎来说，数据会按照主键进行物理排序，这对 auto_increment int 是个好消息，因为后一次插入的主键位置总是在最后。但是对 uuid 来说，这却是个坏消息，因为 uuid 是杂乱无章的，每次插入的主键位置是不确定的，可能在开头，也可能在中间，在进行主键物理排序的时候，势必会造成大量的 IO操作影响效率，因此不适合使用 UUID 做物理主键。比较适合的做法是把uuid作为逻辑主键，物理主键依然使用自增ID。</p>
+<h3 id="GUID"><a href="#GUID" class="headerlink" title="GUID"></a>GUID</h3><p>全局唯一标识符，简称GUID（Globally Unique Identifier），是一种由算法生成的唯一标识，通常表示成32个十六进制数字组成的字符串，实质上是一个128位长的二进制整数。</p>
+<p>GUID的主要目的是产生完全唯一的数字，在理想情况下，任何计算机和计算机集群都不会生成两个相同的GUID，GUID的总量也足够大，达到了2^128个，所以随机生成两个相同的GUID的可能性是非常小的，但是并不为0；所以，用于生成GUID的算法通常都加入了非随机的参数（如时间），以保证重复的情况不会发生。</p>
+<p>GUID已经广泛使用于数据库表格的主键。由于主键需要用作索引，于是就产生了一个性能问题：<strong>当主键足够随机时，新的记录就必须插入到原有的索引中间，而不能仅仅排在最后</strong>。</p>
+<p>为缓解这个问题并仍然提供足够的随机程度以避免GUID的重复，人们就创造了一些新的算法来生成序列化的GUID。</p>
+<p>2002年8月，吉米尼尔森（Jimmy Nilsson）给出了第一种方法，并称之为“COMB”（combined guid&#x2F;timestamp，意思是：组合GUID&#x2F;时间戳）。他将GUID中数据4的最后6字节用系统时间的最低位替换。经测试，这对随机性的影响很小，但是有一个副作用即是其创建的时间可以从GUID中轻松还原。</p>
+<p>自从Microsoft SQL Server 2005版开始，微软在Transact-SQL中加入了一个新函数，叫做NEWSEQUENTIALID()，用来生成主键增大的GUID，<strong>但一旦服务器重新启动，其再次生成的GUID可能反而变小（但仍然保持唯一）</strong>。这在很大程度上提高了索引的性能，但并不能保证所生成的GUID已知增大。这个函数产生的GUID很简单就可以预测，因此不适合用于安全目的。</p>
+<p>2006年，一些程序员发现，在一些平台上的Oracle软件中，SYS_GUID函数能返回序列化的GUID。但这个实际上是一个BUG导致的。</p>
+<h3 id="全局唯一性ID问题"><a href="#全局唯一性ID问题" class="headerlink" title="全局唯一性ID问题"></a>全局唯一性ID问题</h3><p><a href="https://tech.meituan.com/MT_Leaf.html">https://tech.meituan.com/MT_Leaf.html</a></p>
+<p>文中的思路可以借鉴，目前先只使用snowflake来处理</p>
+<p><a href="https://www.cnblogs.com/relucent/p/4955340.html">https://www.cnblogs.com/relucent/p/4955340.html</a></p>
 ]]></content>
       <categories>
         <category>MySQL</category>
@@ -2599,6 +2599,46 @@
       </tags>
   </entry>
   <entry>
+    <title>PostgreSQL常用命令学习</title>
+    <url>/2018/06/21/PostgreSQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/</url>
+    <content><![CDATA[<p>主要是常用的一些系统操作的指令，和DDL和DML语句无关</p>
+<span id="more"></span>
+
+<h3 id="进入控制台"><a href="#进入控制台" class="headerlink" title="进入控制台"></a>进入控制台</h3><p>系统的root用户不能执行psql命令，需要su postgres进入bash脚本，再使用psql命令进入数据库</p>
+<h3 id="角色管理"><a href="#角色管理" class="headerlink" title="角色管理"></a>角色管理</h3><h4 id="创建角色"><a href="#创建角色" class="headerlink" title="创建角色"></a>创建角色</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> ROLE name;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查看角色"><a href="#查看角色" class="headerlink" title="查看角色"></a>查看角色</h4><p>角色存在pg_roles系统表中，可以通过查询该表查看数据库中已有的角色</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> rolename <span class="keyword">FROM</span> pg_roles;</span><br></pre></td></tr></table></figure>
+
+<h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> sample PASSWORD <span class="string">&#x27;123456&#x27;</span> LOGIN CREATEDB;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> wangxinglei PASSWORD <span class="string">&#x27;1234567890&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="对用户授权"><a href="#对用户授权" class="headerlink" title="对用户授权"></a>对用户授权</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> wangxinglei CREATEROLE;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE actuator； </span><br></pre></td></tr></table></figure>
+
+<h4 id="修改数据库的拥有者"><a href="#修改数据库的拥有者" class="headerlink" title="修改数据库的拥有者"></a>修改数据库的拥有者</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> DATABASE actuator OWNER <span class="keyword">TO</span> wangxinglei;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询所有的数据库"><a href="#查询所有的数据库" class="headerlink" title="查询所有的数据库"></a>查询所有的数据库</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> datname <span class="keyword">FROM</span> pg_database;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h3><h4 id="查询所有的数据库表"><a href="#查询所有的数据库表" class="headerlink" title="查询所有的数据库表"></a>查询所有的数据库表</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tablename <span class="keyword">FROM</span> pg_tables;</span><br></pre></td></tr></table></figure>
+
+<h4 id="查询某个数据库下的所有表"><a href="#查询某个数据库下的所有表" class="headerlink" title="查询某个数据库下的所有表"></a>查询某个数据库下的所有表</h4><p>PostgreSQL不支持查询某个数据库下表的操作，但是但是可以列出用户自定义的表</p>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tablename, <span class="operator">*</span> <span class="keyword">FROM</span> pg_tables <span class="keyword">WHERE</span> schemaname <span class="operator">=</span> <span class="string">&#x27;public&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>用户自定义的表，如果未经特殊处理，默认都是放在名为public的schema下</p>
+<h4 id="查询表结构"><a href="#查询表结构" class="headerlink" title="查询表结构"></a>查询表结构</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> information_schema.columns <span class="keyword">WHERE</span> table_name <span class="operator">=</span> <span class="string">&#x27;cpu&#x27;</span>; <span class="comment">-- cpu是表名</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>数据库</category>
+        <category>postgreSQL</category>
+      </categories>
+      <tags>
+        <tag>postgreSQL</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>PostgreSQL分区</title>
     <url>/2018/07/09/PostgreSQL%E5%88%86%E5%8C%BA/</url>
     <content><![CDATA[<p>分区的具体好处是：</p>
@@ -2637,46 +2677,6 @@
       </categories>
       <tags>
         <tag>PostgreSQL</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>PostgreSQL常用命令学习</title>
-    <url>/2018/06/21/PostgreSQL%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%AD%A6%E4%B9%A0/</url>
-    <content><![CDATA[<p>主要是常用的一些系统操作的指令，和DDL和DML语句无关</p>
-<span id="more"></span>
-
-<h3 id="进入控制台"><a href="#进入控制台" class="headerlink" title="进入控制台"></a>进入控制台</h3><p>系统的root用户不能执行psql命令，需要su postgres进入bash脚本，再使用psql命令进入数据库</p>
-<h3 id="角色管理"><a href="#角色管理" class="headerlink" title="角色管理"></a>角色管理</h3><h4 id="创建角色"><a href="#创建角色" class="headerlink" title="创建角色"></a>创建角色</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> ROLE name;</span><br></pre></td></tr></table></figure>
-
-<h4 id="查看角色"><a href="#查看角色" class="headerlink" title="查看角色"></a>查看角色</h4><p>角色存在pg_roles系统表中，可以通过查询该表查看数据库中已有的角色</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> rolename <span class="keyword">FROM</span> pg_roles;</span><br></pre></td></tr></table></figure>
-
-<h3 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h3><h4 id="创建用户"><a href="#创建用户" class="headerlink" title="创建用户"></a>创建用户</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">USER</span> sample PASSWORD <span class="string">&#x27;123456&#x27;</span> LOGIN CREATEDB;</span><br></pre></td></tr></table></figure>
-
-<h4 id="修改用户密码"><a href="#修改用户密码" class="headerlink" title="修改用户密码"></a>修改用户密码</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> wangxinglei PASSWORD <span class="string">&#x27;1234567890&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<h4 id="对用户授权"><a href="#对用户授权" class="headerlink" title="对用户授权"></a>对用户授权</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> <span class="keyword">USER</span> wangxinglei CREATEROLE;</span><br></pre></td></tr></table></figure>
-
-<h3 id="数据库管理"><a href="#数据库管理" class="headerlink" title="数据库管理"></a>数据库管理</h3><h4 id="创建数据库"><a href="#创建数据库" class="headerlink" title="创建数据库"></a>创建数据库</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DATABASE actuator； </span><br></pre></td></tr></table></figure>
-
-<h4 id="修改数据库的拥有者"><a href="#修改数据库的拥有者" class="headerlink" title="修改数据库的拥有者"></a>修改数据库的拥有者</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">ALTER</span> DATABASE actuator OWNER <span class="keyword">TO</span> wangxinglei;</span><br></pre></td></tr></table></figure>
-
-<h4 id="查询所有的数据库"><a href="#查询所有的数据库" class="headerlink" title="查询所有的数据库"></a>查询所有的数据库</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> datname <span class="keyword">FROM</span> pg_database;</span><br></pre></td></tr></table></figure>
-
-<h3 id="数据库表"><a href="#数据库表" class="headerlink" title="数据库表"></a>数据库表</h3><h4 id="查询所有的数据库表"><a href="#查询所有的数据库表" class="headerlink" title="查询所有的数据库表"></a>查询所有的数据库表</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tablename <span class="keyword">FROM</span> pg_tables;</span><br></pre></td></tr></table></figure>
-
-<h4 id="查询某个数据库下的所有表"><a href="#查询某个数据库下的所有表" class="headerlink" title="查询某个数据库下的所有表"></a>查询某个数据库下的所有表</h4><p>PostgreSQL不支持查询某个数据库下表的操作，但是但是可以列出用户自定义的表</p>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> tablename, <span class="operator">*</span> <span class="keyword">FROM</span> pg_tables <span class="keyword">WHERE</span> schemaname <span class="operator">=</span> <span class="string">&#x27;public&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>用户自定义的表，如果未经特殊处理，默认都是放在名为public的schema下</p>
-<h4 id="查询表结构"><a href="#查询表结构" class="headerlink" title="查询表结构"></a>查询表结构</h4><figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">SELECT</span> <span class="operator">*</span> <span class="keyword">FROM</span> information_schema.columns <span class="keyword">WHERE</span> table_name <span class="operator">=</span> <span class="string">&#x27;cpu&#x27;</span>; <span class="comment">-- cpu是表名</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>数据库</category>
-        <category>postgreSQL</category>
-      </categories>
-      <tags>
-        <tag>postgreSQL</tag>
       </tags>
   </entry>
   <entry>
@@ -2884,25 +2884,6 @@ zremrangebyscore key min max --删除集合中score在给定区间的元素
       </tags>
   </entry>
   <entry>
-    <title>Redis安全配置</title>
-    <url>/2018/04/01/Redis%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>1.设置Redis密码</p>
-<p>修改redid.conf文件</p>
-<pre><code>#requirepass foobared
-requirepass yourpassword
-</code></pre>
-<p>重启Redis服务</p>
-<p>2.设置防火墙，关闭Redis的6379端口的对外访问</p>
-<p>一般不建议设置密码，只需要关闭端口的对外访问即可</p>
-]]></content>
-      <categories>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Linux下Redis安装</title>
     <url>/2018/03/28/Redis%E5%AE%89%E8%A3%85-Linux%E5%B9%B3%E5%8F%B0/</url>
     <content><![CDATA[<ol>
@@ -2982,38 +2963,16 @@ requirepass yourpassword
       </tags>
   </entry>
   <entry>
-    <title>Redis简介</title>
-    <url>/2018/03/27/Redis%E7%AE%80%E4%BB%8B/</url>
-    <content><![CDATA[<p>K-V形式存储</p>
-<h5 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h5><p>对数据高并发读写</p>
-<p>对海量数据的高效率存储和访问</p>
-<p>对数据的可扩展性和高可用性</p>
-<h5 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h5><p>ACID处理非常简单</p>
-<p>无法做到太复杂的关系数据模型</p>
-<h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><ul>
-<li><p>string 字符串</p>
-</li>
-<li><p>哈希</p>
-</li>
-<li><p>list 链表</p>
-</li>
-<li><p>set 集合</p>
-</li>
-<li><p>zset 有序集合</p>
-</li>
-</ul>
-<h5 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h5><p>RDB</p>
-<p>AOF</p>
-<h5 id="集群策略"><a href="#集群策略" class="headerlink" title="集群策略"></a>集群策略</h5><ol>
-<li><p>主从形式</p>
-</li>
-<li><p>哨兵形式</p>
-</li>
-<li><p>3.0之后的集群模式</p>
-</li>
-</ol>
-<h5 id="主从形式"><a href="#主从形式" class="headerlink" title="主从形式"></a>主从形式</h5><p>主节点写，从节点读</p>
-<h5 id="哨兵形式"><a href="#哨兵形式" class="headerlink" title="哨兵形式"></a>哨兵形式</h5><p>哨兵节点去监控主从节点的状态，主节点挂掉之后，哨兵会在从节点之间选取一个节点，提升为主节点；如果主节点重新加入，则变成从节点</p>
+    <title>Redis安全配置</title>
+    <url>/2018/04/01/Redis%E5%AE%89%E5%85%A8%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>1.设置Redis密码</p>
+<p>修改redid.conf文件</p>
+<pre><code>#requirepass foobared
+requirepass yourpassword
+</code></pre>
+<p>重启Redis服务</p>
+<p>2.设置防火墙，关闭Redis的6379端口的对外访问</p>
+<p>一般不建议设置密码，只需要关闭端口的对外访问即可</p>
 ]]></content>
       <categories>
         <category>Redis</category>
@@ -3070,79 +3029,6 @@ vm-max-threads 8
       </categories>
       <tags>
         <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Redis高级命令</title>
-    <url>/2018/03/31/Redis%E9%AB%98%E7%BA%A7%E5%91%BD%E4%BB%A4/</url>
-    <content><![CDATA[<h4 id="关于key的操作"><a href="#关于key的操作" class="headerlink" title="关于key的操作"></a>关于key的操作</h4><p>Redis的key是字符串类型的，不可以包含空格和换行字符</p>
-<h5 id="获取所有的键"><a href="#获取所有的键" class="headerlink" title="获取所有的键"></a>获取所有的键</h5><pre><code>keys *
-</code></pre>
-<h5 id="查看数据库的key的数量"><a href="#查看数据库的key的数量" class="headerlink" title="查看数据库的key的数量"></a>查看数据库的key的数量</h5><pre><code>dbsize
-</code></pre>
-<h5 id="检测某个key是否存在，返回1表示存在，0表示不存在"><a href="#检测某个key是否存在，返回1表示存在，0表示不存在" class="headerlink" title="检测某个key是否存在，返回1表示存在，0表示不存在"></a>检测某个key是否存在，返回1表示存在，0表示不存在</h5><pre><code>exits key 
-</code></pre>
-<h5 id="删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在"><a href="#删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在" class="headerlink" title="删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在"></a>删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在</h5><pre><code>del key1, key2, ... 
-</code></pre>
-<h5 id="返回给定key值的类型，返回none表示key不存在"><a href="#返回给定key值的类型，返回none表示key不存在" class="headerlink" title="返回给定key值的类型，返回none表示key不存在"></a>返回给定key值的类型，返回none表示key不存在</h5><pre><code>type key 
-</code></pre>
-<h5 id="重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同"><a href="#重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同" class="headerlink" title="重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同"></a>重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同</h5><pre><code>rename oldkey newkey 
-</code></pre>
-<h5 id="重命名一个key-和rename类似，但是如果newkey存在会返回失败"><a href="#重命名一个key-和rename类似，但是如果newkey存在会返回失败" class="headerlink" title="重命名一个key,和rename类似，但是如果newkey存在会返回失败"></a>重命名一个key,和rename类似，但是如果newkey存在会返回失败</h5><pre><code>renamenx oldkey newkey
-</code></pre>
-<h5 id="为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在"><a href="#为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在" class="headerlink" title="为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在"></a>为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在</h5><pre><code>expire key seconds 
-</code></pre>
-<h5 id="返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间"><a href="#返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间" class="headerlink" title="返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间"></a>返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间</h5><pre><code>ttl key 
-</code></pre>
-<h5 id="取消过期时间"><a href="#取消过期时间" class="headerlink" title="取消过期时间"></a>取消过期时间</h5><pre><code>persist
-</code></pre>
-<h5 id="随机返回数据库里的一个key"><a href="#随机返回数据库里的一个key" class="headerlink" title="随机返回数据库里的一个key"></a>随机返回数据库里的一个key</h5><pre><code>randomkey
-</code></pre>
-<h5 id="将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中"><a href="#将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中" class="headerlink" title="将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中"></a>将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中</h5><pre><code>move key db-index
-</code></pre>
-<h4 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h4><h5 id="通过索引选择数据库，默认连接的数据库是0，默认数据库是16个；-返回1表示切换成功，0表示失败"><a href="#通过索引选择数据库，默认连接的数据库是0，默认数据库是16个；-返回1表示切换成功，0表示失败" class="headerlink" title="通过索引选择数据库，默认连接的数据库是0，默认数据库是16个； 返回1表示切换成功，0表示失败"></a>通过索引选择数据库，默认连接的数据库是0，默认数据库是16个； 返回1表示切换成功，0表示失败</h5><pre><code>select db-index 
-</code></pre>
-<h5 id="清空当前数据库，慎用"><a href="#清空当前数据库，慎用" class="headerlink" title="清空当前数据库，慎用"></a>清空当前数据库，<em>慎用</em></h5><pre><code>flushdb
-</code></pre>
-<h5 id="清空所有数据库，慎用"><a href="#清空所有数据库，慎用" class="headerlink" title="清空所有数据库，慎用"></a>清空所有数据库，<em>慎用</em></h5><pre><code>flushall
-</code></pre>
-<h4 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h4><h5 id="获取当前redis服务器状态和一些统计信息"><a href="#获取当前redis服务器状态和一些统计信息" class="headerlink" title="获取当前redis服务器状态和一些统计信息"></a>获取当前redis服务器状态和一些统计信息</h5><pre><code>info
-</code></pre>
-<h5 id="返回相关的配置信息"><a href="#返回相关的配置信息" class="headerlink" title="返回相关的配置信息"></a>返回相关的配置信息</h5><pre><code>config get paramter
-</code></pre>
-<h5 id="返回所有配置"><a href="#返回所有配置" class="headerlink" title="返回所有配置"></a>返回所有配置</h5><pre><code>config get *
-</code></pre>
-<h5 id="实时监听并返回redis服务器接收到的所有请求信息"><a href="#实时监听并返回redis服务器接收到的所有请求信息" class="headerlink" title="实时监听并返回redis服务器接收到的所有请求信息"></a>实时监听并返回redis服务器接收到的所有请求信息</h5><pre><code>monitor
-</code></pre>
-<h5 id="获取一个key的调试信息"><a href="#获取一个key的调试信息" class="headerlink" title="获取一个key的调试信息"></a>获取一个key的调试信息</h5><pre><code>debug object key
-</code></pre>
-<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="制造一次服务器当机"><a href="#制造一次服务器当机" class="headerlink" title="制造一次服务器当机"></a>制造一次服务器当机</h5><pre><code>debug segfault
-</code></pre>
-<h5 id="打印命令"><a href="#打印命令" class="headerlink" title="打印命令"></a>打印命令</h5><pre><code>echo
-</code></pre>
-]]></content>
-      <categories>
-        <category>Redis</category>
-      </categories>
-      <tags>
-        <tag>Redis</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Slow HTTP Denial Of Service Attack</title>
-    <url>/2018/12/13/Slow%20HTTP%20Denial%20Of%20Service%20Attack/</url>
-    <content><![CDATA[<p>近期使用WVS扫描工具对 Web 系统进行扫描，出现了<font color="red"> Slow HTTP Denial Of Service Attack </font>的安全漏洞，即缓慢的 HTTP DOS 攻击。 </p>
-<p>该攻击依赖于 HTTP POST ，指定一个非常大的 content-length ，以很低的频率每次发送数据包的一部分，如果一个 HTTP 请求是不完整的或者数据传输的速率非常低，服务器将占用连接资源等待其余数据的传输，如果发送大量这样的请求，则服务器将拒绝其他的请求服务，导致服务器瘫痪。</p>
-<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>对 web 服务器的 HTTP 头部传输的最大许可时间进行限制，修改最大许可时间为 5s（建议为 5s~10s ）</p>
-<p>Tomcat：修改 server.xml 的 connectionTimeout (默认为20000ms即 20s)</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">protocol</span>=<span class="string">&quot;HTTP/1.1&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">connectionTimeout</span>=<span class="string">&quot;5000&quot;</span>  </span></span><br><span class="line"><span class="tag">	<span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span> </span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
-
-]]></content>
-      <categories>
-        <category>Tomcat</category>
-      </categories>
-      <tags>
-        <tag>Tomcat</tag>
       </tags>
   </entry>
   <entry>
@@ -3432,6 +3318,120 @@ activerehashing yes
       </tags>
   </entry>
   <entry>
+    <title>Redis简介</title>
+    <url>/2018/03/27/Redis%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<p>K-V形式存储</p>
+<h5 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h5><p>对数据高并发读写</p>
+<p>对海量数据的高效率存储和访问</p>
+<p>对数据的可扩展性和高可用性</p>
+<h5 id="缺点："><a href="#缺点：" class="headerlink" title="缺点："></a>缺点：</h5><p>ACID处理非常简单</p>
+<p>无法做到太复杂的关系数据模型</p>
+<h5 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h5><ul>
+<li><p>string 字符串</p>
+</li>
+<li><p>哈希</p>
+</li>
+<li><p>list 链表</p>
+</li>
+<li><p>set 集合</p>
+</li>
+<li><p>zset 有序集合</p>
+</li>
+</ul>
+<h5 id="持久化"><a href="#持久化" class="headerlink" title="持久化"></a>持久化</h5><p>RDB</p>
+<p>AOF</p>
+<h5 id="集群策略"><a href="#集群策略" class="headerlink" title="集群策略"></a>集群策略</h5><ol>
+<li><p>主从形式</p>
+</li>
+<li><p>哨兵形式</p>
+</li>
+<li><p>3.0之后的集群模式</p>
+</li>
+</ol>
+<h5 id="主从形式"><a href="#主从形式" class="headerlink" title="主从形式"></a>主从形式</h5><p>主节点写，从节点读</p>
+<h5 id="哨兵形式"><a href="#哨兵形式" class="headerlink" title="哨兵形式"></a>哨兵形式</h5><p>哨兵节点去监控主从节点的状态，主节点挂掉之后，哨兵会在从节点之间选取一个节点，提升为主节点；如果主节点重新加入，则变成从节点</p>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Redis高级命令</title>
+    <url>/2018/03/31/Redis%E9%AB%98%E7%BA%A7%E5%91%BD%E4%BB%A4/</url>
+    <content><![CDATA[<h4 id="关于key的操作"><a href="#关于key的操作" class="headerlink" title="关于key的操作"></a>关于key的操作</h4><p>Redis的key是字符串类型的，不可以包含空格和换行字符</p>
+<h5 id="获取所有的键"><a href="#获取所有的键" class="headerlink" title="获取所有的键"></a>获取所有的键</h5><pre><code>keys *
+</code></pre>
+<h5 id="查看数据库的key的数量"><a href="#查看数据库的key的数量" class="headerlink" title="查看数据库的key的数量"></a>查看数据库的key的数量</h5><pre><code>dbsize
+</code></pre>
+<h5 id="检测某个key是否存在，返回1表示存在，0表示不存在"><a href="#检测某个key是否存在，返回1表示存在，0表示不存在" class="headerlink" title="检测某个key是否存在，返回1表示存在，0表示不存在"></a>检测某个key是否存在，返回1表示存在，0表示不存在</h5><pre><code>exits key 
+</code></pre>
+<h5 id="删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在"><a href="#删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在" class="headerlink" title="删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在"></a>删除给定的key，返回删除key的数目，如果返回0，则表示给定的key不存在</h5><pre><code>del key1, key2, ... 
+</code></pre>
+<h5 id="返回给定key值的类型，返回none表示key不存在"><a href="#返回给定key值的类型，返回none表示key不存在" class="headerlink" title="返回给定key值的类型，返回none表示key不存在"></a>返回给定key值的类型，返回none表示key不存在</h5><pre><code>type key 
+</code></pre>
+<h5 id="重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同"><a href="#重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同" class="headerlink" title="重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同"></a>重命名一个key，如果newkey存在，将会被覆盖；返回1表示成功，返回0表示失败，可能是oldkey不存在或者和newkey相同</h5><pre><code>rename oldkey newkey 
+</code></pre>
+<h5 id="重命名一个key-和rename类似，但是如果newkey存在会返回失败"><a href="#重命名一个key-和rename类似，但是如果newkey存在会返回失败" class="headerlink" title="重命名一个key,和rename类似，但是如果newkey存在会返回失败"></a>重命名一个key,和rename类似，但是如果newkey存在会返回失败</h5><pre><code>renamenx oldkey newkey
+</code></pre>
+<h5 id="为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在"><a href="#为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在" class="headerlink" title="为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在"></a>为key指定过期时间，单位是秒；返回1成功，0表示key已经设置过过期时间或者key不存在</h5><pre><code>expire key seconds 
+</code></pre>
+<h5 id="返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间"><a href="#返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间" class="headerlink" title="返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间"></a>返回设置了过期时间的key的剩余过期秒数，-1表示key不存在或者未设置过期时间</h5><pre><code>ttl key 
+</code></pre>
+<h5 id="取消过期时间"><a href="#取消过期时间" class="headerlink" title="取消过期时间"></a>取消过期时间</h5><pre><code>persist
+</code></pre>
+<h5 id="随机返回数据库里的一个key"><a href="#随机返回数据库里的一个key" class="headerlink" title="随机返回数据库里的一个key"></a>随机返回数据库里的一个key</h5><pre><code>randomkey
+</code></pre>
+<h5 id="将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中"><a href="#将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中" class="headerlink" title="将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中"></a>将key从当前数据库移动到指定数据库，返回1表示成功，0表示key不存在或者已经在指定的数据库中</h5><pre><code>move key db-index
+</code></pre>
+<h4 id="数据库操作"><a href="#数据库操作" class="headerlink" title="数据库操作"></a>数据库操作</h4><h5 id="通过索引选择数据库，默认连接的数据库是0，默认数据库是16个；-返回1表示切换成功，0表示失败"><a href="#通过索引选择数据库，默认连接的数据库是0，默认数据库是16个；-返回1表示切换成功，0表示失败" class="headerlink" title="通过索引选择数据库，默认连接的数据库是0，默认数据库是16个； 返回1表示切换成功，0表示失败"></a>通过索引选择数据库，默认连接的数据库是0，默认数据库是16个； 返回1表示切换成功，0表示失败</h5><pre><code>select db-index 
+</code></pre>
+<h5 id="清空当前数据库，慎用"><a href="#清空当前数据库，慎用" class="headerlink" title="清空当前数据库，慎用"></a>清空当前数据库，<em>慎用</em></h5><pre><code>flushdb
+</code></pre>
+<h5 id="清空所有数据库，慎用"><a href="#清空所有数据库，慎用" class="headerlink" title="清空所有数据库，慎用"></a>清空所有数据库，<em>慎用</em></h5><pre><code>flushall
+</code></pre>
+<h4 id="监控"><a href="#监控" class="headerlink" title="监控"></a>监控</h4><h5 id="获取当前redis服务器状态和一些统计信息"><a href="#获取当前redis服务器状态和一些统计信息" class="headerlink" title="获取当前redis服务器状态和一些统计信息"></a>获取当前redis服务器状态和一些统计信息</h5><pre><code>info
+</code></pre>
+<h5 id="返回相关的配置信息"><a href="#返回相关的配置信息" class="headerlink" title="返回相关的配置信息"></a>返回相关的配置信息</h5><pre><code>config get paramter
+</code></pre>
+<h5 id="返回所有配置"><a href="#返回所有配置" class="headerlink" title="返回所有配置"></a>返回所有配置</h5><pre><code>config get *
+</code></pre>
+<h5 id="实时监听并返回redis服务器接收到的所有请求信息"><a href="#实时监听并返回redis服务器接收到的所有请求信息" class="headerlink" title="实时监听并返回redis服务器接收到的所有请求信息"></a>实时监听并返回redis服务器接收到的所有请求信息</h5><pre><code>monitor
+</code></pre>
+<h5 id="获取一个key的调试信息"><a href="#获取一个key的调试信息" class="headerlink" title="获取一个key的调试信息"></a>获取一个key的调试信息</h5><pre><code>debug object key
+</code></pre>
+<h4 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h4><h5 id="制造一次服务器当机"><a href="#制造一次服务器当机" class="headerlink" title="制造一次服务器当机"></a>制造一次服务器当机</h5><pre><code>debug segfault
+</code></pre>
+<h5 id="打印命令"><a href="#打印命令" class="headerlink" title="打印命令"></a>打印命令</h5><pre><code>echo
+</code></pre>
+]]></content>
+      <categories>
+        <category>Redis</category>
+      </categories>
+      <tags>
+        <tag>Redis</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Slow HTTP Denial Of Service Attack</title>
+    <url>/2018/12/13/Slow%20HTTP%20Denial%20Of%20Service%20Attack/</url>
+    <content><![CDATA[<p>近期使用WVS扫描工具对 Web 系统进行扫描，出现了<font color="red"> Slow HTTP Denial Of Service Attack </font>的安全漏洞，即缓慢的 HTTP DOS 攻击。 </p>
+<p>该攻击依赖于 HTTP POST ，指定一个非常大的 content-length ，以很低的频率每次发送数据包的一部分，如果一个 HTTP 请求是不完整的或者数据传输的速率非常低，服务器将占用连接资源等待其余数据的传输，如果发送大量这样的请求，则服务器将拒绝其他的请求服务，导致服务器瘫痪。</p>
+<h4 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h4><p>对 web 服务器的 HTTP 头部传输的最大许可时间进行限制，修改最大许可时间为 5s（建议为 5s~10s ）</p>
+<p>Tomcat：修改 server.xml 的 connectionTimeout (默认为20000ms即 20s)</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Connector</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">port</span>=<span class="string">&quot;8080&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">protocol</span>=<span class="string">&quot;HTTP/1.1&quot;</span> </span></span><br><span class="line"><span class="tag">	<span class="attr">connectionTimeout</span>=<span class="string">&quot;5000&quot;</span>  </span></span><br><span class="line"><span class="tag">	<span class="attr">redirectPort</span>=<span class="string">&quot;8443&quot;</span> </span></span><br><span class="line"><span class="tag">/&gt;</span></span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>Tomcat</category>
+      </categories>
+      <tags>
+        <tag>Tomcat</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot之Redis引入</title>
     <url>/2018/06/08/SpringBoot%E4%B9%8BRedis%E5%BC%95%E5%85%A5/</url>
     <content><![CDATA[<h3 id="依赖引入"><a href="#依赖引入" class="headerlink" title="依赖引入"></a>依赖引入</h3><figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="comment">&lt;!--Redis--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--spring2.0集成redis所需common-pool2--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.4.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!--fastjson--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.40<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -3512,6 +3512,30 @@ activerehashing yes
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot之热启动</title>
+    <url>/2018/06/06/SpringBoot%E4%B9%8B%E7%83%AD%E5%90%AF%E5%8A%A8/</url>
+    <content><![CDATA[<p>在开发调试阶段，可以配置SpringBoot的热启动，代码修改后实时更新，不需要重新启动项目。</p>
+<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>在pom.xml中添加依赖。</p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h4><p>到此处，Eclipse已经能够自动编译了</p>
+<h4 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h4><p>idea比较特殊，需要设置自动编译</p>
+<h5 id="开启自动编译"><a href="#开启自动编译" class="headerlink" title="开启自动编译"></a>开启自动编译</h5><p>File-&gt;Settings-&gt; Build-Execution-Deployment -&gt; Compiler，勾选 Build Project Automatically.</p>
+<p><img src="/images/idea01.png"></p>
+<p>组合键Shift+Ctrl+A打开配置面板，找到<font color="red">Registry…</font>，点击</p>
+<p><img src="/images/idea02.png"></p>
+<p>找到<font color="red">compiler.automake.allow.when.app.running</font>，勾选，然后退出。</p>
+<p><img src="/images/idea03.png"></p>
+<h5 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h5><p>某些情况下，自动编辑可能不会生效，如果碰到这种情况，可以使用<font color="red">Ctrl + F9</font>手动编译，不需要去重启服务。</p>
+]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot之自定义配置</title>
     <url>/2018/12/17/SpringBoot%E4%B9%8B%E8%87%AA%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE/</url>
     <content><![CDATA[<h3 id="读取application-properties文件中的配置"><a href="#读取application-properties文件中的配置" class="headerlink" title="读取application.properties文件中的配置"></a>读取application.properties文件中的配置</h3><p>在 application.properties 文件中加入项目的标题、版本、作者等信息</p>
@@ -3577,30 +3601,6 @@ activerehashing yes
       </categories>
       <tags>
         <tag>绿盟</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>SpringBoot之热启动</title>
-    <url>/2018/06/06/SpringBoot%E4%B9%8B%E7%83%AD%E5%90%AF%E5%8A%A8/</url>
-    <content><![CDATA[<p>在开发调试阶段，可以配置SpringBoot的热启动，代码修改后实时更新，不需要重新启动项目。</p>
-<h4 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h4><p>在pom.xml中添加依赖。</p>
-<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="Eclipse"><a href="#Eclipse" class="headerlink" title="Eclipse"></a>Eclipse</h4><p>到此处，Eclipse已经能够自动编译了</p>
-<h4 id="Idea"><a href="#Idea" class="headerlink" title="Idea"></a>Idea</h4><p>idea比较特殊，需要设置自动编译</p>
-<h5 id="开启自动编译"><a href="#开启自动编译" class="headerlink" title="开启自动编译"></a>开启自动编译</h5><p>File-&gt;Settings-&gt; Build-Execution-Deployment -&gt; Compiler，勾选 Build Project Automatically.</p>
-<p><img src="/images/idea01.png"></p>
-<p>组合键Shift+Ctrl+A打开配置面板，找到<font color="red">Registry…</font>，点击</p>
-<p><img src="/images/idea02.png"></p>
-<p>找到<font color="red">compiler.automake.allow.when.app.running</font>，勾选，然后退出。</p>
-<p><img src="/images/idea03.png"></p>
-<h5 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h5><p>某些情况下，自动编辑可能不会生效，如果碰到这种情况，可以使用<font color="red">Ctrl + F9</font>手动编译，不需要去重启服务。</p>
-]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
       </tags>
   </entry>
   <entry>
@@ -3779,28 +3779,6 @@ activerehashing yes
       </tags>
   </entry>
   <entry>
-    <title>SpringBoot端口配置</title>
-    <url>/2018/12/20/SpringBoot%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE/</url>
-    <content><![CDATA[<p>SpringBoot的默认端口是8080，如果想要修改端口信息，可以通过以下两种方式</p>
-<h3 id="配置文件修改"><a href="#配置文件修改" class="headerlink" title="配置文件修改"></a>配置文件修改</h3><p>在application.properties或application.yml文件中修改server.port</p>
-<h4 id="修改application-properties"><a href="#修改application-properties" class="headerlink" title="修改application.properties"></a>修改application.properties</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="修改application-yml"><a href="#修改application-yml" class="headerlink" title="修改application.yml"></a>修改application.yml</h4><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8090</span></span><br></pre></td></tr></table></figure>
-
-
-<h3 id="在命令行中指定启动端口"><a href="#在命令行中指定启动端口" class="headerlink" title="在命令行中指定启动端口"></a>在命令行中指定启动端口</h3><p>比如传入参数–server.port&#x3D;8090</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java -jar sprite.jar --server.port=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
-
-<p>或者传入虚拟机系统属性</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java -Dserver.port=<span class="number">8090</span> -jar sprite.jar</span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>SpringBoot</category>
-      </categories>
-      <tags>
-        <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>SpringBoot 自定义 Starter</title>
     <url>/2020/01/08/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89Starter/</url>
     <content><![CDATA[<h2 id="Starter-命名规范"><a href="#Starter-命名规范" class="headerlink" title="Starter 命名规范"></a>Starter 命名规范</h2><p>官方的 Starter 遵循 <code>spring-boot-starter-*</code> 的命名模式，如 <code>spring-boot-starter-data-jpa</code> 。第三方的 Starter 通常以自己的项目名称开始，例如，名为 thirdpartyproject 的第三方入门项目通常被命名为 <code>thirdpartyproject-spring-boot-starter</code>。</p>
@@ -3852,6 +3830,28 @@ activerehashing yes
       </tags>
   </entry>
   <entry>
+    <title>SpringBoot端口配置</title>
+    <url>/2018/12/20/SpringBoot%E7%AB%AF%E5%8F%A3%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<p>SpringBoot的默认端口是8080，如果想要修改端口信息，可以通过以下两种方式</p>
+<h3 id="配置文件修改"><a href="#配置文件修改" class="headerlink" title="配置文件修改"></a>配置文件修改</h3><p>在application.properties或application.yml文件中修改server.port</p>
+<h4 id="修改application-properties"><a href="#修改application-properties" class="headerlink" title="修改application.properties"></a>修改application.properties</h4><figure class="highlight java"><table><tr><td class="code"><pre><span class="line">server.port=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="修改application-yml"><a href="#修改application-yml" class="headerlink" title="修改application.yml"></a>修改application.yml</h4><figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">8090</span></span><br></pre></td></tr></table></figure>
+
+
+<h3 id="在命令行中指定启动端口"><a href="#在命令行中指定启动端口" class="headerlink" title="在命令行中指定启动端口"></a>在命令行中指定启动端口</h3><p>比如传入参数–server.port&#x3D;8090</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java -jar sprite.jar --server.port=<span class="number">8090</span></span><br></pre></td></tr></table></figure>
+
+<p>或者传入虚拟机系统属性</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">java -Dserver.port=<span class="number">8090</span> -jar sprite.jar</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>SpringBoot</category>
+      </categories>
+      <tags>
+        <tag>SpringBoot</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>SpringBoot设置项目的图标</title>
     <url>/2018/07/01/SpringBoot%E8%AE%BE%E7%BD%AE%E9%A1%B9%E7%9B%AE%E7%9A%84%E5%9B%BE%E6%A0%87/</url>
     <content><![CDATA[<p>准备一个favicon.ico文件，放在resources下的static文件夹中即可</p>
@@ -3891,105 +3891,6 @@ activerehashing yes
       </categories>
       <tags>
         <tag>SpringBoot</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Zookeeper安装</title>
-    <url>/2018/07/04/Zookeeper%E5%AE%89%E8%A3%85/</url>
-    <content><![CDATA[<span id="more"></span>
-
-<h3 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h3><h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.12/zookeeper-3.4.12.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.12.tar.gz </span><br></pre></td></tr></table></figure>
-
-<h4 id="检查Java环境"><a href="#检查Java环境" class="headerlink" title="检查Java环境"></a>检查Java环境</h4><p>需要JDK1.6以上的环境</p>
-<p>使用<strong>java -version</strong>检查是否安装JDK</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
-
-<p>输出结果</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">java version &quot;1.8.0_171&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_171-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode) </span><br></pre></td></tr></table></figure>
-
-<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# pwd</span><br><span class="line">/usr/local/soft/zookeeper/zookeeper-3.4.12</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# vim /etc/profile</span><br></pre></td></tr></table></figure>
-
-<p>添加环境变量</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ZK_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.12</span><br><span class="line">PATH=$PATH:$ZK_HOME/bin</span><br><span class="line">export PATH ZK_HOME</span><br></pre></td></tr></table></figure>
-
-<p>使配置马上生效</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# source /etc/profile</span><br></pre></td></tr></table></figure>
-
-<h4 id="配置zk"><a href="#配置zk" class="headerlink" title="配置zk"></a>配置zk</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# mkdir data</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# mkdir logs</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# cd conf/</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ conf]# ll</span><br><span class="line">total 12</span><br><span class="line">-rw-rw-r-- 1 1000 1000  535 Mar 27 12:32 configuration.xsl</span><br><span class="line">-rw-rw-r-- 1 1000 1000 2161 Mar 27 12:32 log4j.properties</span><br><span class="line">-rw-rw-r-- 1 1000 1000  922 Mar 27 12:32 zoo_sample.cfg</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ conf]# cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
-
-<p>修改zoo.cfg中的配置，如下所示</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># The number of milliseconds of each tick</span></span><br><span class="line"><span class="string">tickTime=2000</span></span><br><span class="line"><span class="comment"># The number of ticks that the initial </span></span><br><span class="line"><span class="comment"># synchronization phase can take</span></span><br><span class="line"><span class="string">initLimit=20</span></span><br><span class="line"><span class="comment"># The number of ticks that can pass between </span></span><br><span class="line"><span class="comment"># sending a request and getting an acknowledgement</span></span><br><span class="line"><span class="string">syncLimit=5</span></span><br><span class="line"><span class="comment"># the directory where the snapshot is stored.</span></span><br><span class="line"><span class="comment"># do not use /tmp for storage, /tmp here is just </span></span><br><span class="line"><span class="comment"># example sakes.</span></span><br><span class="line"><span class="string">dataDir=/usr/local/soft/zookeeper/zookeeper-3.4.12/data</span></span><br><span class="line"><span class="string">dataLogDir=/usr/local/soft/zookeeper/zookeeper-3.4.12/logs</span></span><br><span class="line"><span class="comment"># the port at which the clients will connect</span></span><br><span class="line"><span class="string">clientPort=2181</span></span><br><span class="line"><span class="comment"># the maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="comment">#maxClientCnxns=60</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Be sure to read the maintenance section of the </span></span><br><span class="line"><span class="comment"># administrator guide before turning on autopurge.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="comment">#autopurge.snapRetainCount=3</span></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to &quot;0&quot; to disable auto purge feature</span></span><br><span class="line"><span class="comment">#autopurge.purgeInterval=1</span></span><br><span class="line"><span class="string">server.1=127.0.0.1:2888:3888</span></span><br></pre></td></tr></table></figure>
-<p>其中：<br>2888端口号是zookeeper服务之间通信的端口<br>3888是zookeeper与其他应用程序通信的端口</p>
-<h4 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h4><p>切换到zookeeper的bin目录下</p>
-<h5 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
-
-<h5 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jps </span><br></pre></td></tr></table></figure>
-
-<p>其中QuorumPeerMain是zookeeper进程，启动正常</p>
-<h5 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></table></figure>
-<h5 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./zkServer.sh stop</span><br></pre></td></tr></table></figure>
-
-<h4 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h4><p>切换到&#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;目录下 </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/rc.d/init.d</span><br></pre></td></tr></table></figure>
-
-<p>创建zookeeper文件</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch zookeeper </span><br></pre></td></tr></table></figure>
-<p>更新权限  </p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod +x zookeeper </span><br></pre></td></tr></table></figure>
-
-<p>编辑文件，写入一下内容</p>
-<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#chkconfig:2345 20 90  </span></span><br><span class="line"><span class="comment">#description:zookeeper  </span></span><br><span class="line"><span class="comment">#processname:zookeeper  </span></span><br><span class="line"><span class="string">export</span> <span class="string">JAVA_HOME=/usr/local/soft/jdk/jdk1.8.0_171</span>  </span><br><span class="line"><span class="string">export</span> <span class="string">PATH=$JAVA_HOME/bin:$PATH</span></span><br><span class="line"><span class="string">ZK_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.12</span></span><br><span class="line"><span class="string">case</span> <span class="string">$1</span> <span class="string">in</span>  </span><br><span class="line">          <span class="string">start)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">start;;</span>  </span><br><span class="line">          <span class="string">stop)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">stop;;</span>  </span><br><span class="line">          <span class="string">status)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">status;;</span>  </span><br><span class="line">          <span class="string">restart)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">restart;;</span>  </span><br><span class="line">          <span class="string">*)</span>  <span class="string">echo</span> <span class="string">&quot;require start|stop|status|restart&quot;</span>  <span class="string">;;</span>  </span><br><span class="line"><span class="string">esac</span></span><br></pre></td></tr></table></figure>
-
-<p>这样就可以用service zookeeper start&#x2F;stop来启动停止zookeeper服务了</p>
-<p>使用命令把zookeeper添加到开机启动里面</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chkconfig zookeeper on  </span><br><span class="line">chkconfig --add zookeeper</span><br></pre></td></tr></table></figure>
-
-<p>然后通过chkconfig –list查看是否已成功添加到开机启动项</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">zookeeper      	0:off	1:off	2:on	3:on	4:on	5:on	6:off</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>Zookeeper</category>
-      </categories>
-      <tags>
-        <tag>Zookeeper</tag>
       </tags>
   </entry>
   <entry>
@@ -4136,6 +4037,105 @@ activerehashing yes
       </categories>
       <tags>
         <tag>SpringMVC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Zookeeper安装</title>
+    <url>/2018/07/04/Zookeeper%E5%AE%89%E8%A3%85/</url>
+    <content><![CDATA[<span id="more"></span>
+
+<h3 id="单机部署"><a href="#单机部署" class="headerlink" title="单机部署"></a>单机部署</h3><h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">wget http://mirrors.hust.edu.cn/apache/zookeeper/zookeeper-3.4.12/zookeeper-3.4.12.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.12.tar.gz </span><br></pre></td></tr></table></figure>
+
+<h4 id="检查Java环境"><a href="#检查Java环境" class="headerlink" title="检查Java环境"></a>检查Java环境</h4><p>需要JDK1.6以上的环境</p>
+<p>使用<strong>java -version</strong>检查是否安装JDK</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p>输出结果</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">java version &quot;1.8.0_171&quot;</span><br><span class="line">Java(TM) SE Runtime Environment (build 1.8.0_171-b11)</span><br><span class="line">Java HotSpot(TM) 64-Bit Server VM (build 25.171-b11, mixed mode) </span><br></pre></td></tr></table></figure>
+
+<h4 id="配置环境变量"><a href="#配置环境变量" class="headerlink" title="配置环境变量"></a>配置环境变量</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# pwd</span><br><span class="line">/usr/local/soft/zookeeper/zookeeper-3.4.12</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# vim /etc/profile</span><br></pre></td></tr></table></figure>
+
+<p>添加环境变量</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">ZK_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.12</span><br><span class="line">PATH=$PATH:$ZK_HOME/bin</span><br><span class="line">export PATH ZK_HOME</span><br></pre></td></tr></table></figure>
+
+<p>使配置马上生效</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# source /etc/profile</span><br></pre></td></tr></table></figure>
+
+<h4 id="配置zk"><a href="#配置zk" class="headerlink" title="配置zk"></a>配置zk</h4><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# mkdir data</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# mkdir logs</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ zookeeper-3.4.12]# cd conf/</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ conf]# ll</span><br><span class="line">total 12</span><br><span class="line">-rw-rw-r-- 1 1000 1000  535 Mar 27 12:32 configuration.xsl</span><br><span class="line">-rw-rw-r-- 1 1000 1000 2161 Mar 27 12:32 log4j.properties</span><br><span class="line">-rw-rw-r-- 1 1000 1000  922 Mar 27 12:32 zoo_sample.cfg</span><br><span class="line">[root@iZbp19q9mzfovzwh6hk6rpZ conf]# cp zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p>修改zoo.cfg中的配置，如下所示</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># The number of milliseconds of each tick</span></span><br><span class="line"><span class="string">tickTime=2000</span></span><br><span class="line"><span class="comment"># The number of ticks that the initial </span></span><br><span class="line"><span class="comment"># synchronization phase can take</span></span><br><span class="line"><span class="string">initLimit=20</span></span><br><span class="line"><span class="comment"># The number of ticks that can pass between </span></span><br><span class="line"><span class="comment"># sending a request and getting an acknowledgement</span></span><br><span class="line"><span class="string">syncLimit=5</span></span><br><span class="line"><span class="comment"># the directory where the snapshot is stored.</span></span><br><span class="line"><span class="comment"># do not use /tmp for storage, /tmp here is just </span></span><br><span class="line"><span class="comment"># example sakes.</span></span><br><span class="line"><span class="string">dataDir=/usr/local/soft/zookeeper/zookeeper-3.4.12/data</span></span><br><span class="line"><span class="string">dataLogDir=/usr/local/soft/zookeeper/zookeeper-3.4.12/logs</span></span><br><span class="line"><span class="comment"># the port at which the clients will connect</span></span><br><span class="line"><span class="string">clientPort=2181</span></span><br><span class="line"><span class="comment"># the maximum number of client connections.</span></span><br><span class="line"><span class="comment"># increase this if you need to handle more clients</span></span><br><span class="line"><span class="comment">#maxClientCnxns=60</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># Be sure to read the maintenance section of the </span></span><br><span class="line"><span class="comment"># administrator guide before turning on autopurge.</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># http://zookeeper.apache.org/doc/current/zookeeperAdmin.html#sc_maintenance</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line"><span class="comment"># The number of snapshots to retain in dataDir</span></span><br><span class="line"><span class="comment">#autopurge.snapRetainCount=3</span></span><br><span class="line"><span class="comment"># Purge task interval in hours</span></span><br><span class="line"><span class="comment"># Set to &quot;0&quot; to disable auto purge feature</span></span><br><span class="line"><span class="comment">#autopurge.purgeInterval=1</span></span><br><span class="line"><span class="string">server.1=127.0.0.1:2888:3888</span></span><br></pre></td></tr></table></figure>
+<p>其中：<br>2888端口号是zookeeper服务之间通信的端口<br>3888是zookeeper与其他应用程序通信的端口</p>
+<h4 id="启动与停止"><a href="#启动与停止" class="headerlink" title="启动与停止"></a>启动与停止</h4><p>切换到zookeeper的bin目录下</p>
+<h5 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
+
+<h5 id="查看进程"><a href="#查看进程" class="headerlink" title="查看进程"></a>查看进程</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">jps </span><br></pre></td></tr></table></figure>
+
+<p>其中QuorumPeerMain是zookeeper进程，启动正常</p>
+<h5 id="查看状态"><a href="#查看状态" class="headerlink" title="查看状态"></a>查看状态</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./zkServer.sh status</span><br></pre></td></tr></table></figure>
+<h5 id="停止"><a href="#停止" class="headerlink" title="停止"></a>停止</h5><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">./zkServer.sh stop</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置开机启动"><a href="#设置开机启动" class="headerlink" title="设置开机启动"></a>设置开机启动</h4><p>切换到&#x2F;etc&#x2F;rc.d&#x2F;init.d&#x2F;目录下 </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">cd /etc/rc.d/init.d</span><br></pre></td></tr></table></figure>
+
+<p>创建zookeeper文件</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">touch zookeeper </span><br></pre></td></tr></table></figure>
+<p>更新权限  </p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chmod +x zookeeper </span><br></pre></td></tr></table></figure>
+
+<p>编辑文件，写入一下内容</p>
+<figure class="highlight yml"><table><tr><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#chkconfig:2345 20 90  </span></span><br><span class="line"><span class="comment">#description:zookeeper  </span></span><br><span class="line"><span class="comment">#processname:zookeeper  </span></span><br><span class="line"><span class="string">export</span> <span class="string">JAVA_HOME=/usr/local/soft/jdk/jdk1.8.0_171</span>  </span><br><span class="line"><span class="string">export</span> <span class="string">PATH=$JAVA_HOME/bin:$PATH</span></span><br><span class="line"><span class="string">ZK_HOME=/usr/local/soft/zookeeper/zookeeper-3.4.12</span></span><br><span class="line"><span class="string">case</span> <span class="string">$1</span> <span class="string">in</span>  </span><br><span class="line">          <span class="string">start)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">start;;</span>  </span><br><span class="line">          <span class="string">stop)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">stop;;</span>  </span><br><span class="line">          <span class="string">status)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">status;;</span>  </span><br><span class="line">          <span class="string">restart)su</span> <span class="string">root</span> <span class="string">$ZK_HOME/bin/zkServer.sh</span> <span class="string">restart;;</span>  </span><br><span class="line">          <span class="string">*)</span>  <span class="string">echo</span> <span class="string">&quot;require start|stop|status|restart&quot;</span>  <span class="string">;;</span>  </span><br><span class="line"><span class="string">esac</span></span><br></pre></td></tr></table></figure>
+
+<p>这样就可以用service zookeeper start&#x2F;stop来启动停止zookeeper服务了</p>
+<p>使用命令把zookeeper添加到开机启动里面</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">chkconfig zookeeper on  </span><br><span class="line">chkconfig --add zookeeper</span><br></pre></td></tr></table></figure>
+
+<p>然后通过chkconfig –list查看是否已成功添加到开机启动项</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">zookeeper      	0:off	1:off	2:on	3:on	4:on	5:on	6:off</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>Zookeeper</category>
+      </categories>
+      <tags>
+        <tag>Zookeeper</tag>
       </tags>
   </entry>
   <entry>
