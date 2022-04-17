@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+<link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic%7CRoboto+Slab:300,300italic,400,400italic,700,700italic%7CNoto+Serif+SC:300,300italic,400,400italic,700,700italic%7CPT+Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"example.com","root":"/","images":"/images","scheme":"Mist","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":true,"bookmark":{"enable":true,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"},"path":"/search.xml","localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Order注解@Order 注解定义了类、方法和字段的优先级（排序情况），value 是可选的，默认为Ordered.LOWEST_PRECEDENCE，即最低优先级。表示 Ordered 接口中的 order 属性。  目前看到的 @Order 注解都是用在类上的，没有看到过用在方法和字段上的，包括 Spring 自有类 DefaultErrorAttributes、LogbackLogging">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring之类的优先级设置">
+<meta property="og:url" content="http://example.com/2022/04/16/Order%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="青花小记">
+<meta property="og:description" content="Order注解@Order 注解定义了类、方法和字段的优先级（排序情况），value 是可选的，默认为Ordered.LOWEST_PRECEDENCE，即最低优先级。表示 Ordered 接口中的 order 属性。  目前看到的 @Order 注解都是用在类上的，没有看到过用在方法和字段上的，包括 Spring 自有类 DefaultErrorAttributes、LogbackLogging">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-04-16T12:30:00.000Z">
+<meta property="article:modified_time" content="2022-04-17T01:34:46.039Z">
+<meta property="article:author" content="qinghuazs">
+<meta property="article:tag" content="SpringBoot">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://example.com/2022/04/16/Order%E6%B3%A8%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://example.com/2022/04/16/Order%E6%B3%A8%E8%A7%A3/","path":"2022/04/16/Order注解/","title":"Spring之类的优先级设置"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Spring之类的优先级设置 | 青花小记</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">青花小记</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">这个人很懒，只想写写代码做做饭</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a></li><li class="menu-item menu-item-categories"><a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li><li class="menu-item menu-item-commonweal"><a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a></li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup"><div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off" maxlength="80"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close" role="button">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="search-result-container no-result">
+  <div class="search-result-icon">
+    <i class="fa fa-spinner fa-pulse fa-5x"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Order%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.</span> <span class="nav-text">Order注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Priority%E6%B3%A8%E8%A7%A3"><span class="nav-number">2.</span> <span class="nav-text">Priority注解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#OrderUtils%E7%B1%BB"><span class="nav-number">3.</span> <span class="nav-text">OrderUtils类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Ordered%E6%8E%A5%E5%8F%A3"><span class="nav-number">4.</span> <span class="nav-text">Ordered接口</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PriorityOrdered%E6%8E%A5%E5%8F%A3"><span class="nav-number">5.</span> <span class="nav-text">PriorityOrdered接口</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="qinghuazs"
+      src="/images/avatar.gif">
+  <p class="site-author-name" itemprop="name">qinghuazs</p>
+  <div class="site-description" itemprop="description">祝我们平日快乐 做平凡的人！</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">71</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+          <a href="/categories/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">26</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author site-overview-item animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/qinghuazs" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;qinghuazs" rel="noopener" target="_blank"><i class="github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:qinghuazangshui@gmail.com" title="E-Mail → mailto:qinghuazangshui@gmail.com" rel="noopener" target="_blank"><i class="envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://twitter.com/qinghuazangshui" title="Twitter → https:&#x2F;&#x2F;twitter.com&#x2F;qinghuazangshui" rel="noopener" target="_blank"><i class="twitter fa-fw"></i>Twitter</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll site-overview-item animated">
+    <div class="links-of-blogroll-title"><i class="fa fa-globe fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.iocoder.cn/" title="https:&#x2F;&#x2F;www.iocoder.cn&#x2F;" rel="noopener" target="_blank">艿艿源码</a>
+        </li>
+    </ul>
+  </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+  <a role="button" class="book-mark-link book-mark-link-fixed"></a>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/16/Order%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Spring之类的优先级设置 | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Spring之类的优先级设置
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-16 20:30:00" itemprop="dateCreated datePublished" datetime="2022-04-16T20:30:00+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 09:34:46" itemprop="dateModified" datetime="2022-04-17T09:34:46+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+        </span>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="Spring之类的优先级设置" href="/2022/04/16/Order%E6%B3%A8%E8%A7%A3/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::ed3de0182d9027819e62166435448054" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.8k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h3 id="Order注解"><a href="#Order注解" class="headerlink" title="Order注解"></a>Order注解</h3><p><code>@Order</code> 注解定义了类、方法和字段的优先级（排序情况），<code>value</code> 是可选的，默认为Ordered.LOWEST_PRECEDENCE，即最低优先级。表示 <code>Ordered</code> 接口中的 order 属性。</p>
+<blockquote>
+<p>目前看到的 @Order 注解都是用在类上的，没有看到过用在方法和字段上的，包括 Spring 自有类 DefaultErrorAttributes、LogbackLoggingSystem.Factory 等。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD, ElementType.FIELD&#125;)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Order &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 优先级排序值，value 的值越大，优先级越低</span></span><br><span class="line"><span class="comment">	 * 默认值为 Ordered.LOWEST_PRECEDENCE(Integer.MAX_VALUE) </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> Ordered#getOrder()</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="type">int</span> <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> Ordered.LOWEST_PRECEDENCE;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从 Spring 4.0 开始，Spring 中的很多组件都支持基于 <code>Order</code> 注解的排序，使用了该注解后，会影响依赖注入的优先级，但是不影响bean的加载顺序，因为加载顺序受依赖关系和 <code>@DependsOn</code>声明影响的。</p>
+<blockquote>
+<p>这句理解上还是有问题~</p>
+</blockquote>
+<p>从 Spring 4.1 开始，<code>jakarta.annotation.Priority</code> 可在一些排序场景中替代 <code>@Order</code> 的作用，但是在修饰单个元素时，<code>@Priority</code> 可能具有其他语义。</p>
+<p>除了这两个注解外，也可以实现 <code>Ordered</code> 接口，来设置优先级信息，相对使用注解的方式更加灵活。</p>
+<h3 id="Priority注解"><a href="#Priority注解" class="headerlink" title="Priority注解"></a>Priority注解</h3><p><code>@Priority</code> 注解位于 <code>jakarta.annotation</code> 包下，可以标识类或参数以什么样的顺序来执行或使用。</p>
+<p><code>Priority</code> 注解的具体作用由具体的使用类来定义，如在Jakarta Interceptors 规范定义了使用拦截器的优先级来控制调用拦截器的顺序。</p>
+<p><code>value</code> 一般情况下应该是非负值，负值作为保留值有特定的含义，如“未定义”或“未指定”等。</p>
+<p>定义 <code>@Priority</code> 使用的规范可以定义允许的优先级范围和任何具有特殊含义的优先级值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;TYPE,PARAMETER&#125;)</span> <span class="comment">//只能用于TYPE和PARAMETER，这是和Order注解不一样的地方</span></span><br><span class="line"><span class="meta">@Retention(RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Priority &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 优先级排序值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">value</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Priority</code> 的 <code>value</code> 越小，优先级越高。</p>
+<h3 id="OrderUtils类"><a href="#OrderUtils类" class="headerlink" title="OrderUtils类"></a>OrderUtils类</h3><p><code>OrderUtils</code> 用于对添加了 <code>@Order</code>注解和 <code>@Priority</code>注解的类，根据声明的顺序和优先级进行处理，相当于是两个注解的具体实现。</p>
+<p><code>OrderUtils</code> 提供了三个常量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于缓存每个Class的排序值value，如果没有使用 @Order注解，则使用NOT_ANNOTATED标记记录</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;AnnotatedElement, Object&gt; orderCache = <span class="keyword">new</span> <span class="title class_">ConcurrentReferenceHashMap</span>&lt;&gt;(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//未用 @Order 注解的缓存标记</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">NOT_ANNOTATED</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Priority注解的类路径</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">JAVAX_PRIORITY_ANNOTATION</span> <span class="operator">=</span> <span class="string">&quot;jakarta.annotation.Priority&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>针对 <code>@Order</code> 和 <code>@Priority</code> 注解提供了4个 <code>getOrder</code> 的方法，进行排序值的获取。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取某个类的排序值，如果排序值未设置，则返回默认值</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">(Class&lt;?&gt; type, <span class="type">int</span> defaultOrder)</span> &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">order</span> <span class="operator">=</span> getOrder(type);</span><br><span class="line">    <span class="keyword">return</span> (order != <span class="literal">null</span> ? order : defaultOrder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个类的排序值，如果排序值未设置，则返回默认值</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getOrder</span><span class="params">(Class&lt;?&gt; type, <span class="meta">@Nullable</span> Integer defaultOrder)</span> &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">order</span> <span class="operator">=</span> getOrder(type);</span><br><span class="line">    <span class="keyword">return</span> (order != <span class="literal">null</span> ? order : defaultOrder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个类的排序值，可返回null值</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getOrder</span><span class="params">(Class&lt;?&gt; type)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getOrder((AnnotatedElement) type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个类的排序值，可返回null值</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getOrder</span><span class="params">(AnnotatedElement element)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getOrderFromAnnotations(element, MergedAnnotations.from(element, SearchStrategy.TYPE_HIERARCHY));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>getOrder(Class&lt;?&gt; type, int defaultOrder)</code> 和 <code>getOrder(Class&lt;?&gt; type, @Nullable Integer defaultOrder)</code>调用了 <code>getOrder(Class&lt;?&gt; type) </code>， 而 <code>getOrder(Class&lt;?&gt; type) </code> 则调用了 <code>getOrder(AnnotatedElement element)</code>。</p>
+<p>看看 <code>getOrderFromAnnotations</code> 的具体实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从指定的 Order注解集合中返回对应的顺序值</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">static</span> Integer <span class="title function_">getOrderFromAnnotations</span><span class="params">(AnnotatedElement element, MergedAnnotations annotations)</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!(element <span class="keyword">instanceof</span> Class)) &#123;</span><br><span class="line">        <span class="keyword">return</span> findOrder(annotations);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//缓存中是否已存在</span></span><br><span class="line">    <span class="type">Object</span> <span class="variable">cached</span> <span class="operator">=</span> orderCache.get(element);</span><br><span class="line">    <span class="keyword">if</span> (cached != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//转换成Integer类型</span></span><br><span class="line">        <span class="keyword">return</span> (cached <span class="keyword">instanceof</span> Integer ? (Integer) cached : <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取Order的排序值，并写入到orderCache中</span></span><br><span class="line">    <span class="type">Integer</span> <span class="variable">result</span> <span class="operator">=</span> findOrder(annotations);</span><br><span class="line">    orderCache.put(element, result != <span class="literal">null</span> ? result : NOT_ANNOTATED);</span><br><span class="line">    <span class="comment">//返回排序值</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Integer <span class="title function_">findOrder</span><span class="params">(MergedAnnotations annotations)</span> &#123;</span><br><span class="line">    <span class="comment">//获取Order注解对应的MergedAnnotation</span></span><br><span class="line">    MergedAnnotation&lt;Order&gt; orderAnnotation = annotations.get(Order.class);</span><br><span class="line">    <span class="comment">//如果存在Order注解，则获取VALUE值，并返回</span></span><br><span class="line">    <span class="keyword">if</span> (orderAnnotation.isPresent()) &#123;</span><br><span class="line">        <span class="keyword">return</span> orderAnnotation.getInt(MergedAnnotation.VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断是否加了Priority注解，如果加了，则获取VALUE值，并会犯</span></span><br><span class="line">    MergedAnnotation&lt;?&gt; priorityAnnotation = annotations.get(JAVAX_PRIORITY_ANNOTATION);</span><br><span class="line">    <span class="keyword">if</span> (priorityAnnotation.isPresent()) &#123;</span><br><span class="line">        <span class="keyword">return</span> priorityAnnotation.getInt(MergedAnnotation.VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Order和Priority注解都没有，则返回null值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后针对 <code>@Priority</code> 注解单独提供了 <code>getPriority(Class&lt;?&gt; type)</code> 方法，获取优先级的数值，如果没有添加注解或者 <code>value</code> 未设值，则返回 null。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getPriority</span><span class="params">(Class&lt;?&gt; type)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY).get(JAVAX_PRIORITY_ANNOTATION)</span><br><span class="line">        .getValue(MergedAnnotation.VALUE, Integer.class).orElse(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ordered接口"><a href="#Ordered接口" class="headerlink" title="Ordered接口"></a>Ordered接口</h3><p>优先级排序接口，和 <code>@Order</code> 注解一样，获取到的 order 值越小，优先级越高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最高优先级</span></span><br><span class="line"><span class="type">int</span> <span class="variable">HIGHEST_PRECEDENCE</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line"></span><br><span class="line"><span class="comment">//最低的优先级</span></span><br><span class="line"><span class="type">int</span> <span class="variable">LOWEST_PRECEDENCE</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br></pre></td></tr></table></figure>
+
+<p>提供获取排序值的方法，如果两个对象的 order 值相同，则会进行随机排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PriorityOrdered接口"><a href="#PriorityOrdered接口" class="headerlink" title="PriorityOrdered接口"></a>PriorityOrdered接口</h3><p><code>Ordered</code>接口的扩展接口，表示优先级排序。</p>
+<p><code>PriorityOrdered</code> 接口的优先级要高于 <code>Ordered</code>接口的优先级，即使后者对应的 order 值比较小，也是 <code>PriorityOrdered</code> 的优先级高。</p>
+<p>在对一组对象进行排序时， <code>PriorityOrdered</code>对象和 <code>Ordered</code>对象可以被看作两个单独的子集，其中一组 <code>PriorityOrdered</code>对象位于一组 <code>Ordered</code> 对象之前，然后在这两个子集中再根据 order 进行相对排序。</p>
+<p><code>PriorityOrdered</code> 是一个专用接口，用于标记特别重要的的对象，甚至不需要获取剩余的对象，比如 Spring 中优先级比较高的后置处理器  <code>ApplicationContext</code> 。<code>PriorityOrdered </code> 相关的后置处理器 Bean 在特殊阶段进行初始化，早于其他的后置处理器，这巧妙地影响了它们的自动装配行为：只会针对不需要急切初始化类型匹配的 bean 进行自动装配。</p>
+<p><code>PriorityOrdered</code> 的应用可参见 <code>org.springframework.beans.factory.config.PropertyOverrideConfigurer</code> 类。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/SpringBoot/" rel="tag"><i class="fa fa-tag"></i> SpringBoot</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/03/18/FunctionalInterface%E6%B3%A8%E8%A7%A3/" rel="prev" title="FunctionalInterface注解">
+                  <i class="fa fa-chevron-left"></i> FunctionalInterface注解
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="SOHUCS" sid="ed3de0182d9027819e62166435448054"></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">创作不易，文章转载请注明出处</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+    <span title="站点总字数">222k</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script><script src="/js/bookmark.js"></script>
+
+  
+<script src="https://cdn.jsdelivr.net/npm/hexo-generator-searchdb@1.4.0/dist/search.js" integrity="sha256-vXZMYLEqsROAXkEw93GGIvaB2ab+QW6w3+1ahD9nXXA=" crossorigin="anonymous"></script>
+<script src="/js/third-party/search/local-search.js"></script>
+
+  <script class="next-config" data-name="pdf" type="application/json">{"object_url":{"url":"https://cdn.jsdelivr.net/npm/pdfobject@2.2.7/pdfobject.min.js","integrity":"sha256-ph3Dk89VmuTVXG6x/RDzk53SU9LPdAh1tpv0UvnDZ2I="},"url":"/lib/pdf/web/viewer.html"}</script>
+  <script src="/js/third-party/tags/pdf.js"></script>
+
+
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script class="next-config" data-name="changyan" type="application/json">{"enable":true,"appid":"cyw1CtF51","appkey":"93d65e88c957600172a004a89784dbcc"}</script>
+<script src="/js/third-party/comments/changyan.js"></script>
+
+</body>
+</html>

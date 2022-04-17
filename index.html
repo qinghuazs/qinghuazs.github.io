@@ -162,12 +162,12 @@
       </div>
       <div class="site-state-item site-state-categories">
           <a href="/categories/">
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">22</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">26</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -219,6 +219,155 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2022/04/16/Order%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="qinghuazs">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="青花小记">
+      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | 青花小记">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/16/Order%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">Spring之类的优先级设置</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-16 20:30:00" itemprop="dateCreated datePublished" datetime="2022-04-16T20:30:00+08:00">2022-04-16</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-04-17 09:34:46" itemprop="dateModified" datetime="2022-04-17T09:34:46+08:00">2022-04-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-folder"></i>
+      </span>
+      <span class="post-meta-item-text">分类于</span>
+        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
+        </span>
+    </span>
+
+  
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Changyan：</span>
+    
+    <a title="Spring之类的优先级设置" href="/2022/04/16/Order%E6%B3%A8%E8%A7%A3/#SOHUCS" itemprop="discussionUrl">
+      <span id="sourceId::ed3de0182d9027819e62166435448054" class="cy_cmt_count" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>4.8k</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h3 id="Order注解"><a href="#Order注解" class="headerlink" title="Order注解"></a>Order注解</h3><p><code>@Order</code> 注解定义了类、方法和字段的优先级（排序情况），<code>value</code> 是可选的，默认为Ordered.LOWEST_PRECEDENCE，即最低优先级。表示 <code>Ordered</code> 接口中的 order 属性。</p>
+<blockquote>
+<p>目前看到的 @Order 注解都是用在类上的，没有看到过用在方法和字段上的，包括 Spring 自有类 DefaultErrorAttributes、LogbackLoggingSystem.Factory 等。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD, ElementType.FIELD&#125;)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Order &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 优先级排序值，value 的值越大，优先级越低</span></span><br><span class="line"><span class="comment">	 * 默认值为 Ordered.LOWEST_PRECEDENCE(Integer.MAX_VALUE) </span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@see</span> Ordered#getOrder()</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="type">int</span> <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> Ordered.LOWEST_PRECEDENCE;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从 Spring 4.0 开始，Spring 中的很多组件都支持基于 <code>Order</code> 注解的排序，使用了该注解后，会影响依赖注入的优先级，但是不影响bean的加载顺序，因为加载顺序受依赖关系和 <code>@DependsOn</code>声明影响的。</p>
+<blockquote>
+<p>这句理解上还是有问题~</p>
+</blockquote>
+<p>从 Spring 4.1 开始，<code>jakarta.annotation.Priority</code> 可在一些排序场景中替代 <code>@Order</code> 的作用，但是在修饰单个元素时，<code>@Priority</code> 可能具有其他语义。</p>
+<p>除了这两个注解外，也可以实现 <code>Ordered</code> 接口，来设置优先级信息，相对使用注解的方式更加灵活。</p>
+<h3 id="Priority注解"><a href="#Priority注解" class="headerlink" title="Priority注解"></a>Priority注解</h3><p><code>@Priority</code> 注解位于 <code>jakarta.annotation</code> 包下，可以标识类或参数以什么样的顺序来执行或使用。</p>
+<p><code>Priority</code> 注解的具体作用由具体的使用类来定义，如在Jakarta Interceptors 规范定义了使用拦截器的优先级来控制调用拦截器的顺序。</p>
+<p><code>value</code> 一般情况下应该是非负值，负值作为保留值有特定的含义，如“未定义”或“未指定”等。</p>
+<p>定义 <code>@Priority</code> 使用的规范可以定义允许的优先级范围和任何具有特殊含义的优先级值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;TYPE,PARAMETER&#125;)</span> <span class="comment">//只能用于TYPE和PARAMETER，这是和Order注解不一样的地方</span></span><br><span class="line"><span class="meta">@Retention(RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Priority &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 优先级排序值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="type">int</span> <span class="title function_">value</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>@Priority</code> 的 <code>value</code> 越小，优先级越高。</p>
+<h3 id="OrderUtils类"><a href="#OrderUtils类" class="headerlink" title="OrderUtils类"></a>OrderUtils类</h3><p><code>OrderUtils</code> 用于对添加了 <code>@Order</code>注解和 <code>@Priority</code>注解的类，根据声明的顺序和优先级进行处理，相当于是两个注解的具体实现。</p>
+<p><code>OrderUtils</code> 提供了三个常量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//用于缓存每个Class的排序值value，如果没有使用 @Order注解，则使用NOT_ANNOTATED标记记录</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Map&lt;AnnotatedElement, Object&gt; orderCache = <span class="keyword">new</span> <span class="title class_">ConcurrentReferenceHashMap</span>&lt;&gt;(<span class="number">64</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//未用 @Order 注解的缓存标记</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Object</span> <span class="variable">NOT_ANNOTATED</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Object</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">//Priority注解的类路径</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">JAVAX_PRIORITY_ANNOTATION</span> <span class="operator">=</span> <span class="string">&quot;jakarta.annotation.Priority&quot;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>针对 <code>@Order</code> 和 <code>@Priority</code> 注解提供了4个 <code>getOrder</code> 的方法，进行排序值的获取。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取某个类的排序值，如果排序值未设置，则返回默认值</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">(Class&lt;?&gt; type, <span class="type">int</span> defaultOrder)</span> &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">order</span> <span class="operator">=</span> getOrder(type);</span><br><span class="line">    <span class="keyword">return</span> (order != <span class="literal">null</span> ? order : defaultOrder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个类的排序值，如果排序值未设置，则返回默认值</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getOrder</span><span class="params">(Class&lt;?&gt; type, <span class="meta">@Nullable</span> Integer defaultOrder)</span> &#123;</span><br><span class="line">    <span class="type">Integer</span> <span class="variable">order</span> <span class="operator">=</span> getOrder(type);</span><br><span class="line">    <span class="keyword">return</span> (order != <span class="literal">null</span> ? order : defaultOrder);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个类的排序值，可返回null值</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getOrder</span><span class="params">(Class&lt;?&gt; type)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getOrder((AnnotatedElement) type);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取某个类的排序值，可返回null值</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getOrder</span><span class="params">(AnnotatedElement element)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> getOrderFromAnnotations(element, MergedAnnotations.from(element, SearchStrategy.TYPE_HIERARCHY));</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，<code>getOrder(Class&lt;?&gt; type, int defaultOrder)</code> 和 <code>getOrder(Class&lt;?&gt; type, @Nullable Integer defaultOrder)</code>调用了 <code>getOrder(Class&lt;?&gt; type) </code>， 而 <code>getOrder(Class&lt;?&gt; type) </code> 则调用了 <code>getOrder(AnnotatedElement element)</code>。</p>
+<p>看看 <code>getOrderFromAnnotations</code> 的具体实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 从指定的 Order注解集合中返回对应的顺序值</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">static</span> Integer <span class="title function_">getOrderFromAnnotations</span><span class="params">(AnnotatedElement element, MergedAnnotations annotations)</span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> (!(element <span class="keyword">instanceof</span> Class)) &#123;</span><br><span class="line">        <span class="keyword">return</span> findOrder(annotations);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//缓存中是否已存在</span></span><br><span class="line">    <span class="type">Object</span> <span class="variable">cached</span> <span class="operator">=</span> orderCache.get(element);</span><br><span class="line">    <span class="keyword">if</span> (cached != <span class="literal">null</span>) &#123;</span><br><span class="line">        <span class="comment">//转换成Integer类型</span></span><br><span class="line">        <span class="keyword">return</span> (cached <span class="keyword">instanceof</span> Integer ? (Integer) cached : <span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//获取Order的排序值，并写入到orderCache中</span></span><br><span class="line">    <span class="type">Integer</span> <span class="variable">result</span> <span class="operator">=</span> findOrder(annotations);</span><br><span class="line">    orderCache.put(element, result != <span class="literal">null</span> ? result : NOT_ANNOTATED);</span><br><span class="line">    <span class="comment">//返回排序值</span></span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> Integer <span class="title function_">findOrder</span><span class="params">(MergedAnnotations annotations)</span> &#123;</span><br><span class="line">    <span class="comment">//获取Order注解对应的MergedAnnotation</span></span><br><span class="line">    MergedAnnotation&lt;Order&gt; orderAnnotation = annotations.get(Order.class);</span><br><span class="line">    <span class="comment">//如果存在Order注解，则获取VALUE值，并返回</span></span><br><span class="line">    <span class="keyword">if</span> (orderAnnotation.isPresent()) &#123;</span><br><span class="line">        <span class="keyword">return</span> orderAnnotation.getInt(MergedAnnotation.VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//判断是否加了Priority注解，如果加了，则获取VALUE值，并会犯</span></span><br><span class="line">    MergedAnnotation&lt;?&gt; priorityAnnotation = annotations.get(JAVAX_PRIORITY_ANNOTATION);</span><br><span class="line">    <span class="keyword">if</span> (priorityAnnotation.isPresent()) &#123;</span><br><span class="line">        <span class="keyword">return</span> priorityAnnotation.getInt(MergedAnnotation.VALUE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//Order和Priority注解都没有，则返回null值</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>最后针对 <code>@Priority</code> 注解单独提供了 <code>getPriority(Class&lt;?&gt; type)</code> 方法，获取优先级的数值，如果没有添加注解或者 <code>value</code> 未设值，则返回 null。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Nullable</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> Integer <span class="title function_">getPriority</span><span class="params">(Class&lt;?&gt; type)</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> MergedAnnotations.from(type, SearchStrategy.TYPE_HIERARCHY).get(JAVAX_PRIORITY_ANNOTATION)</span><br><span class="line">        .getValue(MergedAnnotation.VALUE, Integer.class).orElse(<span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="Ordered接口"><a href="#Ordered接口" class="headerlink" title="Ordered接口"></a>Ordered接口</h3><p>优先级排序接口，和 <code>@Order</code> 注解一样，获取到的 order 值越小，优先级越高。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//最高优先级</span></span><br><span class="line"><span class="type">int</span> <span class="variable">HIGHEST_PRECEDENCE</span> <span class="operator">=</span> Integer.MIN_VALUE;</span><br><span class="line"></span><br><span class="line"><span class="comment">//最低的优先级</span></span><br><span class="line"><span class="type">int</span> <span class="variable">LOWEST_PRECEDENCE</span> <span class="operator">=</span> Integer.MAX_VALUE;</span><br></pre></td></tr></table></figure>
+
+<p>提供获取排序值的方法，如果两个对象的 order 值相同，则会进行随机排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span>;</span><br></pre></td></tr></table></figure>
+
+<h3 id="PriorityOrdered接口"><a href="#PriorityOrdered接口" class="headerlink" title="PriorityOrdered接口"></a>PriorityOrdered接口</h3><p><code>Ordered</code>接口的扩展接口，表示优先级排序。</p>
+<p><code>PriorityOrdered</code> 接口的优先级要高于 <code>Ordered</code>接口的优先级，即使后者对应的 order 值比较小，也是 <code>PriorityOrdered</code> 的优先级高。</p>
+<p>在对一组对象进行排序时， <code>PriorityOrdered</code>对象和 <code>Ordered</code>对象可以被看作两个单独的子集，其中一组 <code>PriorityOrdered</code>对象位于一组 <code>Ordered</code> 对象之前，然后在这两个子集中再根据 order 进行相对排序。</p>
+<p><code>PriorityOrdered</code> 是一个专用接口，用于标记特别重要的的对象，甚至不需要获取剩余的对象，比如 Spring 中优先级比较高的后置处理器  <code>ApplicationContext</code> 。<code>PriorityOrdered </code> 相关的后置处理器 Bean 在特殊阶段进行初始化，早于其他的后置处理器，这巧妙地影响了它们的自动装配行为：只会针对不需要急切初始化类型匹配的 bean 进行自动装配。</p>
+<p><code>PriorityOrdered</code> 的应用可参见 <code>org.springframework.beans.factory.config.PropertyOverrideConfigurer</code> 类。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1377,145 +1526,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2020/01/08/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89Starter/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="qinghuazs">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="青花小记">
-      <meta itemprop="description" content="祝我们平日快乐 做平凡的人！">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | 青花小记">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2020/01/08/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89Starter/" class="post-title-link" itemprop="url">SpringBoot 自定义 Starter</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2020-01-08 21:17:00 / 修改时间：22:20:28" itemprop="dateCreated datePublished" datetime="2020-01-08T21:17:00+08:00">2020-01-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-folder"></i>
-      </span>
-      <span class="post-meta-item-text">分类于</span>
-        <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-          <a href="/categories/SpringBoot/" itemprop="url" rel="index"><span itemprop="name">SpringBoot</span></a>
-        </span>
-    </span>
-
-  
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Changyan：</span>
-    
-    <a title="SpringBoot 自定义 Starter" href="/2020/01/08/SpringBoot%E8%87%AA%E5%AE%9A%E4%B9%89Starter/#SOHUCS" itemprop="discussionUrl">
-      <span id="sourceId::cd830703c9eda6580508207a90b73d5b" class="cy_cmt_count" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>3k</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="Starter-命名规范"><a href="#Starter-命名规范" class="headerlink" title="Starter 命名规范"></a>Starter 命名规范</h2><p>官方的 Starter 遵循 <code>spring-boot-starter-*</code> 的命名模式，如 <code>spring-boot-starter-data-jpa</code> 。第三方的 Starter 通常以自己的项目名称开始，例如，名为 thirdpartyproject 的第三方入门项目通常被命名为 <code>thirdpartyproject-spring-boot-starter</code>。</p>
-<h2 id="自定义-Starter"><a href="#自定义-Starter" class="headerlink" title="自定义 Starter"></a>自定义 Starter</h2><h3 id="创建-Starter-工程"><a href="#创建-Starter-工程" class="headerlink" title="创建 Starter 工程"></a>创建 Starter 工程</h3><p>使用 <code>maven-archetype-quickstart</code> 架手架创建一个 Maven 工程，artifactId 设置为 <code>zombie-spring-boot-starter</code>。</p>
-<p>在 <code>pom.xml</code> 文件中引入依赖的 jar 包：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-autoconfigure<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-configuration-processor<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.1.7.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.18.8<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>设置以 jar 包的方式打包：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="定义服务类"><a href="#定义服务类" class="headerlink" title="定义服务类"></a>定义服务类</h3><p>定义一个服务类 <code>ZombieService</code> :</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ZombieService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Zombie <span class="title function_">setZombie</span><span class="params">(String name, Integer age)</span> &#123;</span><br><span class="line">        <span class="type">Zombie</span> <span class="variable">zombie</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Zombie</span>();</span><br><span class="line">        zombie.setName(name);</span><br><span class="line">        zombie.setAge(age);</span><br><span class="line">        <span class="keyword">return</span> zombie;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="定义配置类"><a href="#定义配置类" class="headerlink" title="定义配置类"></a>定义配置类</h3><p>定义一个自动配置类，一般是以 <code>*AutoConfiguration</code> 的形式命名的。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnClass(ZombieService.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ZombieAutoConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@ConditionalOnMissingBean(ZombieService.class)</span></span><br><span class="line">    <span class="keyword">public</span> ZombieService <span class="title function_">zombieService</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ZombieService</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="常用的注解"><a href="#常用的注解" class="headerlink" title="常用的注解"></a>常用的注解</h4><ul>
-<li><p>@ConditionalOnClass：当类路径classpath下有指定的类的情况下进行自动配置</p>
-</li>
-<li><p>@ConditionalOnMissingClass：当类路径下没有指定的类的条件下</p>
-</li>
-<li><p>@ConditionalOnBean：当容器(Spring Context)中有指定的Bean的条件下</p>
-</li>
-<li><p>@ConditionalOnMissingBean：当容器(Spring Context)中没有指定Bean的情况下进行自动配置</p>
-</li>
-</ul>
-<h3 id="配置-spring-factories"><a href="#配置-spring-factories" class="headerlink" title="配置 spring.factories"></a>配置 spring.factories</h3><p>在 <code>resources/META-INF/spring.factories</code> 下配置自动配置类。如果没有该文件的话，需要手动创建。</p>
-<figure class="highlight properties"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">org.springframework.boot.autoconfigure.EnableAutoConfiguration</span>=<span class="string">com.qinghuazs.zombie.auto.ZombieAutoConfiguration</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="打包发布"><a href="#打包发布" class="headerlink" title="打包发布"></a>打包发布</h3><p>在发布之前需要在 <code>pom.xml</code> 文件中配置仓库信息</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">distributionManagement</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">repository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>qinghuazs-release<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>qinghuazs-release<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://af.qinghuazs.com.cn:80/artifactory/maven-qinghuazs-release<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">repository</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">id</span>&gt;</span>qinghuazs-snapshot<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">name</span>&gt;</span>qinghuazs-snapshot<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://af.qinghuazs.com.cn:80/artifactory/maven-qinghuazs-snapshot<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">snapshotRepository</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">distributionManagement</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>进行发布</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mvn clean install</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">mvn deploy</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="测试"><a href="#测试" class="headerlink" title="测试"></a>测试</h2><p>新建测试项目，并在 <code>pom.xml</code> 中引入自定义的 Starter：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.qinghuazs<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>zombie-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>自建 Controller 类，并引入 Starter 中的类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">TestController</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ZombieService zombieService;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping(&quot;/test&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">test</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> zombieService.setZombie(<span class="string">&quot;qinghuazs&quot;</span>, <span class="number">11</span>).toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用 Postman 测试，输出结果如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Zombie(name=qinghuazs, age=11)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
@@ -1540,7 +1550,7 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-line"></i>
     </span>
-    <span title="站点总字数">221k</span>
+    <span title="站点总字数">222k</span>
   </span>
 </div>
 <div class="busuanzi-count">
